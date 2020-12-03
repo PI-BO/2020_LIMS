@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import database.DatabaseConnection;
-import sun.misc.Queue;
 
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class DatabaseServlet extends HttpServlet{
 
@@ -57,7 +58,7 @@ public class DatabaseServlet extends HttpServlet{
 	
 	private Queue<String> getTableContent(String table) throws SQLException{
 
-		Queue<String> tableContent = new Queue<>();
+		Queue<String> tableContent = new LinkedList<>();
 		
 		ResultSet tableContentResultSet = databaseConnection.returnTableContent(table);
 
@@ -74,7 +75,7 @@ public class DatabaseServlet extends HttpServlet{
 			if(line.endsWith(",")){
 				line = line.substring(0, line.length()-1);
 			}
-			tableContent.enqueue(line);
+			tableContent.add(line);
 		}
 		return tableContent;
 	}
@@ -84,7 +85,7 @@ public class DatabaseServlet extends HttpServlet{
 		String line;
 
 		while(!tableContent.isEmpty()){
-				line = tableContent.dequeue();
+				line = tableContent.poll();
 				htmlWriter.println(line);
 		}
 	}
