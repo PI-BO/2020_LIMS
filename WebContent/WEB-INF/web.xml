@@ -23,7 +23,7 @@
 
   <servlet>
   	<servlet-name>WelcomeServlet2</servlet-name>
-  	<servlet-class>servlets.AfterIndexServlet</servlet-class>
+  	<servlet-class>prototypes.AfterIndexServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>  
@@ -34,7 +34,7 @@
   
   <servlet>
   	<servlet-name>DatabaseServlet</servlet-name>
-  	<servlet-class>servlets.DatabaseServlet</servlet-class>
+  	<servlet-class>prototypes.DatabaseServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>  

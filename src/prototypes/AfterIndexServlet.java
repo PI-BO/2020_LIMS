@@ -1,4 +1,4 @@
-package servlets;
+package prototypes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
