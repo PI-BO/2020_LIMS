@@ -10,6 +10,7 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 
+
   <servlet>
   	<servlet-name>WelcomeServlet</servlet-name>
   	<servlet-class>servlets.IndexServlet</servlet-class>
@@ -18,6 +19,16 @@
   <servlet-mapping>  
 	<servlet-name>WelcomeServlet</servlet-name>
 	<url-pattern>/IndexServletRoute</url-pattern> 
+  </servlet-mapping>
+
+  <servlet>
+  	<servlet-name>WelcomeServlet2</servlet-name>
+  	<servlet-class>servlets.AfterIndexServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>  
+	<servlet-name>WelcomeServlet2</servlet-name>
+	<url-pattern>/AfterIndexServletRoute</url-pattern> 
   </servlet-mapping>
 
   
@@ -30,5 +41,6 @@
 	<servlet-name>DatabaseServlet</servlet-name>
 	<url-pattern>/DatabaseServletRoute</url-pattern> 
   </servlet-mapping>
+  
   
 </web-app>
