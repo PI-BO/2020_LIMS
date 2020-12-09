@@ -42,7 +42,8 @@ public class DatabaseConnection {
     public ResultSet returnTableContent(String table) throws SQLException {
         ResultSet resultSet;
 
-        String query = String.format("SELECT * FROM %s;", table);
+        String query = "SELECT * FROM %s;";
+        query = String.format(query, table);
 
         try (Statement statement = connection.createStatement()) {
             resultSet = statement.executeQuery(query);
