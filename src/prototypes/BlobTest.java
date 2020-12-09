@@ -2,12 +2,14 @@ package prototypes;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import servlets.Config;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 
 public class BlobTest {
@@ -24,7 +26,8 @@ public class BlobTest {
 
         //insertBlobFrom("C:\\Users\\Leberwurst\\Desktop\\Vue.jpg");
 
-        File file = new File("C:\\Users\\Leberwurst\\Desktop\\Vue2.jpg");
+        String path = Objects.requireNonNull(Config.getApplicationProperties()).getProperty("path.picture", "C:\\Users\\Leberwurst\\Desktop\\Vue2.jpg");
+        File file = new File(path);
 
         TableBilder.getFile(file, connection);
 
