@@ -1,42 +1,54 @@
 package prototypes;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.sql.*;
 
 public class DatabaseConnection {
-	
-	private Connection connection;
-	private String loginName = "root";
-	private String passwort = "123";
-	private String dbAdresse= "jdbc:mariadb://localhost:3306/test";
-	
-	public void connectToDatabase() throws SQLException{
-		
-		connection = DriverManager.getConnection(dbAdresse, loginName, passwort);
-		System.out.println(this.getClass().getSimpleName() + ": connected");
-	}
-	
-	public void disconnectFromDatabase() throws SQLException{
-		
-		connection.close();
-		System.out.println(this.getClass().getSimpleName() + ": disconnected");
-	}
-	
-	public ResultSet returnTableContent(String table) throws SQLException{
-		
-		Statement statement;
-		ResultSet resultSet;		
+    private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
+    private static final String LOGIN_NAME = "root";
+    private static final String PASSWORD = "123";
+    private static final String DB_ADDRESS = "jdbc:mariadb://localhost:3306/test";
+    private Connection connection;
 
-		String query = "SELECT * FROM " + table + ";";
-		
-		statement = connection.createStatement();
-		resultSet = statement.executeQuery(query);
-		System.out.println(this.getClass().getSimpleName() + ": table content returned");
-		return resultSet;
+    /**
+     * Creates Connection to Database
+     *
+     * @throws SQLException
+     */
+    public void connectToDatabase() throws SQLException {
+        connection = DriverManager.getConnection(DB_ADDRESS, LOGIN_NAME, PASSWORD);
+        logger.debug("connected");
+    }
 
-	}
+    /**
+     * Disconnect from Connected Database
+     *
+     * @throws SQLException
+     */
+    public void disconnectFromDatabase() throws SQLException {
+        connection.close();
+        logger.debug("disconnected");
+    }
+
+    /**
+     * Returns Content of Table with given Name
+     *
+     * @param table Name of Database Table
+     * @return ResultSet of Table Content
+     * @throws SQLException
+     */
+    public ResultSet returnTableContent(String table) throws SQLException {
+        ResultSet resultSet;
+
+        String query = String.format("SELECT * FROM %s;", table);
+
+        try (Statement statement = connection.createStatement()) {
+            resultSet = statement.executeQuery(query);
+        }
+
+        logger.debug(": table content returned");
+        return resultSet;
+    }
 }
