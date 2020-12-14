@@ -41,6 +41,17 @@
 	<servlet-name>DatabaseServlet</servlet-name>
 	<url-pattern>/DatabaseServletRoute</url-pattern> 
   </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>BlobServlet</servlet-name>
+        <servlet-class>prototypes.BlobServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>BlobServlet</servlet-name>
+        <url-pattern>/BlobServletRoute</url-pattern>
+    </servlet-mapping>
   
   
 </web-app>
