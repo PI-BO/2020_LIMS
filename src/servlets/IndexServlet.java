@@ -11,11 +11,12 @@ import java.io.PrintWriter;
 public class IndexServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // wird nicht ausgefÃ¼hrt da weiter unten der Request direkt an AfterIndexServlet weitergeleitet wurde
-        try (PrintWriter htmlWriter = response.getWriter()) {
-            htmlWriter.println("<h1>Willkommen</>");
-            htmlWriter.println("<h2>zum Index Servlet!</>");
-        }
+
+//    	 darf nicht ausgeführt werden da sonst "forwardRequestToRoute nicht ausgeführt wird
+//        try (PrintWriter htmlWriter = response.getWriter()) {
+//            htmlWriter.println("<h1>Willkommen</>");
+//            htmlWriter.println("<h2>zum Index Servlet!</>");
+//        }
 
         forwardRequestToRoute(request, response, "AfterIndexServletRoute");
     }
