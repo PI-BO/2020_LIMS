@@ -2,7 +2,8 @@ package prototypes;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import servlets.Config;
+
+import controller.Config;
 
 import java.io.File;
 import java.io.FileInputStream;

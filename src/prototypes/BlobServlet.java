@@ -2,7 +2,7 @@ package prototypes;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import servlets.Config;
+//import servlets.Config;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -39,16 +39,16 @@ public class BlobServlet extends HttpServlet {
             //insertBlobFrom("C:\\Users\\Leberwurst\\Desktop\\Vue.jpg");
 
             // Retrieves <input type="file" name="file" multiple="true">
-            List<Part> fileParts = request.getParts().stream().filter( part ->
-                    "file".equals(part.getName()) && part.getSize() > 0
-            ).collect(Collectors.toList());
+//            List<Part> fileParts = request.getParts().stream().filter( part ->
+//                    "file".equals(part.getName()) && part.getSize() > 0
+//            ).collect(Collectors.toList());
 
-            for (Part filePart : fileParts) {
-                String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-                InputStream fileContent = filePart.getInputStream();
-                insertBlobFrom(fileContent);
-            }
+//            for (Part filePart : fileParts) {
+//                String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
+//                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+//                InputStream fileContent = filePart.getInputStream();
+//                insertBlobFrom(fileContent);
+//            }
 
             //String path = Objects.requireNonNull(Config.getApplicationProperties()).getProperty("path.picture", "C:\\Users\\Leberwurst\\Desktop\\Vue2.jpg");
             File file = new File("C:\\Users\\Narwutsch Dominic\\Desktop\\Vue2.jpg");

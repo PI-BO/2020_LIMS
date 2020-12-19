@@ -3,6 +3,8 @@ package prototypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import controller.DatabaseConnection;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import java.util.Queue;
 
 public class DatabaseServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(DatabaseServlet.class.getSimpleName());
+    
     private static final DatabaseConnection databaseConnection = new DatabaseConnection();
 
     public DatabaseServlet() {
