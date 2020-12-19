@@ -41,7 +41,7 @@ public class Mitarbeiter{
 
 	private ResultSet getMitarbeiterDataFromDatabase(int mitarbeiterID) throws SQLException  {
 
-        String sqlStatement = "SELECT " + mitarbeiterID + " FROM mitarbeiter;";
+        String sqlStatement = "SELECT * FROM mitarbeiter WHERE mitarbeiterID=" + mitarbeiterID + ";";
 
         ResultSet resultSet;
 		resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);

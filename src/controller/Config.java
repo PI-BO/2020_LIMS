@@ -46,7 +46,7 @@ public class Config implements ServletContextListener {
 
         Driver mariadbDriver = null;
         try {
-            mariadbDriver = DriverManager.getDriver("jdbc:mariadb://localhost:3306/test");
+            mariadbDriver = DriverManager.getDriver("jdbc:mariadb://localhost:3306/demo");
             DriverManager.deregisterDriver(mariadbDriver);
             logger.debug(String.format("deregistering jdbc driver: %s", mariadbDriver));
         } catch (SQLException e) {

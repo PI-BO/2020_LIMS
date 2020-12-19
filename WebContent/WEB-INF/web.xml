@@ -9,49 +9,27 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-
-
+  
+  
   <servlet>
-  	<servlet-name>WelcomeServlet</servlet-name>
-  	<servlet-class>servlets.IndexServlet</servlet-class>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<servlet-class>controller.LoginServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>  
-	<servlet-name>WelcomeServlet</servlet-name>
-	<url-pattern>/IndexServletRoute</url-pattern> 
+	<servlet-name>LoginServlet</servlet-name>
+	<url-pattern>/LoginServletRoute</url-pattern> 
   </servlet-mapping>
 
   <servlet>
-  	<servlet-name>WelcomeServlet2</servlet-name>
-  	<servlet-class>prototypes.AfterIndexServlet</servlet-class>
+  	<servlet-name>ProjekteServlet</servlet-name>
+  	<servlet-class>controller.ProjekteServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>  
-	<servlet-name>WelcomeServlet2</servlet-name>
-	<url-pattern>/AfterIndexServletRoute</url-pattern> 
+	<servlet-name>ProjekteServlet</servlet-name>
+	<url-pattern>/ProjekteServletRoute</url-pattern> 
   </servlet-mapping>
-
-  
-  <servlet>
-  	<servlet-name>DatabaseServlet</servlet-name>
-  	<servlet-class>prototypes.DatabaseServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>  
-	<servlet-name>DatabaseServlet</servlet-name>
-	<url-pattern>/DatabaseServletRoute</url-pattern> 
-  </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>BlobServlet</servlet-name>
-        <servlet-class>prototypes.BlobServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>BlobServlet</servlet-name>
-        <url-pattern>/BlobServletRoute</url-pattern>
-    </servlet-mapping>
   
   
 </web-app>

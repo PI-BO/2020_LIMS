@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-public class IndexServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	
 	private static final Logger logger = LogManager.getLogger(DatabaseServlet.class.getSimpleName());
 	
@@ -25,34 +25,50 @@ public class IndexServlet extends HttpServlet {
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    	int mitarbeiterID = getRequestedMitarbeiterID(request);
     	
     	try
     	{
-    		Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterID);
-			forwardRequestToRoute(request, response, "AfterIndexServletRoute");
+    		validateMitarbeiterLoginAndForwardRequest(request, response);
 		}
     	catch (SQLException e)
     	{
-			logger.debug(e.toString());
+    		logException(e);
 		}
     	catch (MitarbeiterNotFoundException e)
     	{
-			logger.debug(e.toString());
+    		logException(e);
 			returnLoginFailedPage(response);
+		}
+    	catch (LoginInvalidException e)
+    	{
+    		logException(e);
+			returnLoginIsInvalidPage(response);
 		}
     }
 
-	private int getRequestedMitarbeiterID(HttpServletRequest request) {
-		int mitarbeiterID = Integer.parseInt(request.getParameter("mitarbeiterID"));
-		return mitarbeiterID;
-	}
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	logger.debug("doGet() called but not implemented");
+    }    
+    
+	private void validateMitarbeiterLoginAndForwardRequest(HttpServletRequest request, HttpServletResponse response) throws LoginInvalidException, SQLException, MitarbeiterNotFoundException, ServletException, IOException {
+		
+		int mitarbeiterID = getRequestedMitarbeiterID(request);
+		Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterID);		// muss noch weitergeleitet werden
+		forwardRequestToRoute(request, response, "ProjekteServletRoute");
+	}
 
-    }
+	private int getRequestedMitarbeiterID(HttpServletRequest request) throws LoginInvalidException{
+		
+		try
+		{
+			int mitarbeiterID = Integer.parseInt(request.getParameter("mitarbeiterID"));
+			return mitarbeiterID;
+		}
+		catch (Exception e){
+			throw new LoginInvalidException();
+		}
+	}
 
     private void forwardRequestToRoute(HttpServletRequest request, HttpServletResponse response, String route) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(route);
@@ -78,4 +94,24 @@ public class IndexServlet extends HttpServlet {
 			logger.debug(e.toString());
 		}
     }
+    
+    private void returnLoginIsInvalidPage(HttpServletResponse response){
+    	
+    	PrintWriter htmlWriter;
+    	try {
+    		htmlWriter = response.getWriter();
+    		htmlWriter.println("<div>Keine oder inkorrekte Zeichen eingegeben (nur Zahlen erlaubt).</div>");
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    		logger.debug(e.toString());
+    	}
+    }
+    
+    private void logException(Exception e) {
+    	logger.debug(e.toString());
+    }
+}
+
+class LoginInvalidException extends Exception{
+	
 }
