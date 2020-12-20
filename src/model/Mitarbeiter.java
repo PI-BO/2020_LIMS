@@ -34,17 +34,26 @@ public class Mitarbeiter{
 
 	private void getMitarbeiterFromDatabase(int mitarbeiterID) throws SQLException, MitarbeiterNotFoundException{
 		
-		connectToDatabase();
+		connectToDatabase();	//TODO: muss in eine Datenbank Klasse extrahiert werden
 		ResultSet mitarbeiterResultSet = getMitarbeiterDataFromDatabase(mitarbeiterID);
 		setMitarbeiterAttributes(mitarbeiterResultSet);
+		disconnectFromDatabase();
 	}
 	
 	private void connectToDatabase() throws SQLException {
 		
 		databaseConnection = new DatabaseConnection();
 		databaseConnection.connectToDatabase();
-			
+		logger.debug("" + this.getClass().toString() + " connected to database");
 	}
+	
+	private void disconnectFromDatabase() throws SQLException {
+		
+		databaseConnection.disconnectFromDatabase();
+		logger.debug("" + this.getClass().toString() + " disconnected from database");
+	}
+	
+	
 
 	private ResultSet getMitarbeiterDataFromDatabase(int mitarbeiterID) throws SQLException  {
 
