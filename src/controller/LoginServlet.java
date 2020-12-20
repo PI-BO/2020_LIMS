@@ -61,6 +61,9 @@ public class LoginServlet extends HttpServlet {
 		int mitarbeiterID = getRequestedMitarbeiterID(request);
 		String mitarbeiterPassword = getRequestedMitarbeiterPassword(request);
 		Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterID, mitarbeiterPassword);		// muss noch weitergeleitet werden
+		
+		request.setAttribute("mitarbeiter", mitarbeiter);
+		
 		forwardRequestToRoute(request, response, "ProjekteServletRoute");
 	}
 

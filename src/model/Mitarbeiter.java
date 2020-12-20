@@ -77,4 +77,12 @@ public class Mitarbeiter{
         	throw new MitarbeiterNotFoundException("Mitarbeiter nicht gefunden");
         }
 	}
+
+	public String getVorname() {
+		return vorname;
+	}
+
+	public String getNachname() {
+		return nachname;
+	}
 }
