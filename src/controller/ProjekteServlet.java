@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import model.Projekt;
-import prototypes.DatabaseServlet;
 import view.ProjekteHTML;
 import controller.Database;
 
@@ -21,7 +20,7 @@ import java.util.List;
 public class ProjekteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6585003356653758862L;
-	private static final Logger logger = LogManager.getLogger(DatabaseServlet.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(ProjekteServlet.class.getSimpleName());
 	private Database database = new MariaDBController();
 	
     @Override

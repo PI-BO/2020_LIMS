@@ -13,7 +13,6 @@ import controller.exceptions.LoginInputInvalidException;
 import controller.exceptions.MitarbeiterNotFoundException;
 import controller.exceptions.PasswordIncorrectException;
 import model.Mitarbeiter;
-import prototypes.DatabaseServlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,8 +23,7 @@ import java.util.regex.Pattern;
 public class LoginServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 244881171954270102L;
-
-	private static final Logger logger = LogManager.getLogger(DatabaseServlet.class.getSimpleName());
+	private static final Logger logger = LogManager.getLogger(LoginServlet.class.getSimpleName());
 	
 	Database database = new MariaDBController();
 	
@@ -58,8 +56,7 @@ public class LoginServlet extends HttpServlet {
 		}
     }
 
-	private void validateUserLogin(HttpServletRequest request)
-			throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
+	private void validateUserLogin(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
 		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(request);
 		validateMitarbeiter(mitarbeiter, request);
 		addMitarbeiterToRequest(request, mitarbeiter);

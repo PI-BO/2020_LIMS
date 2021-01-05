@@ -63,13 +63,13 @@ public class MariaDBController implements Database{
 		
 		databaseConnection = new DatabaseConnection();
 		databaseConnection.connectToDatabase();
-		logger.debug("" + this.getClass().toString() + " connected to database");
+		logger.debug("connected to database");
 	}
 	
 	private void disconnectFromDatabase() throws SQLException {
 		
 		databaseConnection.disconnectFromDatabase();
-		logger.debug("" + this.getClass().toString() + " disconnected from database");
+		logger.debug("disconnected from database");
 	}
 	
 	private Mitarbeiter getMitarbeiterFromDatabase(int mitarbeiterId) throws SQLException, MitarbeiterNotFoundException  {
