@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import controller.exceptions.LoginInputInvalidException;
 import controller.exceptions.MitarbeiterNotFoundException;
 import controller.exceptions.PasswordIncorrectException;
 import model.Mitarbeiter;
@@ -22,6 +23,8 @@ import java.util.regex.Pattern;
 
 public class LoginServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 244881171954270102L;
+
 	private static final Logger logger = LogManager.getLogger(DatabaseServlet.class.getSimpleName());
 	
 	Database database = new MariaDBController();
@@ -31,12 +34,7 @@ public class LoginServlet extends HttpServlet {
     	
     	try
     	{
-    		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(request);
-    		
-    		validateMitarbeiter(mitarbeiter, request);
-    		
-    		addMitarbeiterToRequest(request, mitarbeiter);
-    		
+    		validateUserLogin(request);
     		forwardRequest(request, response);
 		}
     	catch (SQLException e)
@@ -53,52 +51,59 @@ public class LoginServlet extends HttpServlet {
 			logException(e);
 			returnPasswordIncorrectPage(response);
 		}
-    	catch (LoginInvalidException e) {
+    	catch (LoginInputInvalidException e) {
 			
     		logException(e);
 			returnLoginInvalidPage(response);
 		}
     }
 
+	private void validateUserLogin(HttpServletRequest request)
+			throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
+		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(request);
+		validateMitarbeiter(mitarbeiter, request);
+		addMitarbeiterToRequest(request, mitarbeiter);
+	}
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
     	logger.debug("doGet() called but not implemented");
     }
     
-	private void validateMitarbeiter(Mitarbeiter mitarbeiter, HttpServletRequest request) throws LoginInvalidException, PasswordIncorrectException, SQLException, MitarbeiterNotFoundException {
+	private void validateMitarbeiter(Mitarbeiter mitarbeiter, HttpServletRequest request) throws LoginInputInvalidException, PasswordIncorrectException, SQLException, MitarbeiterNotFoundException {
 		
 		String mitarbeiterPassword = getEnteredPassword(request);
 		database.validateMitarbeiter(mitarbeiter, mitarbeiterPassword);
 	}
 
-	private Mitarbeiter getMitarbeiterFromDatabase(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInvalidException {
+	private Mitarbeiter getMitarbeiterFromDatabase(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
 		
 		int mitarbeiterId = getEnteredMitarbeiterId(request);
 		Mitarbeiter mitarbeiter = database.getMitarbeiter(mitarbeiterId);
 		return mitarbeiter;
 	}
 
-	private String getEnteredPassword(HttpServletRequest request) throws LoginInvalidException {
+	private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
 		
 		String password = request.getParameter("mitarbeiterPasswort");
 		
-		if(password.isEmpty()) throw new LoginInvalidException();
+		if(password.isEmpty()) throw new LoginInputInvalidException();
 
 		return password;
 	}
 
-	private int getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInvalidException {
+	private int getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInputInvalidException {
 		
 		String mitarbeiterIdString = request.getParameter("mitarbeiterID");
 		
-		if(mitarbeiterIdString.isEmpty()) throw new LoginInvalidException();
+		if(mitarbeiterIdString.isEmpty()) throw new LoginInputInvalidException();
 		
 		Pattern pattern = Pattern.compile("[a-z]");
 	    Matcher matcher = pattern.matcher(mitarbeiterIdString);
 	    
 	    boolean matchFound = matcher.find();
 	    
-	    if(matchFound) throw new LoginInvalidException();
+	    if(matchFound) throw new LoginInputInvalidException();
 		
 		return Integer.parseInt(request.getParameter("mitarbeiterID"));
 	}
@@ -156,15 +161,4 @@ public class LoginServlet extends HttpServlet {
     private void logException(Exception e) {
     	logger.debug(e.toString());
     }
-}
-
-class LoginInvalidException extends Exception{
-
-	public LoginInvalidException(){
-		super();
-	}
-	
-	public LoginInvalidException(String message){
-		super(message);
-	}
 }
