@@ -1,97 +1,37 @@
 package model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import controller.DatabaseConnection;
-
 public class Mitarbeiter{
 	
-	private int mitarbeiterID;
+	private int id;
 	private String vorname;
 	private String nachname;
-	private String password;
 	
-	private DatabaseConnection databaseConnection;
-	
-    private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
-	
-    public Mitarbeiter(int mitarbeiterID, String mitarbeiterPassword) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException{
+    public Mitarbeiter(int id){
     	
-    	getMitarbeiterFromDatabase(mitarbeiterID);
-    	validatePassword(mitarbeiterPassword);
-    	
+    	this.id = id;
     }
     
-	private void validatePassword(String mitarbeiterPassword) throws PasswordIncorrectException {
-
-		if(!mitarbeiterPassword.equals(this.password)) throw new PasswordIncorrectException();
-	}
-
-	private void getMitarbeiterFromDatabase(int mitarbeiterID) throws SQLException, MitarbeiterNotFoundException{
-		
-		connectToDatabase();	//TODO: muss in eine Datenbank Klasse extrahiert werden
-		ResultSet mitarbeiterResultSet = getMitarbeiterDataFromDatabase(mitarbeiterID);
-		setMitarbeiterAttributes(mitarbeiterResultSet);
-		disconnectFromDatabase();
-	}
-	
-	private void connectToDatabase() throws SQLException {
-		
-		databaseConnection = new DatabaseConnection();
-		databaseConnection.connectToDatabase();
-		logger.debug("" + this.getClass().toString() + " connected to database");
-	}
-	
-	private void disconnectFromDatabase() throws SQLException {
-		
-		databaseConnection.disconnectFromDatabase();
-		logger.debug("" + this.getClass().toString() + " disconnected from database");
-	}
-	
-	
-
-	private ResultSet getMitarbeiterDataFromDatabase(int mitarbeiterID) throws SQLException  {
-
-        String sqlStatement = "SELECT * FROM mitarbeiter WHERE mitarbeiterID=" + mitarbeiterID + ";";
-
-        ResultSet resultSet;
-		resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
-        
-        logger.debug("table content returned");
-        
-        return resultSet;
-	}
-	
-	private void setMitarbeiterAttributes(ResultSet mitarbeiterResultSet) throws SQLException, MitarbeiterNotFoundException{
-		
-		 if (mitarbeiterResultSet.next()) {
-
-        	int mitarbeiterIdIndex = mitarbeiterResultSet.findColumn("mitarbeiterID");
-        	int mitarbeiterVornameIndex = mitarbeiterResultSet.findColumn("vorname");
-        	int mitarbeiterNachnameIndex = mitarbeiterResultSet.findColumn("nachname");
-        	int mitarbeiterPasswordIndex = mitarbeiterResultSet.findColumn("passwort");
-        	
-        	this.mitarbeiterID = mitarbeiterResultSet.getInt(mitarbeiterIdIndex);
-        	this.vorname = mitarbeiterResultSet.getString(mitarbeiterVornameIndex);
-        	this.nachname = mitarbeiterResultSet.getString(mitarbeiterNachnameIndex);
-        	this.password = mitarbeiterResultSet.getString(mitarbeiterPasswordIndex);
-        	
-        }else{
-        	
-        	throw new MitarbeiterNotFoundException("Mitarbeiter nicht gefunden");
-        }
-	}
-
 	public String getVorname() {
 		return vorname;
 	}
 
+	public void setVorname(String vorname) {
+		this.vorname = vorname;
+	}
+	
 	public String getNachname() {
 		return nachname;
+	}
+	
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
+	}
+
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 }

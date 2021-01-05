@@ -1,4 +1,4 @@
-package model;
+package controller.exceptions;
 
 public class MitarbeiterNotFoundException extends Exception{
 	

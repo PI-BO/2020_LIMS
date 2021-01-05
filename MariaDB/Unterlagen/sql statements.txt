@@ -1,0 +1,26 @@
+Datenbanken anzeigen:	SHOW DATABASES;
+
+Datenbank benutzen:	USE database_name;
+
+Tabellen anzeigen:		SHOW TABLES;
+
+Table erstellen:		CREATE TABLE table_name (a int);
+
+			CREATE TABLE animals (
+			     id MEDIUMINT NOT NULL AUTO_INCREMENT,
+			     name CHAR(30) NOT NULL,
+			     PRIMARY KEY (id)
+			 );
+			
+			INSERT INTO animals (name) VALUES
+			    ('dog'),('cat'),('penguin'),
+			    ('fox'),('whale'),('ostrich');
+
+Tabellen-Attribute anzeigen:	SHOW COLUMNS FROM mytable FROM mydb;
+
+Eintrag in Tabelle:		INSERT INTO person (first_name, last_name) VALUES ('John', 'Doe');
+			INSERT INTO tbl_name VALUES (1, "row 1"), (2, "row 2");
+			INSERT INTO person SET first_name = 'John', last_name = 'Doe';
+
+Tabelle verändern: 		ALTER TABLE table_name ADD PRIMARY KEY (key_name)
+
