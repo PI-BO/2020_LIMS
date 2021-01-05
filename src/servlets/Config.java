@@ -27,6 +27,7 @@ public class Config implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("Server Started");
+        getApplicationProperties();
     }
 
     @Override
@@ -60,7 +61,7 @@ public class Config implements ServletContextListener {
      */
     public static Properties getApplicationProperties() {
         Properties props = new Properties();
-        try (InputStream is = getServletContext().getResourceAsStream("application.properties")) {
+        try (InputStream is = getServletContext().getResourceAsStream("/WEB-INF/classes/application.properties")) {
             props.load(is);
             logger.debug("Loaded Properties");
         } catch (IOException e) {
