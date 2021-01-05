@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import controller.exceptions.MitarbeiterNotFoundException;
 import controller.exceptions.PasswordIncorrectException;
@@ -14,4 +15,6 @@ public interface Database {
 	public void validateMitarbeiter(Mitarbeiter mitarbeiter, String password) throws PasswordIncorrectException, SQLException, MitarbeiterNotFoundException;
 	
 	public Projekt getProjekt(String projektName);
+	
+	public List<Projekt> getProjekte() throws SQLException;
 }

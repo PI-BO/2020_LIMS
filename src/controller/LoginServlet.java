@@ -17,6 +17,7 @@ import prototypes.DatabaseServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginServlet extends HttpServlet {
@@ -30,12 +31,12 @@ public class LoginServlet extends HttpServlet {
     	
     	try
     	{
-    		int mitarbeiterId = getEnteredMitarbeiterId(request);
-    		String mitarbeiterPassword = getEnteredPassword(request);
-
-    		Mitarbeiter mitarbeiter = database.getMitarbeiter(mitarbeiterId);
-    		database.validateMitarbeiter(mitarbeiter, mitarbeiterPassword);
+    		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(request);
+    		
+    		validateMitarbeiter(mitarbeiter, request);
+    		
     		addMitarbeiterToRequest(request, mitarbeiter);
+    		
     		forwardRequest(request, response);
 		}
     	catch (SQLException e)
@@ -59,6 +60,24 @@ public class LoginServlet extends HttpServlet {
 		}
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    	logger.debug("doGet() called but not implemented");
+    }
+    
+	private void validateMitarbeiter(Mitarbeiter mitarbeiter, HttpServletRequest request) throws LoginInvalidException, PasswordIncorrectException, SQLException, MitarbeiterNotFoundException {
+		
+		String mitarbeiterPassword = getEnteredPassword(request);
+		database.validateMitarbeiter(mitarbeiter, mitarbeiterPassword);
+	}
+
+	private Mitarbeiter getMitarbeiterFromDatabase(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInvalidException {
+		
+		int mitarbeiterId = getEnteredMitarbeiterId(request);
+		Mitarbeiter mitarbeiter = database.getMitarbeiter(mitarbeiterId);
+		return mitarbeiter;
+	}
+
 	private String getEnteredPassword(HttpServletRequest request) throws LoginInvalidException {
 		
 		String password = request.getParameter("mitarbeiterPasswort");
@@ -68,15 +87,22 @@ public class LoginServlet extends HttpServlet {
 		return password;
 	}
 
-	private int getEnteredMitarbeiterId(HttpServletRequest request) {
+	private int getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInvalidException {
+		
+		String mitarbeiterIdString = request.getParameter("mitarbeiterID");
+		
+		if(mitarbeiterIdString.isEmpty()) throw new LoginInvalidException();
+		
+		Pattern pattern = Pattern.compile("[a-z]");
+	    Matcher matcher = pattern.matcher(mitarbeiterIdString);
+	    
+	    boolean matchFound = matcher.find();
+	    
+	    if(matchFound) throw new LoginInvalidException();
+		
 		return Integer.parseInt(request.getParameter("mitarbeiterID"));
 	}
 
-	@Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-    	logger.debug("doGet() called but not implemented");
-    }    
-    
 	private void forwardRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		forwardRequestToRoute(request, response, "ProjekteServletRoute");
@@ -108,7 +134,7 @@ public class LoginServlet extends HttpServlet {
     	PrintWriter htmlWriter;
     	try {
     		htmlWriter = response.getWriter();
-    		htmlWriter.println("<div>Keine oder inkorrekte Zeichen eingegeben (nur Zahlen erlaubt).</div>");
+    		htmlWriter.println("<div>Keine oder inkorrekte Zeichen eingegeben.</div>");
     	} catch (IOException e) {
     		e.printStackTrace();
     		logger.debug(e.toString());

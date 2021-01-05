@@ -2,6 +2,8 @@ package controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +23,7 @@ public class MariaDBController implements Database{
 
 		connectToDatabase();
 		
-		Mitarbeiter mitarbeiter = getMitarbeiterDataFromDatabase(id);
+		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(id);
 
 		disconnectFromDatabase();
 		
@@ -47,6 +49,16 @@ public class MariaDBController implements Database{
 		return null;
 	}
 	
+	@Override
+	public List<Projekt> getProjekte() throws SQLException {
+
+		connectToDatabase();
+		List<Projekt> projekte = getProjekteFromDatabase();
+		disconnectFromDatabase();
+		
+		return projekte;
+	}
+	
 	private void connectToDatabase() throws SQLException {
 		
 		databaseConnection = new DatabaseConnection();
@@ -60,12 +72,11 @@ public class MariaDBController implements Database{
 		logger.debug("" + this.getClass().toString() + " disconnected from database");
 	}
 	
-	private Mitarbeiter getMitarbeiterDataFromDatabase(int mitarbeiterId) throws SQLException, MitarbeiterNotFoundException  {
+	private Mitarbeiter getMitarbeiterFromDatabase(int mitarbeiterId) throws SQLException, MitarbeiterNotFoundException  {
 
         String sqlStatement = "SELECT * FROM mitarbeiter WHERE mitarbeiterID=" + mitarbeiterId + ";";
 
-        ResultSet resultSet;
-		resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+        ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
         
         Mitarbeiter mitarbeiter = new Mitarbeiter(mitarbeiterId);
         
@@ -78,12 +89,23 @@ public class MariaDBController implements Database{
 		
 		String sqlStatement = "SELECT * FROM mitarbeiter WHERE mitarbeiterID=" + mitarbeiterId + ";";
 		
-		ResultSet resultSet;
-		resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 		
 		String password = getPasswordFromResultSet(resultSet);
 		
 		return password;
+	}
+	
+	private List<Projekt> getProjekteFromDatabase() throws SQLException{
+		
+		String sqlStatement = "SELECT * FROM projekte;";
+		
+		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+		
+		List<Projekt> projekte = getProjekte(resultSet);
+		
+		return projekte;
+		
 	}
 	
 	private void setMitarbeiterAttributes(Mitarbeiter mitarbeiter, ResultSet mitarbeiterResultSet) throws SQLException, MitarbeiterNotFoundException{
@@ -120,5 +142,26 @@ public class MariaDBController implements Database{
 		}
 		
 		return password;
+	}
+	
+	private List<Projekt> getProjekte(ResultSet resultSet) throws SQLException{
+		
+		List<Projekt> projekte = new LinkedList<Projekt>();
+		
+		while (resultSet.next()) {
+
+			int projektIdIndex = resultSet.findColumn("projekt_id");
+
+			Projekt projekt = new Projekt();
+			
+			String projektName = resultSet.getString(projektIdIndex);
+			
+			projekt.setProjektName(projektName);
+			
+			projekte.add(projekt);
+			
+		}
+		
+		return projekte;
 	}
 }
