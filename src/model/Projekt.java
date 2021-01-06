@@ -1,15 +1,26 @@
 package model;
 
+import java.util.List;
+
 public class Projekt {
 	
-	private String projektName;
+	private String id;
+	private List<Substanz> substanzen;
 
-	public String getProjektName() {
-		return projektName;
+	public List<Substanz> getSubstanzen() {
+		return substanzen;
 	}
 
-	public void setProjektName(String projektName) {
-		this.projektName = projektName;
+	public void setSubstanzen(List<Substanz> substanzen) {
+		this.substanzen = substanzen;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

@@ -32,6 +32,8 @@ public class LoginServlet extends HttpServlet {
     	
     	try
     	{
+    		System.out.println(request.getServletPath());
+    		
     		validateUserLogin(request);
     		forwardRequest(request, response);
 		}

@@ -12,6 +12,7 @@ import controller.exceptions.MitarbeiterNotFoundException;
 import controller.exceptions.PasswordIncorrectException;
 import model.Mitarbeiter;
 import model.Projekt;
+import model.Substanz;
 
 public class MariaDBController implements Database{
 
@@ -19,11 +20,11 @@ public class MariaDBController implements Database{
 	private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
 	
 	@Override
-	public Mitarbeiter getMitarbeiter(int id) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException {
+	public Mitarbeiter getMitarbeiter(int mitarbeiterId) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException {
 
 		connectToDatabase();
 		
-		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(id);
+		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(mitarbeiterId);
 
 		disconnectFromDatabase();
 		
@@ -44,11 +45,15 @@ public class MariaDBController implements Database{
 	}
 
 	@Override
-	public Projekt getProjekt(String projektName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Projekt getProjekt(String projektId) throws SQLException {
+
+		connectToDatabase();
+		Projekt projekt = getProjektFromDatabase(projektId);
+		disconnectFromDatabase();
+		
+		return projekt;
 	}
-	
+
 	@Override
 	public List<Projekt> getProjekte() throws SQLException {
 
@@ -108,6 +113,20 @@ public class MariaDBController implements Database{
 		
 	}
 	
+	
+	private Projekt getProjektFromDatabase(String projektId) throws SQLException {
+
+        String sqlStatement = "SELECT * FROM projekt_substanz WHERE projekt_id=\"" + projektId + "\";";
+
+        ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+        
+        Projekt projekt = new Projekt();
+        
+        setProjektAttributes(projekt, resultSet);
+        
+        return projekt;
+	}
+	
 	private void setMitarbeiterAttributes(Mitarbeiter mitarbeiter, ResultSet mitarbeiterResultSet) throws SQLException, MitarbeiterNotFoundException{
 		
 		if (mitarbeiterResultSet.next()) {
@@ -124,6 +143,26 @@ public class MariaDBController implements Database{
        	
 			throw new MitarbeiterNotFoundException("Mitarbeiter nicht gefunden");
        }
+	}
+	
+	private void setProjektAttributes(Projekt projekt, ResultSet projektResultSet) throws SQLException{
+		
+		List<Substanz> substanzen = new LinkedList<>();
+		
+		while (projektResultSet.next()) {
+			
+			int projektIdIndex = projektResultSet.findColumn("projekt_id");		//TODO: muss nur einmal gemacht werden
+			projekt.setId(projektResultSet.getString(projektIdIndex));
+			
+			int substanzIdIndex = projektResultSet.findColumn("substanz_id");
+			Substanz substanz = new Substanz();
+			substanz.setId(projektResultSet.getString(substanzIdIndex));
+
+			substanzen.add(substanz);
+		}
+
+		projekt.setSubstanzen(substanzen);
+		
 	}
 	
 	private String getPasswordFromResultSet(ResultSet resultSet) throws SQLException, MitarbeiterNotFoundException{
@@ -156,7 +195,7 @@ public class MariaDBController implements Database{
 			
 			String projektName = resultSet.getString(projektIdIndex);
 			
-			projekt.setProjektName(projektName);
+			projekt.setId(projektName);
 			
 			projekte.add(projekt);
 			

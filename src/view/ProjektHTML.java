@@ -12,29 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.HTMLPage;
 import controller.HtmlUtility;
+import controller.ProjekteServlet;
 import model.Mitarbeiter;
 import model.Projekt;
+import model.Substanz;
 
-public class ProjekteHTML implements HTMLPage{
+public class ProjektHTML implements HTMLPage{
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	private List<Projekt> projekte;
+	private Projekt projekt;
 	private BufferedReader htmlFile;
 		
-	public ProjekteHTML(List<Projekt> projekte, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
-
+	public ProjektHTML(Projekt projekt, HttpServletRequest request, HttpServletResponse response, ProjekteServlet servlet) throws FileNotFoundException {
+	
 		this.request = request;
 		this.response = response;
-		this.projekte = projekte;
+		this.projekt = projekt;
 		htmlFile = HtmlUtility.getHtmlFile("projekte.html", servlet);
 	}
-	
+
 	@Override
 	public void show() throws IOException {
 
-		Mitarbeiter mitarbeiter = (Mitarbeiter) request.getAttribute("mitarbeiter");
-    	
     	PrintWriter htmlWriter = response.getWriter();
     	
     	String line;
@@ -45,32 +45,30 @@ public class ProjekteHTML implements HTMLPage{
     		
     		if(line.contains("<body>")){
     			
-    			htmlWriter.println("<div>Login erfolgreich.</div>");
-    			htmlWriter.println("<br>");
-    			htmlWriter.println("<div>Hallo <b>" + mitarbeiter.getVorname() + " " + mitarbeiter.getNachname() + "</b>. Willkommen auf der Projekte Seite.</div>");
+    			htmlWriter.println("<div>Projekt: <b>" + projekt.getId());
     			htmlWriter.println("<br>");
     		}
     		
          	if(line.contains("id=\"table\"")){
          		
-         		htmlWriter.println("<tr><th> Projektname </th></tr>");
+         		htmlWriter.println("<tr><th>Substanzen</th></tr>");
          		
-         		for(Projekt projekt : projekte){
+         		for(Substanz substanz : projekt.getSubstanzen()){
          			
          			htmlWriter.println(""
          					+ "<form action=\"/2020_LIMS/Projekt\" method=\"post\">"
          					+ "<tr>"
          					+ 	"<td>"
          					+ 		"<input type=\"text\" "
-         					+ 			"id=\"projektIdInput\" "
-         					+ 			"name=\"projektId\" "
-         					+ 			"value=\"" + projekt.getId() + "\" "
+         					+ 			"id=\"substanzIdInput\" "
+         					+ 			"name=\"substanzId\" "
+         					+ 			"value=\"" + substanz.getId() + "\" "
  							+	 		"readonly "
  							+ 			"style=\"border:0;\""
  							+ 			">"
          					+ 	"</td>"
          					+ 	"<td>"
-         					+ 		"<button>-></button>"
+         					+ 		"<button disabled>-></button>"
          					+ 	"</td>"
          					+ "</tr>"
          					+ "</form>"

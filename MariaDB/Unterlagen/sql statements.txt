@@ -16,6 +16,16 @@ Table erstellen:		CREATE TABLE table_name (a int);
 			    ('dog'),('cat'),('penguin'),
 			    ('fox'),('whale'),('ostrich');
 
+mehrfache Primary Keys:	create table table_name(
+			    pk_column1 type,
+			    pk_column2 type,
+				    ...
+			    primary key(pk_column1,pk_column2,)
+			);
+
+foreign key + constraint: 	ALTER TABLE projekt_substanz ADD CONSTRAINT contraint_name FOREIGN KEY (projekt_id) REFERENCES projekte(projekt_id);
+
+
 Tabellen-Attribute anzeigen:	SHOW COLUMNS FROM mytable FROM mydb;
 
 Eintrag in Tabelle:		INSERT INTO person (first_name, last_name) VALUES ('John', 'Doe');

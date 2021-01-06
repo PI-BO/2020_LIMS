@@ -9,8 +9,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import model.Projekt;
+import view.ProjektHTML;
 import view.ProjekteHTML;
 import controller.Database;
+import controller.exceptions.MitarbeiterNotFoundException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,17 +30,29 @@ public class ProjekteServlet extends HttpServlet {
     	
     	try 
     	{
-    		showProjektePage(request, response);
+    		System.out.println(request.getServletPath());
+    		
+    		if(request.getServletPath().equals("/ProjekteServletRoute")) showProjekteListPage(request, response);
+    		if(request.getServletPath().equals("/Projekt")) showProjektPage(request, response);
 		}
     	catch (SQLException e) {
 			logException(e);
 		}
     }
 
-	private void showProjektePage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
+	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
 		
 		List<Projekt> projekte = database.getProjekte();
 		HTMLPage htmlPage = new ProjekteHTML(projekte, request, response, this);
+		htmlPage.show();
+	}
+	
+	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
+		
+		String projektId =  request.getParameter("projektId");
+		Projekt projekt = database.getProjekt(projektId);
+
+		HTMLPage htmlPage = new ProjektHTML(projekt, request, response, this);
 		htmlPage.show();
 	}
 

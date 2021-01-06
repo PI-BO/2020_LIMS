@@ -31,5 +31,10 @@
 	<url-pattern>/ProjekteServletRoute</url-pattern> 
   </servlet-mapping>
   
+  <servlet-mapping>  
+	<servlet-name>ProjekteServlet</servlet-name>
+	<url-pattern>/Projekt</url-pattern> 
+  </servlet-mapping>
+  
   
 </web-app>
