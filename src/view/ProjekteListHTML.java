@@ -15,14 +15,14 @@ import controller.HtmlUtility;
 import model.Mitarbeiter;
 import model.Projekt;
 
-public class ProjekteHTML implements HTMLPage{
+public class ProjekteListHTML implements HTMLPage{
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private List<Projekt> projekte;
 	private BufferedReader htmlFile;
 		
-	public ProjekteHTML(List<Projekt> projekte, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
+	public ProjekteListHTML(List<Projekt> projekte, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
 
 		this.request = request;
 		this.response = response;

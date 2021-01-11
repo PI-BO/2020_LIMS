@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import model.Projekt;
 import view.ProjektHTML;
-import view.ProjekteHTML;
+import view.ProjekteListHTML;
 import controller.Database;
 import controller.exceptions.MitarbeiterNotFoundException;
 
@@ -43,7 +43,7 @@ public class ProjekteServlet extends HttpServlet {
 	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
 		
 		List<Projekt> projekte = database.getProjekte();
-		HTMLPage htmlPage = new ProjekteHTML(projekte, request, response, this);
+		HTMLPage htmlPage = new ProjekteListHTML(projekte, request, response, this);
 		htmlPage.show();
 	}
 	
