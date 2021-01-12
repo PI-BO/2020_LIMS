@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,13 +12,38 @@ public class DatabaseConnection {
     private static final String PASSWORD = "123";
     private static final String DB_ADDRESS = "jdbc:mariadb://localhost:3306/demo";
     private Connection connection;
-
-    public void connectToDatabase() throws SQLException {
+    private static DatabaseConnection databaseConnection = null;
+    
+    private DatabaseConnection() throws SQLException{
+    	
+    	connectToDatabase();
+    }
+    
+    public static DatabaseConnection getInstance() {
+    	
+    	if(databaseConnection == null){
+    		
+			try
+			{
+				databaseConnection = new DatabaseConnection();
+			}
+    		catch (SQLException e)
+    		{    			
+				e.printStackTrace();
+				logger.debug(e);
+				logger.debug("FAILED TO CONNECT TO DATABASE");
+			}
+    	}
+    	
+    	return databaseConnection;
+    }
+    
+    private void connectToDatabase() throws SQLException {
         connection = DriverManager.getConnection(DB_ADDRESS, LOGIN_NAME, PASSWORD);
         logger.debug("connected to database");
     }
 
-    public void disconnectFromDatabase() throws SQLException {
+    private void disconnectFromDatabase() throws SQLException {
         connection.close();
         logger.debug("disconnected from database");
     }

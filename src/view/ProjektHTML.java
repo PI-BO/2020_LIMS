@@ -4,16 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.HTMLPage;
 import controller.HtmlUtility;
 import controller.ProjekteServlet;
-import model.Mitarbeiter;
 import model.Projekt;
 import model.Substanz;
 

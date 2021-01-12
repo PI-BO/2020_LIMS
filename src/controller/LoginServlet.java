@@ -12,6 +12,9 @@ import org.apache.logging.log4j.Logger;
 import controller.exceptions.LoginInputInvalidException;
 import controller.exceptions.MitarbeiterNotFoundException;
 import controller.exceptions.PasswordIncorrectException;
+import model.Database;
+import model.Login;
+import model.MariaDBModel;
 import model.Mitarbeiter;
 
 import java.io.IOException;
@@ -25,15 +28,11 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 244881171954270102L;
 	private static final Logger logger = LogManager.getLogger(LoginServlet.class.getSimpleName());
 	
-	Database database = new MariaDBController();
-	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	try
     	{
-    		System.out.println(request.getServletPath());
-    		
     		validateUserLogin(request);
     		forwardRequest(request, response);
 		}
@@ -59,9 +58,12 @@ public class LoginServlet extends HttpServlet {
     }
 
 	private void validateUserLogin(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
-		Mitarbeiter mitarbeiter = getMitarbeiterFromDatabase(request);
-		validateMitarbeiter(mitarbeiter, request);
-		addMitarbeiterToRequest(request, mitarbeiter);
+		
+		int mitarbeiterId = getEnteredMitarbeiterId(request);
+		Login login = new Mitarbeiter(mitarbeiterId);
+		String password = getEnteredPassword(request);
+		login.validate(password);
+		addMitarbeiterToRequest(request, (Mitarbeiter)login);
 	}
 
     @Override
@@ -69,19 +71,6 @@ public class LoginServlet extends HttpServlet {
     	logger.debug("doGet() called but not implemented");
     }
     
-	private void validateMitarbeiter(Mitarbeiter mitarbeiter, HttpServletRequest request) throws LoginInputInvalidException, PasswordIncorrectException, SQLException, MitarbeiterNotFoundException {
-		
-		String mitarbeiterPassword = getEnteredPassword(request);
-		database.validateMitarbeiter(mitarbeiter, mitarbeiterPassword);
-	}
-
-	private Mitarbeiter getMitarbeiterFromDatabase(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
-		
-		int mitarbeiterId = getEnteredMitarbeiterId(request);
-		Mitarbeiter mitarbeiter = database.getMitarbeiter(mitarbeiterId);
-		return mitarbeiter;
-	}
-
 	private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
 		
 		String password = request.getParameter("mitarbeiterPasswort");
@@ -112,8 +101,8 @@ public class LoginServlet extends HttpServlet {
 		forwardRequestToRoute(request, response, "ProjekteServletRoute");
 	}
 
-	private void addMitarbeiterToRequest(HttpServletRequest request, Mitarbeiter mitarbeiter) {
-		request.setAttribute("mitarbeiter", mitarbeiter);
+	private void addMitarbeiterToRequest(HttpServletRequest request, Login login) {
+		request.setAttribute("login", login);
 	}
 
     private void forwardRequestToRoute(HttpServletRequest request, HttpServletResponse response, String route) throws ServletException, IOException {

@@ -1,6 +1,6 @@
 package model;
 
-public class Substanz {
+public class Substanz extends Model {
 	
 	private String id;
 

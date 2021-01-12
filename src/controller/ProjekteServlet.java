@@ -8,22 +8,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import model.Database;
+import model.MariaDBModel;
 import model.Projekt;
+import model.ProjekteIdList;
+import view.HTMLPage;
 import view.ProjektHTML;
 import view.ProjekteListHTML;
-import controller.Database;
-import controller.exceptions.MitarbeiterNotFoundException;
+import controller.exceptions.ProjektNotFoundException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ProjekteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6585003356653758862L;
 	private static final Logger logger = LogManager.getLogger(ProjekteServlet.class.getSimpleName());
-	private Database database = new MariaDBController();
+	private Database database = new MariaDBModel();
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,22 +37,27 @@ public class ProjekteServlet extends HttpServlet {
     		if(request.getServletPath().equals("/ProjekteServletRoute")) showProjekteListPage(request, response);
     		if(request.getServletPath().equals("/Projekt")) showProjektPage(request, response);
 		}
-    	catch (SQLException e) {
+    	catch (SQLException e)
+    	{
+			logException(e);
+		}
+    	catch (ProjektNotFoundException e)
+    	{
 			logException(e);
 		}
     }
 
 	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
 		
-		List<Projekt> projekte = database.getProjekte();
-		HTMLPage htmlPage = new ProjekteListHTML(projekte, request, response, this);
+		ProjekteIdList projekteIdList = new ProjekteIdList();
+		HTMLPage htmlPage = new ProjekteListHTML(projekteIdList, request, response, this);
 		htmlPage.show();
 	}
 	
-	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
+	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ProjektNotFoundException {
 		
 		String projektId =  request.getParameter("projektId");
-		Projekt projekt = database.getProjekt(projektId);
+		Projekt projekt = new Projekt(projektId);
 
 		HTMLPage htmlPage = new ProjektHTML(projekt, request, response, this);
 		htmlPage.show();

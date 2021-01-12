@@ -10,30 +10,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.HTMLPage;
 import controller.HtmlUtility;
 import model.Mitarbeiter;
 import model.Projekt;
+import model.ProjekteIdList;
 
 public class ProjekteListHTML implements HTMLPage{
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	private List<Projekt> projekte;
+	private List<String> projekteIdStringList;
 	private BufferedReader htmlFile;
 		
-	public ProjekteListHTML(List<Projekt> projekte, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
+	public ProjekteListHTML(ProjekteIdList projekteIdList, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
 
 		this.request = request;
 		this.response = response;
-		this.projekte = projekte;
+		this.projekteIdStringList = projekteIdList.getProjekteIdList();
 		htmlFile = HtmlUtility.getHtmlFile("projekte.html", servlet);
 	}
 	
 	@Override
 	public void show() throws IOException {
 
-		Mitarbeiter mitarbeiter = (Mitarbeiter) request.getAttribute("mitarbeiter");
+		Mitarbeiter mitarbeiter = (Mitarbeiter) request.getAttribute("login");	//TODO "login" in Config auslagern
     	
     	PrintWriter htmlWriter = response.getWriter();
     	
@@ -55,7 +55,7 @@ public class ProjekteListHTML implements HTMLPage{
          		
          		htmlWriter.println("<tr><th> Projektname </th></tr>");
          		
-         		for(Projekt projekt : projekte){
+         		for(String projektId : projekteIdStringList){
          			
          			htmlWriter.println(""
          					+ "<form action=\"/2020_LIMS/Projekt\" method=\"post\">"
@@ -64,7 +64,7 @@ public class ProjekteListHTML implements HTMLPage{
          					+ 		"<input type=\"text\" "
          					+ 			"id=\"projektIdInput\" "
          					+ 			"name=\"projektId\" "
-         					+ 			"value=\"" + projekt.getId() + "\" "
+         					+ 			"value=\"" + projektId + "\" "
  							+	 		"readonly "
  							+ 			"style=\"border:0;\""
  							+ 			">"
