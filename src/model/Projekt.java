@@ -5,13 +5,16 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import controller.exceptions.MitarbeiterNotFoundException;
-import controller.exceptions.ProjektNotFoundException;
+import exceptions.ProjektNotFoundException;
 
 public class Projekt extends Model {
 	
 	private String id;
 	private List<Substanz> substanzen;
+	public static final String COLUMN_PROJEKT_ID = "projekt_id";
+	public static final String COLUMN_VORNAME = "vorname";
+	public static final String COLUMN_NACHNAME = "nachname";
+	public static final String COLUMN_PASSWORT = "passwort";
 
 	
 	public Projekt(String id) throws SQLException, ProjektNotFoundException{
@@ -27,10 +30,10 @@ public class Projekt extends Model {
 		
 		while (resultSet.next()) {
 			
-			int projektIdIndex = resultSet.findColumn("projekt_id");		//TODO: muss nur einmal gemacht werden, key in Config auslagern
+			int projektIdIndex = resultSet.findColumn(COLUMN_PROJEKT_ID);
 			id = resultSet.getString(projektIdIndex);
 			
-			int substanzIdIndex = resultSet.findColumn("substanz_id");		//TODO: key in Config auslagern
+			int substanzIdIndex = resultSet.findColumn(Substanz.COLUMN_SUBSTANZ_ID);
 			Substanz substanz = new Substanz();
 			substanz.setId(resultSet.getString(substanzIdIndex));
 

@@ -1,4 +1,4 @@
-package controller.config;
+package config;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -80,7 +80,7 @@ public class Config implements ServletContextListener {
      */
     public static Properties getApplicationProperties() {
         if (props == null && loadProperties()) return props;
-        return null;
+        return props;
     }
 
     /**
@@ -104,5 +104,10 @@ public class Config implements ServletContextListener {
         } catch (IOException e) {
             logger.error(e.getMessage());
         }
+    }
+    
+    public static String getValue(Object key){
+    	
+    	return Config.getApplicationProperties().get(key).toString();
     }
 }

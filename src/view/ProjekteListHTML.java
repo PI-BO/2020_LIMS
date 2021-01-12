@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.HtmlUtility;
+import Utility.HtmlUtility;
+import config.Config;
+import controller.LoginServlet;
 import model.Mitarbeiter;
-import model.Projekt;
 import model.ProjekteIdList;
 
 public class ProjekteListHTML implements HTMLPage{
@@ -21,19 +22,22 @@ public class ProjekteListHTML implements HTMLPage{
 	private HttpServletResponse response;
 	private List<String> projekteIdStringList;
 	private BufferedReader htmlFile;
+	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjekteListPage");
+	private final String HTML_FILE_NAME = Config.getValue("html.file.ProjekteListPage");
+	private final String FORWARD_ROUTE = "/2020_LIMS/Projekt";
 		
 	public ProjekteListHTML(ProjekteIdList projekteIdList, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
 
 		this.request = request;
 		this.response = response;
 		this.projekteIdStringList = projekteIdList.getProjekteIdList();
-		htmlFile = HtmlUtility.getHtmlFile("projekte.html", servlet);
+		htmlFile = HtmlUtility.getHtmlFile(HTML_FILE_NAME, servlet);
 	}
 	
 	@Override
 	public void show() throws IOException {
 
-		Mitarbeiter mitarbeiter = (Mitarbeiter) request.getAttribute("login");	//TODO "login" in Config auslagern
+		Mitarbeiter mitarbeiter = (Mitarbeiter) request.getAttribute(LoginServlet.REQUEST_ATTRIBUTE);
     	
     	PrintWriter htmlWriter = response.getWriter();
     	
@@ -58,12 +62,12 @@ public class ProjekteListHTML implements HTMLPage{
          		for(String projektId : projekteIdStringList){
          			
          			htmlWriter.println(""
-         					+ "<form action=\"/2020_LIMS/Projekt\" method=\"post\">"
+         					+ "<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">"
          					+ "<tr>"
          					+ 	"<td>"
          					+ 		"<input type=\"text\" "
          					+ 			"id=\"projektIdInput\" "
-         					+ 			"name=\"projektId\" "
+         					+ 			"name=\"" + REQUEST_PARAMETER + "\" "
          					+ 			"value=\"" + projektId + "\" "
  							+	 		"readonly "
  							+ 			"style=\"border:0;\""
@@ -79,5 +83,4 @@ public class ProjekteListHTML implements HTMLPage{
          	}
     	}
 	}
-
 }

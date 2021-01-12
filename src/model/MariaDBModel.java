@@ -2,20 +2,14 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controller.exceptions.MitarbeiterNotFoundException;
-import controller.exceptions.PasswordIncorrectException;
-import controller.exceptions.ProjektNotFoundException;
-
 public class MariaDBModel implements Database{
 
 	private DatabaseConnection databaseConnection;
-	private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
+	private static final Logger LOGGER = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
 	
 	public MariaDBModel() {
 

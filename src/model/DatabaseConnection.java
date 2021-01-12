@@ -3,14 +3,16 @@ package model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import config.Config;
+
 import java.sql.*;
 
 public class DatabaseConnection {
 	
-    private static final Logger logger = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
-    private static final String LOGIN_NAME = "root";
-    private static final String PASSWORD = "123";
-    private static final String DB_ADDRESS = "jdbc:mariadb://localhost:3306/demo";
+    private static final Logger LOGGER = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
+    private static final String LOGIN_NAME = Config.getValue("database.LOGIN_NAME");
+    private static final String PASSWORD = Config.getValue("database.PASSWORD");
+    private static final String DB_ADDRESS = Config.getValue("database.ADDRESS");
     private Connection connection;
     private static DatabaseConnection databaseConnection = null;
     
@@ -30,8 +32,8 @@ public class DatabaseConnection {
     		catch (SQLException e)
     		{    			
 				e.printStackTrace();
-				logger.debug(e);
-				logger.debug("FAILED TO CONNECT TO DATABASE");
+				LOGGER.debug(e);
+				LOGGER.debug("FAILED TO CONNECT TO DATABASE");
 			}
     	}
     	
@@ -40,28 +42,14 @@ public class DatabaseConnection {
     
     private void connectToDatabase() throws SQLException {
         connection = DriverManager.getConnection(DB_ADDRESS, LOGIN_NAME, PASSWORD);
-        logger.debug("connected to database");
+        LOGGER.debug("connected to database");
     }
 
     private void disconnectFromDatabase() throws SQLException {
         connection.close();
-        logger.debug("disconnected from database");
+        LOGGER.debug("disconnected from database");
     }
 
-    public ResultSet returnTableContent(String table) throws SQLException {
-        ResultSet resultSet;
-
-        String query = "SELECT * FROM %s;";
-        query = String.format(query, table);
-
-        try (Statement statement = connection.createStatement()) {
-            resultSet = statement.executeQuery(query);
-        }
-
-        logger.debug("table content returned");
-        return resultSet;
-    }
-    
     public ResultSet executeSQLStatementAndReturnResults(String sqlStatement) throws SQLException{
     	
     	ResultSet resultSet;
@@ -69,7 +57,7 @@ public class DatabaseConnection {
         Statement statement = connection.createStatement();
         resultSet = statement.executeQuery(sqlStatement);
 
-        logger.debug("executeSQLStatementAndReturnResults, SQL Statement: " + sqlStatement);
+        LOGGER.debug("executeSQLStatementAndReturnResults, SQL Statement: " + sqlStatement);
         return resultSet;
     }
 }

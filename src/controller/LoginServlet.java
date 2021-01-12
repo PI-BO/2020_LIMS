@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controller.exceptions.LoginInputInvalidException;
-import controller.exceptions.MitarbeiterNotFoundException;
-import controller.exceptions.PasswordIncorrectException;
-import model.Database;
+import config.Config;
+import exceptions.LoginInputInvalidException;
+import exceptions.MitarbeiterNotFoundException;
+import exceptions.PasswordIncorrectException;
 import model.Login;
-import model.MariaDBModel;
 import model.Mitarbeiter;
 
 import java.io.IOException;
@@ -26,7 +25,11 @@ import java.util.regex.Pattern;
 public class LoginServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 244881171954270102L;
-	private static final Logger logger = LogManager.getLogger(LoginServlet.class.getSimpleName());
+	private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getSimpleName());
+	public static final String REQUEST_ATTRIBUTE = "login";
+	public static final String REQUEST_PARAMETER_PASSWORD = Config.getValue("html.requestParameter.loginPage.password");
+	public static final String REQUEST_PARAMETER_ID = Config.getValue("html.requestParameter.loginPage.id");
+	private static final String FORWARD_ROUTE = "ProjekteServletRoute";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,12 +71,12 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-    	logger.debug("doGet() called but not implemented");
+    	LOGGER.debug("doGet() called but not implemented");
     }
     
 	private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
 		
-		String password = request.getParameter("mitarbeiterPasswort");
+		String password = request.getParameter(REQUEST_PARAMETER_PASSWORD);
 		
 		if(password.isEmpty()) throw new LoginInputInvalidException();
 
@@ -82,7 +85,7 @@ public class LoginServlet extends HttpServlet {
 
 	private int getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInputInvalidException {
 		
-		String mitarbeiterIdString = request.getParameter("mitarbeiterID");
+		String mitarbeiterIdString = request.getParameter(REQUEST_PARAMETER_ID);
 		
 		if(mitarbeiterIdString.isEmpty()) throw new LoginInputInvalidException();
 		
@@ -93,16 +96,16 @@ public class LoginServlet extends HttpServlet {
 	    
 	    if(matchFound) throw new LoginInputInvalidException();
 		
-		return Integer.parseInt(request.getParameter("mitarbeiterID"));
+		return Integer.parseInt(request.getParameter(REQUEST_PARAMETER_ID));
 	}
 
 	private void forwardRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		forwardRequestToRoute(request, response, "ProjekteServletRoute");
+		forwardRequestToRoute(request, response, FORWARD_ROUTE);
 	}
 
 	private void addMitarbeiterToRequest(HttpServletRequest request, Login login) {
-		request.setAttribute("login", login);
+		request.setAttribute(LoginServlet.REQUEST_ATTRIBUTE, login);
 	}
 
     private void forwardRequestToRoute(HttpServletRequest request, HttpServletResponse response, String route) throws ServletException, IOException {
@@ -113,40 +116,49 @@ public class LoginServlet extends HttpServlet {
     private void returnLoginFailedPage(HttpServletResponse response){
     	
     	PrintWriter htmlWriter;
-		try {
+		try
+		{
 			htmlWriter = response.getWriter();
 			htmlWriter.println("<div>Mitarbeiter nicht gefunden.</div>");
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
-			logger.debug(e.toString());
+			LOGGER.debug(e.toString());
 		}
     }
     
     private void returnLoginInvalidPage(HttpServletResponse response){
     	
     	PrintWriter htmlWriter;
-    	try {
+    	try
+    	{
     		htmlWriter = response.getWriter();
     		htmlWriter.println("<div>Keine oder inkorrekte Zeichen eingegeben.</div>");
-    	} catch (IOException e) {
+    	}
+    	catch (IOException e) {
     		e.printStackTrace();
-    		logger.debug(e.toString());
+    		LOGGER.debug(e.toString());
     	}
     }
     
     private void returnPasswordIncorrectPage(HttpServletResponse response) {
     	
     	PrintWriter htmlWriter;
-    	try {
+    	
+    	try
+    	{    		
     		htmlWriter = response.getWriter();
     		htmlWriter.println("<div>Falsches Passwort.</div>");
-    	} catch (IOException e) {
+    	}
+    	catch (IOException e)
+    	{
     		e.printStackTrace();
-    		logger.debug(e.toString());
+    		LOGGER.debug(e.toString());
     	}
     }
     
     private void logException(Exception e) {
-    	logger.debug(e.toString());
+    	LOGGER.debug(e.toString());
     }
 }

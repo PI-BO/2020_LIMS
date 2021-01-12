@@ -1,6 +1,6 @@
 package model;
 
-import controller.exceptions.PasswordIncorrectException;
+import exceptions.PasswordIncorrectException;
 
 public interface Login {
 

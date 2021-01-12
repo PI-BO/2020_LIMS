@@ -3,9 +3,8 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import controller.exceptions.LoginInputInvalidException;
-import controller.exceptions.MitarbeiterNotFoundException;
-import controller.exceptions.PasswordIncorrectException;
+import exceptions.MitarbeiterNotFoundException;
+import exceptions.PasswordIncorrectException;
 
 public class Mitarbeiter extends Model implements Login {
 	

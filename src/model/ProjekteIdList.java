@@ -22,7 +22,7 @@ public class ProjekteIdList extends Model{
 		
 		while (resultSet.next()) {
 
-			int projektIdIndex = resultSet.findColumn("projekt_id");
+			int projektIdIndex = resultSet.findColumn(Projekt.COLUMN_PROJEKT_ID);
 
 			String projektName = resultSet.getString(projektIdIndex);
 			

@@ -8,14 +8,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import model.Database;
-import model.MariaDBModel;
+import config.Config;
 import model.Projekt;
 import model.ProjekteIdList;
 import view.HTMLPage;
 import view.ProjektHTML;
 import view.ProjekteListHTML;
-import controller.exceptions.ProjektNotFoundException;
+import exceptions.ProjektNotFoundException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,17 +23,15 @@ import java.sql.SQLException;
 public class ProjekteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6585003356653758862L;
-	private static final Logger logger = LogManager.getLogger(ProjekteServlet.class.getSimpleName());
-	private Database database = new MariaDBModel();
+	private static final Logger LOGGER = LogManager.getLogger(ProjekteServlet.class.getSimpleName());
+	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjekteListPage");
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	try 
     	{
-    		System.out.println(request.getServletPath());
-    		
-    		if(request.getServletPath().equals("/ProjekteServletRoute")) showProjekteListPage(request, response);
+    		if(request.getServletPath().equals("/ProjekteServletRoute")) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
     		if(request.getServletPath().equals("/Projekt")) showProjektPage(request, response);
 		}
     	catch (SQLException e)
@@ -56,7 +53,7 @@ public class ProjekteServlet extends HttpServlet {
 	
 	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ProjektNotFoundException {
 		
-		String projektId =  request.getParameter("projektId");
+		String projektId =  request.getParameter(REQUEST_PARAMETER);
 		Projekt projekt = new Projekt(projektId);
 
 		HTMLPage htmlPage = new ProjektHTML(projekt, request, response, this);
@@ -66,10 +63,10 @@ public class ProjekteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    	logger.debug("doGet() called but not implemented");
+    	LOGGER.debug("doGet() called but not implemented");
     }
 
     private void logException(Exception e) {
-    	logger.debug(e.toString());
+    	LOGGER.debug(e.toString());
     }
 }
