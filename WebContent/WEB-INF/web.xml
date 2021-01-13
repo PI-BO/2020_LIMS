@@ -22,6 +22,7 @@
 	<url-pattern>/LoginServletRoute</url-pattern> 
   </servlet-mapping>
 
+
   <servlet>
   	<servlet-name>ProjekteServlet</servlet-name>
   	<servlet-class>controller.ProjekteServlet</servlet-class>
@@ -35,6 +36,17 @@
   <servlet-mapping>  
 	<servlet-name>ProjekteServlet</servlet-name>
 	<url-pattern>/Projekt</url-pattern> 
+  </servlet-mapping>
+
+
+  <servlet>
+  	<servlet-name>SubstanzServlet</servlet-name>
+  	<servlet-class>controller.SubstanzServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>  
+	<servlet-name>SubstanzServlet</servlet-name>
+	<url-pattern>/SubstanzServletRoute</url-pattern> 
   </servlet-mapping>
   
   

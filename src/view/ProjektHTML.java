@@ -11,6 +11,7 @@ import Utility.HtmlUtility;
 import config.Config;
 import controller.ProjekteServlet;
 import model.Projekt;
+import model.Projekt_Substanz;
 import model.Substanz;
 
 public class ProjektHTML implements HTMLPage{
@@ -18,16 +19,18 @@ public class ProjektHTML implements HTMLPage{
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private Projekt projekt;
+	private Projekt_Substanz projekt_substanz;
 	private BufferedReader htmlFile;
 	private final String HTML_FILE_NAME = Config.getValue("html.file.ProjektPage");
 	private final String FORWARD_ROUTE = "/2020_LIMS/Projekt";
 	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjektPage");
 		
-	public ProjektHTML(Projekt projekt, HttpServletRequest request, HttpServletResponse response, ProjekteServlet servlet) throws FileNotFoundException {
+	public ProjektHTML(Projekt projekt, Projekt_Substanz projekt_substanz, HttpServletRequest request, HttpServletResponse response, ProjekteServlet servlet) throws FileNotFoundException {
 	
 		this.request = request;
 		this.response = response;
 		this.projekt = projekt;
+		this.projekt_substanz = projekt_substanz;
 		htmlFile = HtmlUtility.getHtmlFile(HTML_FILE_NAME, servlet);
 	}
 
@@ -44,7 +47,7 @@ public class ProjektHTML implements HTMLPage{
     		
     		if(line.contains("<body>")){
     			
-    			htmlWriter.println("<div>Projekt: <b>" + projekt.getId());
+    			htmlWriter.println("<div>Projekt: <b>" + projekt.getPrimaryKey());
     			htmlWriter.println("<br>");
     		}
     		
@@ -52,7 +55,7 @@ public class ProjektHTML implements HTMLPage{
          		
          		htmlWriter.println("<tr><th>Substanzen</th></tr>");
          		
-         		for(Substanz substanz : projekt.getSubstanzen()){
+         		for(Substanz substanz : projekt_substanz.getSubstanzen()){
          			
          			htmlWriter.println(""
          					+ "<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">"
@@ -61,7 +64,7 @@ public class ProjektHTML implements HTMLPage{
          					+ 		"<input type=\"text\" "
          					+ 			"id=\"substanzIdInput\" "
          					+ 			"name=\"" + REQUEST_PARAMETER + "\" "
-         					+ 			"value=\"" + substanz.getId() + "\" "
+         					+ 			"value=\"" + substanz.getPrimaryKey() + "\" "
  							+	 		"readonly "
  							+ 			"style=\"border:0;\""
  							+ 			">"

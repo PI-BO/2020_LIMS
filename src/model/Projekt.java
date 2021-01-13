@@ -2,60 +2,44 @@ package model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
-import exceptions.ProjektNotFoundException;
+import exceptions.ModelNotFoundException;
 
 public class Projekt extends Model {
 	
-	private String id;
-	private List<Substanz> substanzen;
-	public static final String COLUMN_PROJEKT_ID = "projekt_id";
-	public static final String COLUMN_VORNAME = "vorname";
-	public static final String COLUMN_NACHNAME = "nachname";
-	public static final String COLUMN_PASSWORT = "passwort";
+	private String primaryKey;
+	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
+	public static final String TABLE = "projekte";
 
 	
-	public Projekt(String id) throws SQLException, ProjektNotFoundException{
+	public Projekt(String id) throws SQLException, ModelNotFoundException{
 		
-		this.id = id;
-		ResultSet resultSet = database.getProjekt(id);
-		setAttributes(resultSet);
+		this.primaryKey = id;
+		database.getModel(this);
 	}
 	
-	private void setAttributes(ResultSet resultSet) throws SQLException {
+	public void setAttributes(ResultSet resultSet) throws SQLException {
 
-		substanzen = new LinkedList<>();
 		
-		while (resultSet.next()) {
+		if (resultSet.next()) {
 			
-			int projektIdIndex = resultSet.findColumn(COLUMN_PROJEKT_ID);
-			id = resultSet.getString(projektIdIndex);
-			
-			int substanzIdIndex = resultSet.findColumn(Substanz.COLUMN_SUBSTANZ_ID);
-			Substanz substanz = new Substanz();
-			substanz.setId(resultSet.getString(substanzIdIndex));
-
-			substanzen.add(substanz);
+			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
+			primaryKey = resultSet.getString(projektIdIndex);
 		}
 	}
 
-	
-	public List<Substanz> getSubstanzen() {
-		return substanzen;
+	@Override
+	public String getPrimaryKey() {
+		return primaryKey;
 	}
 
-	public void setSubstanzen(List<Substanz> substanzen) {
-		this.substanzen = substanzen;
+	@Override
+	public String getPrimaryKeyColumn() {
+		return COLUMN_PRIMARY_KEY;
 	}
 
-	public String getId() {
-		return id;
+	@Override
+	public String getTable() {
+		return TABLE;
 	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 }

@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import config.Config;
 import exceptions.LoginInputInvalidException;
-import exceptions.MitarbeiterNotFoundException;
+import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 import model.Login;
 import model.Mitarbeiter;
@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
     	{
     		logException(e);
 		}
-    	catch (MitarbeiterNotFoundException e)
+    	catch (ModelNotFoundException e)
     	{
     		logException(e);
 			returnLoginFailedPage(response);
@@ -60,9 +60,9 @@ public class LoginServlet extends HttpServlet {
 		}
     }
 
-	private void validateUserLogin(HttpServletRequest request) throws SQLException, MitarbeiterNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
+	private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
 		
-		int mitarbeiterId = getEnteredMitarbeiterId(request);
+		String mitarbeiterId = getEnteredMitarbeiterId(request);
 		Login login = new Mitarbeiter(mitarbeiterId);
 		String password = getEnteredPassword(request);
 		login.validate(password);
@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 		return password;
 	}
 
-	private int getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInputInvalidException {
+	private String getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInputInvalidException {
 		
 		String mitarbeiterIdString = request.getParameter(REQUEST_PARAMETER_ID);
 		
@@ -96,7 +96,9 @@ public class LoginServlet extends HttpServlet {
 	    
 	    if(matchFound) throw new LoginInputInvalidException();
 		
-		return Integer.parseInt(request.getParameter(REQUEST_PARAMETER_ID));
+	    String mitarbeiterId = request.getParameter(REQUEST_PARAMETER_ID);
+	    
+		return mitarbeiterId;
 	}
 
 	private void forwardRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

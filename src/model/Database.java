@@ -3,11 +3,11 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import exceptions.ModelNotFoundException;
+
 public interface Database {
 
-	public ResultSet getMitarbeiter(int mitarbeiterId) throws SQLException;
-	
-	public ResultSet getProjekt(String projektId) throws SQLException;
-	
-	public ResultSet getProjekteIdList() throws SQLException;
+	public void getModel(Model model) throws SQLException, ModelNotFoundException;
+
+	public void  getTable(Model model) throws SQLException, ModelNotFoundException;
 }

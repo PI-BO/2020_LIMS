@@ -10,11 +10,12 @@ import org.apache.logging.log4j.Logger;
 
 import config.Config;
 import model.Projekt;
+import model.Projekt_Substanz;
 import model.ProjekteIdList;
 import view.HTMLPage;
 import view.ProjektHTML;
 import view.ProjekteListHTML;
-import exceptions.ProjektNotFoundException;
+import exceptions.ModelNotFoundException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,25 +39,27 @@ public class ProjekteServlet extends HttpServlet {
     	{
 			logException(e);
 		}
-    	catch (ProjektNotFoundException e)
+		catch (ModelNotFoundException e) 
     	{
 			logException(e);
 		}
     }
 
-	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException {
+	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ModelNotFoundException {
 		
 		ProjekteIdList projekteIdList = new ProjekteIdList();
 		HTMLPage htmlPage = new ProjekteListHTML(projekteIdList, request, response, this);
 		htmlPage.show();
 	}
 	
-	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ProjektNotFoundException {
+	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ModelNotFoundException {
 		
 		String projektId =  request.getParameter(REQUEST_PARAMETER);
 		Projekt projekt = new Projekt(projektId);
+		
+		Projekt_Substanz projekt_Substanz = new Projekt_Substanz(projektId);
 
-		HTMLPage htmlPage = new ProjektHTML(projekt, request, response, this);
+		HTMLPage htmlPage = new ProjektHTML(projekt, projekt_Substanz, request, response, this);
 		htmlPage.show();
 	}
 

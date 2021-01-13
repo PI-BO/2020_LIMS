@@ -3,31 +3,35 @@ package model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import exceptions.MitarbeiterNotFoundException;
+import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 
 public class Mitarbeiter extends Model implements Login {
 	
-	private int id;
+	private String primaryKey;
 	private String password;
 	private String vorname;
 	private String nachname;
 	
-    public Mitarbeiter(int id) throws SQLException, MitarbeiterNotFoundException {
+	private static final String TABLE= "mitarbeiter";
+	private static final String COLUMN_PRIMARY_KEY= "mitarbeiterID";
+	private static final String COLUMN_VORNAME= "vorname";
+	private static final String COLUMN_NACHNAME = "nachname";
+	private static final String COLUMN_PASSWORD= "passwort";
+	
+    public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
     	
-    	this.id = id;
-    	ResultSet mitarbeiterResultSet = database.getMitarbeiter(id);
-		setAttributes(mitarbeiterResultSet);
-    	
+    	this.primaryKey = primaryKey;
+    	database.getModel(this);
     }
 
-	private void setAttributes(ResultSet mitarbeiterResultSet) throws SQLException, MitarbeiterNotFoundException {
+	public void setAttributes(ResultSet mitarbeiterResultSet) throws SQLException, ModelNotFoundException {
 
 		if (mitarbeiterResultSet.next()) {
 
-	       	int vornameIndex = mitarbeiterResultSet.findColumn("vorname");
-	       	int nachnameIndex = mitarbeiterResultSet.findColumn("nachname");
-	       	int passwordIndex = mitarbeiterResultSet.findColumn("passwort");
+	       	int vornameIndex = mitarbeiterResultSet.findColumn(COLUMN_VORNAME);
+	       	int nachnameIndex = mitarbeiterResultSet.findColumn(COLUMN_NACHNAME);
+	       	int passwordIndex = mitarbeiterResultSet.findColumn(COLUMN_PASSWORD);
 	       	
 	       	vorname = mitarbeiterResultSet.getString(vornameIndex);
 	       	nachname = mitarbeiterResultSet.getString(nachnameIndex);
@@ -35,7 +39,7 @@ public class Mitarbeiter extends Model implements Login {
 	       	
 		}else{
        	
-			throw new MitarbeiterNotFoundException("Mitarbeiter nicht gefunden");
+			throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
        }
 	}
     
@@ -61,11 +65,18 @@ public class Mitarbeiter extends Model implements Login {
 		this.nachname = nachname;
 	}
 
-	public void setId(int id){
-		this.id = id;
+	@Override
+	public String getPrimaryKey() {
+		return primaryKey;
 	}
-	
-	public int getId(){
-		return this.id;
+
+	@Override
+	public String getPrimaryKeyColumn() {
+		return COLUMN_PRIMARY_KEY;
+	}
+
+	@Override
+	public String getTable() {
+		return TABLE;
 	}
 }
