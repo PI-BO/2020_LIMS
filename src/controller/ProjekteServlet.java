@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.logging.log4j.LogManager;
@@ -55,6 +56,8 @@ public class ProjekteServlet extends HttpServlet {
     	
     	LOGGER.debug("doGet()");
     	
+    	if(!validateSession(request)) return;	//TODO vorläufig als Passwortschutz
+    	
     	try 
     	{
     		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKTE)) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
@@ -69,6 +72,15 @@ public class ProjekteServlet extends HttpServlet {
 			logException(e);
 		}
     }
+
+	private boolean validateSession(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		if(session == null) return false;
+    	if(session.getAttribute("validatedUser") == null) return false;
+    	if(!session.getAttribute("validatedUser").equals("true")) return false;
+    	return true;
+	}
     
 	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ModelNotFoundException {
 		

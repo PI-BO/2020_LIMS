@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +39,7 @@ public class LoginServlet extends HttpServlet {
     	{
     		validateUserLogin(request);
 //    		forwardRequest(request, response);
-    		redirectRequest(response, FORWARD_ROUTE);
+    		redirectRequest(response);
 		}
     	catch (SQLException e)
     	{
@@ -69,15 +70,12 @@ public class LoginServlet extends HttpServlet {
     
 	private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
 		
+		request.getSession().invalidate();
 		String mitarbeiterId = getEnteredMitarbeiterId(request);
 		Login login = new Mitarbeiter(mitarbeiterId);
 		String password = getEnteredPassword(request);
 		login.validate(password);
-		addMitarbeiterToRequest(request, (Mitarbeiter)login);
-	}
-
-	private void addMitarbeiterToRequest(HttpServletRequest request, Login login) {
-		request.setAttribute(LoginServlet.REQUEST_ATTRIBUTE, login);
+		request.getSession().setAttribute("validatedUser", "true");
 	}
     
 	private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
@@ -117,8 +115,9 @@ public class LoginServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-	private void redirectRequest(HttpServletResponse response, String route) throws IOException {
-		response.sendRedirect(route);
+	private void redirectRequest(HttpServletResponse response) throws IOException {
+		
+		response.sendRedirect(FORWARD_ROUTE);
 	}
     
     private void returnLoginFailedPage(HttpServletResponse response){
