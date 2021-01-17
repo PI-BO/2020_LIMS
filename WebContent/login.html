@@ -1,22 +1,58 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Login</title>
+<!-- Latest compiled and minified jQuery -->
+<meta charset="UTF-8" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="login.css">
 </head>
-
 <body>
+	<div class="wrapper">
+		<div class="container">
+			<h1>Solid-Chem | LIMS</h1>
 
-	<form action="LoginServletRoute" method="post">
-	<label for="user_id">Mitarbeiter-ID: </label>
-	<input type="text" id="user_id" name="mitarbeiter_id">
-	<br>
-	<label for="password">Passwort: </label>
-	<input type="password" id="password" name="mitarbeiter_password">
-	<br>
-	<input type="submit" value="log in">
-	</form>
+			<form id="login-form" class="form" action="LoginServletRoute"
+				method="post">
+				<input type="text" placeholder="Username" name="mitarbeiter_id"
+					id="username_input"> <input type="password"
+					placeholder="Password" name="mitarbeiter_password"
+					id="password_input">
+				<button type="submit" id="login-button">Login</button>
+			</form>
+		</div>
 
+
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<script>
+		var loginForm = document.getElementById("login-form"), button = document
+				.getElementById("login-button");
+
+		// 		loginForm.onsubmit = function() {
+		// 		    return false;
+		// 		}
+
+		button.onclick = function() {
+			$('form').fadeOut(500);
+			$('.wrapper').addClass('form-success');
+			setTimeout(function() {
+				loginForm.submit();
+			}, 1000);
+			return false;
+		}
+	</script>
 </body>
-	
 </html>

@@ -36,6 +36,11 @@ public class LoginServlet extends HttpServlet {
     	
     	try
     	{
+    		String mitarbeiterIdString = request.getParameter(REQUEST_PARAMETER_ID);
+    		String password = request.getParameter(REQUEST_PARAMETER_PASSWORD);
+    		
+    		System.out.println(mitarbeiterIdString + " " + password);
+    		
     		validateUserLogin(request);
     		forwardRequest(request, response);
 		}
