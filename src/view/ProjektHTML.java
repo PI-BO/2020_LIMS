@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Utility.HtmlUtility;
 import config.Config;
-import controller.ProjekteServlet;
 import model.Projekt;
 import model.Projekt_Substanz;
 import model.Substanz;
@@ -22,10 +23,10 @@ public class ProjektHTML implements HTMLPage{
 	private Projekt_Substanz projekt_substanz;
 	private BufferedReader htmlFile;
 	private final String HTML_FILE_NAME = Config.getValue("html.file.ProjektPage");
-	private final String FORWARD_ROUTE = "/2020_LIMS/Projekt";
+	private final String FORWARD_ROUTE = Config.getValue("fowardRoute.Projekt");
 	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjektPage");
 		
-	public ProjektHTML(Projekt projekt, Projekt_Substanz projekt_substanz, HttpServletRequest request, HttpServletResponse response, ProjekteServlet servlet) throws FileNotFoundException {
+	public ProjektHTML(Projekt projekt, Projekt_Substanz projekt_substanz, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
 	
 		this.request = request;
 		this.response = response;
@@ -45,39 +46,26 @@ public class ProjektHTML implements HTMLPage{
          	
     		htmlWriter.println(line);
     		
-    		if(line.contains("<body>")){
-    			
-    			htmlWriter.println("<div>Projekt: <b>" + projekt.getPrimaryKey());
-    			htmlWriter.println("<br>");
-    		}
-    		
-         	if(line.contains("id=\"table\"")){
+         	if(line.contains("class=\"container\"")){
          		
-         		htmlWriter.println("<tr><th>Substanzen</th></tr>");
+         		htmlWriter.println("<h1>Projekt: " + projekt.getPrimaryKey() + "</h1>");
+         		
+         		htmlWriter.println("<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">");
          		
          		for(Substanz substanz : projekt_substanz.getSubstanzen()){
          			
          			htmlWriter.println(""
          					+ "<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">"
-         					+ "<tr>"
-         					+ 	"<td>"
-         					+ 		"<input type=\"text\" "
-         					+ 			"id=\"substanzIdInput\" "
-         					+ 			"name=\"" + REQUEST_PARAMETER + "\" "
-         					+ 			"value=\"" + substanz.getPrimaryKey() + "\" "
- 							+	 		"readonly "
- 							+ 			"style=\"border:0;\""
- 							+ 			">"
-         					+ 	"</td>"
-         					+ 	"<td>"
-         					+ 		"<button disabled>-></button>"
-         					+ 	"</td>"
-         					+ "</tr>"
-         					+ "</form>"
+         					+ "<input type=\"submit\" "
+         					+ "id=\"projektIdInput\" "
+         					+ "name=\"" + REQUEST_PARAMETER + "\" "
+         					+ "value=\"" + substanz.getPrimaryKey() + "\" "
+ 							+ ">"
          					);
          		}
+         		
+         		htmlWriter.println("</form>");
          	}
     	}
 	}
-
 }

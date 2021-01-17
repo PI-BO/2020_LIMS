@@ -24,7 +24,7 @@ public class ProjekteListHTML implements HTMLPage{
 	private BufferedReader htmlFile;
 	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjekteListPage");
 	private final String HTML_FILE_NAME = Config.getValue("html.file.ProjekteListPage");
-	private final String FORWARD_ROUTE = "/2020_LIMS/Projekt";
+	private final String FORWARD_ROUTE = Config.getValue("fowardRoute.Projekt");
 		
 	public ProjekteListHTML(ProjekteIdList projekteIdList, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
 
@@ -47,39 +47,29 @@ public class ProjekteListHTML implements HTMLPage{
          	
     		htmlWriter.println(line);
     		
-    		if(line.contains("<body>")){
-    			
-    			htmlWriter.println("<div>Login erfolgreich.</div>");
-    			htmlWriter.println("<br>");
-    			htmlWriter.println("<div>Hallo <b>" + mitarbeiter.getVorname() + " " + mitarbeiter.getNachname() + "</b>. Willkommen auf der Projekte Seite.</div>");
-    			htmlWriter.println("<br>");
-    		}
-    		
-         	if(line.contains("id=\"table\"")){
+         	if(line.contains("class=\"container\"")){
          		
-         		htmlWriter.println("<tr><th> Projektname </th></tr>");
+//         		htmlWriter.println("<div>Login erfolgreich.</div>");
+//         		htmlWriter.println("<br>");
+//         		htmlWriter.println("<div>Hallo <b>" + mitarbeiter.getVorname() + " " + mitarbeiter.getNachname() + "</b>. Willkommen auf der Projekte Seite.</div>");
+//         		htmlWriter.println("<br>");
+         		htmlWriter.println("<h1>Projekte</h1>");
+         		
+         		htmlWriter.println("<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">");
          		
          		for(String projektId : projekteIdStringList){
          			
          			htmlWriter.println(""
          					+ "<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">"
-         					+ "<tr>"
-         					+ 	"<td>"
-         					+ 		"<input type=\"text\" "
-         					+ 			"id=\"projektIdInput\" "
-         					+ 			"name=\"" + REQUEST_PARAMETER + "\" "
-         					+ 			"value=\"" + projektId + "\" "
- 							+	 		"readonly "
- 							+ 			"style=\"border:0;\""
- 							+ 			">"
-         					+ 	"</td>"
-         					+ 	"<td>"
-         					+ 		"<button>-></button>"
-         					+ 	"</td>"
-         					+ "</tr>"
-         					+ "</form>"
+         					+ "<input type=\"submit\" "
+         					+ "id=\"projektIdInput\" "
+         					+ "name=\"" + REQUEST_PARAMETER + "\" "
+         					+ "value=\"" + projektId + "\" "
+ 							+ ">"
          					);
          		}
+         		
+         		htmlWriter.println("</form>");
          	}
     	}
 	}

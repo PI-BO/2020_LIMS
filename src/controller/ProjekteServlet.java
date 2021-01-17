@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,14 +27,18 @@ public class ProjekteServlet extends HttpServlet {
 	private static final long serialVersionUID = 6585003356653758862L;
 	private static final Logger LOGGER = LogManager.getLogger(ProjekteServlet.class.getSimpleName());
 	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjekteListPage");
+	private final String FORWARD_ROUTE_PROJEKTE = Config.getValue("fowardRoute.Projekte");
+	private final String FORWARD_ROUTE_PROJEKT = Config.getValue("fowardRoute.Projekt");
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
+    	LOGGER.debug("doPost()");
+    	
     	try 
     	{
-    		if(request.getServletPath().equals("/ProjekteServletRoute")) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
-    		if(request.getServletPath().equals("/Projekt")) showProjektPage(request, response);
+    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKTE)) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
+    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKT)) showProjektPage(request, response);
 		}
     	catch (SQLException e)
     	{
@@ -45,6 +50,26 @@ public class ProjekteServlet extends HttpServlet {
 		}
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	LOGGER.debug("doGet()");
+    	
+    	try 
+    	{
+    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKTE)) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
+    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKT)) showProjektPage(request, response);
+		}
+    	catch (SQLException e)
+    	{
+			logException(e);
+		}
+		catch (ModelNotFoundException e) 
+    	{
+			logException(e);
+		}
+    }
+    
 	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ModelNotFoundException {
 		
 		ProjekteIdList projekteIdList = new ProjekteIdList();
@@ -63,11 +88,6 @@ public class ProjekteServlet extends HttpServlet {
 		htmlPage.show();
 	}
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    	LOGGER.debug("doGet() called but not implemented");
-    }
 
     private void logException(Exception e) {
     	LOGGER.debug(e.toString());

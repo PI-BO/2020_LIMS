@@ -72,6 +72,7 @@ form {
   position: relative;
   z-index: 2;
 }
+
 form input {
   -webkit-appearance: none;
      -moz-appearance: none;

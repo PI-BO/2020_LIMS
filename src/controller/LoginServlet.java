@@ -29,20 +29,16 @@ public class LoginServlet extends HttpServlet {
 	public static final String REQUEST_ATTRIBUTE = "login";
 	public static final String REQUEST_PARAMETER_PASSWORD = Config.getValue("html.requestParameter.loginPage.password");
 	public static final String REQUEST_PARAMETER_ID = Config.getValue("html.requestParameter.loginPage.id");
-	private static final String FORWARD_ROUTE = "ProjekteServletRoute";
+	private static final String FORWARD_ROUTE = Config.getValue("fowardRoute.Projekte");
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	try
     	{
-    		String mitarbeiterIdString = request.getParameter(REQUEST_PARAMETER_ID);
-    		String password = request.getParameter(REQUEST_PARAMETER_PASSWORD);
-    		
-    		System.out.println(mitarbeiterIdString + " " + password);
-    		
     		validateUserLogin(request);
-    		forwardRequest(request, response);
+//    		forwardRequest(request, response);
+    		redirectRequest(response, FORWARD_ROUTE);
 		}
     	catch (SQLException e)
     	{
@@ -61,10 +57,16 @@ public class LoginServlet extends HttpServlet {
     	catch (LoginInputInvalidException e) {
 			
     		logException(e);
-			returnLoginInvalidPage(response);
+			returnLoginInputInvalidPage(response);
 		}
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    	LOGGER.debug("doGet() called but not implemented");
+    }
+    
 	private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
 		
 		String mitarbeiterId = getEnteredMitarbeiterId(request);
@@ -74,10 +76,9 @@ public class LoginServlet extends HttpServlet {
 		addMitarbeiterToRequest(request, (Mitarbeiter)login);
 	}
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-    	LOGGER.debug("doGet() called but not implemented");
-    }
+	private void addMitarbeiterToRequest(HttpServletRequest request, Login login) {
+		request.setAttribute(LoginServlet.REQUEST_ATTRIBUTE, login);
+	}
     
 	private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
 		
@@ -111,14 +112,14 @@ public class LoginServlet extends HttpServlet {
 		forwardRequestToRoute(request, response, FORWARD_ROUTE);
 	}
 
-	private void addMitarbeiterToRequest(HttpServletRequest request, Login login) {
-		request.setAttribute(LoginServlet.REQUEST_ATTRIBUTE, login);
-	}
-
     private void forwardRequestToRoute(HttpServletRequest request, HttpServletResponse response, String route) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(route);
         requestDispatcher.forward(request, response);
     }
+
+	private void redirectRequest(HttpServletResponse response, String route) throws IOException {
+		response.sendRedirect(route);
+	}
     
     private void returnLoginFailedPage(HttpServletResponse response){
     	
@@ -135,7 +136,7 @@ public class LoginServlet extends HttpServlet {
 		}
     }
     
-    private void returnLoginInvalidPage(HttpServletResponse response){
+    private void returnLoginInputInvalidPage(HttpServletResponse response){
     	
     	PrintWriter htmlWriter;
     	try
