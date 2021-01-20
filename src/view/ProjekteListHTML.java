@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Utility.HtmlUtility;
 import config.Config;
 import controller.LoginServlet;
 import model.Mitarbeiter;
 import model.ProjekteIdList;
+import utility.HtmlUtility;
 
 public class ProjekteListHTML implements HTMLPage{
 

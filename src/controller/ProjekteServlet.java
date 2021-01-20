@@ -1,11 +1,11 @@
 package controller;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,54 +23,48 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+@WebServlet(ProjekteServlet.ROUTE)
 public class ProjekteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 6585003356653758862L;
 	private static final Logger LOGGER = LogManager.getLogger(ProjekteServlet.class.getSimpleName());
+	
+	public static final String ROUTE = "/projekte";
+	public static final String PROJEKTE = "/projekte.jsp";
 	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjekteListPage");
-	private final String FORWARD_ROUTE_PROJEKTE = Config.getValue("fowardRoute.Projekte");
-	private final String FORWARD_ROUTE_PROJEKT = Config.getValue("fowardRoute.Projekt");
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	LOGGER.debug("doPost()");
     	
-    	try 
-    	{
-    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKTE)) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
-    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKT)) showProjektPage(request, response);
+//		Cookie cookie = new Cookie(name, value);
+//      // setting cookie to expiry in 60 mins
+//      crunchifyCookie.setMaxAge(10);
+//      response.addCookie(crunchifyCookie);
+//      response.sendRedirect("CrunchifyLoginSuccessful.jsp");
+    	
+    	HttpSession session = request.getSession();
+    	try {
+			session.setAttribute("liste", new ProjekteIdList());
 		}
-    	catch (SQLException e)
-    	{
-			logException(e);
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch (ModelNotFoundException e) 
-    	{
-			logException(e);
+		catch (ModelNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+    	
+    	response.sendRedirect(request.getContextPath() + PROJEKTE);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	LOGGER.debug("doGet()");
-    	
-    	if(!validateSession(request)) return;	//TODO vorläufig als Passwortschutz
-    	
-    	try 
-    	{
-    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKTE)) showProjekteListPage(request, response);	//TODO Route aus Config auslesen?
-    		if((request.getContextPath() + request.getServletPath()).equals(FORWARD_ROUTE_PROJEKT)) showProjektPage(request, response);
-		}
-    	catch (SQLException e)
-    	{
-			logException(e);
-		}
-		catch (ModelNotFoundException e) 
-    	{
-			logException(e);
-		}
+    	response.sendRedirect(request.getContextPath() + "/projekte_design.html");
     }
 
 	private boolean validateSession(HttpServletRequest request) {

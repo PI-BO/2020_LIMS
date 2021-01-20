@@ -2,10 +2,11 @@ package controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,7 @@ import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 import model.Login;
 import model.Mitarbeiter;
+import view.LoginHTML;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,14 +25,19 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@WebServlet(LoginServlet.ROUTE)
 public class LoginServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 244881171954270102L;
 	private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getSimpleName());
+	
+	public static final String ROUTE = "/login";
+	private static final String LOGIN_PAGE = LoginHTML.ROUTE;
+	private static final String FORWARD_ROUTE = ProjekteServlet.ROUTE;
+	
 	public static final String REQUEST_ATTRIBUTE = "login";
 	public static final String REQUEST_PARAMETER_PASSWORD = Config.getValue("html.requestParameter.loginPage.password");
 	public static final String REQUEST_PARAMETER_ID = Config.getValue("html.requestParameter.loginPage.id");
-	private static final String FORWARD_ROUTE = Config.getValue("fowardRoute.Projekte");
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,8 +45,8 @@ public class LoginServlet extends HttpServlet {
     	try
     	{
     		validateUserLogin(request);
-//    		forwardRequest(request, response);
-    		redirectRequest(response);
+    		forwardRequest(request, response);		// Unterschied forward, redirect:	https://javabeat.net/difference-forward-sendredirect-servlet/
+//    		redirectRequest(request, response);
 		}
     	catch (SQLException e)
     	{
@@ -65,12 +72,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    	LOGGER.debug("doGet() called but not implemented");
+//    	LOGGER.debug("doGet() called but not implemented");
+    	LOGGER.debug("doGet() called, redirect to: " + LOGIN_PAGE);
+    	response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
     }
     
 	private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
 		
-		request.getSession().invalidate();
 		String mitarbeiterId = getEnteredMitarbeiterId(request);
 		Login login = new Mitarbeiter(mitarbeiterId);
 		String password = getEnteredPassword(request);
@@ -115,9 +123,9 @@ public class LoginServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-	private void redirectRequest(HttpServletResponse response) throws IOException {
+	private void redirectRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		response.sendRedirect(FORWARD_ROUTE);
+		response.sendRedirect(request.getContextPath() + FORWARD_ROUTE);
 	}
     
     private void returnLoginFailedPage(HttpServletResponse response){

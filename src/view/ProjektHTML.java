@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Utility.HtmlUtility;
 import config.Config;
 import model.Projekt;
 import model.Projekt_Substanz;
 import model.Substanz;
+import utility.HtmlUtility;
 
 public class ProjektHTML implements HTMLPage{
 
