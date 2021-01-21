@@ -10,28 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import config.Config;
-import model.Projekt;
-import model.Projekt_Substanz;
-import model.Substanz;
 import utility.HtmlUtility;
+import database.model.Projekt;
+import database.model.Substanz;
+import database.relations.ProjekteSubstanz;
 
 public class ProjektHTML implements HTMLPage{
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private Projekt projekt;
-	private Projekt_Substanz projekt_substanz;
+	private ProjekteSubstanz substanzen;
 	private BufferedReader htmlFile;
 	private final String HTML_FILE_NAME = Config.getValue("html.file.ProjektPage");
 	private final String FORWARD_ROUTE = Config.getValue("fowardRoute.Projekt");
 	private final String REQUEST_PARAMETER = Config.getValue("html.requestParameter.ProjektPage");
 		
-	public ProjektHTML(Projekt projekt, Projekt_Substanz projekt_substanz, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
+	public ProjektHTML(Projekt projekt, ProjekteSubstanz substanzen, HttpServletRequest request, HttpServletResponse response, HttpServlet servlet) throws FileNotFoundException {
 	
 		this.request = request;
 		this.response = response;
 		this.projekt = projekt;
-		this.projekt_substanz = projekt_substanz;
+		this.substanzen = substanzen;
 		htmlFile = HtmlUtility.getHtmlFile(HTML_FILE_NAME, servlet);
 	}
 
@@ -52,7 +52,7 @@ public class ProjektHTML implements HTMLPage{
          		
          		htmlWriter.println("<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">");
          		
-         		for(Substanz substanz : projekt_substanz.getSubstanzen()){
+         		for(Substanz substanz : substanzen.getSubstanzen()){
          			
          			htmlWriter.println(""
          					+ "<form action=\"" + FORWARD_ROUTE + "\" method=\"post\">"

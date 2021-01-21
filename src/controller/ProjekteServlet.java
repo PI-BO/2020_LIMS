@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import database.model.Substanz;
+import database.relations.ProjekteSubstanz;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import config.Config;
-import model.Projekt;
-import model.Projekt_Substanz;
-import model.ProjekteIdList;
+import database.model.Projekt;
+import database.model.ProjekteIdList;
 import view.HTMLPage;
 import view.ProjektHTML;
 import view.ProjekteListHTML;
@@ -48,16 +49,11 @@ public class ProjekteServlet extends HttpServlet {
     	try {
 			session.setAttribute("liste", new ProjekteIdList());
 		}
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
+		catch (SQLException | ModelNotFoundException e) {
 			e.printStackTrace();
 		}
-		catch (ModelNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	response.sendRedirect(request.getContextPath() + PROJEKTE);
+
+		response.sendRedirect(request.getContextPath() + PROJEKTE);
     }
 
     @Override
@@ -65,6 +61,8 @@ public class ProjekteServlet extends HttpServlet {
     	
     	LOGGER.debug("doGet()");
     	response.sendRedirect(request.getContextPath() + "/projekte_design.html");
+
+    	if(!validateSession(request)) return;	//TODO vorläufig als Passwortschutz
     }
 
 	private boolean validateSession(HttpServletRequest request) {
@@ -88,12 +86,11 @@ public class ProjekteServlet extends HttpServlet {
 		String projektId =  request.getParameter(REQUEST_PARAMETER);
 		Projekt projekt = new Projekt(projektId);
 		
-		Projekt_Substanz projekt_Substanz = new Projekt_Substanz(projektId);
+		ProjekteSubstanz substanz = new ProjekteSubstanz(projekt);
 
-		HTMLPage htmlPage = new ProjektHTML(projekt, projekt_Substanz, request, response, this);
+		HTMLPage htmlPage = new ProjektHTML(projekt, substanz, request, response, this);
 		htmlPage.show();
 	}
-
 
     private void logException(Exception e) {
     	LOGGER.debug(e.toString());

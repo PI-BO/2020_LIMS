@@ -1,4 +1,4 @@
-package model;
+package database.connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,8 +16,7 @@ public class DatabaseConnection {
     private Connection connection;
     private static DatabaseConnection databaseConnection = null;
     
-    private DatabaseConnection() throws SQLException{
-    	
+    private DatabaseConnection() throws SQLException {
     	connectToDatabase();
     }
     

@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import config.Config;
 import exceptions.ModelNotFoundException;
-import model.Substanz;
+import database.model.Substanz;
 
 public class SubstanzServlet extends HttpServlet{
 

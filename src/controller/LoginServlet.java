@@ -15,8 +15,8 @@ import config.Config;
 import exceptions.LoginInputInvalidException;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
-import model.Login;
-import model.Mitarbeiter;
+import database.inerfaces.Login;
+import database.model.Mitarbeiter;
 import view.LoginHTML;
 
 import java.io.IOException;

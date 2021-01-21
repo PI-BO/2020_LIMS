@@ -29,8 +29,8 @@ public class Config implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("Server Started");
         getApplicationProperties();
-        addProperties("hi", "ho");
-        saveProperties();
+        //   addProperties("hi", "ho");
+     //   saveProperties();
     }
 
     @Override
@@ -107,7 +107,6 @@ public class Config implements ServletContextListener {
     }
     
     public static String getValue(Object key){
-    	
     	return Config.getApplicationProperties().get(key).toString();
     }
 }

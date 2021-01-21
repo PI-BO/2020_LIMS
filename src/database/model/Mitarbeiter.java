@@ -1,8 +1,9 @@
-package model;
+package database.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import database.inerfaces.Login;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 

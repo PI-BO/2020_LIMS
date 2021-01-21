@@ -1,14 +1,24 @@
-package model;
+package database.connection;
 
+import java.awt.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import database.inerfaces.Database;
+import database.model.Model;
+import database.relations.OneToMany;
+import database.relations.OneToOne;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import exceptions.ModelNotFoundException;
 
-public class MariaDB implements Database{
+public class MariaDB implements Database {
 
 	private DatabaseConnection databaseConnection;
 	private static final Logger LOGGER = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
@@ -38,5 +48,17 @@ public class MariaDB implements Database{
 		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 		
 		model.setAttributes(resultSet);
+	}
+
+	public <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> reslation) throws SQLException, ModelNotFoundException {
+		try {
+			String sqlStatement = "SELECT * FROM " + reslation.getManyTable() + " WHERE " + reslation.getOneKeyColumn() + "=\"" + reslation.getOneKey() + "\";";
+
+			ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+
+			reslation.setAttributes(resultSet);
+		} catch (NoSuchFieldException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 	}
 }

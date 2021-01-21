@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import config.Config;
 import controller.LoginServlet;
-import model.Mitarbeiter;
-import model.ProjekteIdList;
 import utility.HtmlUtility;
+import database.model.Mitarbeiter;
+import database.model.ProjekteIdList;
 
 public class ProjekteListHTML implements HTMLPage{
 
