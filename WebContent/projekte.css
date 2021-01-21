@@ -1,73 +1,86 @@
- /* Style the table */
+/* Style the table */
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
-/*   width: 100%; */
-  border: 1px solid #ddd;
-/*   margin-left: auto; */
+	border-spacing: 0;
+	border: 1px solid #ddd;
+}
+
+#navigation_container{
 }
 
 /* Style table headers and table data */
 th, td {
-  text-align: left;
-  padding: 16px;
+	text-align: left;
+	padding: 16px;
+}
+
+th:first-child{
+	background-color: #6ab5ff
 }
 
 th:first-child, td:first-child {
-  text-align: left;
+	text-align: left;
 }
 
 /* Zebra-striped table rows */
 tr:nth-child(even) {
-  background-color: #f2f2f2
+	background-color: #f2f2f2
 }
 
-.fa-check {
-  color: green;
-}
-
-.fa-remove {
-  color: red;
-} 
-
-
-
- /* Remove default bullets */
-ul, #myUL {
-  list-style-type: none;
+/* Remove default bullets */
+#navigation_tree, .navigation_tree_branches {
+	list-style-type: none;
 }
 
 /* Remove margins and padding from the parent ul */
-#myUL {
-  margin: 0;
-  padding: 0;
+#navigation_tree {
+	margin: 0;
+	padding: 0;
 }
 
-/* Style the caret/arrow */
-.caret {
-  cursor: pointer;
-  user-select: none; /* Prevent text selection */
+.navigation_tree_node {
+	cursor: pointer;
+	user-select: none; /* Prevent text selection */
 }
 
-/* Create the caret/arrow with a unicode, and style it */
-.caret::before {
-  content: "\25B6";
-  color: black;
-  display: inline-block;
-  margin-right: 6px;
+.navigation_tree_node::before {
+	content: "\1F4C1";
+	color: black;
+	display: inline-block;
+	margin-right: 6px;
 }
 
-/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-.caret-down::before {
-  transform: rotate(90deg);
+.navigation_tree_node_open::before {
+	/*   transform: rotate(90deg); */
+	content: "\1F4C2";
 }
+
+.navigation_tree_node_user::before {
+	content: "\1F464";
+}
+
+.navigation_tree_node_add::before {
+	content: "\1F4CB";
+}
+
+.navigation_tree_node_edit::before {
+	content: "\1F4DD";
+}
+
+.navigation_tree_node_search::before {
+	content: "\1F4D6";
+}
+
+.navigation_tree_node_logout::before {
+	content: "\1F4BC";
+}
+
 
 /* Hide the nested list */
-.nested {
-  display: none;
+.navigation_tree_branches {
+	display: none;
 }
 
 /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-.active {
-  display: block;
-} 
+.navigation_tree_branches_open {
+	display: block;
+}
