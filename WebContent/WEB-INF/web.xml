@@ -11,44 +11,4 @@
 <!--     <welcome-file>login.html</welcome-file> -->
     <welcome-file>login</welcome-file>
   </welcome-file-list>
- 
-
-<!--   <servlet> -->
-<!--   	<servlet-name>LoginServlet</servlet-name> -->
-<!--   	<servlet-class>controller.LoginServlet</servlet-class> -->
-<!--   </servlet> -->
-  
-<!--   <servlet-mapping>   -->
-<!-- 	<servlet-name>LoginServlet</servlet-name> -->
-<!-- 	<url-pattern>/</url-pattern>  -->
-<!--   </servlet-mapping> -->
-
-
-  <servlet>
-  	<servlet-name>ProjekteServlet</servlet-name>
-  	<servlet-class>controller.ProjekteServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>  
-	<servlet-name>ProjekteServlet</servlet-name>
-	<url-pattern>/Projekte</url-pattern> 
-  </servlet-mapping>
-  
-  <servlet-mapping>  
-	<servlet-name>ProjekteServlet</servlet-name>
-	<url-pattern>/Projekt</url-pattern> 
-  </servlet-mapping>
-
-
-  <servlet>
-  	<servlet-name>SubstanzServlet</servlet-name>
-  	<servlet-class>controller.SubstanzServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>  
-	<servlet-name>SubstanzServlet</servlet-name>
-	<url-pattern>/SubstanzServletRoute</url-pattern> 
-  </servlet-mapping>
-  
-  
 </web-app>

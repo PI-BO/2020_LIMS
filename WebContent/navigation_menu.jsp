@@ -1,6 +1,6 @@
 <%@page import="controller.WelcomeServlet"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
-<%@ page import="model.ProjekteIdList"%>
+<%@ page import="database.model.ProjekteIdList"%>
 
 <link rel="stylesheet" href="navigation_menu.css">
 

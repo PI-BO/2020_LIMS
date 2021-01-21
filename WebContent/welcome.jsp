@@ -5,23 +5,14 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 		<title>Solid-Chem | LIMS</title>
-<!-- 		<link rel="stylesheet" href="projekte.css"> -->
 		<script src="jquery-3.5.1.js"></script>
 	</head>
 
 	<body>
+		<div id="container_navigation">
 			<%@ include file = "navigation_menu.jsp" %>
+		</div>
+		<div id="container_content">
+		</div>
 	</body>
-<!-- 		<script type="text/javascript"> -->
-<!-- 			$(document).ready(function() { -->
-<!-- 				console.log("start"); -->
-
-<!-- 				 $.post("http://localhost:8080/2020_LIMS/navigation.jsp", { test: "test" }, function(data, status){ -->
-<!--  					 $( "#navigation_tree" ).append( data ); -->
-<!-- 				 }); -->
-				
-<!-- 				console.log("end"); -->
-<!-- 			}); -->
-		
-<!-- 	</script> -->
 </html>

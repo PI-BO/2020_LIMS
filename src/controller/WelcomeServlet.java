@@ -10,10 +10,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import model.ProjekteIdList;
+import database.model.ProjekteIdList;
 import exceptions.ModelNotFoundException;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -32,16 +31,14 @@ public class WelcomeServlet extends HttpServlet {
     	
     	LOGGER.debug("doPost()");
     	
-    	HttpSession session = request.getSession();
     	try {
-			session.setAttribute(SESSION_ATTRIBUTE_NAVIGATION, new ProjekteIdList());
-			response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
+    		redirectToWelcomePage(request, response);
 		}
 		catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
 		catch (ModelNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.debug(e);
 		}
     }
 
@@ -52,18 +49,10 @@ public class WelcomeServlet extends HttpServlet {
     	response.sendRedirect(request.getContextPath() + "/projekte_design.html");
     }
     
-	private void showProjekteListPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ModelNotFoundException {
-		
-		//TODO
-	}
-	
-	private void showProjektPage(HttpServletRequest request, HttpServletResponse response) throws SQLException, FileNotFoundException, IOException, ModelNotFoundException {
-
-		//TODO
-	}
-
-
-    private void logException(Exception e) {
-    	LOGGER.debug(e.toString());
+    private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ModelNotFoundException{
+    	
+    	HttpSession session = request.getSession();
+		session.setAttribute(SESSION_ATTRIBUTE_NAVIGATION, new ProjekteIdList());
+		response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
     }
 }

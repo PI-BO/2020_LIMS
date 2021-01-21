@@ -1,0 +1,49 @@
+INSERT INTO demo.mitarbeiter (mitarbeiterID, vorname, nachname, passwort) VALUES (123, 'Hans', 'Wurst', 'abc');
+INSERT INTO demo.mitarbeiter (mitarbeiterID, vorname, nachname, passwort) VALUES (456, 'Harry', 'Potter', 'abc');
+
+INSERT INTO demo.partner (vertragsnummer, name, email) VALUES (0, 'hans', 'hans@kranz.lanz');
+INSERT INTO demo.partner (vertragsnummer, name, email) VALUES (1, 'perter', 'peter@meter.keter');
+INSERT INTO demo.partner (vertragsnummer, name, email) VALUES (2, 'jack', 'jack@hack.lack');
+
+INSERT INTO demo.projekte (projekt_id, vertragsnummer) VALUES ('A', 0);
+INSERT INTO demo.projekte (projekt_id, vertragsnummer) VALUES ('B', 1);
+INSERT INTO demo.projekte (projekt_id, vertragsnummer) VALUES ('C', 2);
+
+INSERT INTO demo.substanz (substanz_id, projekt_id) VALUES ('SubstanzA', 'A');
+INSERT INTO demo.substanz (substanz_id, projekt_id) VALUES ('SubstanzA2', 'A');
+INSERT INTO demo.substanz (substanz_id, projekt_id) VALUES ('SubstanzB', 'B');
+INSERT INTO demo.substanz (substanz_id, projekt_id) VALUES ('SubstanzC', 'C');
+
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('C', 'Ätzend');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('E', 'Explusionsgefährlich');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('F', 'Leichtentzündlich');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('F+', 'Hochentzündlich');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('N', 'Umweltgefährlich');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('O', 'Brandfördernd');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('T', 'Giftig');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('T+', 'Sehr Giftig');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('Xi', 'Reizend');
+INSERT INTO demo.eigenschaften (eigenschft_key, value) VALUES ('Xn', 'Gesundheidsschädlich');
+
+INSERT INTO demo.probe (proben_nr, substanz_id) VALUES ('Probe A1', 'SubstanzA');
+INSERT INTO demo.probe (proben_nr, substanz_id) VALUES ('Probe A2', 'SubstanzA');
+INSERT INTO demo.probe (proben_nr, substanz_id) VALUES ('Probe A21', 'SubstanzA2');
+INSERT INTO demo.probe (proben_nr, substanz_id) VALUES ('Probe B1', 'SubstanzB');
+INSERT INTO demo.probe (proben_nr, substanz_id) VALUES ('Probe C1', 'SubstanzC');
+
+INSERT INTO demo.experiment (id, proben_nr) VALUES (0, 'Probe A1');
+INSERT INTO demo.experiment (id, proben_nr) VALUES (3, 'Probe A1');
+INSERT INTO demo.experiment (id, proben_nr) VALUES (1, 'Probe A2');
+
+INSERT INTO demo.experimenttyp (id, typ) VALUES (1, 'slurry');
+INSERT INTO demo.experimenttyp (id, typ) VALUES (3, 'grinding');
+
+INSERT INTO demo.experimenttyp_slurry (id, value) VALUES (1, 42);
+
+INSERT INTO demo.experimenttyp_grinding (id) VALUES (3);
+
+INSERT INTO demo.analysen (id, api, bemerkung) VALUES (1, 'karl', 'Donuts sind lecker');
+INSERT INTO demo.analysen (id, api, bemerkung) VALUES (2, 'analyse', 'Donuts sind sehr lecker');
+
+INSERT INTO demo.experimente_analysen (experiment, analyse) VALUES (0, 1);
+INSERT INTO demo.experimente_analysen (experiment, analyse) VALUES (3, 2);

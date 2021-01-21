@@ -1,4 +1,4 @@
-package model;
+package database.inerfaces;
 
 import exceptions.PasswordIncorrectException;
 

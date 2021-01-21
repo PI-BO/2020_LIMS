@@ -3,7 +3,6 @@ package controller;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import config.Config;
 import exceptions.LoginInputInvalidException;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
-import model.Login;
-import model.Mitarbeiter;
+import database.inerfaces.Login;
+import database.model.Mitarbeiter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -33,8 +31,8 @@ public class LoginServlet extends HttpServlet {
 	private static final String FORWARD_ROUTE = WelcomeServlet.ROUTE;
 	
 	public static final String REQUEST_ATTRIBUTE = "login";
-	public static final String REQUEST_PARAMETER_PASSWORD = Config.getValue("html.requestParameter.loginPage.password");
-	public static final String REQUEST_PARAMETER_ID = Config.getValue("html.requestParameter.loginPage.id");
+	public static final String REQUEST_PARAMETER_PASSWORD = "mitarbeiter_password";
+	public static final String REQUEST_PARAMETER_ID = "mitarbeiter_id";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +41,6 @@ public class LoginServlet extends HttpServlet {
     	{
     		validateUserLogin(request);
     		forwardRequest(request, response);		// Unterschied forward, redirect:	https://javabeat.net/difference-forward-sendredirect-servlet/
-//    		redirectRequest(request, response);
 		}
     	catch (SQLException e)
     	{
@@ -69,7 +66,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    	LOGGER.debug("doGet() called, redirect to: " + LOGIN_PAGE);
+    	LOGGER.debug("doGet() called");
+    	LOGGER.debug("redirect to: " + LOGIN_PAGE);
     	response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
     }
     
@@ -92,19 +90,17 @@ public class LoginServlet extends HttpServlet {
 
 	private String getEnteredMitarbeiterId(HttpServletRequest request) throws LoginInputInvalidException {
 		
-		String mitarbeiterIdString = request.getParameter(REQUEST_PARAMETER_ID);
+		String mitarbeiterId = request.getParameter(REQUEST_PARAMETER_ID);
 		
-		if(mitarbeiterIdString.isEmpty()) throw new LoginInputInvalidException();
+		if(mitarbeiterId.isEmpty()) throw new LoginInputInvalidException();
 		
 		Pattern pattern = Pattern.compile("[a-z]");
-	    Matcher matcher = pattern.matcher(mitarbeiterIdString);
+	    Matcher userInputMatcher = pattern.matcher(mitarbeiterId);
 	    
-	    boolean matchFound = matcher.find();
+	    boolean wrongUserInputFound = userInputMatcher.find();
 	    
-	    if(matchFound) throw new LoginInputInvalidException();
+	    if(wrongUserInputFound) throw new LoginInputInvalidException();
 		
-	    String mitarbeiterId = request.getParameter(REQUEST_PARAMETER_ID);
-	    
 		return mitarbeiterId;
 	}
 

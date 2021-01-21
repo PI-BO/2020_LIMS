@@ -1,4 +1,4 @@
-package model;
+package database.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public class ProjekteIdList extends Model{
 	@Override
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
 		
-		projekteIdList = new LinkedList<String>();
+		projekteIdList = new LinkedList<>();
 		
 		while (resultSet.next()) {
 
