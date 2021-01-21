@@ -5,12 +5,12 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 		<title>Solid-Chem | LIMS</title>
-		<link rel="stylesheet" href="projekte.css">
+<!-- 		<link rel="stylesheet" href="projekte.css"> -->
 		<script src="jquery-3.5.1.js"></script>
 	</head>
 
 	<body>
-			<%@ include file = "navigation_menue.jsp" %>
+			<%@ include file = "navigation_menu.jsp" %>
 	</body>
 <!-- 		<script type="text/javascript"> -->
 <!-- 			$(document).ready(function() { -->

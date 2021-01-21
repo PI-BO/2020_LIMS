@@ -17,12 +17,7 @@ import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 import model.Login;
 import model.Mitarbeiter;
-import utility.HtmlUtility;
-import view.LoginHTML;
-import view.htmlElements.NavigationElement;
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,8 +29,8 @@ public class LoginServlet extends HttpServlet {
 	private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getSimpleName());
 	
 	public static final String ROUTE = "/login";
-	private static final String LOGIN_PAGE = LoginHTML.ROUTE;
-	private static final String FORWARD_ROUTE = ProjekteServlet.ROUTE;
+	private static final String LOGIN_PAGE = "/login.html";
+	private static final String FORWARD_ROUTE = WelcomeServlet.ROUTE;
 	
 	public static final String REQUEST_ATTRIBUTE = "login";
 	public static final String REQUEST_PARAMETER_PASSWORD = Config.getValue("html.requestParameter.loginPage.password");
@@ -74,7 +69,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-//    	LOGGER.debug("doGet() called but not implemented");
     	LOGGER.debug("doGet() called, redirect to: " + LOGIN_PAGE);
     	response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
     }
@@ -85,7 +79,6 @@ public class LoginServlet extends HttpServlet {
 		Login login = new Mitarbeiter(mitarbeiterId);
 		String password = getEnteredPassword(request);
 		login.validate(password);
-		request.getSession().setAttribute("validatedUser", "true");
 	}
     
 	private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
@@ -131,48 +124,17 @@ public class LoginServlet extends HttpServlet {
 	}
     
     private void returnLoginFailedPage(HttpServletResponse response){
-    	
-    	PrintWriter htmlWriter;
-		try
-		{
-			htmlWriter = response.getWriter();
-			htmlWriter.println("<div>Mitarbeiter nicht gefunden.</div>");
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			LOGGER.debug(e.toString());
-		}
+
+    	//TODO
     }
     
     private void returnLoginInputInvalidPage(HttpServletResponse response){
-    	
-    	PrintWriter htmlWriter;
-    	try
-    	{
-    		htmlWriter = response.getWriter();
-    		htmlWriter.println("<div>Keine oder inkorrekte Zeichen eingegeben.</div>");
-    	}
-    	catch (IOException e) {
-    		e.printStackTrace();
-    		LOGGER.debug(e.toString());
-    	}
+    	//TODO
     }
     
     private void returnPasswordIncorrectPage(HttpServletResponse response) {
-    	
-    	PrintWriter htmlWriter;
-    	
-    	try
-    	{    		
-    		htmlWriter = response.getWriter();
-    		htmlWriter.println("<div>Falsches Passwort.</div>");
-    	}
-    	catch (IOException e)
-    	{
-    		e.printStackTrace();
-    		LOGGER.debug(e.toString());
-    	}
+
+    	//TODO
     }
     
     private void logException(Exception e) {
