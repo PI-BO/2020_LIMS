@@ -1,0 +1,39 @@
+table{
+	border-spacing: 0;
+  	width: 100%;
+  	border: 1px solid #ddd;
+}
+
+th{
+	cursor: pointer;
+	padding: 16px;
+}
+
+th:first-child{
+	background-color: #6ab5ff
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+td{
+	text-align: left;
+  	padding: 16px;
+  	cursor: pointer;
+}
+
+#container_navigation{
+	float:left;
+	padding-left:10px;
+}
+
+#container_content{
+	float:left;
+	padding-left:20px;
+}
+
+#container_content2{
+	float:left;
+	padding-left:20px;
+}
