@@ -14,21 +14,16 @@ public class ProjekteIdList extends Model{
 	private List<String> projekteIdList;
 	
 	public ProjekteIdList() throws SQLException, ModelNotFoundException{
-		
 		database.getTable(this);
 	}
 	
 	@Override
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-		
 		projekteIdList = new LinkedList<>();
 		
 		while (resultSet.next()) {
-
 			int projektIdIndex = resultSet.findColumn(Projekt.COLUMN_PRIMARY_KEY);
-
 			String projektName = resultSet.getString(projektIdIndex);
-			
 			projekteIdList.add(projektName);
 		}
 	}
@@ -39,14 +34,12 @@ public class ProjekteIdList extends Model{
 
 	@Override
 	public String getPrimaryKey() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getPrimaryKeyColumn() {
-		// TODO Auto-generated method stub
-		return null;
+		return Projekt.COLUMN_PRIMARY_KEY;
 	}
 
 	@Override

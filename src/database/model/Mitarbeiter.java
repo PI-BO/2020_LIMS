@@ -39,14 +39,12 @@ public class Mitarbeiter extends Model implements Login {
 	       	password = mitarbeiterResultSet.getString(passwordIndex); 
 	       	
 		}else{
-       	
 			throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
        }
 	}
     
 	@Override
 	public void validate(String password) throws PasswordIncorrectException {
-		
 		if(!this.password.equals(password)) throw new PasswordIncorrectException();
 	}
 

@@ -28,7 +28,6 @@ public class WelcomeServlet extends HttpServlet {
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
     	LOGGER.debug("doPost()");
     	
     	try {
@@ -44,7 +43,6 @@ public class WelcomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
     	LOGGER.debug("doGet()");
     	response.sendRedirect(request.getContextPath() + "/projekte_design.html");
     }
