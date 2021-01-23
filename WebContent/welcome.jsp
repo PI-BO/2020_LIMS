@@ -9,10 +9,15 @@
 	</head>
 
 	<body>
+		
 		<div id="container_navigation">
 			<%@ include file = "navigation_menu.jsp" %>
 		</div>
-		<div id="container_content">
-		</div>
+		
+		<div id="container_content"></div>
+		
 	</body>
+	
+	<SCRIPT LANGUAGE="JavaScript">
+	</SCRIPT>
 </html>

@@ -73,6 +73,9 @@ tr:nth-child(even) {
 .navigation_tree_node_logout::before {
 	content: "\1F4BC";
 }
+.navigation_tree_node_list::before {
+	content: "\1F4D6";
+}
 
 
 /* Hide the nested list */

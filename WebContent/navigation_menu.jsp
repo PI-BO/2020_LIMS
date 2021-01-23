@@ -33,19 +33,7 @@
 						
 					<li><span class="navigation_tree_node">Projekte</span>
 						<ul class="navigation_tree_branches">
-							<%
-										ProjekteIdList sessionList = (ProjekteIdList) request.getSession().getAttribute(WelcomeServlet.SESSION_ATTRIBUTE_NAVIGATION);
-										
-										if(sessionList != null){
-											
-											for(String projektId : sessionList.getProjekteIdList()){
-												
-												%>
-							<li><span class="navigation_tree_node"><%=projektId%></span></li>
-							<%
-											}
-										}
-									%>
+							<li><span class="navigation_tree_node navigation_tree_node_list" id="projekte_auflisten">auflisten</span></li>
 						</ul></li>
 
 					<li><span class="navigation_tree_node">Substanzen</span>
@@ -63,7 +51,7 @@
 	</table>
 </div>
 
-<script>
+	<script>
 		var toggler = document.getElementsByClassName("navigation_tree_node");
 		var i;
 	
@@ -73,5 +61,13 @@
 						.toggle("navigation_tree_branches_open");
 				this.classList.toggle("navigation_tree_node_open");
 			});
-		}		
+		}
+		
+		$("#projekte_auflisten").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/projekte.jsp";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#container_content" ).empty().append( data );
+			});
+		});
 	</script>
