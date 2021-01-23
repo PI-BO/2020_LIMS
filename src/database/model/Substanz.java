@@ -8,9 +8,7 @@ import java.sql.SQLException;
 public class Substanz extends Model {
 
     private String primaryKey;
-    private String projektID;
     public static final String COLUMN_PRIMARY_KEY = "substanz_id";
-    public static final String COLUMN_PROJEKT_ID = "projekt_ID";
     public static final String TABLE = "substanz";
 
     public Substanz(String id) throws SQLException, ModelNotFoundException {
@@ -38,15 +36,10 @@ public class Substanz extends Model {
         if (resultSet.next()) {
 
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
-            projektID = resultSet.getString(resultSet.findColumn(COLUMN_PROJEKT_ID));
 
         } else {
 
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("Model nicht gefunden");
         }
-    }
-
-    public String getProjektID() {
-        return projektID;
     }
 }

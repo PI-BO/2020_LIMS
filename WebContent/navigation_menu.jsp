@@ -3,14 +3,13 @@
 <%@ page import="database.model.ProjekteIdList"%>
 
 <link rel="stylesheet" href="navigation_menu.css">
-
-<div id="navigation_container">
-	<table>
+<div>
+	<table id="navigation_table">
 		<tr>
-			<th>Navigation</th>
+			<th class="navigation_table_header">Navigation</th>
 		</tr>
-		<tr>
-			<td>
+		<tr class="navigation_table_row">
+			<td class="navigation_table_data">
 				<ul id="navigation_tree">
 
 					<li><span class="navigation_tree_node navigation_tree_node_user">Account</span>

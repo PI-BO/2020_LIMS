@@ -43,11 +43,25 @@ public class MariaDB implements Database {
 		
 		model.setAttributes(resultSet);
 	}
+	
+	@Override
+	public void getRelation(Model model) throws SQLException, ModelNotFoundException {
+		
+		String sqlStatement = "SELECT * FROM " + model.getTable() + " WHERE " + model.getPrimaryKeyColumn() + "=\"" + model.getPrimaryKey() + "\";";
+		
+		System.out.println(sqlStatement);
+		
+		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+		
+		model.setAttributes(resultSet);
+	}
 
 	public <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> reslation) throws SQLException, ModelNotFoundException {
 		try {
 			String sqlStatement = "SELECT * FROM " + reslation.getManyTable() + " WHERE " + reslation.getOneKeyColumn() + "=\"" + reslation.getOneKey() + "\";";
 
+			System.out.println(sqlStatement);
+			
 			ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 
 			reslation.setAttributes(resultSet);

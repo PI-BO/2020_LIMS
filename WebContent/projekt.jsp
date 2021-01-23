@@ -1,4 +1,6 @@
-<%@page import="database.model.ProjekteIdList"%>
+<%@page import="database.model.ProjektSubstanzen"%>
+<%@page import="database.model.Substanz"%>
+<%@page import="database.model.Projekt"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
 
@@ -11,21 +13,22 @@
 </head>
 
 <%
-	ProjekteIdList projekte = new ProjekteIdList();
+	String projekt_id = (String) request.getParameter("projekt_id");
+	Projekt projekt = new Projekt(projekt_id);
+	ProjektSubstanzen projektSubstanzen = new ProjektSubstanzen(projekt_id);
 %>
 
 <body>
-		<table id="projekte_list_table">
+		<table id="projekt_list_table">
 			<tr>
-				<th class="projekt_list_table_header" onclick="sortTableProjekte(0)">Projekt
-					ID</th>
+				<th class="projekt_list_table_header" onclick="sortTable(0)">Projekt: <%=projekt.getPrimaryKey()%></th>
 			</tr>
 			<%
-				for (String id : projekte.getProjekteIdList()) {
+				for (Substanz substanz : projektSubstanzen.getSubstanzen()) {
 			%>
 
 			<tr>
-				<td class="projekt_list_element navigation_tree_node"><%=id%></td>
+				<td class="projekt_list_element"><%=substanz.getPrimaryKey()%></td>
 			</tr>
 
 			<%
@@ -34,19 +37,9 @@
 		</table>
 
 		<script>
-		
-			var toggler = document.getElementsByClassName("navigation_tree_node");
-			var i;
-		
-			for (i = 0; i < toggler.length; i++) {
-				toggler[i].addEventListener("click", function() {
-					this.classList.toggle("navigation_tree_node_open");
-				});
-			}
-		
-			function sortTableProjekte(n) {
+			function sortTable(n) {
 				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-				table = document.getElementById("projekte_list_table");
+				table = document.getElementById("projekt_list_table");
 				switching = true;
 				//Set the sorting direction to ascending:
 				dir = "asc";
@@ -101,14 +94,6 @@
 				}
 			}
 			
-			$(".projekt_list_element").click(function(){
-				var url = "http://localhost:8080/2020_LIMS/projekt.jsp";
-				var posting = $.post( url, {projekt_id : $(this).text()} );
-				console.log("Projekt: ", $(this).text());
-				posting.done(function( data ) {
-					$( "#container_content2" ).empty().append( data );
-				});
-			});
 			
 		</script>
 
