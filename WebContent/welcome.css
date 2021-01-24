@@ -1,27 +1,3 @@
-table{
-	border-spacing: 0;
-  	width: 100%;
-  	border: 1px solid #ddd;
-}
-
-th{
-	cursor: pointer;
-	padding: 16px;
-}
-
-th:first-child{
-	background-color: #6ab5ff
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2
-}
-
-td{
-	text-align: left;
-  	padding: 16px;
-  	cursor: pointer;
-}
 
 #container_navigation{
 	float:left;
@@ -36,4 +12,48 @@ td{
 #container_content2{
 	float:left;
 	padding-left:20px;
+}
+
+
+/* Symbols */
+
+.symbol_triangle_up::after {
+	content: "\25B4";
+	margin-left: 6px;
+}
+
+.symbol_triangle_down::after {
+	content: "\25BE";
+}
+
+.symbol_folder_closed::before {
+	content: "\1F4C1";
+	margin-right: 6px;
+}
+
+.symbol_folder_open::before {
+	content: "\1F4C2";
+}
+
+.symbol_user::before {
+	content: "\1F464";
+}
+
+.symbol_add::before {
+	content: "\1F4CB";
+}
+
+.symbol_edit::before {
+	content: "\1F4DD";
+}
+
+.symbol_search::before {
+	content: "\1F4D6";
+}
+
+.symbol_logout::before {
+	content: "\1F4BC";
+}
+.symbol_list::before {
+	content: "\1F4D6";
 }

@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<link rel="stylesheet" href="projekt.css">
 <title>LIMS | Projekt</title>
 <script src="jquery-3.5.1.js"></script>
 </head>
@@ -19,16 +20,24 @@
 %>
 
 <body>
-		<table id="projekt_list_table">
+		<table id="projekt_table">
 			<tr>
-				<th class="projekt_list_table_header" onclick="sortTable(0)">Projekt: <%=projekt.getPrimaryKey()%></th>
+				<th colspan=3 class="projekt_table_header" onclick="sortTable(0)"><%=projekt.getPrimaryKey()%></th>
 			</tr>
+			
+			<tr id="projekt_list_table_row_sortfuntions">
+				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="sortTableSubstanz(0)">Name</td>
+				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="">Datum</td>
+				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="">etc</td>
+			</tr>
+			
+			
 			<%
 				for (Substanz substanz : projektSubstanzen.getSubstanzen()) {
 			%>
 
 			<tr>
-				<td class="projekt_list_element"><%=substanz.getPrimaryKey()%></td>
+				<td class="projekt_table_data"><%=substanz.getPrimaryKey()%></td>
 			</tr>
 
 			<%
@@ -37,9 +46,19 @@
 		</table>
 
 		<script>
-			function sortTable(n) {
+			
+			var toggler = document.getElementsByClassName("projekt_list_table_data_sortfuntion");
+			var i;
+		
+			for (i = 0; i < toggler.length; i++) {
+				toggler[i].addEventListener("click", function() {
+					this.classList.toggle("symbol_triangle_down");
+				});
+			}
+		
+			function sortTableSubstanz(n) {
 				var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-				table = document.getElementById("projekt_list_table");
+				table = document.getElementById("projekt_table");
 				switching = true;
 				//Set the sorting direction to ascending:
 				dir = "asc";
@@ -50,8 +69,8 @@
 					switching = false;
 					rows = table.rows;
 					/*Loop through all table rows (except the
-					first, which contains table headers):*/
-					for (i = 1; i < (rows.length - 1); i++) {
+					first and second, which contains table headers):*/
+					for (i = 2; i < (rows.length - 1); i++) {
 						//start by saying there should be no switching:
 						shouldSwitch = false;
 						/*Get the two elements you want to compare,

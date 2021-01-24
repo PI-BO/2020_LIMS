@@ -1,3 +1,29 @@
+#navigation_table{
+	border-spacing: 0;
+  	width: 100%;
+  	border: 1px solid #ddd;
+}
+
+.navigation_table_header{
+	cursor: pointer;
+	padding: 16px;
+	background-color: #77bbff
+}
+
+.navigation_table_header:first-child{
+/* 	background-color: #6ab5ff */
+}
+
+.navigation_table_row:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+.navigation_table_data{
+	text-align: left;
+  	padding: 16px;
+  	cursor: pointer;
+}
+
 
 /* Remove default bullets */
 #navigation_tree, .navigation_tree_branches {
@@ -13,41 +39,6 @@
 .navigation_tree_node {
 	cursor: pointer;
 	user-select: none; /* Prevent text selection */
-}
-
-.navigation_tree_node::before {
-	content: "\1F4C1";
-	color: black;
-	display: inline-block;
-	margin-right: 6px;
-}
-
-.navigation_tree_node_open::before {
-	/*   transform: rotate(90deg); */
-	content: "\1F4C2";
-}
-
-.navigation_tree_node_user::before {
-	content: "\1F464";
-}
-
-.navigation_tree_node_add::before {
-	content: "\1F4CB";
-}
-
-.navigation_tree_node_edit::before {
-	content: "\1F4DD";
-}
-
-.navigation_tree_node_search::before {
-	content: "\1F4D6";
-}
-
-.navigation_tree_node_logout::before {
-	content: "\1F4BC";
-}
-.navigation_tree_node_list::before {
-	content: "\1F4D6";
 }
 
 /* Hide the nested list */

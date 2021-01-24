@@ -12,37 +12,37 @@
 			<td class="navigation_table_data">
 				<ul id="navigation_tree">
 
-					<li><span class="navigation_tree_node navigation_tree_node_user">Account</span>
+					<li><span class="navigation_tree_node symbol_user">Account</span>
 						<ul class="navigation_tree_branches">
 							<li><span
-								class="navigation_tree_node navigation_tree_node_edit">bearbeiten</span></li>
+								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 							<li><span
-								class="navigation_tree_node navigation_tree_node_logout">Logout</span></li>
+								class="navigation_tree_node symbol_logout">Logout</span></li>
 						</ul></li>
 
-					<li><span class="navigation_tree_node navigation_tree_node_user">Projektpartner</span>
+					<li><span class="navigation_tree_node symbol_user">Projektpartner</span>
 						<ul class="navigation_tree_branches">
 							<li><span
-								class="navigation_tree_node navigation_tree_node_add">hinzufuegen</span></li>
+								class="navigation_tree_node symbol_add">hinzufuegen</span></li>
 							<li><span
-								class="navigation_tree_node navigation_tree_node_search">suchen</span></li>
+								class="navigation_tree_node symbol_search">suchen</span></li>
 							<li><span
-								class="navigation_tree_node navigation_tree_node_edit">bearbeiten</span></li>
+								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 						</ul>
 						
-					<li><span class="navigation_tree_node">Projekte</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node navigation_tree_node_list" id="projekte_auflisten">auflisten</span></li>
+							<li><span class="navigation_tree_node symbol_list" id="projekte_auflisten">auflisten</span></li>
 						</ul></li>
 
-					<li><span class="navigation_tree_node">Substanzen</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
 						<ul class="navigation_tree_branches">
 							<li><span
-								class="navigation_tree_node navigation_tree_node_add">hinzufuegen</span></li>
+								class="navigation_tree_node symbol_add">hinzufuegen</span></li>
 							<li><span
-								class="navigation_tree_node navigation_tree_node_search">suchen</span></li>
+								class="navigation_tree_node symbol_search">suchen</span></li>
 							<li><span
-								class="navigation_tree_node navigation_tree_node_edit">bearbeiten</span></li>
+								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 						</ul>
 				</ul>
 			</td>
@@ -56,9 +56,8 @@
 	
 		for (i = 0; i < toggler.length; i++) {
 			toggler[i].addEventListener("click", function() {
-				this.parentElement.querySelector(".navigation_tree_branches").classList
-						.toggle("navigation_tree_branches_open");
-				this.classList.toggle("navigation_tree_node_open");
+				this.parentElement.querySelector(".navigation_tree_branches").classList.toggle("navigation_tree_branches_open");
+				this.classList.toggle("folder_open");
 			});
 		}
 		

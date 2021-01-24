@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>LIMS | Projekt</title>
+<link rel="stylesheet" href="projekte.css">
 <script src="jquery-3.5.1.js"></script>
 </head>
 
@@ -17,15 +18,21 @@
 <body>
 		<table id="projekte_list_table">
 			<tr>
-				<th class="projekt_list_table_header" onclick="sortTableProjekte(0)">Projekt
-					ID</th>
+				<th colspan=3 class="projekt_list_table_header">Projekte</th>
 			</tr>
+			
+			<tr id="projekt_list_table_row_sortfuntions">
+				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="sortTableProjekte(0)">Name</td>
+				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="">Datum</td>
+				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="">etc</td>
+			</tr>
+			
 			<%
 				for (String id : projekte.getProjekteIdList()) {
 			%>
 
-			<tr>
-				<td class="projekt_list_element navigation_tree_node"><%=id%></td>
+			<tr class="projekt_list_table_row">
+				<td class="projekt_list_table_data folder_closed"><%=id%></td>
 			</tr>
 
 			<%
@@ -35,12 +42,21 @@
 
 		<script>
 		
-			var toggler = document.getElementsByClassName("navigation_tree_node");
+			var toggler = document.getElementsByClassName("folder_closed");
 			var i;
 		
 			for (i = 0; i < toggler.length; i++) {
 				toggler[i].addEventListener("click", function() {
-					this.classList.toggle("navigation_tree_node_open");
+					this.classList.toggle("folder_open");
+				});
+			}
+		
+			var toggler = document.getElementsByClassName("projekt_list_table_row_sortfuntions");
+			var i;
+		
+			for (i = 0; i < toggler.length; i++) {
+				toggler[i].addEventListener("click", function() {
+					this.classList.toggle("symbol_triangle_down");
 				});
 			}
 		
@@ -57,8 +73,8 @@
 					switching = false;
 					rows = table.rows;
 					/*Loop through all table rows (except the
-					first, which contains table headers):*/
-					for (i = 1; i < (rows.length - 1); i++) {
+					first and second, which contains table headers):*/
+					for (i = 2; i < (rows.length - 1); i++) {
 						//start by saying there should be no switching:
 						shouldSwitch = false;
 						/*Get the two elements you want to compare,
@@ -101,12 +117,12 @@
 				}
 			}
 			
-			$(".projekt_list_element").click(function(){
+			$(".projekt_list_table_data").click(function(){
 				var url = "http://localhost:8080/2020_LIMS/projekt.jsp";
 				var posting = $.post( url, {projekt_id : $(this).text()} );
 				console.log("Projekt: ", $(this).text());
 				posting.done(function( data ) {
-					$( "#container_content2" ).empty().append( data );
+					$( "#container_content2" ).empty().append( data );					
 				});
 			});
 			
