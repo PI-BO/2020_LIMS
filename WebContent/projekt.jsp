@@ -25,10 +25,10 @@
 				<th colspan=3 class="projekt_table_header" onclick="sortTable(0)"><%=projekt.getPrimaryKey()%></th>
 			</tr>
 			
-			<tr id="projekt_list_table_row_sortfuntions">
-				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="sortTableSubstanz(0)">Name</td>
-				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="">Datum</td>
-				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="">etc</td>
+			<tr id="projekt_table_row_sortfuntions">
+				<td class="projekt_table_data_sortfuntion symbol_triangle_up" onclick="sortTableSubstanz(0)">Name</td>
+				<td class="projekt_table_data_sortfuntion symbol_triangle_up" onclick="">Datum</td>
+				<td class="projekt_table_data_sortfuntion symbol_triangle_up" onclick="">etc</td>
 			</tr>
 			
 			
@@ -37,7 +37,7 @@
 			%>
 
 			<tr>
-				<td class="projekt_table_data"><%=substanz.getPrimaryKey()%></td>
+				<td class="projekt_table_data symbol_folder_closed"><%=substanz.getPrimaryKey()%></td>
 			</tr>
 
 			<%
@@ -47,12 +47,21 @@
 
 		<script>
 			
-			var toggler = document.getElementsByClassName("projekt_list_table_data_sortfuntion");
+			var toggler = document.getElementsByClassName("projekt_table_data_sortfuntion");
 			var i;
 		
 			for (i = 0; i < toggler.length; i++) {
 				toggler[i].addEventListener("click", function() {
 					this.classList.toggle("symbol_triangle_down");
+				});
+			}
+			
+			var toggler = document.getElementsByClassName("projekt_table_data");
+			var i;
+		
+			for (i = 0; i < toggler.length; i++) {
+				toggler[i].addEventListener("click", function() {
+					this.classList.toggle("symbol_folder_open");
 				});
 			}
 		

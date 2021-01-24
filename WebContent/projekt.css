@@ -15,5 +15,17 @@
   	padding-left: 16px;
   	padding-right: 16px;
   	cursor: pointer;
-  	background-color: #f2f2f2
+  	background-color: #f2f2f2;
+}
+
+#projekt_table_row_sortfuntions{
+	background-color: white;
+	cursor: pointer;
+/* 	text-align: center; */
+}
+
+.projekt_table_data_sortfuntion{
+	padding-left: 16px;
+  	padding-right: 16px;
+  	border: 1px solid #ddd;
 }

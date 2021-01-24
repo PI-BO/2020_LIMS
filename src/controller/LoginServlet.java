@@ -3,7 +3,6 @@ package controller;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,7 @@ import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 import database.inerfaces.Login;
 import database.model.Mitarbeiter;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 	private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getSimpleName());
 	
 	public static final String ROUTE = "/login";
-	private static final String LOGIN_PAGE = "/login.html";
+	public static final String LOGIN_PAGE = "/login.html";
 	private static final String FORWARD_ROUTE = WelcomeServlet.ROUTE;
 	
 	public static final String REQUEST_ATTRIBUTE = "login";

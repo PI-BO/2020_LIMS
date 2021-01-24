@@ -32,7 +32,7 @@
 			%>
 
 			<tr class="projekt_list_table_row">
-				<td class="projekt_list_table_data folder_closed"><%=id%></td>
+				<td class="projekt_list_table_data symbol_folder_closed"><%=id%></td>
 			</tr>
 
 			<%
@@ -42,16 +42,16 @@
 
 		<script>
 		
-			var toggler = document.getElementsByClassName("folder_closed");
+			var toggler = document.getElementsByClassName("projekt_list_table_data");
 			var i;
 		
 			for (i = 0; i < toggler.length; i++) {
 				toggler[i].addEventListener("click", function() {
-					this.classList.toggle("folder_open");
+					this.classList.toggle("symbol_folder_open");
 				});
 			}
 		
-			var toggler = document.getElementsByClassName("projekt_list_table_row_sortfuntions");
+			var toggler = document.getElementsByClassName("projekt_list_table_data_sortfuntion");
 			var i;
 		
 			for (i = 0; i < toggler.length; i++) {

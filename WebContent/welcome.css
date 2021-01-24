@@ -24,6 +24,7 @@
 
 .symbol_triangle_down::after {
 	content: "\25BE";
+/* 	margin-right: 6px; */
 }
 
 .symbol_folder_closed::before {
@@ -33,27 +34,34 @@
 
 .symbol_folder_open::before {
 	content: "\1F4C2";
+	margin-right: 6px;
 }
 
 .symbol_user::before {
 	content: "\1F464";
+	margin-right: 6px;
 }
 
 .symbol_add::before {
 	content: "\1F4CB";
+	margin-right: 6px;
 }
 
 .symbol_edit::before {
 	content: "\1F4DD";
+	margin-right: 6px;
 }
 
 .symbol_search::before {
 	content: "\1F4D6";
+	margin-right: 6px;
 }
 
 .symbol_logout::before {
 	content: "\1F4BC";
+	margin-right: 6px;
 }
 .symbol_list::before {
 	content: "\1F4D6";
+	margin-right: 6px;
 }

@@ -44,13 +44,11 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	LOGGER.debug("doGet()");
-    	response.sendRedirect(request.getContextPath() + "/projekte_design.html");
+    	response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
     }
     
     private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ModelNotFoundException{
     	
-    	HttpSession session = request.getSession();
-		session.setAttribute(SESSION_ATTRIBUTE_NAVIGATION, new ProjekteIdList());
 		response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
     }
 }

@@ -57,7 +57,7 @@
 		for (i = 0; i < toggler.length; i++) {
 			toggler[i].addEventListener("click", function() {
 				this.parentElement.querySelector(".navigation_tree_branches").classList.toggle("navigation_tree_branches_open");
-				this.classList.toggle("folder_open");
+				this.classList.toggle("symbol_folder_open");
 			});
 		}
 		
