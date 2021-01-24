@@ -3,6 +3,7 @@ package controller;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,28 +37,22 @@ public class LoginServlet extends HttpServlet {
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	try
-    	{
+    	try {
     		validateUserLogin(request);
-    		forwardRequest(request, response);		// Unterschied forward, redirect:	https://javabeat.net/difference-forward-sendredirect-servlet/
+    		forwardRequest(request, response); // Unterschied forward, redirect:	https://javabeat.net/difference-forward-sendredirect-servlet/
 		}
-    	catch (SQLException e)
-    	{
+    	catch (SQLException e) {
     		logException(e);
 		}
-    	catch (ModelNotFoundException e)
-    	{
+    	catch (ModelNotFoundException e) {
     		logException(e);
 			returnLoginFailedPage(response);
 		}
     	catch (PasswordIncorrectException e) {
-			
 			logException(e);
 			returnPasswordIncorrectPage(response);
 		}
     	catch (LoginInputInvalidException e) {
-			
     		logException(e);
 			returnLoginInputInvalidPage(response);
 		}
@@ -65,14 +60,12 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
     	LOGGER.debug("doGet() called");
     	LOGGER.debug("redirect to: " + LOGIN_PAGE);
     	response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
     }
     
 	private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
-		
 		String mitarbeiterId = getEnteredMitarbeiterId(request);
 		Login login = new Mitarbeiter(mitarbeiterId);
 		String password = getEnteredPassword(request);
@@ -105,7 +98,6 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void forwardRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		forwardRequestToRoute(request, response, FORWARD_ROUTE);
 	}
 
@@ -115,12 +107,10 @@ public class LoginServlet extends HttpServlet {
     }
 
 	private void redirectRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
 		response.sendRedirect(request.getContextPath() + FORWARD_ROUTE);
 	}
     
     private void returnLoginFailedPage(HttpServletResponse response){
-
     	//TODO
     }
     
@@ -129,7 +119,6 @@ public class LoginServlet extends HttpServlet {
     }
     
     private void returnPasswordIncorrectPage(HttpServletResponse response) {
-
     	//TODO
     }
     
