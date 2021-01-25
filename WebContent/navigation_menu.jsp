@@ -105,6 +105,8 @@
 		$("#logout").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/login";
 			$(".navigation_tree_branches").hide(800);
+			$("#container_content").hide(800);
+			$("#container_content2").hide(800);
 			setTimeout(function() {
 				$(location).attr("href", url);
 			}, 1000);
