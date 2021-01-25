@@ -14,15 +14,10 @@ public class Projekt extends Model {
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
 	public static final String TABLE = "projekte";
 	private List<Substanz> substanzen;
-
 	
 	public Projekt(String id) throws SQLException, ModelNotFoundException{
 		this.primaryKey = id;
 		database.getModel(this);
-		
-		//TODO debuggen
-//		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
-//		substanzen = projekteSubstanz.getSubstanzen();
 	}
 	
 	public void setAttributes(ResultSet resultSet) throws SQLException {
@@ -33,9 +28,10 @@ public class Projekt extends Model {
 		}
 	}
 
-	public List<Substanz> getSubstanzen() {
+	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
 		substanzen = new ArrayList<>();
-
+		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
+		substanzen = projekteSubstanz.getSubstanzen();
 		
 
 		return substanzen;
