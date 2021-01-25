@@ -33,6 +33,8 @@
 
 			<tr class="projekt_list_table_row">
 				<td class="projekt_list_table_data symbol_folder_closed"><%=id%></td>
+				<td class="projekt_list_table_data"></td>
+				<td class="projekt_list_table_data"></td>
 			</tr>
 
 			<%

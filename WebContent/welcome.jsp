@@ -10,14 +10,30 @@
 	</head>
 
 	<body>
-		
-		<div id="container_navigation">
-			<%@ include file = "navigation_menu.jsp" %>
+		<div class="background">
+		<div class="foreground">
+			<table id="main_frame_table">
+				<tr>
+<!-- 					<th id="main_frame_header"><h2>Solid-Chem | LIMS</h2></th>  -->
+					<th id="main_frame_header"><img src="https://solid-chem.de/wp-content/uploads/2017/11/solid_chem_logo_head-kopie.png" alt="Italian Trulli"></th>
+				<tr>
+					<td>
+						<div id="container_navigation">
+							<%@ include file = "navigation_menu.jsp" %>
+						</div>
+						
+						<div id="container_content"></div>
+						<div id="container_content2"></div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+				</tr>
+			</table>
+			<div id="container_content3"></div>
 		</div>
-		
-		<div id="container_content"></div>
-		<div id="container_content2"></div>
-		
+		</div>
 	</body>
 	
 	<SCRIPT LANGUAGE="JavaScript">

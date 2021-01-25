@@ -17,7 +17,7 @@
 							<li><span
 								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 							<li><span
-								class="navigation_tree_node symbol_logout">Logout</span></li>
+								class="navigation_tree_node symbol_logout" id="logout">Logout</span></li>
 						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_user">Projektpartner</span>
@@ -33,14 +33,15 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_list" id="projekte_auflisten">auflisten</span></li>
+							<li><span class="navigation_tree_node symbol_add" id="projekt_erstellen">erstellen</span></li>
 						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
 						<ul class="navigation_tree_branches">
 							<li><span
-								class="navigation_tree_node symbol_add">hinzufuegen</span></li>
-							<li><span
 								class="navigation_tree_node symbol_search">suchen</span></li>
+							<li><span
+								class="navigation_tree_node symbol_add" id="substanz_erstellen">erstellen</span></li>
 							<li><span
 								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 						</ul>
@@ -51,21 +52,61 @@
 </div>
 
 	<script>
-		var toggler = document.getElementsByClassName("navigation_tree_node");
-		var i;
-	
-		for (i = 0; i < toggler.length; i++) {
-			toggler[i].addEventListener("click", function() {
-				this.parentElement.querySelector(".navigation_tree_branches").classList.toggle("navigation_tree_branches_open");
-				this.classList.toggle("symbol_folder_open");
-			});
-		}
+
+// 		alle Unterpunkte auf einmal oeffnen
+		$(".navigation_table_header").click(function(){
+			
+			if($(".navigation_tree_branches").is(":hidden")){
+
+				$(".navigation_tree_branches").show(400);
+				$(".symbol_folder_closed").show(400);
+			}else{
+				
+				$(".navigation_tree_branches").hide(400);
+			}
+		});
 		
+// 		listener auf einzelnen tree_node zum oeffnen von Unterpunkten 
+		$(".navigation_tree_node").click(function(){
+			$(this).next().toggle(400);
+			$(this).toggleClass("symbol_folder_open");
+		});
+		
+// 		projekte auflisten
 		$("#projekte_auflisten").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/projekte.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#container_content" ).empty().append( data );
 			});
+		});
+		
+// 		projekt erstellen
+		$("#projekt_erstellen").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.html";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#container_content2" ).empty();
+				$( "#container_content" ).empty().append( data );
+			});
+		});
+		
+// 		substanz erstellen
+		$("#substanz_erstellen").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/substanz_erstellen.html";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#container_content2" ).empty();
+				$( "#container_content" ).empty().append( data );
+			});
+		});
+		
+// 		ausloggen
+		$("#logout").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/login";
+			$(".navigation_tree_branches").hide(800);
+			setTimeout(function() {
+				$(location).attr("href", url);
+			}, 1000);
 		});
 	</script>

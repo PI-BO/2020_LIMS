@@ -7,7 +7,7 @@
 .navigation_table_header{
 	cursor: pointer;
 	padding: 16px;
-	background-color: #77bbff
+	background-color: #77bbff;
 }
 
 .navigation_table_header:first-child{
@@ -15,7 +15,7 @@
 }
 
 .navigation_table_row:nth-child(even) {
-  background-color: #f2f2f2
+  background-color: white;
 }
 
 .navigation_table_data{
@@ -44,9 +44,4 @@
 /* Hide the nested list */
 .navigation_tree_branches {
 	display: none;
-}
-
-/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-.navigation_tree_branches_open {
-	display: block;
 }

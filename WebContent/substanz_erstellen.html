@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Latest compiled and minified jQuery -->
+<meta charset="UTF-8" />
+<title>Solid-Chem | LIMS - Insert Projekt</title>
+<link rel="stylesheet" href="projekt_erstellen.css">
+</head>
+<body>
+	<form action="login" method="post">
+		<table id="create_projekt_table">
+			<tr>
+				<th colspan=4><h1>Substanz erstellen</h1></th>
+			</tr>
+			<tr>
+				<th>Substanz Informationen</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr>
+				<td>Substanz ID</td>
+				<td><input type=text placeholder="Substanz ID"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Experimente</td>
+				<td><input type=text placeholder="Experimente"></td>
+			</tr>
+			<tr>
+				<td>Projekt</td>
+				<td><input type=text placeholder="Projekt"></td>
+			</tr>
+			<tr>
+				<td>Datum</td>
+				<td><input type=text placeholder="Daturm"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Sonstiges</td>
+				<td>
+					<textarea id="w3review" name="w3review" rows="4" cols="50">
+						Sonstige Informationen
+  					</textarea>
+  				</td>
+				<td></td>
+				<td></td>
+			</tr>
+
+			<tr>
+				<th colspan=4>
+					<button type="submit">Speichern</button>
+				</th>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

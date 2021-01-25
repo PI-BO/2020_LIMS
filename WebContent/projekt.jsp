@@ -38,6 +38,8 @@
 
 			<tr>
 				<td class="projekt_table_data symbol_folder_closed"><%=substanz.getPrimaryKey()%></td>
+				<td class="projekt_table_data"></td>
+				<td class="projekt_table_data"></td>
 			</tr>
 
 			<%
