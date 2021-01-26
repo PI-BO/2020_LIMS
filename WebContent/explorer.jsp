@@ -47,7 +47,10 @@
 <div id="explorer-grid-container">
 	<div id="explorer-header">Pfad</div>
 	<div id="explorer-navigation-arrows"> Nav-Pfeile</div>
-	<div id="explorer-navigation-tree">Baum</div>
+	<div id="explorer-navigation-tree">
+		Baum
+		<%@ include file = "navigation_menu_full_tree.html" %>
+	</div>
 	<div id="explorer-content">Content</div>  
 </div>
 
