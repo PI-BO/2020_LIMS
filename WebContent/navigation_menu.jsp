@@ -78,7 +78,9 @@
 			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
+				$( "#main-content" ).hide();
 				$( "#main-content" ).empty().append( data );
+				$( "#main-content" ).show(500);
 			});
 			
 			url = "http://localhost:8080/2020_LIMS/projekte.jsp";
@@ -93,7 +95,9 @@
 			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
+				$( "#main-content" ).hide();
 				$( "#main-content" ).empty().append( data );
+				$( "#main-content" ).show(500);
 			});
 		});
 		
@@ -102,7 +106,9 @@
 			var url = "http://localhost:8080/2020_LIMS/substanz_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
+				$( "#main-content" ).hide();
 				$( "#main-content" ).empty().append( data );
+				$( "#main-content" ).show(500);
 			});
 		});
 		
