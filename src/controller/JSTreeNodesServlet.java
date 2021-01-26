@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Servlet implementation class Services
  */
-public class JSTreeServlet extends HttpServlet {
+public class JSTreeNodesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**

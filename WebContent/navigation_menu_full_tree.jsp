@@ -1,13 +1,9 @@
 <%@ page import="database.model.ProjekteIdList" %>
-<%@ page import="database.relations.ProjekteSubstanz" %>
-<%@ page import="database.model.Projekt" %>
-<%@ page import="database.model.Substanz" %>
-<%@ page import="java.util.stream.Collectors" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>JSTree</title>
     <style>
         html { margin:0; padding:0; font-size:62.5%; }
         body { max-width:800px; min-width:300px; margin:0 auto; padding:20px 10px; font-size:14px; font-size:1.4em; }
@@ -29,6 +25,7 @@
 	<div id="evts" class="demo"></div>
 
 	<h1>Lazy loading demo</h1>
+	<input type="text" id="search" value="" class="input" style="margin:0em auto 1em auto; display:block; padding:4px; border-radius:4px; border:1px solid silver;">
 	<div id="lazy" class="demo"></div>
 
 	<h1>Callback</h1>
@@ -78,13 +75,30 @@
     			data: {
         			url: function (node) {
 						console.log("call: " + node.id)
-						return 'services?id=' + node.id
+						return 'jstree/nodes?id=' + node.id
 					}
         		}
-   			},
+			},
+   			search: {
+        		// search config
+        		"show_only_matches": true,
+          		ajax: {
+            		url: "jstree/search"
+          		}
+        	},
+   			plugins : ['search'],
 		}).bind("select_node.jstree", function (e, data) {
    			console.log("select " + data.node.id)
 		});
+
+		var to = false;
+  		$('#search').keyup(function () {
+    		if(to) { clearTimeout(to); }
+    		to = setTimeout(function () {
+      			var v = $('#search').val();
+      			$('#lazy').jstree(true).search(v);
+    		}, 250);
+  		});
 
 		$('#container').jstree({
     		'core' : {
@@ -95,12 +109,12 @@
               				"id" : "root_node",
               				"children" : true,
               				"data" : {
-                  				"uri" : "services?id=" + node.id
+                  				"uri" : "jstree/nodes?id=" + node.id
                 			}
               			});
           			} else {
 			          	cb({
-    						'url' : "services?id=" + node.id,
+    						'url' : "jstree/nodes?id=" + node.id,
     						'data' : function (node) {
       							return { 'id' : node.id };
     						}

@@ -20,11 +20,12 @@ public class Projekt extends Model {
 		database.getModel(this);
 	}
 	
-	public void setAttributes(ResultSet resultSet) throws SQLException {
+	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
 		if (resultSet.next()) {
-			
 			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
 			primaryKey = resultSet.getString(projektIdIndex);
+		} else {
+			throw new ModelNotFoundException("Projekt nicht gefunden");
 		}
 	}
 

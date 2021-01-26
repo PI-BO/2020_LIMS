@@ -15,13 +15,24 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>Test</servlet-name>
-        <servlet-class>controller.JSTreeServlet</servlet-class>
+        <servlet-name>JSTreeNodes</servlet-name>
+        <servlet-class>controller.JSTreeNodesServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Test</servlet-name>
-        <url-pattern>/services</url-pattern>
+        <servlet-name>JSTreeNodes</servlet-name>
+        <url-pattern>/jstree/nodes</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>JSTreeSearch</servlet-name>
+        <servlet-class>controller.JSTreeSearchServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>JSTreeSearch</servlet-name>
+        <url-pattern>/jstree/search</url-pattern>
     </servlet-mapping>
 
 </web-app>

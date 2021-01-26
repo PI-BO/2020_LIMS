@@ -38,7 +38,7 @@ public class Substanz extends Model {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             projektID = resultSet.getString(resultSet.findColumn(COLUMN_PROJEKT_ID));
         } else {
-            throw new ModelNotFoundException("Model nicht gefunden");
+            throw new ModelNotFoundException("Substanz nicht gefunden");
         }
     }
 
