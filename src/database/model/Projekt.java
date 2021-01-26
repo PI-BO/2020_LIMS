@@ -13,25 +13,26 @@ public class Projekt extends Model {
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
 	public static final String TABLE = "projekte";
 	private List<Substanz> substanzen;
-
 	
 	public Projekt(String id) throws SQLException, ModelNotFoundException{
 		this.primaryKey = id;
 		database.getModel(this);
-		
-		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
-		substanzen = projekteSubstanz.getSubstanzen();
 	}
 	
-	public void setAttributes(ResultSet resultSet) throws SQLException {
+	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
 		if (resultSet.next()) {
-			
 			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
 			primaryKey = resultSet.getString(projektIdIndex);
+		} else {
+			throw new ModelNotFoundException("Projekt nicht gefunden");
 		}
 	}
 
-	public List<Substanz> getSubstanzen() {
+	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
+
+		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
+		substanzen = projekteSubstanz.getSubstanzen();
+
 		return substanzen;
 	}
 

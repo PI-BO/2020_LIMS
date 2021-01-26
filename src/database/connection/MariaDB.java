@@ -17,16 +17,14 @@ public class MariaDB implements Database {
 	private static final Logger LOGGER = LogManager.getLogger(DatabaseConnection.class.getSimpleName());
 	
 	public MariaDB() {
-
 		databaseConnection = DatabaseConnection.getInstance();
 		if(databaseConnection == null) LOGGER.debug("MariaDB constructor: databaseConnection == NULL");
 	}
 	
 	@Override
 	public void getModel(Model model) throws SQLException, ModelNotFoundException {
-		
 		String sqlStatement = "SELECT * FROM " + model.getTable() + " WHERE " + model.getPrimaryKeyColumn() + "=\"" + model.getPrimaryKey() + "\";";
-		
+		System.out.println(sqlStatement);
 		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 		
 		model.setAttributes(resultSet);
@@ -68,5 +66,16 @@ public class MariaDB implements Database {
 		} catch (NoSuchFieldException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public ResultSet findSubstring(Class<? extends Model> m, String str) throws NoSuchFieldException, IllegalAccessException, SQLException {
+		String table = (String) m.getDeclaredField("TABLE").get(null);
+		String primary = (String) m.getDeclaredField("COLUMN_PRIMARY_KEY").get(null);
+
+		String sqlStatement = "SELECT * FROM " + table + " WHERE " + primary + " like " + "\"%" + str + "%\";";
+
+		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+
+		return resultSet;
 	}
 }

@@ -12,7 +12,7 @@ public class Analysen extends Model{
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_API = "api";
     public static final String COLUMN_BEMERKUNG = "bemerkung";
-    public static final String TABLE = "substanz";
+    public static final String TABLE = "analysen";
 
     public Analysen(String id) throws SQLException, ModelNotFoundException {
         this.primaryKey = id;
@@ -35,15 +35,11 @@ public class Analysen extends Model{
     }
 
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-
         if (resultSet.next()) {
-
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             api = resultSet.getString(resultSet.findColumn(COLUMN_API));
             bemerkung = resultSet.getString(resultSet.findColumn(COLUMN_BEMERKUNG));
-
         } else {
-
             throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
         }
     }

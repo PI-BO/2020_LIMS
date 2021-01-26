@@ -14,6 +14,13 @@ public class Experiment extends Model{
     public static final String COLUMN_PROBEN_NR = "proben_nr";
     public static final String TABLE = "experiment";
 
+    /**
+     * Model Class for Database Eigenschaften
+     * @param primaryKey
+     * Primary key of Database TAbele
+     * @throws ModelNotFoundException
+     * @throws SQLException
+     */
     public Experiment(String primaryKey) throws ModelNotFoundException, SQLException {
         this.primaryKey = primaryKey;
         database.getModel(this);
