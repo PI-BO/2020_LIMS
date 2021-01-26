@@ -2,7 +2,6 @@ package database.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import database.relations.ProjekteSubstanz;
@@ -20,9 +19,8 @@ public class Projekt extends Model {
 		this.primaryKey = id;
 		database.getModel(this);
 		
-		//TODO debuggen
-//		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
-//		substanzen = projekteSubstanz.getSubstanzen();
+		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
+		substanzen = projekteSubstanz.getSubstanzen();
 	}
 	
 	public void setAttributes(ResultSet resultSet) throws SQLException {
@@ -34,12 +32,7 @@ public class Projekt extends Model {
 	}
 
 	public List<Substanz> getSubstanzen() {
-		substanzen = new ArrayList<>();
-
-		
-
 		return substanzen;
-
 	}
 
 	@Override

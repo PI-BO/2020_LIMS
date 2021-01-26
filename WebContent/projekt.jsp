@@ -16,7 +16,7 @@
 <%
 	String projekt_id = (String) request.getParameter("projekt_id");
 	Projekt projekt = new Projekt(projekt_id);
-	ProjektSubstanzen projektSubstanzen = new ProjektSubstanzen(projekt_id);
+// 	ProjektSubstanzen projektSubstanzen = new ProjektSubstanzen(projekt_id);
 %>
 
 <body>
@@ -33,7 +33,7 @@
 			
 			
 			<%
-				for (Substanz substanz : projektSubstanzen.getSubstanzen()) {
+				for (Substanz substanz : projekt.getSubstanzen()) {
 			%>
 
 			<tr>
