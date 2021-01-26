@@ -17,6 +17,9 @@ public class Projekt extends Model {
 	public Projekt(String id) throws SQLException, ModelNotFoundException{
 		this.primaryKey = id;
 		database.getModel(this);
+		
+		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
+		substanzen = projekteSubstanz.getSubstanzen();
 	}
 	
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
@@ -29,9 +32,6 @@ public class Projekt extends Model {
 	}
 
 	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
-
-		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
-		substanzen = projekteSubstanz.getSubstanzen();
 
 		return substanzen;
 	}

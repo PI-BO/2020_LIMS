@@ -17,9 +17,6 @@
 
 <body>
 		<table id="projekte_list_table">
-			<tr>
-				<th colspan=3 class="projekt_list_table_header">Projekte</th>
-			</tr>
 			
 			<tr id="projekt_list_table_row_sortfuntions">
 				<td class="projekt_list_table_data_sortfuntion symbol_triangle_up" onclick="sortTableProjekte(0)">Name</td>
@@ -33,6 +30,20 @@
 
 			<tr class="projekt_list_table_row">
 				<td class="projekt_list_table_data symbol_folder_closed"><%=id%></td>
+				<td class="projekt_list_table_data"></td>
+				<td class="projekt_list_table_data"></td>
+			</tr>
+
+			<%
+				}
+			%>
+			
+			<%
+				for (int i = 1; i < 10; i++) {
+			%>
+
+			<tr class="projekt_list_table_row">
+				<td class="projekt_list_table_data symbol_folder_closed">Projekt <%=i%></td>
 				<td class="projekt_list_table_data"></td>
 				<td class="projekt_list_table_data"></td>
 			</tr>
@@ -75,8 +86,8 @@
 					switching = false;
 					rows = table.rows;
 					/*Loop through all table rows (except the
-					first and second, which contains table headers):*/
-					for (i = 2; i < (rows.length - 1); i++) {
+					first, which contains table headers):*/
+					for (i = 1; i < (rows.length - 1); i++) {
 						//start by saying there should be no switching:
 						shouldSwitch = false;
 						/*Get the two elements you want to compare,
@@ -124,7 +135,7 @@
 				var posting = $.post( url, {projekt_id : $(this).text()} );
 				console.log("Projekt: ", $(this).text());
 				posting.done(function( data ) {
-					$( "#container_content2" ).empty().append( data );					
+					$( "#explorer-content" ).empty().append( data );					
 				});
 			});
 			

@@ -4,64 +4,55 @@ html, body {
   margin: 0;
 }
 
-.background:before{
-	content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-	background-image: url("https://solid-chem.de/wp-content/uploads/2016/12/sc_011.jpg");
-	opacity: 0.2;
+
+/* GRID */
+
+
+#main-container {
+  display: grid;
+  height: 100%;
+  grid-template-areas:
+    'header header header'
+    'tree-navi content content'
+    'tree-navi content content';
+  grid-template-rows: 1fr 6fr;
+  grid-template-columns: 1fr 5fr;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
 }
 
-.foreground{
+#main-header {
+	grid-area: header;
+/* 	content-align: center; */
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.8);
+}
+
+#main-header img {
 	position: relative;
-	z-index: 2;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
-#main_frame_table{
-	border-spacing: 0;
-  	width: 100%;
-/*   	border: 5px solid #ddd; */
-  	padding: 20px;
+#main-menu { 
+	grid-area: tree-navi;
+	align-self: start;
+	padding: 0;
 }
 
-#main_frame_header{
-	cursor: pointer;
-/* 	border: 1px solid #ddd; */
-	padding: 16px;
-/* 	background-color: #8ebf42 */
+#main-content {
+	grid-area: content;
+	align-self: start;
 }
 
-#container_navigation{
-	float:left;
-	padding-top:20px;
-/* 	padding-left:10px; */
-}
-
-#container_content{
-	float:left;
-	padding-top:20px;
-	padding-left:20px;
-}
-
-#container_content2{
-	float:left;
-	padding-top:20px;
-	padding-left:20px;
-}
-
-#container_content3{
-  display: inline-block;
-  margin: 0 auto;
-  padding: 3px;
-/*   background-color: #8ebf42 */
+#main-container > div {
+/*   background-color: rgba(255, 255, 255, 0.8); */
+  text-align: center;
 }
 
 
-/* Symbols */
+/* SYMBOLS*/
 
 .symbol_triangle_up::after {
 	content: "\25B4";

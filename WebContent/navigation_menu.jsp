@@ -53,6 +53,7 @@
 
 	<script>
 
+	
 // 		alle Unterpunkte auf einmal oeffnen
 		$(".navigation_table_header").click(function(){
 			
@@ -74,10 +75,16 @@
 		
 // 		projekte auflisten
 		$("#projekte_auflisten").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/projekte.jsp";
+			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#container_content" ).empty().append( data );
+				$( "#main-content" ).empty().append( data );
+			});
+			
+			url = "http://localhost:8080/2020_LIMS/projekte.jsp";
+			posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#explorer-content" ).empty().append( data );
 			});
 		});
 		
@@ -86,8 +93,7 @@
 			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#container_content2" ).empty();
-				$( "#container_content" ).empty().append( data );
+				$( "#main-content" ).empty().append( data );
 			});
 		});
 		
@@ -96,8 +102,7 @@
 			var url = "http://localhost:8080/2020_LIMS/substanz_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#container_content2" ).empty();
-				$( "#container_content" ).empty().append( data );
+				$( "#main-content" ).empty().append( data );
 			});
 		});
 		
@@ -105,8 +110,7 @@
 		$("#logout").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/login";
 			$(".navigation_tree_branches").hide(800);
-			$("#container_content").hide(800);
-			$("#container_content2").hide(800);
+			$("#main-content").hide(800);
 			setTimeout(function() {
 				$(location).attr("href", url);
 			}, 1000);

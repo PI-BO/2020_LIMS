@@ -1,12 +1,10 @@
 #projekte_list_table{
 	border-spacing: 0;
   	width: 100%;
-  	border: 1px solid #ddd;
 }
 
 .projekt_list_table_header{
 	cursor: pointer;
-	padding: 16px;
 	background-color: #77bbff
 }
 
@@ -15,7 +13,6 @@
   	padding-left: 16px;
   	padding-right: 16px;
   	cursor: pointer;
-  	background-color: #f2f2f2;
 }
 
 #projekt_list_table_row_sortfuntions{
@@ -27,6 +24,7 @@
 .projekt_list_table_data_sortfuntion{
 	padding-left: 16px;
   	padding-right: 16px;
-  	border: 1px solid #ddd;
+  	border-right: 2px solid #ddd;
+  	border-bottom: 2px solid #ddd;
 }
 

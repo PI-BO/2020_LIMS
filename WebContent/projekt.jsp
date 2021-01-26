@@ -1,4 +1,3 @@
-<%@page import="database.model.ProjektSubstanzen"%>
 <%@page import="database.model.Substanz"%>
 <%@page import="database.model.Projekt"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
@@ -16,15 +15,11 @@
 <%
 	String projekt_id = (String) request.getParameter("projekt_id");
 	Projekt projekt = new Projekt(projekt_id);
-// 	ProjektSubstanzen projektSubstanzen = new ProjektSubstanzen(projekt_id);
 %>
 
 <body>
 		<table id="projekt_table">
-			<tr>
-				<th colspan=3 class="projekt_table_header" onclick="sortTable(0)"><%=projekt.getPrimaryKey()%></th>
-			</tr>
-			
+
 			<tr id="projekt_table_row_sortfuntions">
 				<td class="projekt_table_data_sortfuntion symbol_triangle_up" onclick="sortTableSubstanz(0)">Name</td>
 				<td class="projekt_table_data_sortfuntion symbol_triangle_up" onclick="">Datum</td>
@@ -80,8 +75,8 @@
 					switching = false;
 					rows = table.rows;
 					/*Loop through all table rows (except the
-					first and second, which contains table headers):*/
-					for (i = 2; i < (rows.length - 1); i++) {
+					first, which contains table headers):*/
+					for (i = 1; i < (rows.length - 1); i++) {
 						//start by saying there should be no switching:
 						shouldSwitch = false;
 						/*Get the two elements you want to compare,

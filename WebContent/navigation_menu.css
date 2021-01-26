@@ -1,7 +1,8 @@
 #navigation_table{
 	border-spacing: 0;
   	width: 100%;
-  	border: 1px solid #ddd;
+/*   	height: 100%; */
+/*   	border: 1px solid #ddd; */
 }
 
 .navigation_table_header{
