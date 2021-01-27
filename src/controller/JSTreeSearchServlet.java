@@ -63,7 +63,7 @@ public class JSTreeSearchServlet extends HttpServlet {
             while (set.next()) {
                 keys.add(Probe.TABLE + ":" + set.getString(col));
                 keys.add(Substanz.TABLE + ":" + set.getString(par));
-                Substanz substanz = new Substanz(set.getString(col));
+                Substanz substanz = new Substanz(set.getString(par));
                 keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
             }
         } catch (SQLException throwables) {
