@@ -66,7 +66,7 @@
 			}
 		});
 		
-// 		listener auf einzelnen tree_nodes zum oeffnen von Unterpunkten 
+// 		init listener, zum oeffnen der einzelnen nodes 
 		$(".navigation_tree_node").click(function(){
 			$(this).next().toggle(400);
 			$(this).toggleClass("symbol_folder_open");
@@ -79,27 +79,17 @@
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).empty().append( data );
 			});
-			
-// 			url = "http://localhost:8080/2020_LIMS/projekte.jsp";
-// 			posting = $.post( url, {} );
-// 			posting.done(function( data ) {
-// 				$( "#explorer-content" ).empty().append( data );
-// 			});
 		});
 		
-// 		explorer anzeigen
 		$("#explorer_anzeigen").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-// 				$( "#main-content-input-masks" ).hide(500);
-// 				$( "#main-content-explorer" ).empty().append( data );
 				$( "#main-content-input-masks" ).hide();
 				$( "#main-content-explorer" ).show(500);
 			});
 		});
 		
-// 		projekt erstellen
 		$("#projekt_erstellen").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.html";
 			var posting = $.post( url, {} );
@@ -111,7 +101,6 @@
 			});
 		});
 		
-// 		substanz erstellen
 		$("#substanz_erstellen").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/substanz_erstellen.html";
 			var posting = $.post( url, {} );
@@ -123,7 +112,6 @@
 			});
 		});
 		
-// 		ausloggen
 		$("#logout").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/login";
 			$(".navigation_tree_branches").hide(800);
