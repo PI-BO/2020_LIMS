@@ -15,35 +15,35 @@
 					<li><span class="navigation_tree_node symbol_user">Account</span>
 						<ul class="navigation_tree_branches">
 							<li><span
-								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
+								class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span
-								class="navigation_tree_node symbol_logout" id="logout">Logout</span></li>
+								class="navigation_tree_node symbol_briefcase" id="logout">Logout</span></li>
 						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_user">Projektpartner</span>
 						<ul class="navigation_tree_branches">
 							<li><span
-								class="navigation_tree_node symbol_add">hinzufuegen</span></li>
+								class="navigation_tree_node symbol_clipboard">erstellen</span></li>
+							<li><span
+								class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span
 								class="navigation_tree_node symbol_search">suchen</span></li>
-							<li><span
-								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 						</ul>
 						
 					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_list" id="projekte_auflisten">auflisten</span></li>
-							<li><span class="navigation_tree_node symbol_add" id="projekt_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">anzeigen</span></li>
+							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
 						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
 						<ul class="navigation_tree_branches">
 							<li><span
+								class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li>
+							<li><span
+								class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
+							<li><span
 								class="navigation_tree_node symbol_search">suchen</span></li>
-							<li><span
-								class="navigation_tree_node symbol_add" id="substanz_erstellen">erstellen</span></li>
-							<li><span
-								class="navigation_tree_node symbol_edit">bearbeiten</span></li>
 						</ul>
 				</ul>
 			</td>
@@ -53,8 +53,7 @@
 
 	<script>
 
-	
-// 		alle Unterpunkte auf einmal oeffnen
+// 		Navigation komplett oeffnen
 		$(".navigation_table_header").click(function(){
 			
 			if($(".navigation_tree_branches").is(":hidden")){
@@ -67,20 +66,18 @@
 			}
 		});
 		
-// 		listener auf einzelnen tree_node zum oeffnen von Unterpunkten 
+// 		listener auf einzelnen tree_nodes zum oeffnen von Unterpunkten 
 		$(".navigation_tree_node").click(function(){
 			$(this).next().toggle(400);
 			$(this).toggleClass("symbol_folder_open");
 		});
 		
-// 		projekte auflisten
-		$("#projekte_auflisten").click(function(){
+// 		init explorer
+		$( document ).ready(function(){
 			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content" ).hide();
-				$( "#main-content" ).empty().append( data );
-				$( "#main-content" ).show(500);
+				$( "#main-content-explorer" ).empty().append( data );
 			});
 			
 			url = "http://localhost:8080/2020_LIMS/projekte.jsp";
@@ -90,14 +87,27 @@
 			});
 		});
 		
+// 		explorer anzeigen
+		$("#explorer_anzeigen").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+// 				$( "#main-content-input-masks" ).hide(500);
+// 				$( "#main-content-explorer" ).empty().append( data );
+				$( "#main-content-input-masks" ).hide();
+				$( "#main-content-explorer" ).show(500);
+			});
+		});
+		
 // 		projekt erstellen
 		$("#projekt_erstellen").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content" ).hide();
-				$( "#main-content" ).empty().append( data );
-				$( "#main-content" ).show(500);
+				$( "#main-content-explorer" ).hide();
+				$( "#main-content-input-masks" ).hide();
+				$( "#main-content-input-masks" ).empty().append( data );
+				$( "#main-content-input-masks" ).show(500);
 			});
 		});
 		
@@ -106,9 +116,10 @@
 			var url = "http://localhost:8080/2020_LIMS/substanz_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content" ).hide();
-				$( "#main-content" ).empty().append( data );
-				$( "#main-content" ).show(500);
+				$( "#main-content-explorer" ).hide();
+				$( "#main-content-input-masks" ).hide();
+				$( "#main-content-input-masks" ).empty().append( data );
+				$( "#main-content-input-masks" ).show(500);
 			});
 		});
 		
@@ -116,7 +127,8 @@
 		$("#logout").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/login";
 			$(".navigation_tree_branches").hide(800);
-			$("#main-content").hide(800);
+			$("#main-content-explorer").hide(800);
+			$("#main-content-input-masks").hide(800);
 			setTimeout(function() {
 				$(location).attr("href", url);
 			}, 1000);

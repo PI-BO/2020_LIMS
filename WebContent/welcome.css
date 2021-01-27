@@ -41,7 +41,12 @@ html, body {
 	padding: 0;
 }
 
-#main-content {
+#main-content-explorer {
+	grid-area: content;
+	align-self: start;
+}
+
+#main-content-input-masks {
 	grid-area: content;
 	align-self: start;
 }
@@ -53,6 +58,16 @@ html, body {
 
 
 /* SYMBOLS*/
+
+.symbol_computer::before {
+	content: "\1F4BB";
+	margin-left: 6px;
+}
+
+.symbol_diskette::before {
+	content: "\1F4BE";
+	margin-left: 6px;
+}
 
 .symbol_triangle_up::after {
 	content: "\25B4";
@@ -79,26 +94,37 @@ html, body {
 	margin-right: 6px;
 }
 
-.symbol_add::before {
+.symbol_clipboard::before {
 	content: "\1F4CB";
 	margin-right: 6px;
 }
 
-.symbol_edit::before {
+.symbol_pen_paper::before {
 	content: "\1F4DD";
 	margin-right: 6px;
 }
 
 .symbol_search::before {
+	content: "\1F50D";
+	margin-right: 6px;
+}
+
+.symbol_book::before {
 	content: "\1F4D6";
 	margin-right: 6px;
 }
 
-.symbol_logout::before {
+.symbol_briefcase::before {
 	content: "\1F4BC";
 	margin-right: 6px;
 }
-.symbol_list::before {
-	content: "\1F4D6";
+
+.symbol_door::before {
+	content: "\1F6AA";
+	margin-right: 6px;
+}
+
+.symbol_cabinet::before {
+	content: "\1F5C3";
 	margin-right: 6px;
 }
