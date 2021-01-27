@@ -58,22 +58,18 @@ public class JSTreeNodesServlet extends HttpServlet {
 
     /**
      * Create JSTree JSONObject
-     * @param model
-     * Model from database to create JSONObject with
-     * @param parent
-     * Parent Node of JSTree, if null takes root
-     * @param children
-     * Boolean to determinate if Node has Children
-     * @return
-     * JSONObject String
+     *
+     * @param model    Model from database to create JSONObject with
+     * @param parent   Parent Node of JSTree, if null takes root
+     * @param children Boolean to determinate if Node has Children
+     * @return JSONObject String
      */
     private String jsonObject(Model model, String parent, boolean children) {
-        if (parent == null || parent.isEmpty()) parent = "#";
-
         StringBuilder json = new StringBuilder();
-        json.append("{\"id\":\"").append(model.getTable()).append(":").append(model.getPrimaryKey()).append("\",");
-        json.append("\"parent\":\"").append(parent).append("\",");
-        json.append("\"text\":\"").append(model.getPrimaryKey()).append("\"");
+        json.append("{\"id\":\"").append(model.getTable()).append(":").append(model.getPrimaryKey()).append("\"");
+        if (parent != null && !parent.isEmpty()) json.append(",\"parent\":\"").append(parent).append("\"");
+        json.append(",\"text\":\"").append(model.getPrimaryKey()).append("\"");
+        json.append(",\"icon\":\"symbol_folder_closed\"");
         if (children) json.append(",\"children\":true");
         json.append("}");
 
@@ -82,10 +78,9 @@ public class JSTreeNodesServlet extends HttpServlet {
 
     /**
      * Creates a JSONArray from a list of JSONObject Strings
-     * @param objects
-     * List of JSONObjects
-     * @return
-     * JSONArray String
+     *
+     * @param objects List of JSONObjects
+     * @return JSONArray String
      */
     private String jsonArray(List<String> objects) {
         StringBuilder array = new StringBuilder();
@@ -108,7 +103,7 @@ public class JSTreeNodesServlet extends HttpServlet {
             jsons.add(jsonObject(new Projekt(id), null, true));
 
         response.getWriter().write(
-                jsonArray(jsons)
+                "{\"parent\":\"#\",\"text\":\"Projekte\",\"icon\":\"symbol_folder_closed\",\"children\":" + jsonArray(jsons) + "}"
         );
     }
 
