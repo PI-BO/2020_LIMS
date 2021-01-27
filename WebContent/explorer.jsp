@@ -3,15 +3,16 @@
 <head>
 
 <style>
-
 #explorer-grid-container {
 	display: grid;
-	grid-template-areas: 'arrow-navi header header'
-		'tree-navi content content' 'tree-navi content content';
-	grid-template-rows: 1fr 6fr;
-	grid-template-columns: 1fr 5fr;
+	grid-template-areas: 
+		'arrow-navi header' 
+		'tree-navi content';
+	grid-template-rows: 60px auto;
+	grid-template-columns: 25% auto;
 	grid-gap: 2px;
 	background-color: #f2f2f2;
+	height: 100%;
 }
 
 #explorer-grid-container>div {
@@ -36,16 +37,17 @@
 
 #explorer-content {
 	grid-area: content;
+	height: 560px;
 }
-
 </style>
 </head>
-
 <body>
 	<div id="explorer-grid-container">
 		<div id="explorer-header">Pfad</div>
-		<div id="explorer-navigation-arrows">Nav-Pfeile, aktualisieren</div>
-		<div id="explorer-navigation-tree">Baum</div>
+		<div id="explorer-navigation-arrows">Nav-Pfeile</div>
+		<div id="explorer-navigation-tree">
+			<%@ include file="navigation_menu_full_tree.html"%>
+		</div>
 		<div id="explorer-content">Content</div>
 	</div>
 </body>
