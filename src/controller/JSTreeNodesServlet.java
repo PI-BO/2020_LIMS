@@ -1,10 +1,9 @@
 package controller;
 
-import database.model.Model;
-import database.model.Projekt;
-import database.model.ProjekteIdList;
-import database.model.Substanz;
+import database.model.*;
+import database.relations.ProbeExperiment;
 import database.relations.ProjekteSubstanz;
+import database.relations.SubstanzenProbe;
 import exceptions.ModelNotFoundException;
 
 import javax.servlet.ServletException;
@@ -43,6 +42,8 @@ public class JSTreeNodesServlet extends HttpServlet {
         try {
             if (table.equals(Projekt.TABLE)) {
                 getSubstances(response, new Projekt(parentId));
+            } else if (table.equals(Substanz.TABLE)) {
+                getProben(response, new Substanz(parentId));
             } else {
                 getProjects(response);
             }
@@ -86,10 +87,13 @@ public class JSTreeNodesServlet extends HttpServlet {
         StringBuilder array = new StringBuilder();
         array.append("[");
 
-        for (String object : objects) {
-            array.append(object).append(",");
+        if (!objects.isEmpty()) {
+            for (String object : objects) {
+                array.append(object).append(",");
+            }
+            array.deleteCharAt(array.length() - 1);
         }
-        array.deleteCharAt(array.length() - 1);
+
         array.append("]");
 
         return array.toString();
@@ -112,7 +116,19 @@ public class JSTreeNodesServlet extends HttpServlet {
         List<Substanz> substanzen = projekteSubstanz.getSubstanzen();
         List<String> jsons = new ArrayList<>();
         for (Substanz substanz : substanzen)
-            jsons.add(jsonObject(substanz, p.getTable() + ':' + p.getPrimaryKey(), false));
+            jsons.add(jsonObject(substanz, p.getTable() + ':' + p.getPrimaryKey(), true));
+
+        response.getWriter().write(
+                jsonArray(jsons)
+        );
+    }
+
+    private void getProben(HttpServletResponse response, Substanz substanz) throws ModelNotFoundException, SQLException, IOException {
+        SubstanzenProbe substanzenProbe = new SubstanzenProbe(substanz);
+        List<Probe> proben = substanzenProbe.getProben();
+        List<String> jsons = new ArrayList<>();
+        for (Probe probe : proben)
+            jsons.add(jsonObject(probe, substanz.getTable() + ':' + substanz.getPrimaryKey(), false));
 
         response.getWriter().write(
                 jsonArray(jsons)

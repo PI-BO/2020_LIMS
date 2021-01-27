@@ -57,11 +57,9 @@
         },
         plugins: ['search'],
     }).on("select_node.jstree", function (e, data) {
-//     	alert('The selected node is: ' + data.node.text);
+        loadNode(data);
     }).on("open_node.jstree", function (e, data) {
         data.instance.set_icon(data.node, "symbol_folder_open");
-        loadNode(data);
-        
     }).on("close_node.jstree", function (e, data) {
         data.instance.set_icon(data.node, "symbol_folder_closed");
     });
@@ -76,26 +74,25 @@
             $('#lazy').jstree(true).search(v);
         }, 250);
     });
-    
-    function loadNode(data){
 
-        var url;
-        var nodeCategory = data.node.id.split(":")[0];
-        
-        if(nodeCategory == "j1_1"){	//Projekte Node
-        	url = "http://localhost:8080/2020_LIMS/projekte.jsp";
-        }else if(nodeCategory == "projekte"){
-        	url = "http://localhost:8080/2020_LIMS/projekt.jsp";
-        }else{
-        	return;
+    function loadNode(data) {
+        let url;
+        const nodeCategory = data.node.id.split(":")[0];
+
+        if (nodeCategory == "j1_1") {	//Projekte Node
+            url = "http://localhost:8080/2020_LIMS/projekte.jsp";
+        } else if (nodeCategory == "projekte") {
+            url = "http://localhost:8080/2020_LIMS/projekt.jsp";
+        } else {
+            return;
         }
-        
-		var posting = $.post( url, {projekt_id : data.node.text} );
-		posting.done(function( data ) {
-			$( "#explorer-content" ).empty().append( data );					
-		});
+
+        var posting = $.post(url, {projekt_id: data.node.text});
+        posting.done(function (data) {
+            $("#explorer-content").empty().append(data);
+        });
     }
-    
+
 </script>
 </body>
 </html>

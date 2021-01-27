@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class ProbeExperiment extends OneToMany<Probe, Experiment>{
     private List<Experiment> experimente;
 
-    protected ProbeExperiment(Probe one, Class<Experiment> many) throws ModelNotFoundException, SQLException {
-        super(one, many);
+    public ProbeExperiment(Probe one) throws ModelNotFoundException, SQLException {
+        super(one, Experiment.class);
         database.resolveOneToMany(this);
     }
 

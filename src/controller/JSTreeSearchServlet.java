@@ -56,6 +56,26 @@ public class JSTreeSearchServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        try {
+            ResultSet set = database.findSubstring(Probe.class, str);
+            int col = set.findColumn(Probe.COLUMN_PRIMARY_KEY);
+            int par = set.findColumn(Probe.COLUMN_SUBSTANZ_ID);
+            while (set.next()) {
+                keys.add(Probe.TABLE + ":" + set.getString(col));
+                keys.add(Substanz.TABLE + ":" + set.getString(par));
+                Substanz substanz = new Substanz(set.getString(col));
+                keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
+            }
+        } catch (SQLException throwables) {
+            //throwables.printStackTrace();
+        } catch (IllegalAccessException e) {
+            //e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ModelNotFoundException e) {
+            e.printStackTrace();
+        }
+
         StringBuilder res = new StringBuilder();
         if (!keys.isEmpty()) {
             res.append("[");

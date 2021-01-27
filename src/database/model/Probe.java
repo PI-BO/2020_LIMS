@@ -10,7 +10,7 @@ public class Probe extends Model{
     private String substanzID;
     public static final String COLUMN_PRIMARY_KEY = "proben_nr";
     public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
-    public static final String TABLE = "substanz";
+    public static final String TABLE = "probe";
 
     public Probe(String id) throws SQLException, ModelNotFoundException {
         this.primaryKey = id;
