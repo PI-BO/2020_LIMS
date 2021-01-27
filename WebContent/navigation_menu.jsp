@@ -80,11 +80,11 @@
 				$( "#main-content-explorer" ).empty().append( data );
 			});
 			
-			url = "http://localhost:8080/2020_LIMS/projekte.jsp";
-			posting = $.post( url, {} );
-			posting.done(function( data ) {
-				$( "#explorer-content" ).empty().append( data );
-			});
+// 			url = "http://localhost:8080/2020_LIMS/projekte.jsp";
+// 			posting = $.post( url, {} );
+// 			posting.done(function( data ) {
+// 				$( "#explorer-content" ).empty().append( data );
+// 			});
 		});
 		
 // 		explorer anzeigen
