@@ -15,6 +15,15 @@ public class Partner extends Model {
 	public static final String COLUMN_EMAIL = "email";
 	public static final String TABLE = "partner";
 
+	public Partner() {
+		
+	}
+	
+	public Partner(String vertragsnummer) throws SQLException, ModelNotFoundException {
+		this.primaryKey = vertragsnummer;
+		database.getModel(this);
+	}
+	
 	@Override
 	public String getPrimaryKey() {
 		return primaryKey;
