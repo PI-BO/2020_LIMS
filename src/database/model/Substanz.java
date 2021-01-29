@@ -45,4 +45,14 @@ public class Substanz extends Model {
     public String getProjektID() {
         return projektID;
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + projektID;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROJEKT_ID;
+	}
 }

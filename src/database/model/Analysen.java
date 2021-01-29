@@ -51,4 +51,14 @@ public class Analysen extends Model{
     public String getBemerkung() {
         return bemerkung;
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + api + "," + bemerkung;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_API + "," + COLUMN_BEMERKUNG;
+	}
 }

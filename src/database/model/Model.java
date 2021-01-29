@@ -17,5 +17,7 @@ public abstract class Model {
 	public abstract String getPrimaryKeyColumn();
 	public abstract String getTable();
 	public abstract void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException;
+	public abstract String getValues();
+	public abstract String getRelationSchema();
 
 }

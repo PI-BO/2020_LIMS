@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="projekt_erstellen.css">
 </head>
 <body>
-	<form action="login" method="post">
+	<form id="form_projekt_erstellen" action="save_project_servlet" method="post">
 		<table id="create_projekt_table">
 			<tr>
 				<th colspan=4><h1>Projekt erstellen</h1></th>
@@ -40,11 +40,26 @@
 			</tr>
 
 			<tr>
-				<th colspan=4>
+				<th id="th_speichern" colspan=4>
 					<button type="submit">Speichern</button>
 				</th>
 			</tr>
 		</table>
 	</form>
+	
+	<script>
+	
+	$("#form_projekt_erstellen").submit(function(e){
+		e.preventDefault();
+		
+		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
+		var posting = $.post( url, {} );
+		posting.done(function( data ) {
+			$("#th_speichern").empty().append(data);
+		});
+	})
+	
+	</script>
+	
 </body>
 </html>

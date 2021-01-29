@@ -78,4 +78,18 @@ public class MariaDB implements Database {
 
 		return resultSet;
 	}
+
+	@Override
+	public void saveModel(Model model) throws SQLException {
+
+		String sqlStatement = "INSERT INTO " + model.getTable() + " (" + model.getRelationSchema() + ") VALUES (" + model.getValues() + ");";
+		
+		System.out.println(sqlStatement);
+		
+		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+		
+		while(resultSet.next()){
+			System.out.println(resultSet.toString());
+		}
+	}
 }

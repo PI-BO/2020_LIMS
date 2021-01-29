@@ -45,4 +45,14 @@ public class Experimenttyp extends Model{
     public String getTyp() {
         return typ;
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + typ;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_TYP;
+	}
 }

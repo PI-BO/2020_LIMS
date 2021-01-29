@@ -49,4 +49,14 @@ public class Eigenschaften extends Model{
         return value;
     }
 
+	@Override
+	public String getValues() {
+		return primaryKey + "," + value;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_VALUE;
+	}
+
 }

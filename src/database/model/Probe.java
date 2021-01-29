@@ -48,4 +48,14 @@ public class Probe extends Model{
     public String getSubstanzID() {
         return substanzID;
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + substanzID;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_SUBSTANZ_ID;
+	}
 }

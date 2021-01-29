@@ -78,4 +78,14 @@ public class Mitarbeiter extends Model implements Login {
 	public String getTable() {
 		return TABLE;
 	}
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + vorname + "," + nachname + "," + password;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_VORNAME + "," + COLUMN_NACHNAME + "," + COLUMN_PASSWORD;
+	}
 }

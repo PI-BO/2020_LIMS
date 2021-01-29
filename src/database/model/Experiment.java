@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Experiment extends Model{
+	
     private String primaryKey;
     private String typ;
     private String proben_nr;
@@ -59,4 +60,14 @@ public class Experiment extends Model{
     public String getProbenNr() {
         return proben_nr;
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + proben_nr;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROBEN_NR;
+	}
 }

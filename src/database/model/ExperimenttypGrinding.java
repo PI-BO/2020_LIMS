@@ -38,4 +38,14 @@ public class ExperimenttypGrinding extends Model{
             throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
         }
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY;
+	}
 }

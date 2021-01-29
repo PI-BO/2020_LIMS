@@ -14,8 +14,8 @@ public class ExperimenteAnalysen extends Model{
     private final String TABLE = "experimente_analysen";
     private List<Analysen> analysen;
 
-    public ExperimenteAnalysen(String substanzId) throws SQLException, ModelNotFoundException {
-        this.primaryKey = substanzId;
+    public ExperimenteAnalysen(String experimentId) throws SQLException, ModelNotFoundException {
+        this.primaryKey = experimentId;
         database.getModel(this);
     }
 

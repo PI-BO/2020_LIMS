@@ -10,9 +10,15 @@ import exceptions.ModelNotFoundException;
 public class Projekt extends Model {
 	
 	private String primaryKey;
+	private String vertragsnummer;
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
+	public static final String COLUMN_VERTRAGSNUMMER = "vertragsnummer";
 	public static final String TABLE = "projekte";
 	private List<Substanz> substanzen;
+	
+	public Projekt(){
+		
+	}
 	
 	public Projekt(String id) throws SQLException, ModelNotFoundException{
 		this.primaryKey = id;
@@ -30,9 +36,12 @@ public class Projekt extends Model {
 			throw new ModelNotFoundException("Projekt nicht gefunden");
 		}
 	}
+	
+	public void save() throws SQLException{
+		database.saveModel(this);
+	}
 
 	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
-
 		return substanzen;
 	}
 
@@ -50,4 +59,28 @@ public class Projekt extends Model {
 	public String getTable() {
 		return TABLE;
 	}
+
+	@Override
+	public String getValues() {
+		return "\"" + primaryKey + "\",\"" + vertragsnummer + "\"";
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_VERTRAGSNUMMER;
+	}
+
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+	public void setVertragsnummer(String vertragsnummer) {
+		this.vertragsnummer = vertragsnummer;
+	}
+
+	public void setSubstanzen(List<Substanz> substanzen) {
+		this.substanzen = substanzen;
+	}
+	
+	
 }

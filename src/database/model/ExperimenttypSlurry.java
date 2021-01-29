@@ -45,4 +45,14 @@ public class ExperimenttypSlurry extends Model{
     public String getValue() {
         return value;
     }
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + value;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_VALUE;
+	}
 }

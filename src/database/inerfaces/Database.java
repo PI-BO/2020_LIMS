@@ -10,6 +10,8 @@ public interface Database {
 
 	public void getModel(Model model) throws SQLException, ModelNotFoundException;
 
+	public void saveModel(Model model) throws SQLException;
+	
 	public void  getTable(Model model) throws SQLException, ModelNotFoundException;
 	
 	public void  getRelation(Model model) throws SQLException, ModelNotFoundException;

@@ -47,4 +47,16 @@ public class ProjekteIdList extends Model{
 	public String getTable() {
 		return TABLE;
 	}
+
+	@Override
+	public String getValues() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

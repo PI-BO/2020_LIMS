@@ -32,8 +32,8 @@
 						
 					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">anzeigen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">anzeigen</span></li>
 						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
@@ -91,7 +91,7 @@
 		});
 		
 		$("#projekt_erstellen").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.html";
+			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).hide();
