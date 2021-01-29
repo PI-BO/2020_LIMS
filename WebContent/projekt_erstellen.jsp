@@ -1,3 +1,6 @@
+<%@page import="database.model.Partner"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +10,7 @@
 <link rel="stylesheet" href="projekt_erstellen.css">
 </head>
 <body>
-	<form id="form_projekt_erstellen" action="save_project_servlet" method="post">
+	<form id="form_projekt_erstellen" action="save_project_servlet_bla" method="post">
 		<table id="create_projekt_table">
 			<tr>
 				<th colspan=4><h1>Projekt erstellen</h1></th>
@@ -20,7 +23,15 @@
 			</tr>
 			<tr>
 				<td>Vertragsnummer</td>
-				<td><input type=text placeholder="Vertragsnummer"></td>
+				
+				<td>
+					<select name="vertragsnummer" id="subject" required>
+					 	<option value="" selected disabled></option>
+					 	<option value="1" >1</option>
+					 	<option value="2" >2</option>
+					</select>
+				</td>
+				
 				<td>Projekt ID</td>
 				<td><input type=text placeholder="Projekt ID"></td>
 				<td></td>
