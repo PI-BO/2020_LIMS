@@ -13,6 +13,9 @@ public class Analysen extends Model{
     public static final String COLUMN_API = "api";
     public static final String COLUMN_BEMERKUNG = "bemerkung";
     public static final String TABLE = "analysen";
+    
+    public Analysen() {
+    }
 
     public Analysen(String id) throws SQLException, ModelNotFoundException {
         this.primaryKey = id;

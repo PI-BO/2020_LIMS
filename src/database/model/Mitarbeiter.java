@@ -26,6 +26,10 @@ public class Mitarbeiter extends Model implements Login {
     	database.getModel(this);
     }
 
+	public Mitarbeiter() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setAttributes(ResultSet mitarbeiterResultSet) throws SQLException, ModelNotFoundException {
 
 		if (mitarbeiterResultSet.next()) {

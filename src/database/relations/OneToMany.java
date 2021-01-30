@@ -28,7 +28,7 @@ public abstract class OneToMany<O extends Model, M extends Model> {
         return one.getPrimaryKeyColumn();
     }
     public String getOneTable() {
-        return one.TABLE;
+        return one.getTable();
     }
     public abstract List<String> getManyKeys();
 

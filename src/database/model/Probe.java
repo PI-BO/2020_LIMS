@@ -17,7 +17,11 @@ public class Probe extends Model{
         database.getModel(this);
     }
 
-    @Override
+    public Probe() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String getPrimaryKey() {
         return primaryKey;
     }

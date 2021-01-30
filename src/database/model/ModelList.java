@@ -47,9 +47,18 @@ protected Database database = new MariaDB();
 		while(true){
 			
 			//TODO more models
-			if(model.getClass().equals(Partner.class)){
-				concreteModel = new Partner();
-			}else{
+			if(model.getClass().equals(Analysen.class)) 					concreteModel = new Analysen();
+			else if(model.getClass().equals(Eigenschaften.class)) 			concreteModel = new Eigenschaften();
+			else if(model.getClass().equals(Experiment.class)) 				concreteModel = new Experiment();
+			else if(model.getClass().equals(Experimenttyp.class)) 			concreteModel = new Experimenttyp();
+			else if(model.getClass().equals(ExperimenttypGrinding.class)) 	concreteModel = new ExperimenttypGrinding();
+			else if(model.getClass().equals(ExperimenttypSlurry.class)) 	concreteModel = new ExperimenttypSlurry();
+			else if(model.getClass().equals(Mitarbeiter.class)) 			concreteModel = new Mitarbeiter();
+			else if(model.getClass().equals(Partner.class)) 				concreteModel = new Partner();
+			else if(model.getClass().equals(Probe.class)) 					concreteModel = new Probe();
+			else if(model.getClass().equals(Projekt.class))					concreteModel = new Projekt();
+			else if(model.getClass().equals(Substanz.class)) 				concreteModel = new Substanz();
+			else{
 				try {
 					throw new NotImplementedException();
 				}

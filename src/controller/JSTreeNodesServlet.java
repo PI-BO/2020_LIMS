@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -100,8 +101,14 @@ public class JSTreeNodesServlet extends HttpServlet {
     }
 
     private void getProjects(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
-        ProjekteIdList projekteIdList = new ProjekteIdList();
-        List<String> ids = projekteIdList.getProjekteIdList();
+        
+    	ModelList projektList = new ModelList(new Projekt());
+
+    	List<String> ids = new LinkedList<>(); 
+        for(Model projektModel : projektList.getModelList()){
+        	ids.add(projektModel.getPrimaryKey());
+        }
+        
         List<String> jsons = new ArrayList<>();
         for (String id : ids)
             jsons.add(jsonObject(new Projekt(id), null, true));

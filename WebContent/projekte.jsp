@@ -1,4 +1,6 @@
-<%@page import="database.model.ProjekteIdList"%>
+<%@page import="database.model.Model"%>
+<%@page import="database.model.Projekt"%>
+<%@page import="database.model.ModelList"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
 
@@ -12,7 +14,7 @@
 </head>
 
 <%
-	ProjekteIdList projekte = new ProjekteIdList();
+	ModelList projekte = new ModelList(new Projekt());
 %>
 
 <body>
@@ -25,11 +27,11 @@
 			</tr>
 			
 			<%
-				for (String id : projekte.getProjekteIdList()) {
+				for (Model projekt : projekte.getModelList()) {
 			%>
 
 			<tr class="projekt_list_table_row">
-				<td class="projekt_list_table_data symbol_folder_closed"><%=id%></td>
+				<td class="projekt_list_table_data symbol_folder_closed"><%=projekt.getPrimaryKey()%></td>
 				<td class="projekt_list_table_data"></td>
 				<td class="projekt_list_table_data"></td>
 			</tr>
@@ -38,19 +40,6 @@
 				}
 			%>
 			
-			<%
-				for (int i = 1; i < 10; i++) {
-			%>
-
-			<tr class="projekt_list_table_row">
-				<td class="projekt_list_table_data symbol_folder_closed">Projekt <%=i%></td>
-				<td class="projekt_list_table_data"></td>
-				<td class="projekt_list_table_data"></td>
-			</tr>
-
-			<%
-				}
-			%>
 		</table>
 
 		<script>

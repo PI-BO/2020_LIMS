@@ -17,7 +17,11 @@ public class ExperimenttypSlurry extends Model{
         database.getModel(this);
     }
 
-    @Override
+    public ExperimenttypSlurry() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String getPrimaryKey() {
         return primaryKey;
     }

@@ -15,7 +15,11 @@ public class ExperimenttypGrinding extends Model{
         database.getModel(this);
     }
 
-    @Override
+    public ExperimenttypGrinding() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String getPrimaryKey() {
         return primaryKey;
     }

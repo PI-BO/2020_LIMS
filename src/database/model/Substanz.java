@@ -18,7 +18,11 @@ public class Substanz extends Model {
         database.getModel(this);
     }
 
-    @Override
+    public Substanz() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String getPrimaryKey() {
         return primaryKey;
     }

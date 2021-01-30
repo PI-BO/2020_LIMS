@@ -12,6 +12,10 @@ public class Eigenschaften extends Model{
     public static final String COLUMN_VALUE = "value";
     public static final String TABLE = "eigenschaften";
 
+    public Eigenschaften(){
+    	
+    }
+    
     public Eigenschaften(String primaryKey) throws ModelNotFoundException, SQLException {
         this.primaryKey = primaryKey;
         database.getModel(this);

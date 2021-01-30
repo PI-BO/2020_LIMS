@@ -27,7 +27,11 @@ public class Experiment extends Model{
         database.getModel(this);
     }
 
-    @Override
+    public Experiment() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public String getPrimaryKey() {
         return primaryKey;
     }

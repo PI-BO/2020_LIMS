@@ -19,7 +19,7 @@ public class SubstanzEigenschaften extends Model{
         database.getModel(this);
     }
 
-    @Override
+	@Override
     public String getPrimaryKey() {
         return primaryKey;
     }
