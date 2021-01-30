@@ -10,8 +10,6 @@ import exceptions.ModelNotFoundException;
 public abstract class Model {
 	
 	protected Database database = new MariaDB();
-
-	public String TABLE;
 	
 	public abstract String getPrimaryKey();
 	public abstract String getPrimaryKeyColumn();

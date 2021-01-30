@@ -72,4 +72,14 @@ public class Partner extends Model {
 	public void setPrimaryKey(String primaryKey) {
 		this.primaryKey = primaryKey;
 	}
+
+	@Override
+	public String getValues() {
+		return primaryKey + "," + name + "," + email;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_NAME + "," + COLUMN_EMAIL;
+	}
 }

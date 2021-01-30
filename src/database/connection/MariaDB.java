@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import database.inerfaces.Database;
 import database.model.Model;
+import database.model.ModelList;
 import database.relations.OneToMany;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,15 +32,15 @@ public class MariaDB implements Database {
 	}
 	
 	@Override
-	public void getTable(Model model) throws SQLException, ModelNotFoundException {
+	public void getTable(ModelList modelList) throws SQLException, ModelNotFoundException {
 
-		String sqlStatement = "SELECT * FROM " + model.getTable() + ";";
+		String sqlStatement = "SELECT * FROM " + modelList.getTable() + ";";
 		
 		System.out.println(sqlStatement);
 		
 		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 		
-		model.setAttributes(resultSet);
+		modelList.setAttributes(resultSet);
 	}
 	
 	@Override

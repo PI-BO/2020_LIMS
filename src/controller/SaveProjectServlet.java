@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import database.model.Partner;
 import database.model.Projekt;
 
 import java.io.IOException;
@@ -28,8 +29,8 @@ public class SaveProjectServlet extends HttpServlet {
     	LOGGER.debug("doPost()");
     	
     	Projekt projekt = new Projekt();
-		projekt.setPrimaryKey("D");
-		projekt.setVertragsnummer("1");
+		projekt.setPrimaryKey(request.getParameter(Projekt.COLUMN_PRIMARY_KEY));
+		projekt.setVertragsnummer(request.getParameter(Partner.COLUMN_PRIMARY_KEY));
 		
 		try {
 			projekt.save();
