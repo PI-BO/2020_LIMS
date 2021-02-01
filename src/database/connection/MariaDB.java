@@ -81,16 +81,24 @@ public class MariaDB implements Database {
 	}
 
 	@Override
-	public void saveModel(Model model) throws SQLException {
+	public void setModel(Model model) throws SQLException {
 
 		String sqlStatement = "INSERT INTO " + model.getTable() + " (" + model.getRelationSchema() + ") VALUES (" + model.getValues() + ");";
 		
 		System.out.println(sqlStatement);
 		
-		ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+		databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+	}
+
+	@Override
+	public void updateModel(Model model) throws SQLException {
+		// TODO Auto-generated method stub
 		
-		while(resultSet.next()){
-			System.out.println(resultSet.toString());
-		}
+	}
+
+	@Override
+	public void deleteModel(Model model) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 }

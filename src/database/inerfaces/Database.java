@@ -11,7 +11,11 @@ public interface Database {
 
 	public void getModel(Model model) throws SQLException, ModelNotFoundException;
 
-	public void saveModel(Model model) throws SQLException;
+	public void setModel(Model model) throws SQLException;
+	
+	public void updateModel(Model model) throws SQLException;
+	
+	public void deleteModel(Model model) throws SQLException;
 	
 	public void  getTable(ModelList modelList) throws SQLException, ModelNotFoundException;
 	

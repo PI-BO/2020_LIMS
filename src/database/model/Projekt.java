@@ -38,7 +38,7 @@ public class Projekt extends Model {
 	}
 	
 	public void save() throws SQLException{
-		database.saveModel(this);
+		database.setModel(this);
 	}
 
 	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
