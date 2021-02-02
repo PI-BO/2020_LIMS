@@ -5,11 +5,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Enumeration;
 
 @WebServlet(PostGetTestServlet.ROUTE)
@@ -20,6 +22,8 @@ public class PostGetTestServlet extends HttpServlet {
 	private static final Logger LOGGER = LogManager.getLogger(PostGetTestServlet.class.getSimpleName());
 	
 	public static final String ROUTE = "/post-get-test";
+	
+	String filePath = getServletContext().getInitParameter("file-upload"); 
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +44,17 @@ public class PostGetTestServlet extends HttpServlet {
     	
     	System.out.println("END - parameter names:");
     	
-    	System.out.println(request.getParameter(ProbeneingangServlet.INFOS));
+    	System.out.println("PARTS:");
+    	Collection<Part> fileParts = request.getParts();
+    	System.out.println(fileParts.isEmpty());
+    	
+    	System.out.println("PART:");
+    	Part filePart = request.getPart("myfile");
+    	System.out.println(filePart.getName());
+
+    	System.out.println("FILE:");
+        String fileName = filePart.getSubmittedFileName();
+        System.out.println(fileName);
     }
 
     @Override
