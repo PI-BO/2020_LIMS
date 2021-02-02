@@ -39,6 +39,8 @@ public class PostGetTestServlet extends HttpServlet {
     	}
     	
     	System.out.println("END - parameter names:");
+    	
+    	System.out.println(request.getParameter(ProbeneingangServlet.INFOS));
     }
 
     @Override

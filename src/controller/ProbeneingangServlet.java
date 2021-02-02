@@ -49,6 +49,7 @@ public class ProbeneingangServlet extends HttpServlet {
 	public static final String VERTRAG_BEZAHLT = "VERTRAG_BEZAHLT";
 	public static final String VERTRAG_BEZAHLT_DATUM = "VERTRAG_BEZAHLT_DATUM";
 	public static final String BEMERKUNGEN = "BEMERKUNGEN";
+	public static final String LITERATUR = "LITERATUR";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,6 +73,8 @@ public class ProbeneingangServlet extends HttpServlet {
     	}
     	
     	System.out.println("end - attribute names:");
+    	
+    	System.out.println(request.getParameter(INFOS));
     }
 
     @Override
