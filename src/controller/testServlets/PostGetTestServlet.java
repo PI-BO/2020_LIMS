@@ -1,4 +1,4 @@
-package controller;
+package controller.testServlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +22,6 @@ public class PostGetTestServlet extends HttpServlet {
 	private static final Logger LOGGER = LogManager.getLogger(PostGetTestServlet.class.getSimpleName());
 	
 	public static final String ROUTE = "/post-get-test";
-	
-	String filePath = getServletContext().getInitParameter("file-upload"); 
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-<%@page import="controller.PostGetTestServlet"%>
+<%@page import="controller.testServlets.FileuploadTestServlet"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
@@ -15,42 +15,56 @@
 	<h3>File Upload:</h3>
 	Select a file to upload:
 	<br />
-	<form id="form_probeneingang" action="fileupload-test" method="post" enctype="multipart/form-data">
-		<input type="file" name="file" size="1" /> <br /> <input type="submit" value="Upload File" />
+	<form id="form_probeneingang">
+		<input type="hidden" id="probeneingang_url" value=<%=FileuploadTestServlet.ROUTE%>>
+		<input type="file" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple> 
+		<br />
+		<input type="submit" value="Speichern" />
 	</form>
-	<img id="result-image" src =""></img>
+	<div id="preview-container"></div>
 </body>
 
 <script>
-
+	
+	function loadFile(event) {
+		
+		$("#preview-container").empty();
+		
+		for(let i = 0; i < event.target.files.length; i++){
+			
+			var objectURL = URL.createObjectURL(event.target.files[i]);
+			$("#preview-container").append("<img class='preview-image' style='width:10%' src=" + objectURL + ">")
+			$(".preview-image").attr({onload : "freeMemory(this);"});
+		}
+	};
+	
+	function freeMemory(element){
+		URL.revokeObjectURL(element.src);
+	}
+	
 	$('#form_probeneingang').submit(function(e) {
 		e.preventDefault();
+		
 		$.ajax({
-			url : 'fileupload-test',
+			url : "http://localhost:8080/2020_LIMS" + $("#probeneingang_url").val(),
 			type : 'POST',
 			data : new FormData(this),
 			processData : false,
 			contentType : false,
-			xhrFields:{
-	            responseType: 'blob'
-	        },
+			xhrFields : {
+				responseType : 'blob'
+			},
 			success : function(data) {
 
-				console.log("SUCCESS : ");
-
 				var blobData = data;
-	            var url = window.URL || window.webkitURL;
-	            var src = url.createObjectURL(blobData);
-	            $('#result-image').attr("src", src);
-	            
-	            //TODO: img Element erstellen
-	            
+				var url = window.URL || window.webkitURL;
+				var src = url.createObjectURL(blobData);
+				$('#result-image').attr("src", src);
 			},
 			error : function(e) {
 				console.log("ERROR : ", e);
 			}
 		});
 	});
-
 </script>
 </html>

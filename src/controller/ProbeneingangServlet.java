@@ -1,6 +1,7 @@
 package controller;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 @WebServlet(ProbeneingangServlet.ROUTE)
+@MultipartConfig
 public class ProbeneingangServlet extends HttpServlet {
 
 	private static final Logger LOGGER = LogManager.getLogger(ProbeneingangServlet.class.getSimpleName());
@@ -22,7 +24,7 @@ public class ProbeneingangServlet extends HttpServlet {
 		
 	public static final String INTERNE_VERGABENUMMER = "INTERNE_VERGABENUMMER";
 	public static final String WIRKSTOFF = "WIRKSTOFF";
-	public static final String AUFTRAGGEBER = "AUFTRAGGEBER";
+	public static final String AUFTRAGGEBER = "AUFTRAGGEBER_ID";
 	public static final String PROBEN_NR = "PROBEN_NR";
 	public static final String PROJEKTVERTRAGNUMMER= "PROJEKTVERTRAGNUMMER";
 	public static final String ANLAGENNUMMER = "ANLAGENNUMMER";
@@ -53,33 +55,35 @@ public class ProbeneingangServlet extends HttpServlet {
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	System.out.println("TEST SERVLET: doPost()");
     	
-    	Enumeration<String> attributeNames = request.getAttributeNames();
-    	
-    	System.out.println("start - attribute names:");
-    	
-    	String attributeName;
-    	if(attributeNames.hasMoreElements()) attributeName = attributeNames.nextElement();
-    	
-    	while(attributeNames.hasMoreElements()){
-    		
-    		System.out.println("attribute names:");
-    		attributeName = attributeNames.nextElement();
-    		if(attributeName == null) continue;
-//    		String attribute = (String)request.getAttribute(attributeName);
-//    		System.out.println(attributeName + " : " + attribute);
-    		System.out.println(attributeName);
-    	}
-    	
-    	System.out.println("end - attribute names:");
-    	
-    	System.out.println(request.getParameter(INFOS));
+    	response.setContentType("text/plain");  //sonst XML Parsing error im Browser
+    	printTestLog(request);
     }
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.println("TEST SERVLET: doGet()");
     	System.out.println("TEST SERVLET: doGet() nothing implemented yet");
     }
+
+	private void printTestLog(HttpServletRequest request) {
+		System.out.println(this.getClass() + ": doPost()");
+    	
+    	Enumeration<String> parameterNames = request.getParameterNames();
+    	
+    	System.out.println("\n/////////// ProbeneingangServlet /////////////\n");
+    	
+    	String parameterName;
+    	if(parameterNames.hasMoreElements()) parameterName = parameterNames.nextElement();
+    	
+    	while(parameterNames.hasMoreElements()){
+    		
+    		parameterName = parameterNames.nextElement();
+    		if(parameterName == null) continue;
+    		String parameter = (String)request.getParameter(parameterName);
+    		System.out.println(parameterName + " : " + parameter);
+    	}
+    	
+    	System.out.println("\n//////////////////////////////////////////////\n");
+	}
 }
