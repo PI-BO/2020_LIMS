@@ -208,9 +208,9 @@
 					<table class="table_in_table" id="table_image_upload">
 						<tr>
 							<td >
-								(mehrer Bilder auswaehlen: STRG + Linksklick)
+								(mehrere Bilder auswaehlen: STRG + Linksklick)
 								<br>
-								<button type="button" id="input_image_reset_button">Reset Images</button> 
+								<button type="button" id="input_image_reset_button">Bilderauswahl leeren</button> 
 								<input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple> 
 							</td>
 							<td >
