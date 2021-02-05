@@ -1,25 +1,25 @@
 package database.inerfaces;
 
-import java.sql.SQLException;
-
-import database.relations.OneToMany;
-import exceptions.ModelNotFoundException;
 import database.model.Model;
 import database.model.ModelList;
+import database.relations.OneToMany;
+import exceptions.ModelNotFoundException;
+
+import java.sql.SQLException;
 
 public interface Database {
 
-	public void getModel(Model model) throws SQLException, ModelNotFoundException;
+    public void getModel(Model model) throws SQLException, ModelNotFoundException;
 
-	public void setModel(Model model) throws SQLException;
-	
-	public void updateModel(Model model) throws SQLException;
-	
-	public void deleteModel(Model model) throws SQLException;
-	
-	public void  getTable(ModelList modelList) throws SQLException, ModelNotFoundException;
-	
-	public void  getRelation(Model model) throws SQLException, ModelNotFoundException;
+    public void setModel(Model model) throws SQLException;
 
-	<T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> relation) throws SQLException, ModelNotFoundException;
+    public void updateModel(Model model) throws SQLException;
+
+    public void deleteModel(Model model) throws SQLException;
+
+    public void getTable(ModelList modelList) throws SQLException, ModelNotFoundException;
+
+    public void getRelation(Model model) throws SQLException, ModelNotFoundException;
+
+    <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> relation) throws SQLException, ModelNotFoundException;
 }

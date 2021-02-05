@@ -1,18 +1,23 @@
 package controller;
 
 import database.connection.MariaDB;
-import database.model.*;
+import database.model.Probe;
+import database.model.Projekt;
+import database.model.Substanz;
 import exceptions.ModelNotFoundException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
+@WebServlet("/jstree/search")
 public class JSTreeSearchServlet extends HttpServlet {
     private MariaDB database = new MariaDB();
 
@@ -34,7 +39,7 @@ public class JSTreeSearchServlet extends HttpServlet {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }  catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             //e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
