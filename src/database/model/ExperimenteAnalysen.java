@@ -52,6 +52,16 @@ public class ExperimenteAnalysen extends Model{
         }
     }
 
+    @Override
+    public String getValues() {
+        return null;
+    }
+
+    @Override
+    public String getRelationSchema() {
+        return null;
+    }
+
     public List<Analysen> getAnalysen() {
         return analysen;
     }

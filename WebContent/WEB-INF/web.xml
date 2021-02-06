@@ -13,26 +13,4 @@
         <!--     <welcome-file>login.html</welcome-file> -->
         <welcome-file>login</welcome-file>
     </welcome-file-list>
-
-    <servlet>
-        <servlet-name>JSTreeNodes</servlet-name>
-        <servlet-class>controller.JSTreeNodesServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>JSTreeNodes</servlet-name>
-        <url-pattern>/jstree/nodes</url-pattern>
-    </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>JSTreeSearch</servlet-name>
-        <servlet-class>controller.JSTreeSearchServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>JSTreeSearch</servlet-name>
-        <url-pattern>/jstree/search</url-pattern>
-    </servlet-mapping>
-
 </web-app>

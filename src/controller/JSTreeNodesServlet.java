@@ -5,12 +5,12 @@ import database.model.ModelList;
 import database.model.Probe;
 import database.model.Projekt;
 import database.model.Substanz;
-import database.relations.ProbeExperiment;
 import database.relations.ProjekteSubstanz;
 import database.relations.SubstanzenProbe;
 import exceptions.ModelNotFoundException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * Servlet implementation class Services
  */
+@WebServlet("/jstree/nodes")
 public class JSTreeNodesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -105,14 +106,14 @@ public class JSTreeNodesServlet extends HttpServlet {
     }
 
     private void getProjects(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
-        
-    	ModelList projektList = new ModelList(new Projekt());
 
-    	List<String> ids = new LinkedList<>(); 
-        for(Model projektModel : projektList.getModelList()){
-        	ids.add(projektModel.getPrimaryKey());
+        ModelList projektList = new ModelList(new Projekt());
+
+        List<String> ids = new LinkedList<>();
+        for (Model projektModel : projektList.getModelList()) {
+            ids.add(projektModel.getPrimaryKey());
         }
-        
+
         List<String> jsons = new ArrayList<>();
         for (String id : ids)
             jsons.add(jsonObject(new Projekt(id), null, true));

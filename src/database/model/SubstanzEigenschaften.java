@@ -52,6 +52,16 @@ public class SubstanzEigenschaften extends Model{
         }
     }
 
+    @Override
+    public String getValues() {
+        return null;
+    }
+
+    @Override
+    public String getRelationSchema() {
+        return null;
+    }
+
     public List<Eigenschaften> getEigenschaften() {
         return eigenschaften;
     }
