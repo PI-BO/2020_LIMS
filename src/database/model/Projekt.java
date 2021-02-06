@@ -81,6 +81,10 @@ public class Projekt extends Model {
 	public void setSubstanzen(List<Substanz> substanzen) {
 		this.substanzen = substanzen;
 	}
-	
-	
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

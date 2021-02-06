@@ -59,4 +59,10 @@ public class ExperimenttypSlurry extends Model{
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_VALUE;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

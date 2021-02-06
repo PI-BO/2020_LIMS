@@ -1,7 +1,5 @@
 package database.relations;
 
-import database.model.Experiment;
-import database.model.Probe;
 import exceptions.ModelNotFoundException;
 
 import java.sql.ResultSet;
@@ -9,6 +7,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import database.model.Experiment;
+import database.model.Probe;
 
 public class ProbeExperiment extends OneToMany<Probe, Experiment>{
     private List<Experiment> experimente;

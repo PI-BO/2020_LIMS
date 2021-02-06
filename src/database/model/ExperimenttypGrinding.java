@@ -52,4 +52,10 @@ public class ExperimenttypGrinding extends Model{
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -92,4 +92,10 @@ public class Mitarbeiter extends Model implements Login {
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_VORNAME + "," + COLUMN_NACHNAME + "," + COLUMN_PASSWORD;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

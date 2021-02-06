@@ -6,11 +6,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import database.model.Probeneingang;
+
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Enumeration;
 
 @WebServlet(ProbeneingangServlet.ROUTE)
@@ -31,7 +35,7 @@ public class ProbeneingangServlet extends HttpServlet {
 	public static final String SUMMENFORMEL = "SUMMENFORMEL";
 	public static final String BEZEICHNUNG = "BEZEICHNUNG";
 	public static final String ORIGINATOR = "ORIGINATOR";
-	public static final String PROBENEINGANG = "PROBENEINGANG";
+	public static final String PROBENEINGANG = "PROBENEINGANG_DATUM";
 	public static final String PROBENMASSE = "PROBENMASSE";
 	public static final String BESONDERHEITEN = "BESONDERHEITEN";
 	public static final String INFOS = "INFOS";
@@ -54,24 +58,95 @@ public class ProbeneingangServlet extends HttpServlet {
 	public static final String LITERATUR = "LITERATUR";
 	
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException{
     	
-    	response.setContentType("text/plain");  //sonst XML Parsing error im Browser
-    	printTestLog(request);
+    	System.out.println(this.getClass() + ": doPost()");
+    	LOGGER.debug("doPost()");
+    	
+		try {
+//			printTestLog(request);
+			Probeneingang probeneingang = createProbeneingang(request);
+			probeneingang.saveToDatabase();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	System.out.println("TEST SERVLET: doGet()");
-    	System.out.println("TEST SERVLET: doGet() nothing implemented yet");
-    }
-
-	private void printTestLog(HttpServletRequest request) {
-		System.out.println(this.getClass() + ": doPost()");
+    private Probeneingang createProbeneingang(HttpServletRequest request) throws IOException, ServletException {
+    	
+    	Probeneingang probeneingang = new Probeneingang();
     	
     	Enumeration<String> parameterNames = request.getParameterNames();
     	
-    	System.out.println("\n/////////// ProbeneingangServlet /////////////\n");
+    	String parameterName;
+    	if(parameterNames.hasMoreElements()) parameterName = parameterNames.nextElement();
+    	
+    	while(parameterNames.hasMoreElements()){
+    		
+    		parameterName = parameterNames.nextElement();
+    		
+    		if(parameterName == null) continue;
+    		
+    		String parameter = (String)request.getParameter(parameterName);
+    		LOGGER.debug(parameterName + ": " + parameter);
+    		
+    		if(parameterName == ANLAGENNUMMER)                     		{ probeneingang.setAnlagennummer(parameter); 			 continue; }
+    		if(parameterName == AUFTRAGGEBER)                          	{ probeneingang.setAuftraggeber(parameter);              continue; }
+    		if(parameterName == BEMERKUNGEN)                           	{ probeneingang.setBemerkungen(parameter);               continue; }
+    		if(parameterName == BEMERKUNGEN_ZUR_MESSUNG)               	{ probeneingang.setBemerkungenZurMessung(parameter);     continue; }
+    		if(parameterName == BESONDERHEITEN)                        	{ probeneingang.setBesonderheiten(parameter);            continue; }
+    		if(parameterName == BEZEICHNUNG)                           	{ probeneingang.setBezeichnung(parameter);               continue; }
+    		if(parameterName == INFOS)                                 	{ probeneingang.setInfos(parameter);                     continue; }
+    		if(parameterName == INTERNE_VERGABENUMMER)                 	{ probeneingang.setInterneVergabenummer(parameter);      continue; }
+    		if(parameterName == LITERATUR)                             	{ probeneingang.setLiteratur(parameter);                 continue; }
+    		if(parameterName == MESSUNG_DSC)                           	{ probeneingang.setMessungDSC(parameter);                continue; }
+    		if(parameterName == MESSUNG_IR)                            	{ probeneingang.setMessungIR(parameter);                 continue; }
+    		if(parameterName == MESSUNG_PULVER)                        	{ probeneingang.setMessungPulver(parameter);             continue; }
+    		if(parameterName == ORIGINATOR)                            	{ probeneingang.setOriginator(parameter);                continue; }
+    		if(parameterName == PROBEN_NR)                             	{ probeneingang.setProbenNr(parameter);                  continue; }
+    		if(parameterName == PROBENEINGANG)                         	{ probeneingang.setProbeneingangDatum(parameter);        continue; }
+    		if(parameterName == PROBENMASSE)                           	{ probeneingang.setProbenmasse(parameter);               continue; }
+    		if(parameterName == PROJEKTVERTRAGNUMMER)                  	{ probeneingang.setProjektvertragnummer(parameter);      continue; }
+    		if(parameterName == STANDORT)                              	{ probeneingang.setStandort(parameter);                  continue; }
+    		if(parameterName == SUMMENFORMEL)                          	{ probeneingang.setSummenformel(parameter);              continue; }
+    		if(parameterName == VERTRAG_ABGERECHNET)                   	{ probeneingang.setVertragAbgerechnet(true);             continue; }
+    		if(parameterName == VERTRAG_ABGERECHNET_DATUM)             	{ probeneingang.setVertragAbgerechnetDatum(parameter);   continue; }
+    		if(parameterName == VERTRAG_BEZAHLT)                       	{ probeneingang.setVertragBezahlt(true);                 continue; }
+    		if(parameterName == VERTRAG_BEZAHLT_DATUM)                 	{ probeneingang.setVertragBezahltDatum(parameter);       continue; }
+    		if(parameterName == VERTRAG_UNTERZEICHNET)                 	{ probeneingang.setVertragUnterzeichnet(true);           continue; }
+    		if(parameterName == VERTRAG_UNTERZEICHNET_DATUM)           	{ probeneingang.setVertragUnterzeichnetDatum(parameter); continue; }
+    		if(parameterName == VERTRAG_VERSCHICKT)                    	{ probeneingang.setVertragVerschickt(true);              continue; }
+    		if(parameterName == VERTRAG_VERSCHICKT_DATUM)              	{ probeneingang.setVertragVerschicktDatum(parameter);    continue; }
+    		if(parameterName == VERTRAG_VORHANDEN)                     	{ probeneingang.setVertragVorhanden(true);               continue; }
+    		if(parameterName == VERTRAG_VORHANDEN_DATUM)               	{ probeneingang.setVertragVorhandenDatum(parameter);     continue; }
+    		if(parameterName == WIRKSTOFF)                             	{ probeneingang.setWirkstoff(parameter);                 continue; }
+    	}
+    	
+    	Collection<Part> parts = request.getParts();
+		
+		for(Part part : parts){
+			
+			if(part.getSubmittedFileName() == null) continue;
+			
+			LOGGER.debug("imagefileName: " + part.getSubmittedFileName());
+			
+			probeneingang.addBild(part.getInputStream());
+		}
+		
+		return probeneingang;
+	}
+
+	@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOGGER.debug("doPost()");
+    }
+
+	private void printTestLog(HttpServletRequest request) throws IOException, ServletException {
+    	
+    	Enumeration<String> parameterNames = request.getParameterNames();
+    	
+    	System.out.println("\n----------PARAMETER----------\n");
     	
     	String parameterName;
     	if(parameterNames.hasMoreElements()) parameterName = parameterNames.nextElement();
@@ -84,6 +159,12 @@ public class ProbeneingangServlet extends HttpServlet {
     		System.out.println(parameterName + " : " + parameter);
     	}
     	
-    	System.out.println("\n//////////////////////////////////////////////\n");
+    	System.out.println("\n----------PARTS----------\n");
+    	
+    	Collection<Part> parts = request.getParts();
+		
+		for(Part p : parts){
+			System.out.println("fileName: " + p.getSubmittedFileName());
+		}
 	}
 }

@@ -63,4 +63,10 @@ public class Eigenschaften extends Model{
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_VALUE;
 	}
 
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

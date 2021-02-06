@@ -1,10 +1,11 @@
 package database.relations;
 
-import database.model.Experimenttyp;
-import database.model.ExperimenttypSlurry;
 import exceptions.ModelNotFoundException;
 
 import java.sql.SQLException;
+
+import database.model.Experimenttyp;
+import database.model.ExperimenttypSlurry;
 
 public class ExperimenttypExperimentypSlurry extends OneToOne<Experimenttyp, ExperimenttypSlurry> {
     public ExperimenttypExperimentypSlurry(Experimenttyp parent) throws ModelNotFoundException, SQLException {

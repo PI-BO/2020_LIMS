@@ -59,4 +59,10 @@ public class Substanz extends Model {
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROJEKT_ID;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

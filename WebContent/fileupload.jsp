@@ -16,8 +16,10 @@
 	Select a file to upload:
 	<br />
 	<form id="form_probeneingang">
-		<input type="hidden" id="probeneingang_url" value=<%=FileuploadTestServlet.ROUTE%>>
-		<input type="file" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple> 
+<%-- 		<input type="hidden" id="probeneingang_url" value=<%=FileuploadTestServlet.ROUTE%>> --%>
+		<input type="file" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple>
+		<br />
+		<input type="text" name="filelabel" size="12" maxlength="32" />
 		<br />
 		<input type="submit" value="Speichern" />
 	</form>
@@ -25,46 +27,40 @@
 </body>
 
 <script>
-	
+	const form = document.querySelector('#form_probeneingang');
+	form.addEventListener('submit', function(e) {
+		e.preventDefault();
+		var formData = new FormData(form);
+
+		fetch("http://localhost:8080/2020_LIMS/fileupload-test", {
+			method: "post",
+			body: formData
+		})
+		.then( response => {
+			console.log("Success");
+		})
+		.catch(error => {
+			console.log("Error", error);
+		})
+
+	}, false);
+
 	function loadFile(event) {
-		
+
 		$("#preview-container").empty();
-		
-		for(let i = 0; i < event.target.files.length; i++){
-			
+
+		for (let i = 0; i < event.target.files.length; i++) {
+
 			var objectURL = URL.createObjectURL(event.target.files[i]);
 			$("#preview-container").append("<img class='preview-image' style='width:10%' src=" + objectURL + ">")
-			$(".preview-image").attr({onload : "freeMemory(this);"});
+			$(".preview-image").attr({
+				onload : "freeMemory(this);"
+			});
 		}
 	};
-	
-	function freeMemory(element){
+
+	function freeMemory(element) {
 		URL.revokeObjectURL(element.src);
 	}
-	
-	$('#form_probeneingang').submit(function(e) {
-		e.preventDefault();
-		
-		$.ajax({
-			url : "http://localhost:8080/2020_LIMS" + $("#probeneingang_url").val(),
-			type : 'POST',
-			data : new FormData(this),
-			processData : false,
-			contentType : false,
-			xhrFields : {
-				responseType : 'blob'
-			},
-			success : function(data) {
-
-				var blobData = data;
-				var url = window.URL || window.webkitURL;
-				var src = url.createObjectURL(blobData);
-				$('#result-image').attr("src", src);
-			},
-			error : function(e) {
-				console.log("ERROR : ", e);
-			}
-		});
-	});
 </script>
 </html>

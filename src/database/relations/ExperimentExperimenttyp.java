@@ -1,9 +1,12 @@
 package database.relations;
 
-import database.model.*;
 import exceptions.ModelNotFoundException;
 
 import java.sql.SQLException;
+
+import database.model.Experiment;
+import database.model.Experimenttyp;
+import database.model.Model;
 
 public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp>{
     OneToOne typ;

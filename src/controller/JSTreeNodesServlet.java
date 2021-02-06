@@ -1,6 +1,10 @@
 package controller;
 
-import database.model.*;
+import database.model.Model;
+import database.model.ModelList;
+import database.model.Probe;
+import database.model.Projekt;
+import database.model.Substanz;
 import database.relations.ProbeExperiment;
 import database.relations.ProjekteSubstanz;
 import database.relations.SubstanzenProbe;

@@ -1,7 +1,9 @@
 package controller;
 
 import database.connection.MariaDB;
-import database.model.*;
+import database.model.Probe;
+import database.model.Projekt;
+import database.model.Substanz;
 import exceptions.ModelNotFoundException;
 
 import javax.servlet.ServletException;

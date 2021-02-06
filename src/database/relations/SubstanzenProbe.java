@@ -1,7 +1,5 @@
 package database.relations;
 
-import database.model.Probe;
-import database.model.Substanz;
 import exceptions.ModelNotFoundException;
 
 import java.sql.ResultSet;
@@ -9,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import database.model.Probe;
+import database.model.Substanz;
 
 public class SubstanzenProbe extends OneToMany<Substanz, Probe>{
     List<Probe> proben;

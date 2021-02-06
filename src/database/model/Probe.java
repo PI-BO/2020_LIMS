@@ -62,4 +62,10 @@ public class Probe extends Model{
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_SUBSTANZ_ID;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

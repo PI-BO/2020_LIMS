@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controller.LoginServlet;
 import database.connection.MariaDB;
 import database.inerfaces.Database;
 import exceptions.ModelNotFoundException;

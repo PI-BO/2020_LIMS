@@ -2,10 +2,10 @@ package database.inerfaces;
 
 import java.sql.SQLException;
 
-import database.relations.OneToMany;
-import exceptions.ModelNotFoundException;
 import database.model.Model;
 import database.model.ModelList;
+import database.relations.OneToMany;
+import exceptions.ModelNotFoundException;
 
 public interface Database {
 

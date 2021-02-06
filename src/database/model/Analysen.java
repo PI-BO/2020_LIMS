@@ -64,4 +64,10 @@ public class Analysen extends Model{
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_API + "," + COLUMN_BEMERKUNG;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }

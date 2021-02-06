@@ -17,5 +17,5 @@ public abstract class Model {
 	public abstract void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException;
 	public abstract String getValues();
 	public abstract String getRelationSchema();
-
+	public abstract void saveToDatabase();
 }

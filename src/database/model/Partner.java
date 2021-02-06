@@ -82,4 +82,10 @@ public class Partner extends Model {
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_NAME + "," + COLUMN_EMAIL;
 	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
 }
