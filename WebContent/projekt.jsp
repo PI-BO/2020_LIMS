@@ -9,7 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <link rel="stylesheet" href="projekt.css">
 <title>LIMS | Projekt</title>
-<script src="jquery-3.5.1.js"></script>
 </head>
 
 <%

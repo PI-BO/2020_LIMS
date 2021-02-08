@@ -12,7 +12,6 @@
 <meta charset="UTF-8" />
 <title>Solid-Chem | LIMS - Insert Projekt</title>
 <link rel="stylesheet" href="projekt_erstellen.css">
-<script src="jquery-3.5.1.js"></script>
 </head>
 <body>
 	<form id="form_projekt_erstellen">
