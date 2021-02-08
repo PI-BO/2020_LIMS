@@ -7,7 +7,6 @@
 <meta charset="UTF-8" />
 <title></title>
 <!-- <link rel="stylesheet" href="projekt_erstellen.css"> -->
-<script src="jquery-3.5.1.js"></script>
 <style>
 </style>
 </head>

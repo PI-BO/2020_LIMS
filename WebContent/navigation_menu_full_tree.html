@@ -70,7 +70,7 @@
             clearTimeout(to);
         }
         to = setTimeout(function () {
-            var v = $('#search').val();
+            let v = $('#search').val();
             $('#lazy').jstree(true).search(v);
         }, 250);
     });
