@@ -2,6 +2,7 @@ package database.model;
 
 import exceptions.ModelNotFoundException;
 
+import javax.servlet.http.Cookie;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,9 +20,12 @@ public class Sessions extends Model{
     public static final String COLUMN_MITARBEITER_ID = "mitarbeiterID";
     public static final String TABLE = "sessions";
 
-    public Sessions(String sessionKey, Mitarbeiter mitarbeiter) {
-        primaryKey = sessionKey;
-        date = new Date(System.currentTimeMillis()).toString();
+    public Sessions(Cookie session, Mitarbeiter mitarbeiter) {
+        primaryKey = session.getValue();
+        long age = System.currentTimeMillis();
+        int cookieAge = session.getMaxAge();
+        if (cookieAge > 0) age += cookieAge;
+        date = new Date(age).toString();
         mitarbeiterID = mitarbeiter.getPrimaryKey();
     }
 

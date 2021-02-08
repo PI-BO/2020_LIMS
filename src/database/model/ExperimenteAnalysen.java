@@ -62,6 +62,11 @@ public class ExperimenteAnalysen extends Model{
         return null;
     }
 
+    @Override
+    public void saveToDatabase() {
+
+    }
+
     public List<Analysen> getAnalysen() {
         return analysen;
     }

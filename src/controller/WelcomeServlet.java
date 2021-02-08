@@ -32,8 +32,8 @@ public class WelcomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.debug("doGet()");
-        if (LoginServlet.getUser() == null) response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
-        else doPost(request, response);
+        if (LoginServlet.isLogin(request, response)) doPost(request, response);
+
     }
 
     private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ModelNotFoundException {

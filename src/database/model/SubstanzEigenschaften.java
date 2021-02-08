@@ -62,6 +62,11 @@ public class SubstanzEigenschaften extends Model{
         return null;
     }
 
+    @Override
+    public void saveToDatabase() {
+
+    }
+
     public List<Eigenschaften> getEigenschaften() {
         return eigenschaften;
     }

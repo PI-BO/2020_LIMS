@@ -93,12 +93,10 @@ public class MariaDB implements Database {
 	@Override
 	public void updateModel(Model model) throws SQLException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void deleteModel(Model model) throws SQLException {
 		// TODO Auto-generated method stub
-		
 	}
 }
