@@ -221,7 +221,6 @@
 			</tr>
 			
 			<tr><th style="text-align:center" id="button_probeneingang_speichern"><button type="submit">Speichern</button></th></tr>
-			<tr><td><div id="test"></div><td></tr>			
 			
 		</table>
 	</form>

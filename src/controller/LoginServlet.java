@@ -66,10 +66,14 @@ public class LoginServlet extends HttpServlet {
         LOGGER.debug("doGet() called");
         try {
             Sessions sessions = null;
-            for (Cookie c : request.getCookies()) {
-                if (c.getName().equals("session")) {
-                    sessions = new Sessions(c.getValue());
-                }
+            Cookie[]cookieArray = request.getCookies();
+            if(cookieArray != null){
+            	
+            	for (Cookie c : request.getCookies()) {
+            		if (c.getName().equals("session")) {
+            			sessions = new Sessions(c.getValue());
+            		}
+            	}
             }
 
             if (sessions != null) {
