@@ -11,38 +11,42 @@ import java.util.List;
 import exceptions.ModelNotFoundException;
 
 public class Probeneingang extends Model{
-
-	private String interneVergabenummer;
-	private String wirkstoff;
-	private String auftraggeber;
-	private String probenNr;
-	private String projektvertragnummer;
-	private String anlagennummer;
-	private String summenformel;
-	private String bezeichnung;
-	private String originator;
-	private String probeneingangDatum;
-	private String probenmasse;
-	private String besonderheiten;
-	private String infos;
-	private String standort;
-	private String messungDSC;
-	private String messungPulver;
-	private String messungIR;
-	private String bemerkungenZurMessung;
-	private boolean vertragVorhanden = false;
-	private String vertragVorhandenDatum;
-	private boolean vertragUnterzeichnet = false;
-	private String vertragUnterzeichnetDatum;
-	private boolean vertragVerschickt = false;
-	private String vertragVerschicktDatum;
-	private boolean vertragAbgerechnet = false;
-	private String vertragAbgerechnetDatum;
-	private boolean vertragBezahlt = false;
-	private String vertragBezahltDatum;
-	private String bemerkungen;
-	private String literatur;
-	private List<Bild> bilder = new LinkedList<>();
+												// GEHÖRT ZU:
+	
+	private String interneVergabenummer;		// ??? Projekt-Id, Substanz-Vergabenummer, Substanz-Id / Probe-Id ???
+	private String wirkstoff;					// Substanz
+	private String auftraggeber;				// Partner
+	private String probenNr;					// Substanz-Id
+	private String projektvertragnummer;		// Projekt-Id
+	private String anlagennummer;				// Substanz
+	private String summenformel;				// Substanz
+	private String bezeichnung;					// Substanz
+	private String originator;					// Substanz
+	private String probeneingangDatum;			// Substanz
+	private String probenmasse;					// Substanz
+	private String besonderheiten;				// Substanz
+	private String infos;						// Substanz
+	private String standort;					// Substanz
+	private String charge;						// Substanz
+	private boolean msds = false;				// Substanz
+	private String messungDSC;					// Substanz
+	private String messungPulver;				// Substanz
+	private String messungIR;					// Substanz
+	private String bemerkungenZurMessung;		// Substanz
+	private boolean vertragVorhanden = false;	// Substanz weil Projekt mehre Substanzen
+	private String vertragVorhandenDatum;		// Substanz weil Projekt mehre Substanzen
+	private boolean vertragUnterzeichnet = false;	// Substanz weil Projekt mehre Substanzen
+	private String vertragUnterzeichnetDatum;	// Substanz weil Projekt mehre Substanzen
+	private boolean vertragVerschickt = false;	// Substanz weil Projekt mehre Substanzen
+	private String vertragVerschicktDatum;		// Substanz weil Projekt mehre Substanzen
+	private boolean vertragAbgerechnet = false;	// Substanz weil Projekt mehre Substanzen
+	private String vertragAbgerechnetDatum;		// Substanz weil Projekt mehre Substanzen
+	private boolean vertragBezahlt = false;		// Substanz weil Projekt mehre Substanzen
+	private String vertragBezahltDatum;			// Substanz weil Projekt mehre Substanzen
+	private String bemerkungen;					// Substanz
+	private String literatur;					// Substanz
+	private List<Bild> bilder = new LinkedList<>();	// Substanz
+	private List<Gefahrensymbol> gefahrensymbole = new LinkedList<>();	// Substanz
 	
 	public String getInterneVergabenummer() {
 		return interneVergabenummer;
@@ -158,6 +162,12 @@ public class Probeneingang extends Model{
 	public void setVertragVorhanden(boolean vertragVorhanden) {
 		this.vertragVorhanden = vertragVorhanden;
 	}
+	public boolean isMsds() {
+		return msds;
+	}
+	public void setMsds(boolean msds) {
+		this.msds = msds;
+	}
 	public String getVertragVorhandenDatum() {
 		return vertragVorhandenDatum;
 	}
@@ -224,6 +234,12 @@ public class Probeneingang extends Model{
 	public void setLiteratur(String literatur) {
 		this.literatur = literatur;
 	}
+	public String getCharge() {
+		return charge;
+	}
+	public void setCharge(String charge) {
+		this.charge = charge;
+	}
 	public List<Bild> getBilder() {
 		return bilder;
 	}
@@ -242,6 +258,12 @@ public class Probeneingang extends Model{
 		
 		Bild bild = new Bild(bildArray);
 		bilder.add(bild);
+	}
+	public List<Gefahrensymbol> getGefahrensymbole() {
+		return gefahrensymbole;
+	}
+	public void setGefahrensymbole(List<Gefahrensymbol> gefahrensymbole) {
+		this.gefahrensymbole = gefahrensymbole;
 	}
 	@Override
 	public String getPrimaryKey() {
