@@ -1,5 +1,6 @@
 package controller;
 
+import database.inerfaces.Login;
 import database.model.Mitarbeiter;
 import database.model.Sessions;
 import exceptions.LoginInputInvalidException;
@@ -35,10 +36,44 @@ public class LoginServlet extends HttpServlet {
     public static final String REQUEST_PARAMETER_PASSWORD = "mitarbeiter_password";
     public static final String REQUEST_PARAMETER_ID = "mitarbeiter_id";
 
-    private static Mitarbeiter mitarbeiter;
+    /**
+     * Checks Cookies for Session id, and request Database for Session/User validation
+     * @param request Site Http Request for Cookie reference
+     * @return User Object if session user is valid else null
+     * @throws ModelNotFoundException if session or user can't be found in Database
+     * @throws SQLException
+     */
+    private static Mitarbeiter getSessionUser(HttpServletRequest request) throws ModelNotFoundException, SQLException {
+        Mitarbeiter m = null;
+        Cookie[] cookieArray = request.getCookies();
+        if (cookieArray != null) {
+            for (Cookie c : request.getCookies()) {
+                if (c.getName().equals("session")) {
+                    Sessions sessions = new Sessions(c.getValue());
+                    m = new Mitarbeiter(sessions.getMitarbeiterID());
+                }
+            }
+        }
+        return m;
+    }
 
-    public static Mitarbeiter getUser() {
-        return mitarbeiter;
+    /**
+     * returns if user is Logged in in a valid session
+     * if not sends redirect
+     * @param request Site HTTP request
+     * @param response Site HTTP response
+     * @return true if user is valid session else false
+     * @throws IOException
+     */
+    public static boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        boolean isLogin = false;
+        try {
+            isLogin = getSessionUser(request) != null;
+            if (!isLogin) response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
+        } catch (ModelNotFoundException | SQLException e) {
+            response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
+        }
+        return isLogin;
     }
 
     @Override
@@ -65,26 +100,14 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.debug("doGet() called");
         try {
-            Sessions sessions = null;
-            Cookie[]cookieArray = request.getCookies();
-            if(cookieArray != null){
-            	
-            	for (Cookie c : request.getCookies()) {
-            		if (c.getName().equals("session")) {
-            			sessions = new Sessions(c.getValue());
-            		}
-            	}
-            }
-
-            if (sessions != null) {
-                mitarbeiter = new Mitarbeiter(sessions.getMitarbeiterID());
+           Mitarbeiter m = getSessionUser(request);
+            if (m != null) {
                 LOGGER.debug("redirect to: " + FORWARD_ROUTE);
                 response.sendRedirect(request.getContextPath() + FORWARD_ROUTE);
             } else {
                 LOGGER.debug("redirect to: " + LOGIN_PAGE);
                 response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
             }
-
         } catch (SQLException | ModelNotFoundException throwables) {
             throwables.printStackTrace();
             LOGGER.debug("redirect to: " + LOGIN_PAGE);
@@ -94,10 +117,9 @@ public class LoginServlet extends HttpServlet {
 
     private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
         String mitarbeiterId = getEnteredMitarbeiterId(request);
-        Mitarbeiter login = new Mitarbeiter(mitarbeiterId);
+        Login login = new Mitarbeiter(mitarbeiterId);
         String password = getEnteredPassword(request);
         login.validate(password);
-        mitarbeiter = login;
     }
 
     private String getEnteredPassword(HttpServletRequest request) throws LoginInputInvalidException {
@@ -126,19 +148,16 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void keepUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws LoginInputInvalidException, ModelNotFoundException, SQLException {
-        if (getKeepLogin(request)) {
-            String mitarbeiterId = getEnteredMitarbeiterId(request);
-            Mitarbeiter login = new Mitarbeiter(mitarbeiterId);
-            String sessionKey = randomString(20);
-            System.out.println(sessionKey);
-            Cookie cookie = new Cookie("session", sessionKey);
-            //cookie.setHttpOnly(true);
-            //cookie.setSecure(true);
-            cookie.setMaxAge(60 * 60 * 24 * 30); // Set age in seconds for 30 Days
-            response.addCookie(cookie);
-            Sessions session = new Sessions(sessionKey, login);
-            session.save();
-        }
+        String mitarbeiterId = getEnteredMitarbeiterId(request);
+        Mitarbeiter login = new Mitarbeiter(mitarbeiterId);
+        String sessionKey = randomString(20);
+        Cookie cookie = new Cookie("session", sessionKey);
+        //cookie.setHttpOnly(true);
+        //cookie.setSecure(true);
+        if (getKeepLogin(request)) cookie.setMaxAge(60 * 60 * 24 * 30); // Set age in seconds for 30 Days
+        response.addCookie(cookie);
+        Sessions session = new Sessions(cookie, login);
+        session.save();
     }
 
     private boolean getKeepLogin(HttpServletRequest request) {

@@ -57,7 +57,7 @@ INSERT INTO `eigenschaften` (`eigenschft_key`, `value`) VALUES
 -- Exportiere Struktur von Ereignis demo.example
 DROP EVENT IF EXISTS `example`;
 DELIMITER //
-CREATE EVENT `example` ON SCHEDULE EVERY 1 DAY STARTS '2021-02-04 01:19:48' ON COMPLETION NOT PRESERVE ENABLE DO delete from sessions where creation_date < current_date - 30//
+CREATE EVENT `example` ON SCHEDULE EVERY 1 DAY STARTS '2021-02-04 01:19:48' ON COMPLETION NOT PRESERVE ENABLE DO delete from sessions where creation_date < current_date//
 DELIMITER ;
 
 -- Exportiere Struktur von Tabelle demo.experiment
@@ -240,13 +240,15 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   CONSTRAINT `sessions_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`mitarbeiterID`) REFERENCES `mitarbeiter` (`mitarbeiterID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.sessions: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo.sessions: ~5 rows (ungefähr)
 DELETE FROM `sessions`;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 INSERT INTO `sessions` (`session_key`, `creation_date`, `mitarbeiterID`) VALUES
 	('#]u#(sh+r5„sheWŸw()+', '2021-02-06', 456),
 	('A%¼]6)j$/yx2JÃQKv6A9', '2021-02-06', 123),
-	('kdÃB#Bc%lUhXJ4wqWapH', '2021-02-06', 123);
+	('CtD#ghKBR!aÃLp}HEÃÃh', '2021-02-08', 123),
+	('kdÃB#Bc%lUhXJ4wqWapH', '2021-02-06', 123),
+	('uœ-e/zYp%BCghKDœD!LÃ', '2021-02-08', 123);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
 -- Exportiere Struktur von Tabelle demo.substanz
