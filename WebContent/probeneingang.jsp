@@ -267,7 +267,7 @@
 		})
 		.catch(error => {
 			replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
-		})
+		});
 
 	}, false);
 	

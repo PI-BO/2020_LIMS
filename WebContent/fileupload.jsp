@@ -16,7 +16,6 @@
 	Select a file to upload:
 	<br />
 	<form id="form_probeneingang">
-<%-- 		<input type="hidden" id="probeneingang_url" value=<%=FileuploadTestServlet.ROUTE%>> --%>
 		<input type="file" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple>
 		<br />
 		<input type="text" name="filelabel" size="12" maxlength="32" />
