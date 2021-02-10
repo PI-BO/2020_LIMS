@@ -79,6 +79,10 @@
         let url;
         const nodeCategory = data.node.id.split(":")[0];
 
+		let path = createPath(data);
+		
+		$("#explorer-header").empty().append(path);
+        
         if (nodeCategory == "j1_1") {	//Projekte Node
             url = "http://localhost:8080/2020_LIMS/projekte.jsp";
         } else if (nodeCategory == "projekte") {
@@ -88,9 +92,26 @@
         }
 
         var posting = $.post(url, {projekt_id: data.node.text});
-        posting.done(function (data) {
-            $("#explorer-content").empty().append(data);
+        
+        posting.done(function (returnedData) {
+            $("#explorer-content").empty().append(returnedData);
         });
+    }
+    
+    function createPath(data){
+    	
+		let i = 0;
+		let path = data.node.text;
+		
+		for(i = 0; i < data.node.parents.length;  i++){
+			
+			id = data.node.parents[i];
+			anchorElement = document.getElementById(id + "_anchor");
+			if(anchorElement == null ) break;
+			path = anchorElement.textContent + " / " + path;
+			
+		};
+		return path;
     }
 
 </script>
