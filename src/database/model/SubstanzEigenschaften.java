@@ -4,29 +4,33 @@ import exceptions.ModelNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SubstanzEigenschaften extends Model{
-    private String primaryKey;
-    private final String COLUMN_PRIMARY_KEY = Substanz.COLUMN_PRIMARY_KEY;
-    private final String COLUMN_SECONDARY_KEY = Eigenschaften.COLUMN_PRIMARY_KEY;
+    private String substanz;
+    private String eigenschaft;
+    private final String COLUMN_SUBSTANZ_KEY = Substanz.COLUMN_PRIMARY_KEY;
+    private final String COLUMN_EIGENSCHAFT_KEY = Eigenschaften.COLUMN_PRIMARY_KEY;
     private final String TABLE = "substanz_eigenschaften";
-    private List<Eigenschaften> eigenschaften;
 
-    public SubstanzEigenschaften(String substanzId) throws SQLException, ModelNotFoundException {
-        this.primaryKey = substanzId;
+    public SubstanzEigenschaften() {
+
+    }
+
+    public SubstanzEigenschaften(String substanzId, String eigenschaftId) throws SQLException, ModelNotFoundException {
+        this.substanz = substanzId;
+        this.eigenschaft = eigenschaftId;
         database.getModel(this);
     }
 
 	@Override
     public String getPrimaryKey() {
-        return primaryKey;
+        return "\"" + substanz + "\",\"" + eigenschaft + "\"";
     }
 
     @Override
     public String getPrimaryKeyColumn() {
-        return COLUMN_PRIMARY_KEY;
+        return COLUMN_SUBSTANZ_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
     }
 
     @Override
@@ -36,38 +40,27 @@ public class SubstanzEigenschaften extends Model{
 
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-
-        eigenschaften = new ArrayList<>();
-
         while (resultSet.next()) {
+            int substanzIdIndex = resultSet.findColumn(COLUMN_SUBSTANZ_KEY);
+            substanz = resultSet.getString(substanzIdIndex);
 
-            int substanzIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
-            primaryKey = resultSet.getString(substanzIdIndex);
-
-            int eigenschaftIdIndex = resultSet.findColumn(COLUMN_SECONDARY_KEY);
-            String eigenschaftId = resultSet.getString(eigenschaftIdIndex);
-            Eigenschaften eigenschaft = new Eigenschaften(eigenschaftId);
-
-            eigenschaften.add(eigenschaft);
+            int eigenschaftIdIndex = resultSet.findColumn(COLUMN_EIGENSCHAFT_KEY);
+            eigenschaft = resultSet.getString(eigenschaftIdIndex);
         }
     }
 
     @Override
     public String getValues() {
-        return null;
+        return "\"" + substanz + "\",\"" + eigenschaft + "\"";
     }
 
     @Override
     public String getRelationSchema() {
-        return null;
+        return COLUMN_SUBSTANZ_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
     }
 
     @Override
     public void saveToDatabase() {
 
-    }
-
-    public List<Eigenschaften> getEigenschaften() {
-        return eigenschaften;
     }
 }

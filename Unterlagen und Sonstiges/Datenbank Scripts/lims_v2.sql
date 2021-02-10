@@ -417,6 +417,20 @@ DELETE FROM `experiment_serie`;
 /*!40000 ALTER TABLE `experiment_serie` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experiment_serie` ENABLE KEYS */;
 
+-- Exportiere Struktur von Tabelle demo_v2.gefahrensymbole
+DROP TABLE IF EXISTS `gefahrensymbole`;
+CREATE TABLE IF NOT EXISTS `gefahrensymbole` (
+  `eigenschaft_key` varchar(30) NOT NULL,
+  `image` blob NOT NULL,
+  PRIMARY KEY (`eigenschaft_key`),
+  CONSTRAINT `gefahrensymbole_eigenschaften_eigenschft_key_fk` FOREIGN KEY (`eigenschaft_key`) REFERENCES `eigenschaften` (`eigenschft_key`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Exportiere Daten aus Tabelle demo_v2.gefahrensymbole: ~0 rows (ungefähr)
+DELETE FROM `gefahrensymbole`;
+/*!40000 ALTER TABLE `gefahrensymbole` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gefahrensymbole` ENABLE KEYS */;
+
 -- Exportiere Struktur von Tabelle demo_v2.mitarbeiter
 DROP TABLE IF EXISTS `mitarbeiter`;
 CREATE TABLE IF NOT EXISTS `mitarbeiter` (
@@ -561,12 +575,12 @@ INSERT INTO `substanz` (`substanz_id`, `projekt_id`, `substanz_name`, `Summenfor
 -- Exportiere Struktur von Tabelle demo_v2.substanz_eigenschaften
 DROP TABLE IF EXISTS `substanz_eigenschaften`;
 CREATE TABLE IF NOT EXISTS `substanz_eigenschaften` (
-  `substanz` varchar(30) NOT NULL,
-  `eigenschaft` varchar(30) NOT NULL,
-  PRIMARY KEY (`substanz`,`eigenschaft`),
-  KEY `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` (`eigenschaft`),
-  CONSTRAINT `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` FOREIGN KEY (`eigenschaft`) REFERENCES `eigenschaften` (`eigenschft_key`) ON UPDATE CASCADE,
-  CONSTRAINT `substanz_eigenschaften_substanz_substanz_id_fk` FOREIGN KEY (`substanz`) REFERENCES `substanz` (`substanz_id`) ON UPDATE CASCADE
+  `substanz_id` varchar(30) NOT NULL,
+  `eigenschaft_key` varchar(30) NOT NULL,
+  PRIMARY KEY (`substanz_id`,`eigenschaft_key`),
+  KEY `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` (`eigenschaft_key`),
+  CONSTRAINT `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` FOREIGN KEY (`eigenschaft_key`) REFERENCES `eigenschaften` (`eigenschft_key`) ON UPDATE CASCADE,
+  CONSTRAINT `substanz_eigenschaften_substanz_substanz_id_fk` FOREIGN KEY (`substanz_id`) REFERENCES `substanz` (`substanz_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Exportiere Daten aus Tabelle demo_v2.substanz_eigenschaften: ~0 rows (ungefähr)

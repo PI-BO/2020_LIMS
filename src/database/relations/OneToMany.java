@@ -14,8 +14,9 @@ public abstract class OneToMany<O extends Model, M extends Model> {
     protected Database database = new MariaDB();
 
     private final O one;
-    private final Class<M> many;
-    protected OneToMany(O one, Class<M> many) {
+    protected final Class<M> many;
+
+    protected OneToMany(O one, Class<M> many) throws ModelNotFoundException, SQLException {
         this.one = one;
         this.many = many;
     }
@@ -27,17 +28,21 @@ public abstract class OneToMany<O extends Model, M extends Model> {
     public String getOneKeyColumn(){
         return one.getPrimaryKeyColumn();
     }
+
     public String getOneTable() {
         return one.getTable();
     }
+
     public abstract List<String> getManyKeys();
 
     public String getManyKeyColumn() throws NoSuchFieldException, IllegalAccessException {
         return (String) many.getDeclaredField("COLUMN_PRIMARY_KEY").get(null);
     }
+
     public String getManyTable() throws NoSuchFieldException, IllegalAccessException {
         return (String) many.getDeclaredField("TABLE").get(null);
     }
+
     public abstract void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException, NoSuchFieldException, IllegalAccessException;
 
 }
