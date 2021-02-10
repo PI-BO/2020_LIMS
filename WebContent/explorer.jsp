@@ -2,6 +2,8 @@
 <html>
 <head>
 
+<script src="explorerFunctions.js"></script>
+
 <style>
 #explorer-grid-container {
 	display: grid;
@@ -51,4 +53,10 @@
 		<div id="explorer-content"></div>
 	</div>
 </body>
+
+<script type="text/javascript">
+
+	
+
+</script>
 </html>

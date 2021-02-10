@@ -1,29 +1,26 @@
-#projekt_table{
+#explorer_table{
 	border-spacing: 0;
   	width: 100%;
 }
 
-.projekt_table_header{
-	cursor: pointer;
-	background-color: #77bbff
-}
-
-.projekt_table_data{
+.explorer_table_data{
 	text-align: left;
   	padding-left: 16px;
   	padding-right: 16px;
   	cursor: pointer;
 }
 
-#projekt_table_row_sortfuntions{
+.explorer_sortfunctions_row{
 	background-color: white;
 	cursor: pointer;
-/* 	text-align: center; */
 }
 
-.projekt_table_data_sortfuntion{
+.explorer_sortfunction{
+	cursor: pointer;
+	background-color: #77bbff
+	text-align: center;
 	padding-left: 16px;
-  	padding-right: 16px;
+  	padding-right: 160px;
   	border-right: 2px solid #ddd;
   	border-bottom: 2px solid #ddd;
 }
