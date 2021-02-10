@@ -12,7 +12,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Exportiere Struktur von Tabelle demo.analysen
+-- Exportiere Struktur von Tabelle demo_v2.analysen
 DROP TABLE IF EXISTS `analysen`;
 CREATE TABLE IF NOT EXISTS `analysen` (
   `id` int(11) NOT NULL,
@@ -22,15 +22,15 @@ CREATE TABLE IF NOT EXISTS `analysen` (
   KEY `experimente_analysen_experiment_id_fk` (`experiment`),
   KEY `analysen_analysetyp_id_fk` (`typ`),
   CONSTRAINT `analysen_analysetyp_id_fk` FOREIGN KEY (`typ`) REFERENCES `analysetyp` (`id`),
-  CONSTRAINT `experimente_analysen_experiment_id_fk` FOREIGN KEY (`experiment`) REFERENCES `experiment` (`id`)
+  CONSTRAINT `experimente_analysen_experiment_id_fk` FOREIGN KEY (`experiment`) REFERENCES `experiment` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.analysen: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.analysen: ~0 rows (ungefähr)
 DELETE FROM `analysen`;
 /*!40000 ALTER TABLE `analysen` DISABLE KEYS */;
 /*!40000 ALTER TABLE `analysen` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.analysetyp
+-- Exportiere Struktur von Tabelle demo_v2.analysetyp
 DROP TABLE IF EXISTS `analysetyp`;
 CREATE TABLE IF NOT EXISTS `analysetyp` (
   `id` int(11) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `analysetyp` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.analysetyp: ~4 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.analysetyp: ~4 rows (ungefähr)
 DELETE FROM `analysetyp`;
 /*!40000 ALTER TABLE `analysetyp` DISABLE KEYS */;
 INSERT INTO `analysetyp` (`id`, `typ`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `analysetyp` (`id`, `typ`) VALUES
 	(3, 'ir');
 /*!40000 ALTER TABLE `analysetyp` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.datenmaske_dsc
+-- Exportiere Struktur von Tabelle demo_v2.datenmaske_dsc
 DROP TABLE IF EXISTS `datenmaske_dsc`;
 CREATE TABLE IF NOT EXISTS `datenmaske_dsc` (
   `id` int(11) NOT NULL,
@@ -62,16 +62,16 @@ CREATE TABLE IF NOT EXISTS `datenmaske_dsc` (
   `operator` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `datenmaske_dsc_temperaturprogramme_table_fk` (`temperaturprogramm`),
-  CONSTRAINT `datenmaske_dsc_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`),
-  CONSTRAINT `datenmaske_dsc_temperaturprogramme_table_fk` FOREIGN KEY (`temperaturprogramm`) REFERENCES `temperaturprogramme` (`table`)
+  CONSTRAINT `datenmaske_dsc_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `datenmaske_dsc_temperaturprogramme_table_fk` FOREIGN KEY (`temperaturprogramm`) REFERENCES `temperaturprogramme` (`table`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.datenmaske_dsc: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.datenmaske_dsc: ~0 rows (ungefähr)
 DELETE FROM `datenmaske_dsc`;
 /*!40000 ALTER TABLE `datenmaske_dsc` DISABLE KEYS */;
 /*!40000 ALTER TABLE `datenmaske_dsc` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.datenmaske_ir
+-- Exportiere Struktur von Tabelle demo_v2.datenmaske_ir
 DROP TABLE IF EXISTS `datenmaske_ir`;
 CREATE TABLE IF NOT EXISTS `datenmaske_ir` (
   `id` int(11) NOT NULL,
@@ -84,15 +84,15 @@ CREATE TABLE IF NOT EXISTS `datenmaske_ir` (
   `bemerkung` varchar(30) DEFAULT NULL,
   `operator` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `datenmaske_ir_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`)
+  CONSTRAINT `datenmaske_ir_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.datenmaske_ir: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.datenmaske_ir: ~0 rows (ungefähr)
 DELETE FROM `datenmaske_ir`;
 /*!40000 ALTER TABLE `datenmaske_ir` DISABLE KEYS */;
 /*!40000 ALTER TABLE `datenmaske_ir` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.datenmaske_pxrd
+-- Exportiere Struktur von Tabelle demo_v2.datenmaske_pxrd
 DROP TABLE IF EXISTS `datenmaske_pxrd`;
 CREATE TABLE IF NOT EXISTS `datenmaske_pxrd` (
   `id` int(11) NOT NULL,
@@ -105,15 +105,15 @@ CREATE TABLE IF NOT EXISTS `datenmaske_pxrd` (
   `bemerkung` varchar(30) DEFAULT NULL,
   `operator` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `datenmaske_pxrd_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`)
+  CONSTRAINT `datenmaske_pxrd_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.datenmaske_pxrd: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.datenmaske_pxrd: ~0 rows (ungefähr)
 DELETE FROM `datenmaske_pxrd`;
 /*!40000 ALTER TABLE `datenmaske_pxrd` DISABLE KEYS */;
 /*!40000 ALTER TABLE `datenmaske_pxrd` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.datenmaske_tga
+-- Exportiere Struktur von Tabelle demo_v2.datenmaske_tga
 DROP TABLE IF EXISTS `datenmaske_tga`;
 CREATE TABLE IF NOT EXISTS `datenmaske_tga` (
   `id` int(11) NOT NULL,
@@ -125,16 +125,16 @@ CREATE TABLE IF NOT EXISTS `datenmaske_tga` (
   `operator` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `datenmaske_tga_temperaturprogramme_table_fk` (`temperaturprogramm`),
-  CONSTRAINT `datenmaske_tga_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`),
-  CONSTRAINT `datenmaske_tga_temperaturprogramme_table_fk` FOREIGN KEY (`temperaturprogramm`) REFERENCES `temperaturprogramme` (`table`)
+  CONSTRAINT `datenmaske_tga_analysen_id_fk` FOREIGN KEY (`id`) REFERENCES `analysen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `datenmaske_tga_temperaturprogramme_table_fk` FOREIGN KEY (`temperaturprogramm`) REFERENCES `temperaturprogramme` (`table`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.datenmaske_tga: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.datenmaske_tga: ~0 rows (ungefähr)
 DELETE FROM `datenmaske_tga`;
 /*!40000 ALTER TABLE `datenmaske_tga` DISABLE KEYS */;
 /*!40000 ALTER TABLE `datenmaske_tga` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.eigenschaften
+-- Exportiere Struktur von Tabelle demo_v2.eigenschaften
 DROP TABLE IF EXISTS `eigenschaften`;
 CREATE TABLE IF NOT EXISTS `eigenschaften` (
   `eigenschft_key` varchar(30) NOT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `eigenschaften` (
   PRIMARY KEY (`eigenschft_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.eigenschaften: ~10 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.eigenschaften: ~10 rows (ungefähr)
 DELETE FROM `eigenschaften`;
 /*!40000 ALTER TABLE `eigenschaften` DISABLE KEYS */;
 INSERT INTO `eigenschaften` (`eigenschft_key`, `value`) VALUES
@@ -158,7 +158,7 @@ INSERT INTO `eigenschaften` (`eigenschft_key`, `value`) VALUES
 	('Xn', 'Gesundheidsschädlich');
 /*!40000 ALTER TABLE `eigenschaften` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.eingangsanalystik
+-- Exportiere Struktur von Tabelle demo_v2.eingangsanalystik
 DROP TABLE IF EXISTS `eingangsanalystik`;
 CREATE TABLE IF NOT EXISTS `eingangsanalystik` (
   `id` int(11) NOT NULL,
@@ -172,21 +172,21 @@ CREATE TABLE IF NOT EXISTS `eingangsanalystik` (
   `sicherheitshinweis` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `eingangsanalystik_id_uindex` (`id`),
-  CONSTRAINT `eingangsanalystik_experiment_id_fk` FOREIGN KEY (`id`) REFERENCES `experiment` (`id`)
+  CONSTRAINT `eingangsanalystik_experiment_id_fk` FOREIGN KEY (`id`) REFERENCES `experiment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.eingangsanalystik: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.eingangsanalystik: ~0 rows (ungefähr)
 DELETE FROM `eingangsanalystik`;
 /*!40000 ALTER TABLE `eingangsanalystik` DISABLE KEYS */;
 /*!40000 ALTER TABLE `eingangsanalystik` ENABLE KEYS */;
 
--- Exportiere Struktur von Ereignis demo.example
+-- Exportiere Struktur von Ereignis demo_v2.example
 DROP EVENT IF EXISTS `example`;
 DELIMITER //
-CREATE EVENT `example` ON SCHEDULE EVERY 1 DAY STARTS '2021-01-23 03:32:09' ON COMPLETION NOT PRESERVE ENABLE DO delete from sessions where date < current_date - 30//
+CREATE EVENT `example` ON SCHEDULE EVERY 1 DAY STARTS '2021-01-23 03:32:09' ON COMPLETION NOT PRESERVE ENABLE DO delete from sessions where creation_date < current_date//
 DELIMITER ;
 
--- Exportiere Struktur von Tabelle demo.experiment
+-- Exportiere Struktur von Tabelle demo_v2.experiment
 DROP TABLE IF EXISTS `experiment`;
 CREATE TABLE IF NOT EXISTS `experiment` (
   `id` int(11) NOT NULL,
@@ -196,16 +196,16 @@ CREATE TABLE IF NOT EXISTS `experiment` (
   UNIQUE KEY `experiment_id_uindex` (`id`),
   KEY `experiment_experimenttyp_id_fk` (`typ`),
   KEY `experiment_probe_probennummer_fk` (`probennummer`),
-  CONSTRAINT `experiment_experimenttyp_id_fk` FOREIGN KEY (`typ`) REFERENCES `experimenttyp` (`id`),
-  CONSTRAINT `experiment_probe_probennummer_fk` FOREIGN KEY (`probennummer`) REFERENCES `probe` (`probennummer`)
+  CONSTRAINT `experiment_experimenttyp_id_fk` FOREIGN KEY (`typ`) REFERENCES `experimenttyp` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `experiment_probe_probennummer_fk` FOREIGN KEY (`probennummer`) REFERENCES `probe` (`probennummer`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.experiment: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experiment: ~0 rows (ungefähr)
 DELETE FROM `experiment`;
 /*!40000 ALTER TABLE `experiment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experiment` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.experimenttyp
+-- Exportiere Struktur von Tabelle demo_v2.experimenttyp
 DROP TABLE IF EXISTS `experimenttyp`;
 CREATE TABLE IF NOT EXISTS `experimenttyp` (
   `id` int(11) NOT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `experimenttyp` (
   UNIQUE KEY `experimenttyp_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.experimenttyp: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experimenttyp: ~3 rows (ungefähr)
 DELETE FROM `experimenttyp`;
 /*!40000 ALTER TABLE `experimenttyp` DISABLE KEYS */;
 INSERT INTO `experimenttyp` (`id`, `typ`) VALUES
@@ -223,7 +223,7 @@ INSERT INTO `experimenttyp` (`id`, `typ`) VALUES
 	(2, 'Eingangsanalytik');
 /*!40000 ALTER TABLE `experimenttyp` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.experimenttyp_grinding
+-- Exportiere Struktur von Tabelle demo_v2.experimenttyp_grinding
 DROP TABLE IF EXISTS `experimenttyp_grinding`;
 CREATE TABLE IF NOT EXISTS `experimenttyp_grinding` (
   `id` int(11) NOT NULL,
@@ -232,12 +232,12 @@ CREATE TABLE IF NOT EXISTS `experimenttyp_grinding` (
   CONSTRAINT `experimenttyp_grinding_experiment_id_fk` FOREIGN KEY (`id`) REFERENCES `experiment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.experimenttyp_grinding: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experimenttyp_grinding: ~0 rows (ungefähr)
 DELETE FROM `experimenttyp_grinding`;
 /*!40000 ALTER TABLE `experimenttyp_grinding` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experimenttyp_grinding` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.experimenttyp_slurry
+-- Exportiere Struktur von Tabelle demo_v2.experimenttyp_slurry
 DROP TABLE IF EXISTS `experimenttyp_slurry`;
 CREATE TABLE IF NOT EXISTS `experimenttyp_slurry` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -301,19 +301,19 @@ CREATE TABLE IF NOT EXISTS `experimenttyp_slurry` (
   KEY `experimenttyp_slurry_experiment_serie_serie_fk` (`serie`),
   KEY `experimenttyp_slurry_mitarbeiter_mitarbeiterID_fk` (`planung`),
   KEY `experimenttyp_slurry_mitarbeiter_mitarbeiterID_fk_2` (`operator`),
-  CONSTRAINT `experimenttyp_slurry_experiment_durchführungstext_id_fk` FOREIGN KEY (`durchfuehrung`) REFERENCES `experiment_durchführungstext` (`id`),
+  CONSTRAINT `experimenttyp_slurry_experiment_durchführungstext_id_fk` FOREIGN KEY (`durchfuehrung`) REFERENCES `experiment_durchführungstext` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `experimenttyp_slurry_experiment_id_fk` FOREIGN KEY (`id`) REFERENCES `experiment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `experimenttyp_slurry_experiment_serie_serie_fk` FOREIGN KEY (`serie`) REFERENCES `experiment_serie` (`serie`),
-  CONSTRAINT `experimenttyp_slurry_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`planung`) REFERENCES `mitarbeiter` (`mitarbeiterID`),
-  CONSTRAINT `experimenttyp_slurry_mitarbeiter_mitarbeiterID_fk_2` FOREIGN KEY (`operator`) REFERENCES `mitarbeiter` (`mitarbeiterID`)
+  CONSTRAINT `experimenttyp_slurry_experiment_serie_serie_fk` FOREIGN KEY (`serie`) REFERENCES `experiment_serie` (`serie`) ON UPDATE CASCADE,
+  CONSTRAINT `experimenttyp_slurry_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`planung`) REFERENCES `mitarbeiter` (`mitarbeiterID`) ON UPDATE CASCADE,
+  CONSTRAINT `experimenttyp_slurry_mitarbeiter_mitarbeiterID_fk_2` FOREIGN KEY (`operator`) REFERENCES `mitarbeiter` (`mitarbeiterID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.experimenttyp_slurry: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experimenttyp_slurry: ~0 rows (ungefähr)
 DELETE FROM `experimenttyp_slurry`;
 /*!40000 ALTER TABLE `experimenttyp_slurry` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experimenttyp_slurry` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.experimenttyp_verdampfung
+-- Exportiere Struktur von Tabelle demo_v2.experimenttyp_verdampfung
 DROP TABLE IF EXISTS `experimenttyp_verdampfung`;
 CREATE TABLE IF NOT EXISTS `experimenttyp_verdampfung` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -381,18 +381,18 @@ CREATE TABLE IF NOT EXISTS `experimenttyp_verdampfung` (
   KEY `experimenttyp_verdampfung_mitarbeiter_mitarbeiterID_fk` (`planung`),
   KEY `experimenttyp_verdampfung_mitarbeiter_mitarbeiterID_fk_2` (`operator`),
   CONSTRAINT `experimenttyp_loemi_experiment_id_fk` FOREIGN KEY (`id`) REFERENCES `experiment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `experimenttyp_verdampfung_experiment_durchführungstext_id_fk` FOREIGN KEY (`durchfuehrung`) REFERENCES `experiment_durchführungstext` (`id`),
-  CONSTRAINT `experimenttyp_verdampfung_experiment_serie_serie_fk` FOREIGN KEY (`serie`) REFERENCES `experiment_serie` (`serie`),
-  CONSTRAINT `experimenttyp_verdampfung_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`planung`) REFERENCES `mitarbeiter` (`mitarbeiterID`),
-  CONSTRAINT `experimenttyp_verdampfung_mitarbeiter_mitarbeiterID_fk_2` FOREIGN KEY (`operator`) REFERENCES `mitarbeiter` (`mitarbeiterID`)
+  CONSTRAINT `experimenttyp_verdampfung_experiment_durchführungstext_id_fk` FOREIGN KEY (`durchfuehrung`) REFERENCES `experiment_durchführungstext` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `experimenttyp_verdampfung_experiment_serie_serie_fk` FOREIGN KEY (`serie`) REFERENCES `experiment_serie` (`serie`) ON UPDATE CASCADE,
+  CONSTRAINT `experimenttyp_verdampfung_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`planung`) REFERENCES `mitarbeiter` (`mitarbeiterID`) ON UPDATE CASCADE,
+  CONSTRAINT `experimenttyp_verdampfung_mitarbeiter_mitarbeiterID_fk_2` FOREIGN KEY (`operator`) REFERENCES `mitarbeiter` (`mitarbeiterID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.experimenttyp_verdampfung: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experimenttyp_verdampfung: ~0 rows (ungefähr)
 DELETE FROM `experimenttyp_verdampfung`;
 /*!40000 ALTER TABLE `experimenttyp_verdampfung` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experimenttyp_verdampfung` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.experiment_durchführungstext
+-- Exportiere Struktur von Tabelle demo_v2.experiment_durchführungstext
 DROP TABLE IF EXISTS `experiment_durchführungstext`;
 CREATE TABLE IF NOT EXISTS `experiment_durchführungstext` (
   `id` varchar(30) NOT NULL,
@@ -400,24 +400,24 @@ CREATE TABLE IF NOT EXISTS `experiment_durchführungstext` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.experiment_durchführungstext: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experiment_durchführungstext: ~0 rows (ungefähr)
 DELETE FROM `experiment_durchführungstext`;
 /*!40000 ALTER TABLE `experiment_durchführungstext` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experiment_durchführungstext` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.experiment_serie
+-- Exportiere Struktur von Tabelle demo_v2.experiment_serie
 DROP TABLE IF EXISTS `experiment_serie`;
 CREATE TABLE IF NOT EXISTS `experiment_serie` (
   `serie` varchar(30) NOT NULL,
   PRIMARY KEY (`serie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.experiment_serie: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.experiment_serie: ~0 rows (ungefähr)
 DELETE FROM `experiment_serie`;
 /*!40000 ALTER TABLE `experiment_serie` DISABLE KEYS */;
 /*!40000 ALTER TABLE `experiment_serie` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.mitarbeiter
+-- Exportiere Struktur von Tabelle demo_v2.mitarbeiter
 DROP TABLE IF EXISTS `mitarbeiter`;
 CREATE TABLE IF NOT EXISTS `mitarbeiter` (
   `mitarbeiterID` int(11) NOT NULL AUTO_INCREMENT,
@@ -431,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `mitarbeiter` (
   CONSTRAINT `mitarbeiter_rollen_id_fk` FOREIGN KEY (`rolle`) REFERENCES `rollen` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=457 DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.mitarbeiter: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.mitarbeiter: ~2 rows (ungefähr)
 DELETE FROM `mitarbeiter`;
 /*!40000 ALTER TABLE `mitarbeiter` DISABLE KEYS */;
 INSERT INTO `mitarbeiter` (`mitarbeiterID`, `vorname`, `nachname`, `passwort`, `rolle`) VALUES
@@ -439,7 +439,7 @@ INSERT INTO `mitarbeiter` (`mitarbeiterID`, `vorname`, `nachname`, `passwort`, `
 	(456, 'Harry', 'Potter', 'abc', 0);
 /*!40000 ALTER TABLE `mitarbeiter` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.partner
+-- Exportiere Struktur von Tabelle demo_v2.partner
 DROP TABLE IF EXISTS `partner`;
 CREATE TABLE IF NOT EXISTS `partner` (
   `vertragsnummer` int(11) NOT NULL,
@@ -449,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `partner` (
   UNIQUE KEY `partner_vertragsnummer_uindex` (`vertragsnummer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.partner: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.partner: ~3 rows (ungefähr)
 DELETE FROM `partner`;
 /*!40000 ALTER TABLE `partner` DISABLE KEYS */;
 INSERT INTO `partner` (`vertragsnummer`, `name`, `email`) VALUES
@@ -458,22 +458,22 @@ INSERT INTO `partner` (`vertragsnummer`, `name`, `email`) VALUES
 	(2, 'jack', 'jack@hack.lack');
 /*!40000 ALTER TABLE `partner` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.probe
+-- Exportiere Struktur von Tabelle demo_v2.probe
 DROP TABLE IF EXISTS `probe`;
 CREATE TABLE IF NOT EXISTS `probe` (
   `probennummer` varchar(30) NOT NULL,
   `substanz_id` varchar(30) NOT NULL,
   PRIMARY KEY (`probennummer`),
   KEY `probe_substanz_substanz_id_fk` (`substanz_id`),
-  CONSTRAINT `probe_substanz_substanz_id_fk` FOREIGN KEY (`substanz_id`) REFERENCES `substanz` (`substanz_id`)
+  CONSTRAINT `probe_substanz_substanz_id_fk` FOREIGN KEY (`substanz_id`) REFERENCES `substanz` (`substanz_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.probe: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.probe: ~0 rows (ungefähr)
 DELETE FROM `probe`;
 /*!40000 ALTER TABLE `probe` DISABLE KEYS */;
 /*!40000 ALTER TABLE `probe` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.projekte
+-- Exportiere Struktur von Tabelle demo_v2.projekte
 DROP TABLE IF EXISTS `projekte`;
 CREATE TABLE IF NOT EXISTS `projekte` (
   `projekt_id` varchar(30) NOT NULL,
@@ -481,10 +481,10 @@ CREATE TABLE IF NOT EXISTS `projekte` (
   PRIMARY KEY (`projekt_id`),
   UNIQUE KEY `projekte_projekt_id_uindex` (`projekt_id`),
   KEY `projekte_partner_vertragsnummer_fk` (`vertragsnummer`),
-  CONSTRAINT `projekte_partner_vertragsnummer_fk` FOREIGN KEY (`vertragsnummer`) REFERENCES `partner` (`vertragsnummer`)
+  CONSTRAINT `projekte_partner_vertragsnummer_fk` FOREIGN KEY (`vertragsnummer`) REFERENCES `partner` (`vertragsnummer`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.projekte: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.projekte: ~3 rows (ungefähr)
 DELETE FROM `projekte`;
 /*!40000 ALTER TABLE `projekte` DISABLE KEYS */;
 INSERT INTO `projekte` (`projekt_id`, `vertragsnummer`) VALUES
@@ -493,7 +493,7 @@ INSERT INTO `projekte` (`projekt_id`, `vertragsnummer`) VALUES
 	('C', 2);
 /*!40000 ALTER TABLE `projekte` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.rollen
+-- Exportiere Struktur von Tabelle demo_v2.rollen
 DROP TABLE IF EXISTS `rollen`;
 CREATE TABLE IF NOT EXISTS `rollen` (
   `id` int(11) NOT NULL,
@@ -503,7 +503,7 @@ CREATE TABLE IF NOT EXISTS `rollen` (
   UNIQUE KEY `rollen_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.rollen: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.rollen: ~3 rows (ungefähr)
 DELETE FROM `rollen`;
 /*!40000 ALTER TABLE `rollen` DISABLE KEYS */;
 INSERT INTO `rollen` (`id`, `typ`, `zugehörigkeit`) VALUES
@@ -512,24 +512,24 @@ INSERT INTO `rollen` (`id`, `typ`, `zugehörigkeit`) VALUES
 	(2, 'Laborteam', 'Durchführung');
 /*!40000 ALTER TABLE `rollen` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.sessions
+-- Exportiere Struktur von Tabelle demo_v2.sessions
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `key` varchar(30) NOT NULL,
-  `date` date NOT NULL,
+  `session_key` varchar(30) NOT NULL,
+  `creation_date` date NOT NULL,
   `mitarbeiterID` int(11) NOT NULL,
-  PRIMARY KEY (`key`),
-  UNIQUE KEY `sessions_key_uindex` (`key`),
+  PRIMARY KEY (`session_key`),
+  UNIQUE KEY `sessions_key_uindex` (`session_key`),
   KEY `sessions_mitarbeiter_mitarbeiterID_fk` (`mitarbeiterID`),
-  CONSTRAINT `sessions_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`mitarbeiterID`) REFERENCES `mitarbeiter` (`mitarbeiterID`)
+  CONSTRAINT `sessions_mitarbeiter_mitarbeiterID_fk` FOREIGN KEY (`mitarbeiterID`) REFERENCES `mitarbeiter` (`mitarbeiterID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.sessions: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.sessions: ~0 rows (ungefähr)
 DELETE FROM `sessions`;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.substanz
+-- Exportiere Struktur von Tabelle demo_v2.substanz
 DROP TABLE IF EXISTS `substanz`;
 CREATE TABLE IF NOT EXISTS `substanz` (
   `substanz_id` varchar(30) NOT NULL,
@@ -543,10 +543,10 @@ CREATE TABLE IF NOT EXISTS `substanz` (
   PRIMARY KEY (`substanz_id`),
   UNIQUE KEY `substanz_substanz_id_uindex` (`substanz_id`),
   KEY `substanz_projekte_projekt_id_fk` (`projekt_id`),
-  CONSTRAINT `substanz_projekte_projekt_id_fk` FOREIGN KEY (`projekt_id`) REFERENCES `projekte` (`projekt_id`)
+  CONSTRAINT `substanz_projekte_projekt_id_fk` FOREIGN KEY (`projekt_id`) REFERENCES `projekte` (`projekt_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.substanz: ~6 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.substanz: ~6 rows (ungefähr)
 DELETE FROM `substanz`;
 /*!40000 ALTER TABLE `substanz` DISABLE KEYS */;
 INSERT INTO `substanz` (`substanz_id`, `projekt_id`, `substanz_name`, `Summenformel`, `probeneingang`, `probenmasse`, `batch/charge`, `info`) VALUES
@@ -558,23 +558,23 @@ INSERT INTO `substanz` (`substanz_id`, `projekt_id`, `substanz_name`, `Summenfor
 	('SubstanzG', 'A', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `substanz` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.substanz_eigenschaften
+-- Exportiere Struktur von Tabelle demo_v2.substanz_eigenschaften
 DROP TABLE IF EXISTS `substanz_eigenschaften`;
 CREATE TABLE IF NOT EXISTS `substanz_eigenschaften` (
   `substanz` varchar(30) NOT NULL,
   `eigenschaft` varchar(30) NOT NULL,
   PRIMARY KEY (`substanz`,`eigenschaft`),
   KEY `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` (`eigenschaft`),
-  CONSTRAINT `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` FOREIGN KEY (`eigenschaft`) REFERENCES `eigenschaften` (`eigenschft_key`),
-  CONSTRAINT `substanz_eigenschaften_substanz_substanz_id_fk` FOREIGN KEY (`substanz`) REFERENCES `substanz` (`substanz_id`)
+  CONSTRAINT `substanz_eigenschaften_eigenschaften_eigenschft_key_fk` FOREIGN KEY (`eigenschaft`) REFERENCES `eigenschaften` (`eigenschft_key`) ON UPDATE CASCADE,
+  CONSTRAINT `substanz_eigenschaften_substanz_substanz_id_fk` FOREIGN KEY (`substanz`) REFERENCES `substanz` (`substanz_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportiere Daten aus Tabelle demo.substanz_eigenschaften: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.substanz_eigenschaften: ~0 rows (ungefähr)
 DELETE FROM `substanz_eigenschaften`;
 /*!40000 ALTER TABLE `substanz_eigenschaften` DISABLE KEYS */;
 /*!40000 ALTER TABLE `substanz_eigenschaften` ENABLE KEYS */;
 
--- Exportiere Struktur von Tabelle demo.temperaturprogramme
+-- Exportiere Struktur von Tabelle demo_v2.temperaturprogramme
 DROP TABLE IF EXISTS `temperaturprogramme`;
 CREATE TABLE IF NOT EXISTS `temperaturprogramme` (
   `table` varchar(30) NOT NULL,
@@ -586,12 +586,12 @@ CREATE TABLE IF NOT EXISTS `temperaturprogramme` (
   PRIMARY KEY (`table`,`schritt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Exportiere Daten aus Tabelle demo.temperaturprogramme: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle demo_v2.temperaturprogramme: ~0 rows (ungefähr)
 DELETE FROM `temperaturprogramme`;
 /*!40000 ALTER TABLE `temperaturprogramme` DISABLE KEYS */;
 /*!40000 ALTER TABLE `temperaturprogramme` ENABLE KEYS */;
 
--- Exportiere Struktur von View demo.test
+-- Exportiere Struktur von View demo_v2.test
 DROP VIEW IF EXISTS `test`;
 -- Erstelle temporäre Tabelle um View Abhängigkeiten zuvorzukommen
 CREATE TABLE `test` (
@@ -599,7 +599,7 @@ CREATE TABLE `test` (
 	`name` VARCHAR(30) NOT NULL COLLATE 'utf8_general_ci'
 ) ENGINE=MyISAM;
 
--- Exportiere Struktur von View demo.test
+-- Exportiere Struktur von View demo_v2.test
 DROP VIEW IF EXISTS `test`;
 -- Entferne temporäre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `test`;
