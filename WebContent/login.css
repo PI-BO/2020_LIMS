@@ -127,6 +127,15 @@ form button:hover {
   height: 100%;
   z-index: 1;
 }
+#stay_logged_in_checkbox{
+	appearance: checkbox;
+	margin-top: 10px;
+	width: initial;
+}
+#stay_logged_in_label{
+	display: block ruby;
+	margin: 0 auto 10px auto;
+}
 .bg-bubbles li {
   position: absolute;
   list-style: none;
