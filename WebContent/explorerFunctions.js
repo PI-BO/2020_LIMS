@@ -87,11 +87,9 @@ function sortExplorerTable(n) {
 class ExplorerState {
 	
 	constructor(){
-		this.projekte = "Projekte";
+		this.projekte = null;
 		this.projekt = null;
 		this.substanz = null;
-		
-		$("#explorer-header").empty().append(this.getPath());
 	}
 	
 	setStateProjekte(projekte){
