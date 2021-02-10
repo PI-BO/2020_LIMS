@@ -2,6 +2,7 @@ package database.relations;
 
 import database.model.Eigenschaften;
 import database.model.Experiment;
+import database.model.Model;
 import database.model.Substanz;
 import exceptions.ModelNotFoundException;
 
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 public class SubstanzEigenschaften extends ManyToManyA<Substanz, Eigenschaften> {
     private List<Eigenschaften> eigenschaften;
 
-    protected SubstanzEigenschaften(Substanz substanz, Class<Eigenschaften> m, String relationTable) throws ModelNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+    protected SubstanzEigenschaften(Substanz substanz, Class<Eigenschaften> m, Model relationTable) throws ModelNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
         super(substanz, m, relationTable);
         database.resolveManyToMany(this);
     }

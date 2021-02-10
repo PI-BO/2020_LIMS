@@ -12,23 +12,15 @@ import java.util.List;
  * created on 10.02.2021
  */
 public abstract class ManyToManyA<N extends Model, M extends Model> extends OneToMany<N, M> {
-    private final String relationTable;
+    private final Model relationTable;
 
-    protected ManyToManyA(N n, Class<M> m, String relationTable) throws ModelNotFoundException, SQLException {
+    protected ManyToManyA(N n, Class<M> m, Model relationTable) throws ModelNotFoundException, SQLException {
         super(n, m);
         this.relationTable = relationTable;
     }
 
     public String getRelationTable() {
-        return relationTable;
-    }
-
-    public String getNKeyColumn() {
-        return getOneKeyColumn();
-    }
-
-    public String getMKeyColumn() throws NoSuchFieldException, IllegalAccessException {
-        return getManyKeyColumn();
+        return relationTable.getTable();
     }
 
     @Override

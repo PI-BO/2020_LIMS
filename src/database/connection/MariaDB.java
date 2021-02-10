@@ -69,7 +69,8 @@ public class MariaDB implements Database {
     public <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N, M> relation) throws SQLException {
         try {
             String sqlStatement = "SELECT * FROM " + relation.getManyTable() + "Where " + relation.getManyKeyColumn() +
-                    " in (SELECT " + relation.getManyKeyColumn() + " FROM " + relation.getRelationTable() + " where " + relation.getOneKeyColumn() + " = '" + relation.getOneKey() + "');";
+                    " in (SELECT " + relation.getManyKeyColumn() + " FROM " + relation.getRelationTable() +
+                    " where " + relation.getOneKeyColumn() + " = '" + relation.getOneKey() + "');";
 
             ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 
