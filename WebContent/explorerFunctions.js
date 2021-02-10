@@ -83,3 +83,54 @@ function sortExplorerTable(n) {
 		}
 	}
 }
+
+class ExplorerState {
+	
+	constructor(){
+		this.projekte = "Projekte";
+		this.projekt = null;
+		this.substanz = null;
+		
+		$("#explorer-header").empty().append(this.getPath());
+	}
+	
+	setStateProjekte(projekte){
+		this.projekte = projekte;
+		this.projekt = null;
+		this.substanz = null;
+		$("#explorer-header").empty().append(this.getPath());
+	}
+	
+	setStateProjekt(projekt){
+		this.projekt = projekt;
+		this.substanz = null;
+		$("#explorer-header").empty().append(this.getPath());
+	}
+	
+	setStateSubstanz(substanz){
+		this.substanz = substanz;
+		$("#explorer-header").empty().append(this.getPath());
+	}
+	
+	getPath(){
+		
+		let path = this.projekte;
+		
+		if(this.projekt != null) path = path + " / " + this.projekt;
+		if(this.substanz != null) path = path + " / " + this.substanz;
+		
+//		let bla = loadPage("/projekt.jsp", {projekt_id:"A"} );
+		
+		return `<div> ${path} </div>`; 
+	}
+}
+
+
+
+
+
+
+
+
+
+

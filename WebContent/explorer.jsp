@@ -56,7 +56,7 @@
 
 <script type="text/javascript">
 
-	
+	let explorerState = new ExplorerState();
 
 </script>
 </html>

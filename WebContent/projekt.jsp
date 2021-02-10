@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="explorerFunctions.js"></script>
+<!-- <script src="explorerFunctions.js"></script> -->
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <link rel="stylesheet" href="explorer.css">
 <title>LIMS | Projekt</title>
@@ -43,7 +43,11 @@
 		</table>
 
 		<script>
+			
 			addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
+			
+			explorerState.setStateProjekt("<%= projekt_id %>");
+			
 		</script>
 
 </body>

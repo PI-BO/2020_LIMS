@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="explorerFunctions.js"></script>
+<!-- <script src="explorerFunctions.js"></script> -->
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>LIMS | Projekt</title>
 <link rel="stylesheet" href="explorer.css">
@@ -50,6 +50,8 @@
 				let data = {projekt_id : $(this).text()};
 				loadPage("/projekt.jsp", data);
 			});
+			
+			explorerState.setStateProjekte("Projekte");
 			
 		</script>
 
