@@ -110,16 +110,42 @@ class ExplorerState {
 		$("#explorer-header").empty().append(this.getPath());
 	}
 	
+	createPathElement(){
+		
+		var pathDiv = document.createElement("DIV");
+		
+		pathDiv.setAttribute("class", "explorer-path-element");
+//		pathDiv.setAttribute("style", "background-color : #BEEBFF");
+		
+		return pathDiv;
+	}
+	
+	createPathDivisor(){
+		
+		var pathDiv = document.createElement("DIV");
+		pathDiv.setAttribute("class", "explorer-path-divisor symbol_triangle_right");
+		
+		return pathDiv;
+	}
+	
 	getPath(){
 		
-		let path = this.projekte;
+		let divList = []
 		
-		if(this.projekt != null) path = path + " / " + this.projekt;
-		if(this.substanz != null) path = path + " / " + this.substanz;
+		let projekteDiv = this.createPathElement();
+		projekteDiv.onclick = () => loadPage("/projekte.jsp", {});
+		projekteDiv.innerHTML = this.projekte;
+		divList.push(projekteDiv);
 		
-//		let bla = loadPage("/projekt.jsp", {projekt_id:"A"} );
+		if(this.projekt == null) return divList;
 		
-		return `<div> ${path} </div>`; 
+		let projektDiv = this.createPathElement();
+		projektDiv.innerHTML = this.projekt;
+		projektDiv.onclick = () => loadPage("/projekt.jsp", {projekt_id : this.projekt});
+		divList.push(this.createPathDivisor());
+		divList.push(projektDiv);
+				
+		return divList; 
 	}
 }
 

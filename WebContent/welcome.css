@@ -84,6 +84,11 @@ html, body {
 /* 	margin-right: 6px; */
 }
 
+.symbol_triangle_right::after {
+	content: "\25B8";
+/* 	margin-right: 6px; */
+}
+
 .symbol_folder_closed::before {
 	content: "\1F4C1";
 	margin-right: 6px;
