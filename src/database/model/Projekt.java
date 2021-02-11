@@ -14,8 +14,7 @@ public class Projekt extends Model {
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
 	public static final String COLUMN_VERTRAGSNUMMER = "vertragsnummer";
 	public static final String TABLE = "projekte";
-	private List<Substanz> substanzen;
-	
+
 	public Projekt(){
 		
 	}
@@ -23,9 +22,6 @@ public class Projekt extends Model {
 	public Projekt(String id) throws SQLException, ModelNotFoundException{
 		this.primaryKey = id;
 		database.getModel(this);
-		
-		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
-		substanzen = projekteSubstanz.getSubstanzen();
 	}
 	
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
@@ -42,7 +38,8 @@ public class Projekt extends Model {
 	}
 
 	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
-		return substanzen;
+		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
+		return projekteSubstanz.getSubstanzen();
 	}
 
 	@Override
@@ -76,10 +73,6 @@ public class Projekt extends Model {
 
 	public void setVertragsnummer(String vertragsnummer) {
 		this.vertragsnummer = vertragsnummer;
-	}
-
-	public void setSubstanzen(List<Substanz> substanzen) {
-		this.substanzen = substanzen;
 	}
 
 	@Override

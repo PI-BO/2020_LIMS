@@ -50,6 +50,10 @@ public class Substanz extends Model {
         return projektID;
     }
 
+    public Projekt getProjekt() throws ModelNotFoundException, SQLException {
+        return new Projekt(projektID);
+    }
+
 	@Override
 	public String getValues() {
 		return primaryKey + "," + projektID;
