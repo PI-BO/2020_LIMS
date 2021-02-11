@@ -69,4 +69,8 @@ public class Eigenschaften extends Model{
 		
 	}
 
+	public void setValue(String value) {
+        this.value = value;
+    }
+
 }
