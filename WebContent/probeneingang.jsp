@@ -5,13 +5,13 @@
 <%@page import="database.model.Model"%>
 <%@page import="database.model.ModelList"%>
 <%@page import="database.model.Partner"%>
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8" />
-	<title></title>
+	<title>Probeneingang</title>
 	<!-- <link rel="stylesheet" href="projekt_erstellen.css"> -->
 	<style>
         #table_probeneingang {
@@ -82,7 +82,7 @@
 			<tr>
 				<td>
 					<select required name=<%=ProbeneingangServlet.AUFTRAGGEBER%> >
-					 	<option value="" selected disabled></option>
+					 	<option value="" selected disabled>bitte auswaehlen</option>
 					 	
 					 	<%
 					 	ModelList modelList = new ModelList(new Partner());

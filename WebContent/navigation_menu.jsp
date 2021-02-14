@@ -37,6 +37,7 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">Probeneingang</span></li>
+							<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen">Eingangsanalytik</span></li>
 <!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span
@@ -111,6 +112,17 @@
 		
 		$("#probeneingang_erstellen").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/probeneingang.jsp";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#main-content-explorer" ).hide();
+				$( "#main-content-input-masks" ).hide();
+				$( "#main-content-input-masks" ).empty().append( data );
+				$( "#main-content-input-masks" ).show(500);
+			});
+		});
+		
+		$("#eingangsanalytik_erstellen").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/eingangsanalytik.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).hide();
