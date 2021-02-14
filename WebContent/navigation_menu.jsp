@@ -133,7 +133,7 @@
 		});
 		
 		$("#logout").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/login";
+			var url = "http://localhost:8080/2020_LIMS/login.html";
 			$(".navigation_tree_branches").hide(800);
 			$("#main-content-explorer").hide(800);
 			$("#main-content-input-masks").hide(800);
