@@ -1,6 +1,5 @@
 package controller;
 
-import exceptions.ModelNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,22 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
-@WebServlet(WelcomeServlet.ROUTE)
-public class WelcomeServlet extends HttpServlet {
+@WebServlet(MainServlet.ROUTE)
+public class MainServlet extends HttpServlet {
 
     private static final long serialVersionUID = 6585003356653758862L;
-    private static final Logger LOGGER = LogManager.getLogger(WelcomeServlet.class.getSimpleName());
+    private static final Logger LOGGER = LogManager.getLogger(MainServlet.class.getSimpleName());
 
-    public static final String ROUTE = "/welcome";
-    public static final String WELCOME_PAGE = "/welcome.jsp";
+    public static final String ROUTE = "/main";
+    public static final String WELCOME_PAGE = "/main.jsp";
     public static final String SESSION_ATTRIBUTE_NAVIGATION = "projekt_id_lise";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         LOGGER.debug("doPost()");
-        forwardToWelcomePage(request, response);
+        redirectToWelcomePage(request, response);
+//        forwardToWelcomePage(request, response);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class WelcomeServlet extends HttpServlet {
 
     }
 
-    private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ModelNotFoundException {
+    private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
     }
 

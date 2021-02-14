@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 		<title>Solid-Chem | LIMS</title>
 		<script src="jquery-3.5.1.js"></script>
-		<link rel="stylesheet" href="welcome.css">
+		<link rel="stylesheet" href="main.css">
 	</head>
 
 	<body>

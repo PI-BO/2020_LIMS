@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 
     public static final String ROUTE = "/login";
     public static final String LOGIN_PAGE = "/login.html";
-    private static final String FORWARD_ROUTE = WelcomeServlet.ROUTE;
+    private static final String FORWARD_ROUTE = MainServlet.ROUTE;
 
     public static final String REQUEST_ATTRIBUTE = "login";
     public static final String REQUEST_PARAMETER_PASSWORD = "mitarbeiter_password";
