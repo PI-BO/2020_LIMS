@@ -25,15 +25,13 @@ html, body {
 
 #main-header {
 	grid-area: header;
-/* 	content-align: center; */
 	padding: 20px;
 	background-color: rgba(255, 255, 255, 0.8);
+	display: flex;
 }
 
 #main-header img {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+	margin: auto;
 }
 
 #main-menu { 
