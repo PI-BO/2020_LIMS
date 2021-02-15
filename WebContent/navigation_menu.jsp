@@ -34,8 +34,8 @@
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">Probeneingang</span></li>
-							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">erstellen</span></li>
+<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
 						</ul>
@@ -43,8 +43,12 @@
 					
 					<li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_cabinet">anzeigen</span></li>
-							<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen">Eingangsanalyse erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_folder_closed">Eingangsanalyse</span>
+								<ul class="navigation_tree_branches">
+									<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen">erstellen</span></li>
+								</ul>
+							</li>
+							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
 						</ul>
 					</li>
