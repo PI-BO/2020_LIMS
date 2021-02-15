@@ -24,7 +24,8 @@ public class Sessions extends Model{
         primaryKey = session.getValue();
         long age = System.currentTimeMillis();
         int cookieAge = session.getMaxAge();
-        if (cookieAge > 0) age += cookieAge;
+        if (cookieAge > 0)
+            age += cookieAge * 1000L;
         date = new Date(age).toString();
         mitarbeiterID = mitarbeiter.getPrimaryKey();
     }
