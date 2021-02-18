@@ -1,6 +1,7 @@
+<%@page import="config.Address"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
-<link rel="stylesheet" href="navigation_menu.css">
+<link rel="stylesheet" href="<%=Address.getNavigationMenuCSS()%>">
 <div>
 	<table id="navigation_table">
 		<tr>
@@ -25,10 +26,11 @@
 						</ul>
 					</li>
 						
+					<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">Explorer</span></li>
+					
 					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">anzeigen</span></li>
 						</ul>
 					</li>
 
@@ -59,7 +61,7 @@
 </div>
 
 	<script>
-
+	
 // 		Navigation komplett oeffnen
 		$(".navigation_table_header").click(function(){
 			
@@ -81,7 +83,7 @@
 		
 // 		init explorer
 		$( document ).ready(function(){
-			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
+			var url = "<%=Address.getExplorerJSP()%>";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).empty().append( data );
@@ -89,7 +91,7 @@
 		});
 		
 		$("#explorer_anzeigen").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/explorer.jsp";
+			var url = "<%=Address.getExplorerJSP()%>";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-input-masks" ).hide();
@@ -98,7 +100,8 @@
 		});
 		
 		$("#projekt_erstellen").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/projekt_erstellen.jsp";
+			var url = "<%=Address.getProjektJSP()%>";
+			var url = "http://localhost:8080/2020_LIMS/projekt/projekt_erstellen.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).hide();
@@ -120,7 +123,7 @@
 		});
 		
 		$("#probeneingang_erstellen").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/probeneingang.jsp";
+			var url = "<%=Address.getProbeneingangJSP()%>";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).hide();
@@ -131,7 +134,7 @@
 		});
 		
 		$("#eingangsanalytik_erstellen").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/eingangsanalytik.jsp";
+			var url = "<%=Address.getEingangsAnalytikJSP()%>";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).hide();

@@ -3,6 +3,8 @@ package controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import config.Address;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,7 @@ public class MainServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(MainServlet.class.getSimpleName());
 
     public static final String ROUTE = "/main";
-    public static final String WELCOME_PAGE = "/main.jsp";
+    public static final String MAIN_PAGE = Address.getMainRelativeJSP();
     public static final String SESSION_ATTRIBUTE_NAVIGATION = "projekt_id_lise";
 
     @Override
@@ -36,11 +38,11 @@ public class MainServlet extends HttpServlet {
     }
 
     private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
+        response.sendRedirect(request.getContextPath() + MAIN_PAGE);
     }
 
     private void forwardToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(WELCOME_PAGE);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(MAIN_PAGE);
         requestDispatcher.forward(request, response);
     }
 }

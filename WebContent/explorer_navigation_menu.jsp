@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="config.Address"%>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -14,7 +15,6 @@
         }
     </style>
     <link rel="stylesheet" href="jstree/style.min.css"/>
-    <script src="jquery-3.5.1.js"></script>
     <script src="jstree/jstree.min.js"></script>
 </head>
 
@@ -82,9 +82,9 @@
 		let path = createPath(data);
 		
         if (nodeCategory == "j1_1") {	//Projekte Node
-            url = "http://localhost:8080/2020_LIMS/projekte.jsp";
+             url = "<%=Address.getProjekteListJSP()%>";
         } else if (nodeCategory == "projekte") {
-            url = "http://localhost:8080/2020_LIMS/projekt.jsp";
+        	url = "<%=Address.getProjektJSP()%>";
         } else {
             return;
         }

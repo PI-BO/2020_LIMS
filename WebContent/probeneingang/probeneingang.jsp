@@ -247,28 +247,34 @@
 	function freeMemory(element){
 		URL.revokeObjectURL(element.src);
 	}
-	
-	// send form data to url
-	const form = document.querySelector('#form_probeneingang');
-	
-	form.addEventListener('submit', function(e) {
-		e.preventDefault();
-		var formData = new FormData(form);
-		
-		let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#probeneingang_url").value;
-		
-		fetch(url, {
-			method: "post",
-			body: formData
-		})
-		.then( response => {
-			replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
-		})
-		.catch(error => {
-			replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
-		});
 
-	}, false);
+	initFormHandler();
+	
+	function initFormHandler(){
+		
+		// send form data to url
+		let form = document.querySelector('#form_probeneingang');
+		
+		form.addEventListener('submit', function(e) {
+			e.preventDefault();
+			var formData = new FormData(form);
+			
+			let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#probeneingang_url").value;
+			
+			fetch(url, {
+				method: "post",
+				body: formData
+			})
+			.then( response => {
+				replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
+			})
+			.catch(error => {
+				replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
+			});
+	
+		}, false);
+	}
+	
 	
 	function replaceContent(id, text, color){
 		
