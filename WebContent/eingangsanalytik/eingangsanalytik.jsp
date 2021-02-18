@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<script src="jquery-3.5.1.js"></script>
 <title></title>
 <link rel="stylesheet" href="<%=Address.getEingangsAnalytikCSS()%>">
 <script src="<%=Address.getEingangsAnalytikJS()%>"></script>
