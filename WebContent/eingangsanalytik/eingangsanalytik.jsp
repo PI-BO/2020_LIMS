@@ -1,3 +1,4 @@
+<%@page import="config.Address"%>
 <%@page import="controller.EingangsanalytikServlet"%>
 <%@page import="database.model.EingangsanalyseSetterEnum"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
@@ -5,10 +6,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<script src="jquery-3.5.1.js"></script>
 <title></title>
-<link rel="stylesheet" href="eingangsanalytik.css">
-
+<link rel="stylesheet" href="<%=Address.getEingangsAnalytikCSS()%>">
+<script src="<%=Address.getEingangsAnalytikJS()%>"></script>
 </head>
 <body>
 	<div id="eingangsanalyse_container">
@@ -154,110 +154,85 @@
 		</div>
 	</div>
 
-	<script src="eingangsanalytik.js"></script>
 	<script>
 		
 	  	$("#eingangsanalyse_methode_add_button").click();
 
-		const form = document.querySelector('#form_eingangsanalyse');
-
-		form.addEventListener('submit', function(e) {
-			e.preventDefault();
-
-			let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#eingangsanalyse_url").value;
-
-			let submitData = {
-					Methoden : []
-			};
-			
-			let name;
-			let value;
-			const parameterMethode = "<%=EingangsanalyseSetterEnum.METHODE%>";
-
-			// JSON mit FormData fuellen bis die Methoden kommen
-			let i = 0;
-			for (i; i < e.target.length; i++) {
-
-				name = e.target[i].name;
-				value = e.target[i].value;
-
-				console.log(name, value);
-
-				// break wenn erste Methode kommt
-				if (name == parameterMethode) break;
-
-				submitData[name] = value;
-
-			}
-
-			// erste Methode als JSON erstellen
-			let methode = {};
-			methode[name] = value;
-			i++;
-
-			// restlichen Daten der Methode in methode-JSON fuellen
-			for (i; i < e.target.length; i++) {
-
-				name = e.target[i].name;
-				value = e.target[i].value;
-
-				console.log(name, value);
-
-				// naechste Methode erreicht, also aktuelle Methode ins Array pushen und methode-JSON neu instaziieren
-				if (name == parameterMethode) {
-					submitData["Methoden"].push(methode);
-					methode = {};
-					console.log("methode nach push:", methode);
-					methode[name] = value;
-
-				} else {
-					methode[name] = value;
+	  	initFormHandler();
+	  	
+	  	function initFormHandler(){
+	  		
+	  		let form = document.querySelector('#form_eingangsanalyse');
+			form.addEventListener('submit', function(e) {
+				e.preventDefault();
+	
+				let url = "<%=Address.getMainPath()%>" + document.querySelector("#eingangsanalyse_url").value;
+	
+				let submitData = {
+						Methoden : []
+				};
+				
+				let name;
+				let value;
+				const parameterMethode = "<%=EingangsanalyseSetterEnum.METHODE%>";
+	
+				// JSON mit FormData fuellen bis die Methoden kommen
+				let i = 0;
+				for (i; i < e.target.length; i++) {
+	
+					name = e.target[i].name;
+					value = e.target[i].value;
+	
+					console.log(name, value);
+	
+					// break wenn erste Methode kommt
+					if (name == parameterMethode) break;
+	
+					submitData[name] = value;
 				}
-			}
+	
+				// erste Methode als JSON erstellen
+				let methode = {};
+				methode[name] = value;
+				i++;
+	
+				// restlichen Daten der Methode in methode-JSON fuellen
+				for (i; i < e.target.length; i++) {
+	
+					name = e.target[i].name;
+					value = e.target[i].value;
+	
+					console.log(name, value);
+	
+					// naechste Methode erreicht, also aktuelle Methode ins Array pushen und methode-JSON neu instaziieren
+					if (name == parameterMethode) {
+						submitData["Methoden"].push(methode);
+						methode = {};
+						console.log("methode nach push:", methode);
+						methode[name] = value;
+	
+					} else {
+						methode[name] = value;
+					}
+				}
+	
+				// letzes methode-JSON in Array pushen
+				submitData["Methoden"].push(methode);
+	
+				console.log(submitData);
+	
+				fetch(url, {
+					method : "post",
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					body : JSON.stringify(submitData)
+				})
+	
+			}, false);
+	  	}
+	  	
 
-			// letzes methode-JSON in Array pushen
-			submitData["Methoden"].push(methode);
-
-			console.log(submitData);
-
-			fetch(url, {
-				method : "post",
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				body : JSON.stringify(submitData)
-			})
-
-		}, false);
-
-		// 				$("#form_eingangsanalyse").submit(function(e) {
-		// 					e.preventDefault();
-
-		// 					var submitData = {};
-
-		// 					submitData["Methoden"] = [];
-
-		// 					for (var i = 0; i < e.target.length; i++) {
-
-		// 						let name = e.target[i].name;
-		// 						let value = e.target[i].value;
-
-		// 						console.log(name, value);
-
-		// 						if(name == "Operator"){
-		// 							submitData["Methoden"].push(value);
-		// 						}else{
-		// 							submitData[name] = value;
-		// 						}
-
-		// 					}
-
-		// 					let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#eingangsanalyse_url").value;
-		// 					var posting = $.post(url, formData);
-		// 					posting.done(function(data) {
-		// 						// 			$("#th_speichern").empty().append(data);
-		// 					});
-		// 				})
 	</script>
 </body>
 </html>

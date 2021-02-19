@@ -130,7 +130,7 @@ form button:hover {
 #stay_logged_in_checkbox{
 	appearance: checkbox;
 	margin-top: 10px;
-	width: initial;
+	width: 10px;
 }
 #stay_logged_in_label{
 	display: block ruby;

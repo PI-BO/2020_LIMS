@@ -8,10 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Latest compiled and minified jQuery -->
 <meta charset="UTF-8" />
 <title>Solid-Chem | LIMS - Insert Projekt</title>
-<link rel="stylesheet" href="projekt_erstellen.css">
+<link rel="stylesheet" href="projekt/projekt_erstellen.css">
 </head>
 <body>
 	<form id="form_projekt_erstellen">

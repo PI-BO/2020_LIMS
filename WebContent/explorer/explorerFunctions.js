@@ -11,7 +11,7 @@ function addSymbolToggleListenerToCssClass(className, cssSymbolId) {
 }
 
 function loadPage(pageAddress, data) {
-	var url = "http://localhost:8080/2020_LIMS" + pageAddress;
+	var url = pageAddress;
 	var posting = $.post(url, data);
 	posting.done(function(data) {
 		$("#explorer-content").empty().append(data);
@@ -90,6 +90,15 @@ class ExplorerState {
 		this.projekte = null;
 		this.projekt = null;
 		this.substanz = null;
+//		this.projekteListAddress = null;
+	}
+	
+	setProjekteListAddress(address){
+		this.projekteListAddress = address;
+	}
+	
+	setProjektAddress(address){
+		this.projektAddress = address;
 	}
 	
 	setStateProjekte(projekte){
@@ -115,7 +124,6 @@ class ExplorerState {
 		var pathDiv = document.createElement("DIV");
 		
 		pathDiv.setAttribute("class", "explorer-path-element");
-//		pathDiv.setAttribute("style", "background-color : #BEEBFF");
 		
 		return pathDiv;
 	}
@@ -133,7 +141,7 @@ class ExplorerState {
 		let divList = []
 		
 		let projekteDiv = this.createPathElement();
-		projekteDiv.onclick = () => loadPage("/projekte.jsp", {});
+		projekteDiv.onclick = () => loadPage(this.projekteListAddress, {});
 		projekteDiv.innerHTML = this.projekte;
 		divList.push(projekteDiv);
 		
@@ -141,7 +149,7 @@ class ExplorerState {
 		
 		let projektDiv = this.createPathElement();
 		projektDiv.innerHTML = this.projekt;
-		projektDiv.onclick = () => loadPage("/projekt.jsp", {projekt_id : this.projekt});
+		projektDiv.onclick = () => loadPage(this.projektAddress, {projekt_id : this.projekt});
 		divList.push(this.createPathDivisor());
 		divList.push(projektDiv);
 				
