@@ -78,7 +78,6 @@
     function loadNode(data) {
         let url;
         const nodeCategory = data.node.id.split(":")[0];
-
 		let path = createPath(data);
 		
         if (nodeCategory == "j1_1") {	//Projekte Node
@@ -100,7 +99,6 @@
     	
 		let i = 0;
 		let path = data.node.text;
-		
 		for(i = 0; i < data.node.parents.length;  i++){
 			
 			id = data.node.parents[i];
