@@ -61,6 +61,8 @@ public class ResultSetDummy implements ResultSet{
 	@Override
 	public String getString(int columnIndex) throws SQLException {
 		
+		if(columnIndex > keyValuelist.size()-1) throw new SQLException();
+		
 		String value = keyValuelist.get(columnIndex).getValue();
 		
 		return value;
