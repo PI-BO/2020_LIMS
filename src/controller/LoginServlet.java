@@ -71,6 +71,7 @@ public class LoginServlet extends HttpServlet {
             isLogin = getSessionUser(request) != null;
             if (!isLogin) response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
         } catch (ModelNotFoundException | SQLException e) {
+        	e.printStackTrace();
             response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
         }
         return isLogin;
@@ -84,14 +85,18 @@ public class LoginServlet extends HttpServlet {
             forwardRequest(request, response); // Unterschied forward, redirect:	https://javabeat.net/difference-forward-sendredirect-servlet/
         } catch (SQLException e) {
             logException(e);
+            e.printStackTrace();
         } catch (ModelNotFoundException e) {
-            logException(e);
+        	e.printStackTrace();
+        	logException(e);
             returnLoginFailedPage(response);
         } catch (PasswordIncorrectException e) {
-            logException(e);
+        	e.printStackTrace();
+        	logException(e);
             returnPasswordIncorrectPage(response);
         } catch (LoginInputInvalidException e) {
-            logException(e);
+        	e.printStackTrace();
+        	logException(e);
             returnLoginInputInvalidPage(response);
         }
     }

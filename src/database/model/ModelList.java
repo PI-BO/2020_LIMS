@@ -1,6 +1,7 @@
 package database.model;
 
 import database.connection.MariaDB;
+import database.dummyDatabase.DummyResultSet;
 import database.inerfaces.Database;
 import exceptions.ModelNotFoundException;
 import org.apache.logging.log4j.LogManager;
@@ -12,15 +13,14 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ModelList {
+public class ModelList extends Model{
 
-    protected Database database = new MariaDB();
 
     private static final Logger LOGGER = LogManager.getLogger(ModelList.class.getSimpleName());
 
     private String table;
     private Model model;
-    private List<Model> modelList;
+    private List<Model> modelList = new LinkedList<>();;
 
     public ModelList(Model model) throws SQLException, ModelNotFoundException {
         this.model = model;
@@ -31,13 +31,14 @@ public class ModelList {
     public String getTable() {
         return table;
     }
-
+    
     public List<Model> getModelList() {
         return modelList;
     }
-
+    
     public void setAttributes(ResultSet resultSet) throws SQLException {
-        modelList = new LinkedList<>();
+        
+    	modelList = new LinkedList<>();
 
         while (!resultSet.isLast()) {
             try {
@@ -52,4 +53,44 @@ public class ModelList {
             }
         }
     }
+
+	@Override
+	public String getPrimaryKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPrimaryKeyColumn() {
+		return model.getPrimaryKeyColumn();
+	}
+
+	@Override
+	public String getValues() {
+		return model.getValues();
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return model.getRelationSchema();
+	}
+
+	@Override
+	public void saveToDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DummyResultSet returnAsDummyResultSet() {
+
+		DummyResultSet dummyResultSet = new DummyResultSet();
+		
+		for(Model model : modelList){
+			
+			dummyResultSet.addResultSet((model.returnAsDummyResultSet()));
+		}
+		
+		return dummyResultSet;
+	}
 }

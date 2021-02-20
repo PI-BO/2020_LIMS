@@ -32,7 +32,7 @@ public class MariaDB implements Database {
     }
 
     @Override
-    public void getTable(ModelList modelList) throws SQLException, ModelNotFoundException {
+    public void getTable(Model modelList) throws SQLException, ModelNotFoundException {
 
         String sqlStatement = "SELECT * FROM " + modelList.getTable() + ";";
 

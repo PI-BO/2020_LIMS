@@ -3,6 +3,8 @@ package database.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import database.dummyDatabase.DummyResultSet;
+import database.dummyDatabase.DummyResultSetEntry;
 import database.inerfaces.Login;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
@@ -14,13 +16,13 @@ public class Mitarbeiter extends Model implements Login {
 	private String vorname;
 	private String nachname;
 	
-	private static final String TABLE= "mitarbeiter";
-	private static final String COLUMN_PRIMARY_KEY= "mitarbeiterID";
-	private static final String COLUMN_VORNAME= "vorname";
-	private static final String COLUMN_NACHNAME = "nachname";
-	private static final String COLUMN_PASSWORD= "passwort";
-	
-    public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
+	public static final String TABLE= "mitarbeiter";
+	public static final String COLUMN_PRIMARY_KEY= "mitarbeiterID";
+	public static final String COLUMN_VORNAME= "vorname";
+	public static final String COLUMN_NACHNAME = "nachname";
+	public static final String COLUMN_PASSWORD= "passwort";
+
+	public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
     	
     	this.primaryKey = primaryKey;
     	database.getModel(this);
@@ -96,6 +98,30 @@ public class Mitarbeiter extends Model implements Login {
 	@Override
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
-		
 	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+	@Override
+	public DummyResultSet returnAsDummyResultSet() {
+
+		DummyResultSet dummyResultSet = new DummyResultSet();
+		
+		DummyResultSetEntry entry = new DummyResultSetEntry();
+		entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
+		entry.addKeyValuePair(COLUMN_NACHNAME, nachname);
+		entry.addKeyValuePair(COLUMN_VORNAME, vorname);
+		entry.addKeyValuePair(COLUMN_PASSWORD, password);
+		
+		dummyResultSet.addEntry(entry);
+		
+		return dummyResultSet;
+	}
+	
 }

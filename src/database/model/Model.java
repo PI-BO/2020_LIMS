@@ -3,13 +3,15 @@ package database.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import database.connection.DummyDB;
 import database.connection.MariaDB;
+import database.dummyDatabase.DummyResultSetInterface;
 import database.inerfaces.Database;
 import exceptions.ModelNotFoundException;
 
-public abstract class Model {
+public abstract class Model implements DummyResultSetInterface{
 	
-	protected Database database = new MariaDB();
+	protected Database database = DummyDB.getInstance();
 	
 	public abstract String getPrimaryKey();
 	public abstract String getPrimaryKeyColumn();

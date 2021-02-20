@@ -19,7 +19,7 @@ public interface Database {
 
     public void deleteModel(Model model) throws SQLException;
 
-    public void getTable(ModelList modelList) throws SQLException, ModelNotFoundException;
+    public void getTable(Model modelList) throws SQLException, ModelNotFoundException;
 
     public void getRelation(Model model) throws SQLException, ModelNotFoundException;
 

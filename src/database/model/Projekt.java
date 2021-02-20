@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import database.dummyDatabase.DummyResultSet;
+import database.dummyDatabase.DummyResultSetEntry;
 import database.relations.ProjekteSubstanz;
 import exceptions.ModelNotFoundException;
 
@@ -79,5 +81,19 @@ public class Projekt extends Model {
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public DummyResultSet returnAsDummyResultSet() {
+
+		DummyResultSet dummyResultSet = new DummyResultSet();
+		
+		DummyResultSetEntry entry = new DummyResultSetEntry();
+		entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
+		entry.addKeyValuePair(COLUMN_VERTRAGSNUMMER, vertragsnummer);
+
+		dummyResultSet.addEntry(entry);
+		
+		return dummyResultSet;
 	}
 }
