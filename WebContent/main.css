@@ -1,26 +1,20 @@
-
 html, body {
-  height: 100vh;
-  margin: 0;
+	height: 100vh;
+	margin: 0;
 }
 
-
 /* GRID */
-
-
 #main-container {
-  display: grid;
-  min-height: 100%;
-  max-height: auto;
-  min-width: 100%;
-  max-width: auto;
-  grid-template-areas:
-    'header header'
-    'tree-navi content';
-  grid-template-rows: 75px auto;
-  grid-template-columns: 25% auto;
-  grid-gap: 10px;
-  background-color: #2196F3;
+	display: grid;
+	min-height: 100%;
+	max-height: auto;
+	min-width: 100%;
+	max-width: auto;
+	grid-template-areas: 'header header' 'tree-navi content';
+	grid-template-rows: 75px auto;
+	grid-template-columns: 25% auto;
+	grid-gap: 10px;
+	background-color: #2196F3;
 }
 
 #main-header {
@@ -33,7 +27,7 @@ html, body {
 	margin: auto;
 }
 
-#main-menu { 
+#main-menu {
 	grid-area: tree-navi;
 	align-self: start;
 	padding-left: 10px;
@@ -54,9 +48,7 @@ html, body {
 	display: flex;
 }
 
-
 /* SYMBOLS*/
-
 .symbol_computer::before {
 	content: "\1F4BB";
 	margin-left: 6px;
@@ -74,12 +66,12 @@ html, body {
 
 .symbol_triangle_down::after {
 	content: "\25BE";
-/* 	margin-right: 6px; */
+	/* 	margin-right: 6px; */
 }
 
 .symbol_triangle_right::after {
 	content: "\25B8";
-/* 	margin-right: 6px; */
+	/* 	margin-right: 6px; */
 }
 
 .symbol_folder_closed::before {

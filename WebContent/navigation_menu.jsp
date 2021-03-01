@@ -15,52 +15,46 @@
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_briefcase" id="logout">Logout</span></li>
-						</ul>
-					</li>
+						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_user">Projektpartner</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
-						</ul>
-					</li>
-						
+						</ul></li>
+
 					<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">Explorer</span></li>
-					
+
 					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
-						</ul>
-					</li>
+						</ul></li>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">erstellen</span></li>
-<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li> -->
+							<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
-						</ul>
-					</li>
-					
+						</ul></li>
+
 					<li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_folder_closed">Eingangsanalyse</span>
 								<ul class="navigation_tree_branches">
 									<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen">erstellen</span></li>
-								</ul>
-							</li>
+								</ul></li>
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
-						</ul>
-					</li>
+						</ul></li>
 				</ul>
 			</td>
 		</tr>
 	</table>
 </div>
 
-	<script>
+<script>
 	
 // 		Navigation komplett oeffnen
 		$(".navigation_table_header").click(function(){

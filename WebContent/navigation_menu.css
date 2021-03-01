@@ -1,28 +1,28 @@
-#navigation_table{
+#navigation_table {
 	border-spacing: 0;
-  	width: 100%;
+	width: 100%;
 }
 
-.navigation_table_header{
+.navigation_table_header {
 	cursor: pointer;
 	padding: 16px;
 	background-color: #77bbff;
 }
 
-.navigation_table_header:first-child{
-/* 	background-color: #6ab5ff */
+.navigation_table_header:first-child {
+	/* 	background-color: #6ab5ff */
+	
 }
 
 .navigation_table_row:nth-child(even) {
-  background-color: white;
+	background-color: white;
 }
 
-.navigation_table_data{
+.navigation_table_data {
 	text-align: left;
-  	padding: 16px;
-  	cursor: pointer;
+	padding: 16px;
+	cursor: pointer;
 }
-
 
 /* Remove default bullets */
 #navigation_tree, .navigation_tree_branches {

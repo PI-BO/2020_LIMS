@@ -2,36 +2,35 @@
 <%@page import="config.Address"%>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <title>JSTree</title>
-    <style>
-        .demo {
-            overflow: scroll;
-            scrollbar-width: thin;
-            border: 1px solid silver;
-            height: 100%;
-            min-height: 100px;
-            text-align: initial;
-        }
-    </style>
-    <link rel="stylesheet" href="jstree/style.min.css"/>
-    <script src="jstree/jstree.min.js"></script>
+<meta charset="UTF-8" />
+<title>JSTree</title>
+<style>
+.demo {
+	overflow: scroll;
+	scrollbar-width: thin;
+	border: 1px solid silver;
+	height: 100%;
+	min-height: 100px;
+	text-align: initial;
+}
+</style>
+<link rel="stylesheet" href="jstree/style.min.css" />
+<script src="jstree/jstree.min.js"></script>
 </head>
 
 <body>
-<div style="display: table; height: 100%; width: 100%">
-<!--     <button id="evts_button" style="margin:0em auto 1em auto; display:block; padding:4px; border-radius:4px;"> -->
-<!--         select node Projekt A -->
-<!--     </button> -->
+	<div style="display: table; height: 100%; width: 100%">
+		<!--     <button id="evts_button" style="margin:0em auto 1em auto; display:block; padding:4px; border-radius:4px;"> -->
+		<!--         select node Projekt A -->
+		<!--     </button> -->
 
-    <input type="text" id="search" value="" class="input"
-           style="margin:1em auto 1em auto; display:block; padding:4px; border-radius:4px; border:1px solid silver;">
-    <div style="display: table-row; height: 100%">
-        <div id="lazy" class="demo"></div>
-    </div>
-</div>
+		<input type="text" id="search" value="" class="input" style="margin: 1em auto 1em auto; display: block; padding: 4px; border-radius: 4px; border: 1px solid silver;">
+		<div style="display: table-row; height: 100%">
+			<div id="lazy" class="demo"></div>
+		</div>
+	</div>
 
-<script>
+	<script>
     // interaction and events
     $('#evts_button').on("click", function () {
         var instance = $('#lazy').jstree(true);

@@ -1,8 +1,8 @@
-<%@page import="database.model.Projekt"%>
-<%@page import="controller.SaveProjectServlet"%>
-<%@page import="database.model.Model"%>
-<%@page import="database.model.ModelList"%>
-<%@page import="database.model.Partner"%>
+<%@page import="model.database.tableModels.Projekt"%>
+<%@page import="model.database.tableModels.Model"%>
+<%@page import="model.database.tableModels.Partner"%>
+<%@page import="model.database.tableModels.ModelList"%>
+<%@page import="controller.servlets.SaveProjectServlet"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
@@ -26,26 +26,24 @@
 			</tr>
 			<tr>
 				<td style="">Vertragsnummer</td>
-				
-				<td>
-					<select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" required style="float:left">
-					 	<option value="" selected disabled></option>
-					 	
-					 	<%
+
+				<td><select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" required style="float: left">
+						<option value="" selected disabled></option>
+
+						<%
 					 	ModelList modelList = new ModelList(new Partner());
 
 					 	for(Model model : modelList.getModelList()){
 					 		
 					 		%>
-					 		<option value=<%=model.getPrimaryKey()%> ><%= model.getPrimaryKey()%></option>
-					 		<%
+						<option value=<%=model.getPrimaryKey()%>><%= model.getPrimaryKey()%></option>
+						<%
 					 	}
 					 	
 					 	%>
-					 	
-					</select>
-				</td>
-				
+
+				</select></td>
+
 				<td style="">Projekt ID</td>
 				<td><input type=text placeholder="Projekt ID" name=<%=Projekt.COLUMN_PRIMARY_KEY %>></td>
 				<td></td>
@@ -71,7 +69,7 @@
 			</tr>
 		</table>
 	</form>
-	
+
 	<script>
 	
 	$("#form_projekt_erstellen").submit(function(e){
@@ -94,6 +92,6 @@
 	})
 	
 	</script>
-	
+
 </body>
 </html>

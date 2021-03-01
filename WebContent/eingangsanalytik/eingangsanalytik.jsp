@@ -1,6 +1,6 @@
 <%@page import="config.Address"%>
-<%@page import="controller.EingangsanalytikServlet"%>
-<%@page import="database.model.EingangsanalyseSetterEnum"%>
+<%@page import="controller.servlets.EingangsanalytikServlet"%>
+<%@page import="model.EingangsanalyseSetterEnum"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 <!DOCTYPE html>
 <html lang="en">
