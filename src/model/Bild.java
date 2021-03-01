@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import exceptions.ModelNotFoundException;
 
-public class Bild{
+public class Bild{		//TODO die Klasse als Tabelle in DB?
 	
 	private String primaryKey;
 	private byte[]bild;

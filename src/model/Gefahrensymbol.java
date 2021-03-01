@@ -3,10 +3,8 @@ package model;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import exceptions.ModelNotFoundException;
-import model.database.relations.ProjekteSubstanz;
 import model.database.tableModels.Eigenschaften;
 
 public class Gefahrensymbol extends Eigenschaften{
