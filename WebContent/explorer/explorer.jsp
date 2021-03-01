@@ -11,7 +11,7 @@
 		<div id="explorer-navigation-arrows"></div>
 		<div id="explorer-navigation-tree">
 			<%@ include file="../explorer_navigation_menu.jsp"%>
-<%-- 			<jsp:include page="<%=Address.getExplorerNavigationMenuJSP()%>"/> --%>
+			<%-- 			<jsp:include page="<%=Address.getExplorerNavigationMenuJSP()%>"/> --%>
 		</div>
 		<div id="explorer-content"></div>
 	</div>

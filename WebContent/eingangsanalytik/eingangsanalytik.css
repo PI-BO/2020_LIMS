@@ -1,50 +1,50 @@
 #eingangsanalyse_container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	background-color: white;
 }
 
 .eingangsanalyse_main_header {
-  background-color: #77bbff;
-  padding: 16px;
-  font-weight: bold;
+	background-color: #77bbff;
+	padding: 16px;
+	font-weight: bold;
 }
 
 .eingangsanalyse_header {
-  background-color: #dddddd;
-  padding: 8px;
-  font-weight: bold;
+	background-color: #dddddd;
+	padding: 8px;
+	font-weight: bold;
 }
 
 .eingangsanalyse_entry {
-  padding: 8px;
+	padding: 8px;
 }
 
 #eingangsanalyse_methoden_list {
-  background-color: #dddddd;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+	background-color: #dddddd;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 }
 
 .eingangsanalyse_methode {
-  border: 1px solid black;
-  background-color: #ffffff;
-  margin: 10px;
+	border: 1px solid black;
+	background-color: #ffffff;
+	margin: 10px;
 }
 
 .eingangsanalyse_methode_row {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .eingangsanalyse_methode_main_row {
-  background-color: #77bbff;
+	background-color: #77bbff;
 }
 
 .eingangsanalyse_methode_delete_button {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 10px;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-right: 10px;
 }

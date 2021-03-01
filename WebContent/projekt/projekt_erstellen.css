@@ -1,13 +1,10 @@
-
-#create_projekt_table{
-	float:left;
+#create_projekt_table {
+	float: left;
 	border: 1px solid #ddd;
 	padding: 10px;
 	display: inline-block;
 	background-color: white;
 }
-
-
 
 /* .wrapper { */
 /*     background: #50a3a2; */

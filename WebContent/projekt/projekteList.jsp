@@ -1,9 +1,8 @@
+<%@page import="model.database.tableModels.Projekt"%>
+<%@page import="model.database.tableModels.Model"%>
+<%@page import="model.database.tableModels.ModelList"%>
 <%@page import="config.Address"%>
-<%@page import="database.model.Model"%>
-<%@page import="database.model.Projekt"%>
-<%@page import="database.model.ModelList"%>
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-	pageEncoding="US-ASCII"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
 <html>
@@ -18,31 +17,31 @@
 %>
 
 <body>
-		<table id="explorer_table">
-			
-			<tr class="explorer_sortfunctions_row">
-				<td class="explorer_sortfunction symbol_triangle_up" onclick="sortExplorerTable(0)">Name</td>
-				<td class="explorer_sortfunction symbol_triangle_up" onclick="">Datum</td>
-				<td class="explorer_sortfunction symbol_triangle_up" onclick="">etc</td>
-			</tr>
-			
-			<%
+	<table id="explorer_table">
+
+		<tr class="explorer_sortfunctions_row">
+			<td class="explorer_sortfunction symbol_triangle_up" onclick="sortExplorerTable(0)">Name</td>
+			<td class="explorer_sortfunction symbol_triangle_up" onclick="">Datum</td>
+			<td class="explorer_sortfunction symbol_triangle_up" onclick="">etc</td>
+		</tr>
+
+		<%
 				for (Model projekt : projekte.getModelList()) {
 			%>
 
-			<tr>
-				<td class="explorer_table_data symbol_folder_closed"><%=projekt.getPrimaryKey()%></td>
-				<td class="explorer_table_data"></td>
-				<td class="explorer_table_data"></td>
-			</tr>
+		<tr>
+			<td class="explorer_table_data symbol_folder_closed"><%=projekt.getPrimaryKey()%></td>
+			<td class="explorer_table_data"></td>
+			<td class="explorer_table_data"></td>
+		</tr>
 
-			<%
+		<%
 				}
 			%>
-			
-		</table>
 
-		<script>
+	</table>
+
+	<script>
 
 			addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
 			

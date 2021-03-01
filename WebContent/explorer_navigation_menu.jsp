@@ -104,7 +104,7 @@
     </div>
 </div>
 
-<script>
+	<script>
     // interaction and events
     $('#evts_button').on("click", function () {
         var instance = $('#lazy').jstree(true);
@@ -171,9 +171,14 @@
     function loadNode(data) {
         let url;
         const nodeCategory = data.node.id.split(":")[0];
+<<<<<<< HEAD
 
         let path = createPath(data);
 
+=======
+		let path = createPath(data);
+		
+>>>>>>> demo_dummyDB
         if (nodeCategory == "j1_1") {	//Projekte Node
             url = "<%=Address.getProjekteListJSP()%>";
         } else if (nodeCategory == "projekte") {
@@ -188,6 +193,7 @@
             $("#explorer-content").empty().append(returnedData);
         });
     }
+<<<<<<< HEAD
 
     function createPath(data) {
 
@@ -204,6 +210,22 @@
         }
 
         return path;
+=======
+    
+    function createPath(data){
+    	
+		let i = 0;
+		let path = data.node.text;
+		for(i = 0; i < data.node.parents.length;  i++){
+			
+			id = data.node.parents[i];
+			anchorElement = document.getElementById(id + "_anchor");
+			if(anchorElement == null ) break;
+			path = anchorElement.textContent + " / " + path;
+			
+		};
+		return path;
+>>>>>>> demo_dummyDB
     }
 
 </script>

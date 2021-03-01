@@ -92,7 +92,7 @@ class ExplorerState {
 		this.substanz = null;
 //		this.projekteListAddress = null;
 	}
-	
+
 	setProjekteListAddress(address){
 		this.projekteListAddress = address;
 	}
