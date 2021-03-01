@@ -102,38 +102,31 @@ public class DummyDB implements Database{
 	}
 	
 	private boolean primaryKeyNotFound(String requestedKey, DummyRelation model) {
-		
-		System.out.print("primaryKeyNotFound();\t");
-		System.out.println("\trequestedKey = " + requestedKey);
-		System.out.println("\tmodelKey = " + model.getForeignKey());
-		
 		return !model.getForeignKey().equals(requestedKey);
 	}
 	
 	private boolean tableNotFound(String requestedTable, Model model) {
-		
-		System.out.print("tableNotFound();\t");
-		System.out.print("\trequestedTable = " + requestedTable);
-		System.out.println("\tmodelTable = " + model.getTable());
-		
 		return !model.getTable().equals(requestedTable);
 	}
 	
 	@Override
 	public void setModel(Model model) throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.print(this.getClass());
 		System.out.println("setModel() not implemented");
 	}
 
 	@Override
 	public void updateModel(Model model) throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.print(this.getClass());
 		System.out.println("updateModel() not implemented");
 	}
 
 	@Override
 	public void deleteModel(Model model) throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.print(this.getClass());
 		System.out.println("deleteModel() not implemented");
 	}
 
@@ -153,20 +146,16 @@ public class DummyDB implements Database{
 	@Override
 	public void getRelation(Model model) throws SQLException, ModelNotFoundException {
 		// TODO Auto-generated method stub
+		System.out.print(this.getClass());
 		System.out.println("getRelation() not implemented");
 	}
 
 	@Override
 	public <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> relation) throws SQLException, ModelNotFoundException {
 		
-		System.out.println("resolveOneToMany();");
-		
 		try {
 			String requestedTable = relation.getManyTable();
 			String requestedKey = relation.getOneKey();
-			
-			System.out.println("requestedTable = " + requestedTable);
-			System.out.println("requestedKey = " + requestedKey);
 			
 			DummyResultSet dummyResultSet = new DummyResultSet();
 			
@@ -175,8 +164,6 @@ public class DummyDB implements Database{
 				if(tableNotFound(requestedTable, model)) continue;
 				if(primaryKeyNotFound(requestedKey, model)) continue;
 
-				System.out.println("key found");
-				
 				DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 				dummyResultSetEntry.addKeyValuePair(model.getPrimaryKeyColumn(), model.getPrimaryKey());
 				dummyResultSet.addEntry(dummyResultSetEntry);
@@ -194,6 +181,7 @@ public class DummyDB implements Database{
 	@Override
 	public <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N, M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException {
 		// TODO Auto-generated method stub
+		System.out.print(this.getClass());
 		System.out.println("resolveManyToMany() not implemented");
 	}
 
