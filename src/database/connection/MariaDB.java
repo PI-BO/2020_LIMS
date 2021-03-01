@@ -81,13 +81,19 @@ public class MariaDB implements Database {
 
     }
 
-    public ResultSet findSubstring(Class<? extends Model> m, String str) throws NoSuchFieldException, IllegalAccessException, SQLException {
+    public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException {
         String table = (String) m.getDeclaredField("TABLE").get(null);
-        String primary = (String) m.getDeclaredField("COLUMN_PRIMARY_KEY").get(null);
 
-        String sqlStatement = "SELECT * FROM " + table + " WHERE " + primary + " like " + "\"%" + str + "%\";";
+        StringBuilder sqlStatement = new StringBuilder("SELECT * FROM " + table + " WHERE ");
 
-        ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+        for (String field : fields)
+            sqlStatement.append(field).append(" like ").append("\"%").append(str).append("%\" OR ");
+
+        sqlStatement.replace(sqlStatement.length() - 4, sqlStatement.length(), ";");
+
+        System.out.println(sqlStatement);
+
+        ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement.toString());
 
         return resultSet;
     }

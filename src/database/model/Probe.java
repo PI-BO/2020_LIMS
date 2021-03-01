@@ -68,4 +68,8 @@ public class Probe extends Model{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public Substanz getSubstanz() throws ModelNotFoundException, SQLException {
+        return new Substanz(substanzID);
+    }
 }

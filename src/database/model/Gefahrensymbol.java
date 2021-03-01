@@ -78,6 +78,5 @@ public class Gefahrensymbol extends Eigenschaften{
 	@Override
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
-
 	}
 }
