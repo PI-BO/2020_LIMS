@@ -1,5 +1,8 @@
-<%@page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="config.Address" %>
+<%@page import="model.database.tableModels.Projekt" %>
+<%@page import="model.database.tableModels.Substanz" %>
+<%@page import="model.database.tableModels.Probe" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +38,7 @@
             background-color: #f1f1f1;
             min-width: 160px;
             width: max-content;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
@@ -48,7 +51,9 @@
         }
 
         /* Show the dropdown menu on hover */
-        .dropdown:hover .dropdown-content {display: block;}
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
     <link rel="stylesheet" href="jstree/style.min.css"/>
     <script src="jstree/jstree.min.js"></script>
@@ -75,24 +80,29 @@
                 </tr>
                 <tr>
                     <td>
-                        <label><input type="checkbox" id="Projekt:projekt_id" class="checkbox" checked="true">id</label>
+                        <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Substanz:substanz_id" class="checkbox" checked="true">id</label>
+                        <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Probe:proben_nr" class="checkbox" checked="true">id</label>
+                        <label><input type="checkbox" id="Probe:${Probe.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">id</label>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label><input type="checkbox" id="Projekt:vertragsnummer" class="checkbox">vertragsnummer</label>
+                        <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}" class="checkbox">Vertragsnummer</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Substanz:projekt_id" class="checkbox">Projekt id</label>
+                        <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}" class="checkbox">Projekt
+                            id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Probe:substanz_id" class="checkbox">Substanz id</label>
+                        <label><input type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}" class="checkbox">Substanz
+                            id</label>
                     </td>
                 </tr>
             </table>
@@ -104,7 +114,7 @@
     </div>
 </div>
 
-	<script>
+<script>
     // interaction and events
     $('#evts_button').on("click", function () {
         var instance = $('#lazy').jstree(true);
@@ -127,9 +137,9 @@
             ajax: {
                 url: "jstree/search",
                 data: {
-                    "Projekt": ["projekt_id"],
-                    "Substanz": ["substanz_id"],
-                    "Probe": ["proben_nr"]
+                    "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
+                    "Substanz": ["${Substanz.COLUMN_PRIMARY_KEY}"],
+                    "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"]
                 }
             }
         },
@@ -173,7 +183,7 @@
         const nodeCategory = data.node.id.split(":")[0];
 
         let path = createPath(data);
-        
+
         if (nodeCategory == "j1_1") {	//Projekte Node
             url = "<%=Address.getProjekteListJSP()%>";
         } else if (nodeCategory == "projekte") {
