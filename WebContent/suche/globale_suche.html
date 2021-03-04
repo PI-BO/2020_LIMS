@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+</style>
+</head>
+<body>
+
+<div id="such_parameter_container">
+	<table id="such_parameter_table">
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th style="font-weight: normal">Filter hinzufuegen</th>
+			<th><input type="button" value="+" onclick="GlobaleSuche.addSuchParameter()" id="globale_suche_add_parameter_button"></th>
+		</tr>
+	</table>
+</div>
+
+<div id="such_liste_ergebnisse">
+  Ergebnisse
+</div>
+
+<!-- HIDDEN TEMPLATE  -->
+
+<div id="such_parameter_row_template" style="display: none;">
+	    <select onChange="GlobaleSuche.createParameters(this);">
+	      <option value="Projektpartner">Projektpartner</option>
+	      <option value="Projekt">Projekt</option>
+	      <option value="Probe">Probe</option>
+	      <option value="Experiment">Experiment</option>
+	      <option value="Methode">Methode</option>
+	    </select>
+	    <select class="such_parameter">
+	      <option value="Name">Name</option>
+	      <option>ID</option>
+	    </select>
+	    <select>
+	      <option>entspricht</option>
+	      <option>beinhaltet</option>
+	    </select>
+	    <input type="text" />
+	    <input type="button" value="-" onclick="GlobaleSuche.deleteSuchParameter(this)" id="globale_suche_add_parameter_button" />
+</div>
+
+<!-- END TEMPLATE -->
+
+</body>
+<script>
+
+	window.onload = function(){
+		init();
+	}
+
+	function init(){
+		
+		document.getElementById("globale_suche_add_parameter_button").click();
+	}
+
+	class GlobaleSuche{
+
+		static addSuchParameter() {
+			
+			let container = document.getElementById("such_parameter_table");
+			
+			let template = document.getElementById("such_parameter_row_template");
+			
+			let childNodes = template.children;
+			
+			const containerChildrenCount = container.children.length;
+			const templateChildrenCount = childNodes.length;
+			
+			console.log([container]);
+			console.log(container.rows.length);
+			
+			let row = container.insertRow(-1);
+			
+			console.log(container.rows.length);
+			
+			for(let i = 0; i < childNodes.length; i++){
+				
+				let cell = row.insertCell(i);
+				var child = childNodes[i].cloneNode(true);
+				cell.append(child);
+			}
+		}
+		
+		static deleteSuchParameter(suchParameterElement) {
+			
+			let parent = suchParameterElement.parentElement.parentElement;
+			parent.remove();
+			let container = document.getElementById("test");
+		}
+		
+		static resetSelects(element){
+			
+			let allSelects = element.querySelectorAll("select");
+			allSelects.forEach(element => {
+				console.log(element.options);
+				element.options[0].selected="true";
+			})
+		}
+		
+		static createParameters(event){
+			
+		 	let selectElement = findSelectElement("such_parameter");
+		 	removeOptions(selectElement);
+		 	let options = getOptions(event.value); 
+		 	insertOptions(options, selectElement);
+		 	
+		 	function insertOptions(options, selectElement){
+		 		
+		 		options.forEach(parameter => {
+			 		let option = document.createElement("option");
+			 		option.text = parameter;
+			 		option.value = parameter;
+			 		selectElement.add(option);
+		 		});
+		 	}
+		 	
+		 	function findSelectElement(className){
+		 		
+		 		let selectElement = event.parentElement.parentElement.getElementsByClassName(className)[0];
+		 		return selectElement;
+		 	}
+		 	
+			function removeOptions(selectElement){
+				
+				let selectOptions = selectElement.querySelectorAll("option");
+				selectOptions.forEach(option => option.remove());
+			}
+			
+			function getOptions(name){
+				  let bla = {
+				    "projektpartner" : ["name", "ansprechpartner"],
+				    "projekt" : ["id", "datum"],
+				    "experiment" : ["Nr", "Screening No", "Substanz", "API"],
+				    "probe" : ["vergabenummer", "auftraggeber", "wirkstoff", "probennummer", "summenformel"]
+				  }
+				  return bla[name.toLowerCase()];
+				}
+		}
+	}
+
+</script>
+</html>
