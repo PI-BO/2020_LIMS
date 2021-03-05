@@ -4,49 +4,55 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <style>
+	select{
+		width: 100%;
+	}
 </style>
 </head>
 <body>
 
-<div id="such_parameter_container">
-	<table id="such_parameter_table">
-		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th style="font-weight: normal">Filter hinzufuegen</th>
-			<th><input type="button" value="+" onclick="GlobaleSuche.addSuchParameter()" id="globale_suche_add_parameter_button"></th>
-		</tr>
-	</table>
-</div>
+	<div id="such_parameter_container">
+		<table id="such_parameter_table">
+			<tr>
+				<th>
+					<select id="select_main_category" onChange="GlobaleSuche.createParameters(this);">
+						<option value="Projektpartner">Projektpartner</option>
+						<option value="Projekt">Projekt</option>
+						<option value="Probe">Probe</option>
+						<option value="Experiment">Experiment</option>
+						<option value="Methode">Methode</option>
+					</select>
+				</th>
+				<th>
+				</th>
+				<th style="font-weight: normal">Filter hinzufuegen</th>
+				<th>
+					<input type="button" value="+" onclick="GlobaleSuche.addSuchParameter()" id="globale_suche_add_parameter_button">
+				</th>
+				<th>
+					<input type="button" value="suchen" onclick="GlobaleSuche.search()" id="globale_suche_add_parameter_button">
+				</th>
+			</tr>
+		</table>
+	</div>
 
-<div id="such_liste_ergebnisse">
-  Ergebnisse
-</div>
+	<div id="such_liste_ergebnisse">Ergebnisse</div>
 
-<!-- HIDDEN TEMPLATE  -->
+	<!-- HIDDEN TEMPLATE  -->
 
-<div id="such_parameter_row_template" style="display: none;">
-	    <select onChange="GlobaleSuche.createParameters(this);">
-	      <option value="Projektpartner">Projektpartner</option>
-	      <option value="Projekt">Projekt</option>
-	      <option value="Probe">Probe</option>
-	      <option value="Experiment">Experiment</option>
-	      <option value="Methode">Methode</option>
-	    </select>
-	    <select class="such_parameter">
-	      <option value="Name">Name</option>
-	      <option>ID</option>
-	    </select>
-	    <select>
-	      <option>entspricht</option>
-	      <option>beinhaltet</option>
-	    </select>
-	    <input type="text" />
-	    <input type="button" value="-" onclick="GlobaleSuche.deleteSuchParameter(this)" id="globale_suche_add_parameter_button" />
-</div>
+	<div id="such_parameter_row_template" style="display: none;">
+		<select class="such_parameter">
+			<option value="Name">Name</option>
+			<option>ID</option>
+		</select> <select>
+			<option>entspricht</option>
+			<option>beinhaltet</option>
+		</select>
+		<input type="text" />
+		<input type="button" value="-" onclick="GlobaleSuche.deleteSuchParameter(this)" id="globale_suche_add_parameter_button" />
+	</div>
 
-<!-- END TEMPLATE -->
+	<!-- END TEMPLATE -->
 
 </body>
 <script>
@@ -61,6 +67,49 @@
 	}
 
 	class GlobaleSuche{
+		
+		static search(){
+			
+			const partner1 = {
+					"name" : "Partner A",
+					"ansprechpartner" : "Max Mustermann"
+			}
+			
+			const partner2 = {
+					"name" : "Partner B",
+					"ansprechpartner" : "Jane Doe"
+			}
+			
+			const projekt1 = {
+					"id" : "123",
+					"name" : "Projekt 1",
+					"projektpartner" : "Partner A"
+			}
+			
+			let bla = {
+				    "projektpartner" : ["name", "ansprechpartner"],
+				    "projekt" : ["id", "name", "projektpartner"],
+				    "probe" : ["vergabenummer", "projekt", "wirkstoff", "probennummer", "summenformel"],
+				    "experiment" : ["Nr", "Screening No", "Substanz", "API"],
+				    "methode" : ["id", "operator"]
+				  }
+			
+			 let bla = {
+					    "projektpartner" : [
+					    	"Partner A" : {
+					    		"name" : 
+					    	} 
+					    ],
+					    "projekt" : ["id", "datum"],
+					    "experiment" : ["Nr", "Screening No", "Substanz", "API"],
+					    "probe" : ["vergabenummer", "auftraggeber", "wirkstoff", "probennummer", "summenformel"],
+					    "methode" : ["id", "operator"]
+					  }
+			
+			let searchCategory = document.getElementById("select_main_category").value;
+			
+		}
+
 
 		static addSuchParameter() {
 			
@@ -73,12 +122,7 @@
 			const containerChildrenCount = container.children.length;
 			const templateChildrenCount = childNodes.length;
 			
-			console.log([container]);
-			console.log(container.rows.length);
-			
 			let row = container.insertRow(-1);
-			
-			console.log(container.rows.length);
 			
 			for(let i = 0; i < childNodes.length; i++){
 				
@@ -106,31 +150,41 @@
 		
 		static createParameters(event){
 			
-		 	let selectElement = findSelectElement("such_parameter");
-		 	removeOptions(selectElement);
+		 	let selectElements = findSelectElements(event, "such_parameter");
+		 	removeOptions(selectElements);
 		 	let options = getOptions(event.value); 
-		 	insertOptions(options, selectElement);
+		 	insertOptions(options, selectElements);
 		 	
-		 	function insertOptions(options, selectElement){
+		 	function insertOptions(options, selectElements){
 		 		
-		 		options.forEach(parameter => {
-			 		let option = document.createElement("option");
-			 		option.text = parameter;
-			 		option.value = parameter;
-			 		selectElement.add(option);
-		 		});
+		 		Array.from(selectElements).forEach(element => {
+		 			
+			 		options.forEach(parameter => {
+				 		let option = document.createElement("option");
+				 		option.text = parameter;
+				 		option.value = parameter;
+				 		element.add(option);
+			 		});
+		 		})
+		 		
 		 	}
 		 	
-		 	function findSelectElement(className){
+		 	function findSelectElements(event, className){
 		 		
-		 		let selectElement = event.parentElement.parentElement.getElementsByClassName(className)[0];
-		 		return selectElement;
+		 		let table = document.getElementById("such_parameter_table");
+		 		let selectElements = document.getElementsByClassName(className);
+		 		console.log(selectElements);
+		 		return selectElements;
 		 	}
 		 	
-			function removeOptions(selectElement){
+			function removeOptions(selectElements){
 				
-				let selectOptions = selectElement.querySelectorAll("option");
-				selectOptions.forEach(option => option.remove());
+				Array.from(selectElements).forEach(element => {
+					console.log(element);
+					let selectOptions = element.querySelectorAll("option");
+					selectOptions.forEach(option => option.remove());
+				})
+				
 			}
 			
 			function getOptions(name){
@@ -138,7 +192,8 @@
 				    "projektpartner" : ["name", "ansprechpartner"],
 				    "projekt" : ["id", "datum"],
 				    "experiment" : ["Nr", "Screening No", "Substanz", "API"],
-				    "probe" : ["vergabenummer", "auftraggeber", "wirkstoff", "probennummer", "summenformel"]
+				    "probe" : ["vergabenummer", "auftraggeber", "wirkstoff", "probennummer", "summenformel"],
+				    "methode" : ["id", "operator"]
 				  }
 				  return bla[name.toLowerCase()];
 				}
