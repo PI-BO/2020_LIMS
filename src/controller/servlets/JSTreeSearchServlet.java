@@ -1,6 +1,7 @@
 package controller.servlets;
 
 import exceptions.ModelNotFoundException;
+import exceptions.WhereAddedException;
 import model.database.mariaDB.MariaDB;
 import model.database.tableModels.Probe;
 import model.database.tableModels.Projekt;
@@ -70,6 +71,8 @@ public class JSTreeSearchServlet extends HttpServlet {
             //e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
+        } catch (WhereAddedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -87,6 +90,8 @@ public class JSTreeSearchServlet extends HttpServlet {
         } catch (IllegalAccessException e) {
             //e.printStackTrace();
         } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (WhereAddedException e) {
             e.printStackTrace();
         }
     }
@@ -109,6 +114,8 @@ public class JSTreeSearchServlet extends HttpServlet {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (ModelNotFoundException e) {
+            e.printStackTrace();
+        } catch (WhereAddedException e) {
             e.printStackTrace();
         }
     }

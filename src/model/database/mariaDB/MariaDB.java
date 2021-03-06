@@ -1,13 +1,13 @@
 package model.database.mariaDB;
 
 import exceptions.ModelNotFoundException;
+import exceptions.WhereAddedException;
 import model.database.Database;
 import model.database.connection.DatabaseConnection;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
+import model.database.sqlQuerryBuilder.SQLQueryBuilder;
 import model.database.tableModels.Model;
-import model.database.tableModels.ModelList;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -74,6 +74,23 @@ public class MariaDB implements Database {
                     " in (SELECT " + relation.getManyKeyColumn() + " FROM " + relation.getRelationTable() +
                     " where " + relation.getOneKeyColumn() + " = '" + relation.getOneKey() + "');";
 
+    /*        SQLQueryBuilder builder = new SQLQueryBuilder();
+            String state = builder.select()
+                    .columns("*")
+                    .from(relation.getManyTable())
+                    .where(builder.in(
+                            relation.getManyKeyColumn(),
+                            builder.select()
+                                    .columns(relation.getManyKeyColumn())
+                                    .from(relation.getRelationTable())
+                                    .where(builder.equals(
+                                            relation.getOneKeyColumn(),
+                                            relation.getOneKey()
+                                    ))
+                    ))
+                    .build();
+    */
+
             ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 
             relation.setAttributes(resultSet);
@@ -83,21 +100,18 @@ public class MariaDB implements Database {
 
     }
 
-    public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException {
+    public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException, WhereAddedException {
         String table = (String) m.getDeclaredField("TABLE").get(null);
 
-        StringBuilder sqlStatement = new StringBuilder("SELECT * FROM " + table + " WHERE ");
+        SQLQueryBuilder builder = new SQLQueryBuilder();
+        String sqlStatement = builder
+                .select()
+                .columns("*")
+                .from(table)
+                .or(builder.contains(fields, str))
+                .build();
 
-        for (String field : fields)
-            sqlStatement.append(field).append(" like ").append("\"%").append(str).append("%\" OR ");
-
-        sqlStatement.replace(sqlStatement.length() - 4, sqlStatement.length(), ";");
-
-        System.out.println(sqlStatement);
-
-        ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement.toString());
-
-        return resultSet;
+        return databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
     }
 
     @Override
