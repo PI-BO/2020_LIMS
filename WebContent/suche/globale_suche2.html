@@ -231,7 +231,17 @@ class GlobaleSuche{
 
 		this.resetErgebnisListe();
 		
-		let results = database[searchCategory];
+		let results = database;
+		
+		searchInputFields.forEach((searchContent) => {
+			
+			if(searchContent == "") continue;
+			
+			results = results.filter((result) => {
+				return result[parameter] == parameterInhalt;
+			})
+			
+		})
 		
 		if(parameterInhalt != ""){
 			
