@@ -27,7 +27,7 @@
 
 .table_globale_suche_th {
 	font-weight: 700;
-	background-color: #f2f2f2;
+	background-color: #ffffff;
 	border-top: 1px solid #d0d0d0;
 }
 
@@ -53,145 +53,333 @@
 	border-bottom: 1px solid #d0d0d0;
 }
 </style>
+<!-- <script src="suche/globale_suche.js"></script> -->
 </head>
 <body>
 
-<div id="such_parameter_container">
-	<table id="such_parameter_table">
-		<tr>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th style="font-weight: normal">Filter hinzufuegen</th>
-			<th><input type="button" value="+" onclick="GlobaleSuche.addSuchParameter()" id="globale_suche_add_parameter_button"></th>
-		</tr>
-	</table>
+<div id="globale_suche_main_container">
+<div id="globale_suche_main_header">Suche</div>
+	<div id="such_parameter_container">
+		<table id="such_parameter_table">
+			<tr>
+				<th></th>
+				<th></th>
+				<th></th>
+				<th style="font-weight: normal">Filter hinzufuegen</th>
+				<th><input type="button" value="+" id="globale_suche_add_parameter_button"></th>
+				<th><input type="button" value="suchen" id="globale_suche_button"></th>
+			</tr>
+		</table>
+	</div>
+
+	<div id="table_globale_suche">
+	</div>
+
+	<!-- HIDDEN TEMPLATE  -->
+
+	<div id="such_parameter_row_template" style="display: none;">
+		<select class="select_main_category">
+			<option value="Projektpartner">Projektpartner</option>
+			<option value="Projekt">Projekt</option>
+			<option value="Probe">Probe</option>
+			<option value="Experiment">Experiment</option>
+			<option value="Methode">Methode</option>
+		</select>
+		<select class="such_parameter">
+			<option value="Name">Name</option>
+			<option>ID</option>
+		</select> <select>
+			<option>entspricht</option>
+			<option>beinhaltet</option>
+		</select>
+		<input class="such_parameter_inhalt" type="text" />
+		<input type="button" value="-" class="globale_suche_delete_parameter_button" />
+	</div>
+
+	<!-- END TEMPLATE -->
 </div>
 
-<div id="such_liste_ergebnisse">
-  Ergebnisse
-</div>
-
-<!-- HIDDEN TEMPLATE  -->
-
-<div id="such_parameter_row_template" style="display: none;">
-	    <select onChange="GlobaleSuche.createParameters(this);">
-	      <option value="Projektpartner">Projektpartner</option>
-	      <option value="Projekt">Projekt</option>
-	      <option value="Probe">Probe</option>
-	      <option value="Experiment">Experiment</option>
-	      <option value="Methode">Methode</option>
-	    </select>
-	    <select class="such_parameter">
-	      <option value="Name">Name</option>
-	      <option>ID</option>
-	    </select>
-	    <select>
-	      <option>entspricht</option>
-	      <option>beinhaltet</option>
-	    </select>
-	    <input type="text" />
-	    <input type="button" value="-" onclick="GlobaleSuche.deleteSuchParameter(this)" id="globale_suche_add_parameter_button" />
-</div>
-
-<!-- END TEMPLATE -->
-
-</body>
 <script>
 
-	window.onload = function(){
-		init();
-	}
 
-	function init(){
+class GlobaleSuche{
 		
+	static init(){
+			
+		this.initAddParameterButton();
+		this.initSearchButton();
+		this.initFirstParameterRow()
+	}
+	
+	static initAddParameterButton(){
+		document.getElementById("globale_suche_add_parameter_button").addEventListener("click", () => GlobaleSuche.addParameterRow());
+	}
+	
+	static initSearchButton(){
+		document.getElementById("globale_suche_button").addEventListener("click", () => GlobaleSuche.search());
+	}
+	
+	static initFirstParameterRow(){
 		document.getElementById("globale_suche_add_parameter_button").click();
 	}
-
-	class GlobaleSuche{
-
-		static addSuchParameter() {
+	
+	static initMainCategorySelect(element){
+		element.addEventListener("change", (event) => this.createParameters(event));
+		this.createParameters({target : element});
+	}
+	
+	static initDeleteButton(element){
+		element.addEventListener("click", (element) => GlobaleSuche.deleteSuchParameter(element.target));
+	}
+	
+	static addEnterListener(element){
+		
+		element.addEventListener("keyup", (event) => {
 			
-			let container = document.getElementById("such_parameter_table");
-			
-			let template = document.getElementById("such_parameter_row_template");
-			
-			let childNodes = template.children;
-			
-			const containerChildrenCount = container.children.length;
-			const templateChildrenCount = childNodes.length;
-			
-			console.log([container]);
-			console.log(container.rows.length);
-			
-			let row = container.insertRow(-1);
-			
-			console.log(container.rows.length);
-			
-			for(let i = 0; i < childNodes.length; i++){
-				
-				let cell = row.insertCell(i);
-				var child = childNodes[i].cloneNode(true);
-				cell.append(child);
+			if(event.keyCode === 13){
+				document.getElementById("globale_suche_button").click();
 			}
+		})
+	}
+	
+	static search(){
+		
+		const partner1 = {
+				"pk" : "1",
+				"name" : "Partner A",
 		}
 		
-		static deleteSuchParameter(suchParameterElement) {
-			
-			let parent = suchParameterElement.parentElement.parentElement;
-			parent.remove();
-			let container = document.getElementById("test");
+		const projekt1 = {
+				"pk" : "1",
+				"name" : "Projekt 1",
+				"fk" : "1"
 		}
 		
-		static resetSelects(element){
+		const probe1 = {
+				"pk" : "1",
+				"name" : "Probe 1",
+				"fk" : "1"
+		}
+		
+		const experiment1 = {
+				"pk" : "1",
+				"name" : "Experiment 1",
+				"fk" : "1"
+		}
+		
+		const experiment2 = {
+				"pk" : "2",
+				"name" : "Experiment 2",
+				"fk" : "1"
+		}
+		
+		const methode1 = {
+				"pk" : "1",
+				"name" : "Methode 1",
+				"fk" : "1",
+				"operator" : "John Doe"
+		}
+		
+		const methode2 = {
+				"pk" : "2",
+				"name" : "Methode 2",
+				"fk" : "1",
+				"operator" : "Jane Doe"
+		}
+		
+		const methode3 = {
+				"pk" : "3",
+				"name" : "Methode 3",
+				"fk" : "2",
+				"operator" : "Jane Doe"
+		}
+		
+		const methode4 = {
+				"pk" : "4",
+				"name" : "Methode 4",
+				"fk" : "2",
+				"operator" : "Jane Doe"
+		}
+		
+		let database = {
+				"projektpartner" : [partner1],
+				"projekt" : [projekt1],
+				"probe" : [probe1],
+				"experiment" : [experiment1, experiment2],
+				"methode" : [methode1, methode2, methode3, methode4]
+		}
+		
+		const searchTable = document.getElementById("such_parameter_table");
+		
+		let searchCategorys = searchTable.getElementsByClassName("select_main_category");
+		console.log(searchCategorys);
+		
+		let searchParameters = searchTable.getElementsByClassName("such_parameter");
+		console.log(searchParameters);
+		
+		let searchInputFields = searchTable.getElementsByClassName("such_parameter_inhalt");
+		console.log(searchInputFields);
+		
+		searchCategorys = Array.from(searchCategorys).map((element) => element.value.toLowerCase());
+		console.log(searchCategorys);
+		
+		searchParameters = Array.from(searchParameters).map((element) => element.value.toLowerCase());
+		console.log(searchParameters);
+		
+		searchInputFields = Array.from(searchInputFields).map((element) => element.value.toLowerCase());
+		console.log(searchInputFields);
+
+		this.resetErgebnisListe();
+		
+		let results = database[searchCategory];
+		
+		if(parameterInhalt != ""){
 			
-			let allSelects = element.querySelectorAll("select");
-			allSelects.forEach(element => {
-				console.log(element.options);
-				element.options[0].selected="true";
+			results = results.filter((result) => {
+				return result[parameter].toLowerCase() == parameterInhalt;
 			})
 		}
 		
-		static createParameters(event){
+		const tableGlobaleSuche = document.getElementById("table_globale_suche");
+		
+		let tableHeaderRow = document.createElement("div");
+		tableHeaderRow.classList.add("table_globale_suche_tr");
+		tableHeaderRow.classList.add("table_globale_suche_th");
+		
+		for(let key in results[0]){
 			
-		 	let selectElement = findSelectElement("such_parameter");
-		 	removeOptions(selectElement);
-		 	let options = getOptions(event.value); 
-		 	insertOptions(options, selectElement);
-		 	
-		 	function insertOptions(options, selectElement){
-		 		
-		 		options.forEach(parameter => {
-			 		let option = document.createElement("option");
-			 		option.text = parameter;
-			 		option.value = parameter;
-			 		selectElement.add(option);
-		 		});
-		 	}
-		 	
-		 	function findSelectElement(className){
-		 		
-		 		let selectElement = event.parentElement.parentElement.getElementsByClassName(className)[0];
-		 		return selectElement;
-		 	}
-		 	
-			function removeOptions(selectElement){
-				
-				let selectOptions = selectElement.querySelectorAll("option");
-				selectOptions.forEach(option => option.remove());
+			let tableData = document.createElement("div");
+			tableData.classList.add("table_globale_suche_td");
+			tableData.append(key);
+			tableHeaderRow.append(tableData);
+		}
+		
+		tableGlobaleSuche.append(tableHeaderRow);
+		
+		results.forEach(result => {
+			
+			let tableRow = document.createElement("div");
+			tableRow.classList.add("table_globale_suche_tr");
+			
+			for(let key in result){
+				let tableData = document.createElement("div");
+				tableData.classList.add("table_globale_suche_td");
+				tableData.append(result[key]);
+				tableRow.append(tableData);
 			}
 			
-			function getOptions(name){
-				  let bla = {
-				    "projektpartner" : ["name", "ansprechpartner"],
-				    "projekt" : ["id", "datum"],
-				    "experiment" : ["Nr", "Screening No", "Substanz", "API"],
-				    "probe" : ["vergabenummer", "auftraggeber", "wirkstoff", "probennummer", "summenformel"]
-				  }
-				  return bla[name.toLowerCase()];
-				}
+			tableGlobaleSuche.append(tableRow);
+
+		});
+	}
+	
+	static resetErgebnisListe(){
+		
+		const ergebnisListe = document.getElementById("table_globale_suche");
+		
+		while(ergebnisListe.hasChildNodes()){
+			ergebnisListe.removeChild(ergebnisListe.lastChild);
 		}
 	}
 
+	static addParameterRow() {
+		
+		let container = document.getElementById("such_parameter_table");
+		
+		let template = document.getElementById("such_parameter_row_template");
+		
+		let childNodes = template.children;
+		
+		const containerChildrenCount = container.children.length;
+		const templateChildrenCount = childNodes.length;
+		
+		let row = container.insertRow(-1);
+		
+		let mainCategorySelect;
+		
+		for(let i = 0; i < childNodes.length; i++){
+			
+			let cell = row.insertCell(i);
+			var child = childNodes[i].cloneNode(true);
+			this.addEnterListener(child);
+			cell.append(child);
+			
+			if(child.className == "select_main_category") mainCategorySelect = child;
+			if(child.className == "globale_suche_delete_parameter_button") this.initDeleteButton(child);
+		}
+		
+		this.initMainCategorySelect(mainCategorySelect);
+	}
+	
+	static deleteSuchParameter(suchParameterElement) {
+		
+		let parent = suchParameterElement.parentElement.parentElement;
+		parent.remove();
+	}
+	
+	static resetSelects(element){
+		
+		let allSelects = element.querySelectorAll("select");
+		allSelects.forEach(element => {
+			resetSelect(element);
+		})
+	}
+	
+	static resetSelect(element){
+		element.options[0].selected="true";
+	}
+	
+	static createParameters(event){
+		
+		const element = event.target;
+		
+		const parameterCategory = event.target.value;
+
+		let selectElement = element.parentElement.parentElement.getElementsByClassName("such_parameter")[0];
+		
+	 	removeOptions(selectElement);
+	 	let parameters = getParameters(parameterCategory); 
+	 	insertParameters(parameters, selectElement);
+	 	
+	 	function insertParameters(parameters, selectElement){
+	 		
+ 			parameters.forEach(parameter => {
+		 		let selectOption = document.createElement("option");
+		 		selectOption.text = parameter;
+		 		selectOption.value = parameter;
+		 		selectElement.add(selectOption);
+	 		});
+	 	}
+	 	
+	 	function findSelectElements(event, className){
+	 		
+	 		let table = document.getElementById("such_parameter_table");
+	 		let selectElements = document.getElementsByClassName(className);
+	 		return selectElements;
+	 	}
+	 	
+		function removeOptions(selectElement){
+			
+			
+			let selectOptions = selectElement.querySelectorAll("option");
+			selectOptions.forEach(option => option.remove());
+		}
+		
+		function getParameters(parameterCategory){
+			const parameters = {
+				    "projektpartner" : ["pk", "name"],
+				    "projekt" : ["pk", "name", "fk"],
+				    "probe" : ["pk", "name", "fk"],
+				    "experiment" : ["pk", "name", "fk"],
+				    "methode" : ["pk", "name", "fk", "operator"]
+			}
+			  return parameters[parameterCategory.toLowerCase()];
+			}
+	}
+}
+
+GlobaleSuche.init();
+
 </script>
+</body>
 </html>

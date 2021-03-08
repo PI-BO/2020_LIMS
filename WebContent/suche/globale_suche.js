@@ -26,6 +26,10 @@ class GlobaleSuche{
 		document.getElementById("globale_suche_button").addEventListener("click", () => GlobaleSuche.search());
 	}
 	
+	static initDeleteButton(element){
+		element.addEventListener("click", (element) => GlobaleSuche.deleteSuchParameter(element.target));
+	}
+	
 	static addEnterListener(element){
 		
 		element.addEventListener("keyup", (event) => {
@@ -184,14 +188,17 @@ class GlobaleSuche{
 			var child = childNodes[i].cloneNode(true);
 			this.addEnterListener(child);
 			cell.append(child);
+			
+			if(child.className == "globale_suche_delete_parameter_button") this.initDeleteButton(child);
 		}
 	}
 	
 	static deleteSuchParameter(suchParameterElement) {
 		
+		console.log({suchParameterElement});
+		
 		let parent = suchParameterElement.parentElement.parentElement;
 		parent.remove();
-		let container = document.getElementById("test");
 	}
 	
 	static resetSelects(element){
@@ -209,8 +216,6 @@ class GlobaleSuche{
 	static createParameters(event){
 		
 		const parameterCategory = event.value;
-		
-		console.log(parameterCategory);
 		
 	 	let selectElements = findSelectElements(event, "such_parameter");
 	 	removeOptions(selectElements);

@@ -48,7 +48,8 @@
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
 						</ul></li>
-					<li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen">Suche</span>
+					<li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen1">Suche v1</span>
+					<li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen2">Suche v2</span>
 				</ul>
 			</td>
 		</tr>
@@ -149,8 +150,19 @@
 			}, 1000);
 		});
 		
-		$("#globale_suche_anzeigen").click(function(){
+		$("#globale_suche_anzeigen1").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/suche/globale_suche.html";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#main-content-explorer" ).hide();
+				$( "#main-content-input-masks" ).hide();
+				$( "#main-content-global-search" ).empty().append( data );
+				$( "#main-content-global-search" ).show(500);
+			});
+		});
+		
+		$("#globale_suche_anzeigen2").click(function(){
+			var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
 				$( "#main-content-explorer" ).hide();
