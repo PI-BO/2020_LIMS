@@ -4,6 +4,54 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <style>
+
+
+#globale_suche_main_container{
+	background-color: #f2f2f2;
+}
+
+#globale_suche_main_header {
+	background-color: #77bbff;
+	padding: 16px;
+	font-weight: bold;
+}
+
+.such_parameter {
+	width: 100%;
+}
+
+.table_globale_suche {
+	display: flex;
+	flex-flow: column;
+}
+
+.table_globale_suche_th {
+	font-weight: 700;
+	background-color: #f2f2f2;
+	border-top: 1px solid #d0d0d0;
+}
+
+.table_globale_suche_tr {
+	display: flex;
+}
+
+.table_globale_suche_tr:nth-of-type(even) {
+	background-color: #ffffff;
+}
+
+.table_globale_suche_tr:nth-of-type(odd) {
+	background-color: #f2f2f2;
+}
+
+.table_globale_suche_td {
+	flex-grow: 2;
+	flex-basis: 0;
+	padding: 0.5em;
+	overflow: hidden; /*Text-Overflow*/
+	text-overflow: ellipsis; /* "..." nach Text-Overflow*/
+	white-space: nowrap;
+	border-bottom: 1px solid #d0d0d0;
+}
 </style>
 </head>
 <body>

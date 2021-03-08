@@ -48,6 +48,12 @@ html, body {
 	display: flex;
 }
 
+#main-content-global-search {
+	grid-area: content;
+	align-self: start;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
 /* SYMBOLS*/
 .symbol_computer::before {
 	content: "\1F4BB";

@@ -24,6 +24,7 @@
 		</div>
 		<div id="main-content-explorer" style="display: none"></div>
 		<div id="main-content-input-masks"></div>
+		<div id="main-content-global-search"></div>
 	</div>
 </body>
 </html>
