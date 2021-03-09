@@ -1,13 +1,16 @@
 package model.database.dummyDB;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
+import model.database.sqlQuerryBuilder.SQLQueryBuilder;
 import model.database.tableModels.*;
 
 public class DummyDB implements Database{
@@ -272,6 +275,27 @@ public class DummyDB implements Database{
 		// TODO Auto-generated method stub
 		System.out.print(this.getClass());
 		System.out.println("resolveManyToMany() not implemented");
+	}
+
+	@Override
+	public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException {
+
+		List<Model> filtered = modelList.stream().filter(model -> {
+			if (model.getClass().equals(m))
+				for (String field : fields)
+					if (field.equals(model.getPrimaryKeyColumn()))
+						if (model.getPrimaryKey().contains(str))
+							return true;
+			return false;
+		}).collect(Collectors.toList());
+		
+		DummyResultSet dummyResultSet = new DummyResultSet();
+
+		for (Model model : filtered)
+			dummyResultSet.addResultSet(model.returnAsDummyResultSet());
+
+		return dummyResultSet;
+
 	}
 
 }

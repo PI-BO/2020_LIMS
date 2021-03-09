@@ -2,6 +2,9 @@ package controller.servlets;
 
 import exceptions.ModelNotFoundException;
 import exceptions.WhereAddedException;
+import model.database.Database;
+import model.database.dummyDB.DummyDB;
+import model.database.manager.DatabaseManager;
 import model.database.mariaDB.MariaDB;
 import model.database.tableModels.Partner;
 import model.database.tableModels.Probe;
@@ -21,7 +24,7 @@ import java.util.Set;
 
 @WebServlet("/jstree/search")
 public class JSTreeSearchServlet extends HttpServlet {
-    private MariaDB database = new MariaDB();
+    private Database database = DatabaseManager.getDatabaseInstance();
     private Set<String> keys;
 
     /**
@@ -46,8 +49,7 @@ public class JSTreeSearchServlet extends HttpServlet {
         String[] probenparam = request.getParameterValues("Probe[]");
         if (probenparam != null) getProbe(str, probenparam);
 
-        StringBuilder res = new StringBuilder();
-        res.append("[");
+        StringBuilder res = new StringBuilder("[");
         if (!keys.isEmpty()) {
             for (String s : keys)
                 res.append("\"").append(s).append("\",");
@@ -58,15 +60,14 @@ public class JSTreeSearchServlet extends HttpServlet {
         response.getWriter().write(
                 res.toString()
         );
-        //response.getWriter().append("Served at: ").append(request.getContextPath());
     }
 
     private void getPartner(String str, String[] partnerparam) {
         try {
             ResultSet set = database.findSubstring(Partner.class, str, partnerparam);
-            int col = set.findColumn(Partner.COLUMN_PRIMARY_KEY);
+            String columnPrimaryKey = Partner.COLUMN_PRIMARY_KEY;
             while (set.next()) {
-                keys.add(Partner.TABLE + ":" + set.getString(col));
+                keys.add(Partner.TABLE + ":" + set.getString(columnPrimaryKey));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -80,11 +81,11 @@ public class JSTreeSearchServlet extends HttpServlet {
     private void getProjects(String str, String[] projektparam) {
         try {
             ResultSet set = database.findSubstring(Projekt.class, str, projektparam);
-            int col = set.findColumn(Projekt.COLUMN_PRIMARY_KEY);
-            int par = set.findColumn(Projekt.COLUMN_VERTRAGSNUMMER);
+            String columnPrimaryKey = Projekt.COLUMN_PRIMARY_KEY;
+            String columnParent = Projekt.COLUMN_VERTRAGSNUMMER;
             while (set.next()) {
-                keys.add(Projekt.TABLE + ":" + set.getString(col));
-                keys.add(Partner.TABLE + ':' + set.getString(par));
+                keys.add(Projekt.TABLE + ":" + set.getString(columnPrimaryKey));
+                keys.add(Partner.TABLE + ':' + set.getString(columnParent));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -98,12 +99,12 @@ public class JSTreeSearchServlet extends HttpServlet {
     private void getSubstaces(String str, String[] substanceparam) {
         try {
             ResultSet set = database.findSubstring(Substanz.class, str, substanceparam);
-            int col = set.findColumn(Substanz.COLUMN_PRIMARY_KEY);
-            int par = set.findColumn(Substanz.COLUMN_PROJEKT_ID);
+            String columnPrimaryKey = Substanz.COLUMN_PRIMARY_KEY;
+            String columnParent = Substanz.COLUMN_PROJEKT_ID;
             while (set.next()) {
-                keys.add(Substanz.TABLE + ":" + set.getString(col));
-                keys.add(Projekt.TABLE + ":" + set.getString(par));
-                Projekt projekt = new Projekt(set.getString(par));
+                keys.add(Substanz.TABLE + ":" + set.getString(columnPrimaryKey));
+                keys.add(Projekt.TABLE + ":" + set.getString(columnParent));
+                Projekt projekt = new Projekt(set.getString(columnParent));
                 keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {
@@ -120,14 +121,14 @@ public class JSTreeSearchServlet extends HttpServlet {
     private void getProbe(String str, String[] probenparam) {
         try {
             ResultSet set = database.findSubstring(Probe.class, str, probenparam);
-            int col = set.findColumn(Probe.COLUMN_PRIMARY_KEY);
-            int par = set.findColumn(Probe.COLUMN_SUBSTANZ_ID);
+            String columnPrimaryKey = Probe.COLUMN_PRIMARY_KEY;
+            String columnParent = Probe.COLUMN_SUBSTANZ_ID;
             while (set.next()) {
-                keys.add(Probe.TABLE + ":" + set.getString(col));
-                keys.add(Substanz.TABLE + ":" + set.getString(par));
-                Substanz substanz = new Substanz(set.getString(par));
+                keys.add(Probe.TABLE + ":" + set.getString(columnPrimaryKey));
+                keys.add(Substanz.TABLE + ":" + set.getString(columnParent));
+                Substanz substanz = new Substanz(set.getString(columnParent));
                 keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
-                Projekt projekt = new Projekt(set.getString(par));
+                Projekt projekt = new Projekt(set.getString(columnParent));
                 keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {

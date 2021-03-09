@@ -1,5 +1,6 @@
 package model.database;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import exceptions.ModelNotFoundException;
@@ -24,4 +25,6 @@ public interface Database {
     <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> relation) throws SQLException, ModelNotFoundException;
 
     <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N,M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException;
+
+    public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException;
 }
