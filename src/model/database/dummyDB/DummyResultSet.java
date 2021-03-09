@@ -61,6 +61,12 @@ public class DummyResultSet implements ResultSet{
 	}
 
 	@Override
+	public String getString(String columnLabel) throws SQLException {
+		int columnIndex = findColumn(columnLabel);
+		return getString(columnIndex);
+	}
+
+	@Override
 	public int findColumn(String key) throws SQLException {
 		
 		DummyResultSetEntry entry = resultSetEntryList.get(resultSetIndex);
@@ -219,12 +225,6 @@ public class DummyResultSet implements ResultSet{
 
 	@Override
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
-		return null;
-	}
-
-	@Override
-	public String getString(String columnLabel) throws SQLException {
 		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
 		return null;
 	}

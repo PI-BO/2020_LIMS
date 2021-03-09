@@ -1,13 +1,11 @@
 package controller.servlets;
 
 import exceptions.ModelNotFoundException;
+import model.database.relations.PartnerProjekt;
+import model.database.relations.ProbeExperiment;
 import model.database.relations.ProjekteSubstanz;
 import model.database.relations.SubstanzenProbe;
-import model.database.tableModels.Model;
-import model.database.tableModels.ModelList;
-import model.database.tableModels.Probe;
-import model.database.tableModels.Projekt;
-import model.database.tableModels.Substanz;
+import model.database.tableModels.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,12 +44,16 @@ public class JSTreeNodesServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");
 
         try {
-            if (table.equals(Projekt.TABLE)) {
+            if (table.equals(Partner.TABLE)) {
+                getProjects(response, new Partner(parentId));
+            } else if (table.equals(Projekt.TABLE)) {
                 getSubstances(response, new Projekt(parentId));
             } else if (table.equals(Substanz.TABLE)) {
                 getProben(response, new Substanz(parentId));
+            } else if (table.equals(Probe.TABLE)) {
+                getExperiments(response, new Probe(parentId));
             } else {
-                getProjects(response);
+                getPartner(response);
             }
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
@@ -105,21 +107,34 @@ public class JSTreeNodesServlet extends HttpServlet {
         return array.toString();
     }
 
-    private void getProjects(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
+    private void getPartner(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
 
-        ModelList projektList = new ModelList(new Projekt());
+        ModelList projektList = new ModelList(new Partner());
 
         List<String> ids = new LinkedList<>();
-        for (Model projektModel : projektList.getModelList()) {
-            ids.add(projektModel.getPrimaryKey());
+        for (Model partnerModel : projektList.getModelList()) {
+            ids.add(partnerModel.getPrimaryKey());
         }
 
         List<String> jsons = new ArrayList<>();
         for (String id : ids)
-            jsons.add(jsonObject(new Projekt(id), null, true));
+            jsons.add(jsonObject(new Partner(id), null, true));
 
         response.getWriter().write(
-                "{\"parent\":\"#\",\"text\":\"Projekte\",\"icon\":\"symbol_folder_closed\",\"children\":" + jsonArray(jsons) + "}"
+                "{\"parent\":\"#\",\"text\":\"Partner\",\"icon\":\"symbol_folder_closed\",\"children\":" + jsonArray(jsons) + "}"
+        );
+    }
+
+    private void getProjects(HttpServletResponse response, Partner partner) throws IOException, ModelNotFoundException, SQLException {
+        PartnerProjekt partnerProjekt = new PartnerProjekt(partner);
+        List<Projekt> projekte = partnerProjekt.getProjekte();
+        List<String> jsons = new ArrayList<>();
+
+        for (Projekt projekt : projekte)
+            jsons.add(jsonObject(projekt, partner.getTable() + ':' + partner.getPrimaryKey(), true));
+
+        response.getWriter().write(
+                jsonArray(jsons)
         );
     }
 
@@ -140,7 +155,19 @@ public class JSTreeNodesServlet extends HttpServlet {
         List<Probe> proben = substanzenProbe.getProben();
         List<String> jsons = new ArrayList<>();
         for (Probe probe : proben)
-            jsons.add(jsonObject(probe, substanz.getTable() + ':' + substanz.getPrimaryKey(), false));
+            jsons.add(jsonObject(probe, substanz.getTable() + ':' + substanz.getPrimaryKey(), true));
+
+        response.getWriter().write(
+                jsonArray(jsons)
+        );
+    }
+
+    private void getExperiments(HttpServletResponse response, Probe probe) throws ModelNotFoundException, SQLException, IOException {
+        ProbeExperiment probeExperiment = new ProbeExperiment(probe);
+        List<Experiment> experiments = probeExperiment.getExperimente();
+        List<String> jsons = new ArrayList<>();
+        for (Experiment experiment : experiments)
+            jsons.add(jsonObject(experiment, probe.getTable() + ':' + probe.getPrimaryKey(), false));
 
         response.getWriter().write(
                 jsonArray(jsons)

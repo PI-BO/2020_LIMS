@@ -17,6 +17,10 @@ public class Address {
 	private final static String EXPLORER_NAVIGATION_MENU_JSP = "/main/explorer_navigation_menu.jsp";
 	private final static String MAIN_JSP = "/main.jsp";
 	private final static String MAIN_CSS = "/main.css";
+	private final static String LOGIN_HTML = "/login.html";
+	private final static String EXPERIMENT_ERSTELLEN_JSP = "/experiment/experiment_erstellen.jsp";
+	private final static String SUBSTANZ_ERSTELLEN_JSP = "/substanz_erstellen.html";
+	private final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
 	
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -88,5 +92,21 @@ public class Address {
 	
 	public static String getMainRelativeCSS() {
 		return MAIN_CSS;
+	}
+
+	public static String getLoginHtml() {
+		return MAIN_PATH + LOGIN_HTML;
+	}
+
+	public static String getExperimentErstellenJsp() {
+		return MAIN_PATH + EXPERIMENT_ERSTELLEN_JSP;
+	}
+
+	public static String getSubstanzErstellenJsp() {
+		return MAIN_PATH + SUBSTANZ_ERSTELLEN_JSP;
+	}
+
+	public static String getProjektErstellenJsp() {
+		return MAIN_PATH + PROJEKT_ERSTELLEN_JSP;
 	}
 }

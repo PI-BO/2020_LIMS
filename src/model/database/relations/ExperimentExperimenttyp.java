@@ -7,7 +7,7 @@ import model.database.tableModels.Model;
 
 import java.sql.SQLException;
 
-public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp>{
+public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp> {
     OneToOne typ;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
@@ -15,10 +15,17 @@ public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp>
     protected ExperimentExperimenttyp(Experiment parent) throws ModelNotFoundException, SQLException {
         super(parent, new Experimenttyp(parent.getPrimaryKey()));
         switch (getChild().getTyp()) {
-                case "slurry": typ = new ExperimenttypExperimentypSlurry(getChild());
+            case "Verdampfung 1Lömi":
+                typ = new ExperimentExperimenttypVerdampfung(parent);
                 break;
-                case "grinding": typ = new ExperimenttypExperimentypGrinding(getChild());
+            case "Slurry 1Lömi":
+                typ = new ExperimentExperimentypSlurry(parent);
                 break;
+            case "grinding":
+                typ = new ExperimentExperimentypGrinding(parent);
+                break;
+            default:
+                throw new ModelNotFoundException("Experimenttyp not Implemented");
         }
     }
 

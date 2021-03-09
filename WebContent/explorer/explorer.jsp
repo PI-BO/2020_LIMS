@@ -10,7 +10,7 @@
 		<div id="explorer-header"></div>
 		<div id="explorer-navigation-arrows"></div>
 		<div id="explorer-navigation-tree">
-			<%@ include file="../explorer_navigation_menu.jsp"%>
+			<%@ include file="explorer_navigation_menu.jsp"%>
 			<%-- 			<jsp:include page="<%=Address.getExplorerNavigationMenuJSP()%>"/> --%>
 		</div>
 		<div id="explorer-content"></div>

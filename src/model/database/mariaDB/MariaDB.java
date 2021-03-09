@@ -100,7 +100,7 @@ public class MariaDB implements Database {
 
     }
 
-    public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException, WhereAddedException {
+    public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException {
         String table = (String) m.getDeclaredField("TABLE").get(null);
 
         SQLQueryBuilder builder = new SQLQueryBuilder();

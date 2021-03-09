@@ -3,6 +3,7 @@ package controller.servlets;
 import exceptions.ModelNotFoundException;
 import exceptions.WhereAddedException;
 import model.database.mariaDB.MariaDB;
+import model.database.tableModels.Partner;
 import model.database.tableModels.Probe;
 import model.database.tableModels.Projekt;
 import model.database.tableModels.Substanz;
@@ -23,7 +24,6 @@ public class JSTreeSearchServlet extends HttpServlet {
     private MariaDB database = new MariaDB();
     private Set<String> keys;
 
-
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
@@ -33,6 +33,9 @@ public class JSTreeSearchServlet extends HttpServlet {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=utf-8");
+
+        String[] partnerparam = request.getParameterValues("Partner[]");
+        if (partnerparam != null) getPartner(str, partnerparam);
 
         String[] projektparam = request.getParameterValues("Projekt[]");
         if (projektparam != null) getProjects(str, projektparam);
@@ -44,13 +47,13 @@ public class JSTreeSearchServlet extends HttpServlet {
         if (probenparam != null) getProbe(str, probenparam);
 
         StringBuilder res = new StringBuilder();
+        res.append("[");
         if (!keys.isEmpty()) {
-            res.append("[");
             for (String s : keys)
                 res.append("\"").append(s).append("\",");
             res.deleteCharAt(res.length() - 1);
-            res.append("]");
         }
+        res.append("]");
 
         response.getWriter().write(
                 res.toString()
@@ -58,12 +61,12 @@ public class JSTreeSearchServlet extends HttpServlet {
         //response.getWriter().append("Served at: ").append(request.getContextPath());
     }
 
-    private void getProjects(String str, String[] projektparam) {
+    private void getPartner(String str, String[] partnerparam) {
         try {
-            ResultSet set = database.findSubstring(Projekt.class, str, projektparam);
-            int col = set.findColumn(Projekt.COLUMN_PRIMARY_KEY);
+            ResultSet set = database.findSubstring(Partner.class, str, partnerparam);
+            int col = set.findColumn(Partner.COLUMN_PRIMARY_KEY);
             while (set.next()) {
-                keys.add(Projekt.TABLE + ":" + set.getString(col));
+                keys.add(Partner.TABLE + ":" + set.getString(col));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -71,7 +74,23 @@ public class JSTreeSearchServlet extends HttpServlet {
             //e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-        } catch (WhereAddedException e) {
+        }
+    }
+
+    private void getProjects(String str, String[] projektparam) {
+        try {
+            ResultSet set = database.findSubstring(Projekt.class, str, projektparam);
+            int col = set.findColumn(Projekt.COLUMN_PRIMARY_KEY);
+            int par = set.findColumn(Projekt.COLUMN_VERTRAGSNUMMER);
+            while (set.next()) {
+                keys.add(Projekt.TABLE + ":" + set.getString(col));
+                keys.add(Partner.TABLE + ':' + set.getString(par));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IllegalAccessException e) {
+            //e.printStackTrace();
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -84,6 +103,8 @@ public class JSTreeSearchServlet extends HttpServlet {
             while (set.next()) {
                 keys.add(Substanz.TABLE + ":" + set.getString(col));
                 keys.add(Projekt.TABLE + ":" + set.getString(par));
+                Projekt projekt = new Projekt(set.getString(par));
+                keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -91,7 +112,7 @@ public class JSTreeSearchServlet extends HttpServlet {
             //e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-        } catch (WhereAddedException e) {
+        } catch (ModelNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -106,16 +127,16 @@ public class JSTreeSearchServlet extends HttpServlet {
                 keys.add(Substanz.TABLE + ":" + set.getString(par));
                 Substanz substanz = new Substanz(set.getString(par));
                 keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
+                Projekt projekt = new Projekt(set.getString(par));
+                keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {
-            //throwables.printStackTrace();
+            throwables.printStackTrace();
         } catch (IllegalAccessException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (ModelNotFoundException e) {
-            e.printStackTrace();
-        } catch (WhereAddedException e) {
             e.printStackTrace();
         }
     }

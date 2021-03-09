@@ -15,12 +15,14 @@ public class Mitarbeiter extends Model implements Login {
 	private String password;
 	private String vorname;
 	private String nachname;
+	private int rolle;
 	
 	public static final String TABLE= "mitarbeiter";
 	public static final String COLUMN_PRIMARY_KEY= "mitarbeiterID";
 	public static final String COLUMN_VORNAME= "vorname";
 	public static final String COLUMN_NACHNAME = "nachname";
 	public static final String COLUMN_PASSWORD= "passwort";
+	public static final String COLUMN_ROLLE = "rolle";
 
 	public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
     	
@@ -43,6 +45,7 @@ public class Mitarbeiter extends Model implements Login {
 	       	vorname = mitarbeiterResultSet.getString(vornameIndex);
 	       	nachname = mitarbeiterResultSet.getString(nachnameIndex);
 	       	password = mitarbeiterResultSet.getString(passwordIndex);
+	       	rolle = mitarbeiterResultSet.getInt(COLUMN_ROLLE);
 	       	
 		}else{
 			throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
@@ -52,6 +55,14 @@ public class Mitarbeiter extends Model implements Login {
 	@Override
 	public void validate(String password) throws PasswordIncorrectException {
 		if(!this.password.equals(password)) throw new PasswordIncorrectException();
+	}
+
+	public int getRolle() {
+		return rolle;
+	}
+
+	public void setRolle(int rolle) {
+		this.rolle = rolle;
 	}
 
 	public String getVorname() {
@@ -125,8 +136,7 @@ public class Mitarbeiter extends Model implements Login {
 
 	@Override
 	public String getForeignKey() {
-		// TODO Auto-generated method stub
-		return null;
+		return rolle+"";
 	}
 	
 }

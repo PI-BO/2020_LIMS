@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class Probe extends Model{
     private String primaryKey;
     private String substanzID;
-    public static final String COLUMN_PRIMARY_KEY = "proben_nr";
+    public static final String COLUMN_PRIMARY_KEY = "probennummer";
     public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
     public static final String TABLE = "probe";
 
@@ -69,6 +69,14 @@ public class Probe extends Model{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public void setSubstanzID(String substanzID) {
+        this.substanzID = substanzID;
+    }
 
 	public Substanz getSubstanz() throws ModelNotFoundException, SQLException {
         return new Substanz(substanzID);

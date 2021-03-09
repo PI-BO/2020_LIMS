@@ -8,32 +8,43 @@ import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
-import model.database.tableModels.Mitarbeiter;
-import model.database.tableModels.Model;
-import model.database.tableModels.Projekt;
-import model.database.tableModels.Substanz;
+import model.database.tableModels.*;
 
 public class DummyDB implements Database{
 
 	private List<Model> modelList = new LinkedList<>();
 	
 	public DummyDB() {
-		
 		initModels();
 	}
 	
 	private void initModels() {
-		
+
+		// Mitarbeiter
 		Mitarbeiter mitarbeiter = new Mitarbeiter();
 		mitarbeiter.setVorname("Max");
 		mitarbeiter.setNachname("Mustermann");
 		mitarbeiter.setPassword("abc");
 		mitarbeiter.setPrimaryKey("123");
 		modelList.add(mitarbeiter);
-		
+
+		// Partner
+		Partner partner = new Partner();
+		partner.setPrimaryKey("1");
+		partner.setName("PETER");
+		partner.setEmail("peter@Unternehmen.de");
+		modelList.add(partner);
+
+		partner = new Partner();
+		partner.setPrimaryKey("2");
+		partner.setName("Jeff");
+		partner.setEmail("jeff@Amazon.com");
+		modelList.add(partner);
+
+		// Projekte
 		Projekt projekt = new Projekt();
 		projekt.setPrimaryKey("A");
-		projekt.setVertragsnummer("0");
+		projekt.setVertragsnummer("1");
 		modelList.add(projekt);
 		
 		projekt = new Projekt();
@@ -45,7 +56,8 @@ public class DummyDB implements Database{
 		projekt.setPrimaryKey("C");
 		projekt.setVertragsnummer("2");
 		modelList.add(projekt);
-		
+
+		// Substanzen
 		Substanz substanz = new Substanz();
 		substanz.setPrimaryKey("SubstanzA1");
 		substanz.setProjektID("A");
@@ -75,14 +87,91 @@ public class DummyDB implements Database{
 		substanz.setPrimaryKey("SubstanzG");
 		substanz.setProjektID("A");
 		modelList.add(substanz);
-		
+
+		// Proben
+		Probe probe = new Probe();
+		probe.setPrimaryKey("ProbeA");
+		probe.setSubstanzID("SubstanzA1");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeA2");
+		probe.setSubstanzID("SubstanzA1");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeB");
+		probe.setSubstanzID("SubstanzA2");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeB2");
+		probe.setSubstanzID("SubstanzA2");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeC");
+		probe.setSubstanzID("SubstanzA3");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeC2");
+		probe.setSubstanzID("SubstanzA3");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeD");
+		probe.setSubstanzID("SubstanzB");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeD2");
+		probe.setSubstanzID("SubstanzB");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeE");
+		probe.setSubstanzID("SubstanzC");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeE2");
+		probe.setSubstanzID("SubstanzC");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeF");
+		probe.setSubstanzID("SubstanzG");
+		modelList.add(probe);
+
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeF2");
+		probe.setSubstanzID("SubstanzG");
+		modelList.add(probe);
+
+		// Experimente
+		Experiment experiment = new Experiment();
+		experiment.setPrimaryKey("Experiment1");
+		experiment.setTyp("1");
+		experiment.setProbenNr("ProbeA");
+		modelList.add(experiment);
+
+		// Experiment Typen
+		Experimenttyp experimenttyp = new Experimenttyp();
+		experimenttyp.setPrimaryKey("0");
+		experiment.setTyp("Verdampfung 1Lömi");
+		modelList.add(experimenttyp);
+
+		experimenttyp = new Experimenttyp();
+		experimenttyp.setPrimaryKey("1");
+		experimenttyp.setTyp("Slurry 1Lömi");
 	}
 
 	@Override
 	public void getModel(Model requestedModel) throws SQLException, ModelNotFoundException {
 
 		for(Model model : modelList){
-			
+
 			if(tableNotFound(requestedModel, model)) continue;
 			if(primaryKeyNotFound(requestedModel, model)) continue;
 			
@@ -160,7 +249,7 @@ public class DummyDB implements Database{
 			DummyResultSet dummyResultSet = new DummyResultSet();
 			
 			for(Model model : modelList){
-				
+
 				if(tableNotFound(requestedTable, model)) continue;
 				if(primaryKeyNotFound(requestedKey, model)) continue;
 

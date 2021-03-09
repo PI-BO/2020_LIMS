@@ -29,8 +29,11 @@ public class Experiment extends Model{
         database.getModel(this);
     }
 
+    /**
+     * Create Empty Experiment for new Database Entry
+     * Add values over setter
+     */
     public Experiment() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -38,14 +41,18 @@ public class Experiment extends Model{
         return primaryKey;
     }
 
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
     @Override
     public String getPrimaryKeyColumn() {
-        return null;
+        return COLUMN_PRIMARY_KEY;
     }
 
     @Override
     public String getTable() {
-        return null;
+        return TABLE;
     }
 
     @Override
@@ -63,8 +70,16 @@ public class Experiment extends Model{
         return typ;
     }
 
+    public void setTyp(String typ) {
+        this.typ = typ;
+    }
+
     public String getProbenNr() {
         return proben_nr;
+    }
+
+    public void setProbenNr(String proben_nr) {
+        this.proben_nr = proben_nr;
     }
 
 	@Override
@@ -80,12 +95,10 @@ public class Experiment extends Model{
 	@Override
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
-
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);

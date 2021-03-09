@@ -108,7 +108,6 @@ public class Sessions extends Model{
 
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
-
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);

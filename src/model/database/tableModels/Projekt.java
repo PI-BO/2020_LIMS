@@ -30,6 +30,7 @@ public class Projekt extends Model {
 		if (resultSet.next()) {
 			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
 			primaryKey = resultSet.getString(projektIdIndex);
+			vertragsnummer = resultSet.getString(COLUMN_VERTRAGSNUMMER);
 		} else {
 			throw new ModelNotFoundException("Projekt nicht gefunden");
 		}
@@ -77,6 +78,10 @@ public class Projekt extends Model {
 		this.vertragsnummer = vertragsnummer;
 	}
 
+	public String getVertragsnummer() {
+		return vertragsnummer;
+	}
+
 	@Override
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
@@ -100,6 +105,6 @@ public class Projekt extends Model {
 	@Override
 	public String getForeignKey() {
 		// TODO Auto-generated method stub
-		return null;
+		return vertragsnummer;
 	}
 }

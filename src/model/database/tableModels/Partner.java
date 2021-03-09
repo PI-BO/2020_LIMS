@@ -43,14 +43,11 @@ public class Partner extends Model {
 
 	@Override
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-
 		if(resultSet.next()){
-			
 			primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
 			name = resultSet.getString(resultSet.findColumn(COLUMN_NAME));
 			email = resultSet.getString(resultSet.findColumn(COLUMN_EMAIL));		
-		}else{			
-			
+		}else{
 			throw new ModelNotFoundException();
 		}
 	}
@@ -108,7 +105,7 @@ public class Partner extends Model {
 
 	@Override
 	public String getForeignKey() {
-		// TODO Auto-generated method stub
+		// Partner has no Foreign key
 		return null;
 	}
 }

@@ -28,6 +28,10 @@ public class Experimenttyp extends Model{
         return primaryKey;
     }
 
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
@@ -52,6 +56,10 @@ public class Experimenttyp extends Model{
         return typ;
     }
 
+    public void setTyp(String typ) {
+        this.typ = typ;
+    }
+
 	@Override
 	public String getValuesAsSQLString() {
 		return primaryKey + "," + typ;
@@ -70,7 +78,6 @@ public class Experimenttyp extends Model{
 
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
-
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
