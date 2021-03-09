@@ -104,7 +104,6 @@ public class Projekt extends Model {
 
 	@Override
 	public String getForeignKey() {
-		// TODO Auto-generated method stub
 		return vertragsnummer;
 	}
 }
