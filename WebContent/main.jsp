@@ -22,9 +22,11 @@
 			<%-- 				<%@ include file = "/navigation_menu.jsp" %> --%>
 			<jsp:include page="<%=Address.getNavigationMenuRelativeJSP()%>" />
 		</div>
-		<div id="main-content-explorer" style="display: none"></div>
-		<div id="main-content-input-masks"></div>
-		<div id="main-content-global-search"></div>
+		<div id="main-content">
+			<div id="main-content-explorer" style="display: none"></div>
+			<div id="main-content-input-masks" style="display: none"></div>
+			<div id="main-content-global-search" style="display: none"></div>
+		</div>
 	</div>
 </body>
 </html>

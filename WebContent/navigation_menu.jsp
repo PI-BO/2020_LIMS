@@ -48,7 +48,6 @@
 							<li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search">suchen</span></li>
 						</ul></li>
-					<li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen1">Suche v1</span>
 					<li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen2">Suche v2</span>
 				</ul>
 			</td>
@@ -58,6 +57,44 @@
 
 <script>
 	
+// 		init explorer
+		$( document ).ready(function(){
+			var url = "<%=Address.getExplorerJSP()%>";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#main-content-explorer" ).empty().append( data );
+			});
+		});
+		
+// 		init Globale Suche
+		$( document ).ready(function(){
+			var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
+			var posting = $.post( url, {} );
+			posting.done(function( data ) {
+				$( "#main-content-global-search" ).empty().append( data );
+			});
+		});
+		
+		function hideAllExcept(id){
+			
+			let toggleList = [];
+			
+			const mainContentElement = document.getElementById("main-content");
+			
+			for(let i = 0; i < mainContentElement.children.length; i++){
+				toggleList.push(mainContentElement.children[i].id);
+			}
+			
+			toggleList.forEach(element => {
+				if("#"+element == id){
+					$("#"+element).hide();
+					$("#"+element).show(500);
+				}else{
+					$("#"+element).hide();
+				}
+			})
+		}
+		
 // 		Navigation komplett oeffnen
 		$(".navigation_table_header").click(function(){
 			
@@ -77,22 +114,9 @@
 			$(this).toggleClass("symbol_folder_open");
 		});
 		
-// 		init explorer
-		$( document ).ready(function(){
-			var url = "<%=Address.getExplorerJSP()%>";
-			var posting = $.post( url, {} );
-			posting.done(function( data ) {
-				$( "#main-content-explorer" ).empty().append( data );
-			});
-		});
 		
 		$("#explorer_anzeigen").click(function(){
-			var url = "<%=Address.getExplorerJSP()%>";
-			var posting = $.post( url, {} );
-			posting.done(function( data ) {
-				$( "#main-content-input-masks" ).hide();
-				$( "#main-content-explorer" ).show(500);
-			});
+			hideAllExcept("#main-content-explorer");
 		});
 		
 		$("#projekt_erstellen").click(function(){
@@ -100,10 +124,8 @@
 			var url = "http://localhost:8080/2020_LIMS/projekt/projekt_erstellen.jsp";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content-explorer" ).hide();
-				$( "#main-content-input-masks" ).hide();
 				$( "#main-content-input-masks" ).empty().append( data );
-				$( "#main-content-input-masks" ).show(500);
+				hideAllExcept("#main-content-input-masks");
 			});
 		});
 		
@@ -111,10 +133,8 @@
 			var url = "http://localhost:8080/2020_LIMS/substanz_erstellen.html";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content-explorer" ).hide();
-				$( "#main-content-input-masks" ).hide();
 				$( "#main-content-input-masks" ).empty().append( data );
-				$( "#main-content-input-masks" ).show(500);
+				hideAllExcept("#main-content-input-masks");
 			});
 		});
 		
@@ -122,10 +142,8 @@
 			var url = "<%=Address.getProbeneingangJSP()%>";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content-explorer" ).hide();
-				$( "#main-content-input-masks" ).hide();
 				$( "#main-content-input-masks" ).empty().append( data );
-				$( "#main-content-input-masks" ).show(500);
+				hideAllExcept("#main-content-input-masks");
 			});
 		});
 		
@@ -133,42 +151,21 @@
 			var url = "<%=Address.getEingangsAnalytikJSP()%>";
 			var posting = $.post( url, {} );
 			posting.done(function( data ) {
-				$( "#main-content-explorer" ).hide();
-				$( "#main-content-input-masks" ).hide();
 				$( "#main-content-input-masks" ).empty().append( data );
-				$( "#main-content-input-masks" ).show(500);
+				hideAllExcept("#main-content-input-masks");
 			});
 		});
 		
 		$("#logout").click(function(){
 			var url = "http://localhost:8080/2020_LIMS/login.html";
 			$(".navigation_tree_branches").hide(800);
-			$("#main-content-explorer").hide(800);
-			$("#main-content-input-masks").hide(800);
+			hideAllExcept("");
 			setTimeout(function() {
 				$(location).attr("href", url);
 			}, 1000);
 		});
 		
-		$("#globale_suche_anzeigen1").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/suche/globale_suche.html";
-			var posting = $.post( url, {} );
-			posting.done(function( data ) {
-				$( "#main-content-explorer" ).hide();
-				$( "#main-content-input-masks" ).hide();
-				$( "#main-content-global-search" ).empty().append( data );
-				$( "#main-content-global-search" ).show(500);
-			});
-		});
-		
 		$("#globale_suche_anzeigen2").click(function(){
-			var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
-			var posting = $.post( url, {} );
-			posting.done(function( data ) {
-				$( "#main-content-explorer" ).hide();
-				$( "#main-content-input-masks" ).hide();
-				$( "#main-content-global-search" ).empty().append( data );
-				$( "#main-content-global-search" ).show(500);
-			});
+			hideAllExcept("#main-content-global-search");
 		});
 	</script>
