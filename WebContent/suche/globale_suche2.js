@@ -1,48 +1,73 @@
-class GlobaleSuche {
+var GlobaleSuche = (function () {
 
-	static init() {
+	public = {};
 
-		this.initAddParameterButton();
-		this.initSearchButton();
-		this.initFirstParameterRow()
+	const addButton = "globale_suche_add_parameter_button";
+	const searchButton = "globale_suche_button";
+	const tableDataClass = "table_globale_suche_td";
+	const parameterTableId = "such_parameter_table";
+	const tableRowClass = "table_globale_suche_tr";
+	const tableHeaderClass = "table_globale_suche_th";
+	const resultTableId = "table_globale_suche";
+	const rowTemplateId = "such_parameter_row_template";
+	const categorySelectClass = "select_main_category"
+	const deleteButtonClass = "globale_suche_delete_parameter_button";
+	const searchParameterClass = "such_parameter";
+	const searchValueClass = "such_parameter_inhalt";
+
+	const database = initDatabase();
+
+	const databaseIndexTable = 	[
+		"projektpartner",
+		"projekt",
+		"probe",
+		"experiment",
+		"methode"
+	]
+
+	public.init = function () {
+
+		initAddParameterButton();
+		initSearchButton();
+		initFirstParameterRow();
 	}
 
-	static initAddParameterButton() {
-		document.getElementById("globale_suche_add_parameter_button").addEventListener("click", () => GlobaleSuche.addParameterRow());
+	initAddParameterButton = function () {
+		document.getElementById(addButton).addEventListener("click", () => addParameterRow());
 	}
 
-	static initSearchButton() {
-		document.getElementById("globale_suche_button").addEventListener("click", () => GlobaleSuche.search());
+	initSearchButton = function () {
+		document.getElementById(searchButton).addEventListener("click", () => search());
 	}
 
-	static initFirstParameterRow() {
-		document.getElementById("globale_suche_add_parameter_button").click();
+	initFirstParameterRow = function () {
+		document.getElementById(addButton).click();
 	}
 
-	static initMainCategorySelect(element) {
-		element.addEventListener("change", (event) => this.createParameters(event));
-		this.createParameters({ target: element });
+	initMainCategorySelect = function (element) {
+		element.addEventListener("change", (event) => createParameters(event));
+		createParameters({ target: element });
 	}
 
-	static initDeleteButton(element) {
-		element.addEventListener("click", (element) => GlobaleSuche.deleteSuchParameter(element.target));
+	initDeleteButton = function (element) {
+		element.addEventListener("click", (element) => deleteSuchParameter(element.target));
 	}
 
-	static addEnterListener(element) {
+	addEnterListener = function (element) {
 
 		element.addEventListener("keyup", (event) => {
 
 			if (event.keyCode === 13) {
-				document.getElementById("globale_suche_button").click();
+				document.getElementById(searchButton).click();
 			}
 		})
 	}
 
-	static createTableHeaderRowWithValues(relationDatabase) {
-		let headerRow = this.createTableHeaderRow();
+	createTableHeaderRowWithValues = function (relationDatabase) {
+		let headerRow = createTableHeaderRow();
 		relationDatabase[0].forEach(element => {
 			for (let key in element) {
-				let tableData = this.createTableData();
+				let tableData = createTableData();
 				tableData.append(key);
 				headerRow.append(tableData);
 			}
@@ -50,29 +75,17 @@ class GlobaleSuche {
 		return headerRow;
 	}
 
-	static createTableData() {
+	createTableData = function () {
 		let tableData = document.createElement("div");
-		tableData.classList.add("table_globale_suche_td");
+		tableData.classList.add(tableDataClass);
 		return tableData;
 	}
 
-	static getSearchTable() {
-		return document.getElementById("such_parameter_table");
+	getSearchTable = function () {
+		return document.getElementById(parameterTableId);
 	}
 
-	static getDatabaseRelationIndexTable() {
-
-		let indexTable = [];
-		indexTable[0] = "projektpartner";
-		indexTable[1] = "projekt";
-		indexTable[2] = "probe";
-		indexTable[3] = "experiment";
-		indexTable[4] = "methode";
-
-		return indexTable;
-	}
-
-	static getDatabase() {
+	function initDatabase() {
 		const partner1 = {
 			"pk": "1",
 			"name": "Partner A",
@@ -131,39 +144,39 @@ class GlobaleSuche {
 		return database;
 	}
 
-	static createTableRow() {
+	createTableRow = function () {
 		let tableRow = document.createElement("div");
-		tableRow.classList.add("table_globale_suche_tr");
+		tableRow.classList.add(tableRowClass);
 		return tableRow;
 	}
 
-	static createTableHeaderRow() {
+	createTableHeaderRow = function () {
 		let tableHeaderRow = document.createElement("div");
-		tableHeaderRow.classList.add("table_globale_suche_tr");
-		tableHeaderRow.classList.add("table_globale_suche_th");
+		tableHeaderRow.classList.add(tableRowClass);
+		tableHeaderRow.classList.add(tableHeaderClass);
 		return tableHeaderRow;
 	}
 
-	static addRowToHTMLResultList(row) {
+	addRowToHTMLResultList = function (row) {
 
-		const tableGlobaleSuche = document.getElementById("table_globale_suche");
+		const tableGlobaleSuche = document.getElementById(resultTableId);
 		tableGlobaleSuche.append(row);
 	}
 
-	static clearHTMLErgebnisListe() {
+	clearHTMLErgebnisListe = function () {
 
-		const ergebnisListe = document.getElementById("table_globale_suche");
+		const ergebnisListe = document.getElementById(resultTableId);
 
 		while (ergebnisListe.hasChildNodes()) {
 			ergebnisListe.removeChild(ergebnisListe.lastChild);
 		}
 	}
 
-	static addParameterRow() {
+	addParameterRow = function () {
 
-		let container = document.getElementById("such_parameter_table");
+		let container = document.getElementById(parameterTableId);
 
-		let template = document.getElementById("such_parameter_row_template");
+		let template = document.getElementById(rowTemplateId);
 
 		let childNodes = template.children;
 
@@ -175,23 +188,23 @@ class GlobaleSuche {
 
 			let cell = row.insertCell(i);
 			var child = childNodes[i].cloneNode(true);
-			this.addEnterListener(child);
+			addEnterListener(child);
 			cell.append(child);
 
-			if (child.className == "select_main_category") mainCategorySelect = child;
-			if (child.className == "globale_suche_delete_parameter_button") this.initDeleteButton(child);
+			if (child.className == categorySelectClass) mainCategorySelect = child;
+			if (child.className == deleteButtonClass) initDeleteButton(child);
 		}
 
-		this.initMainCategorySelect(mainCategorySelect);
+		initMainCategorySelect(mainCategorySelect);
 	}
 
-	static deleteSuchParameter(suchParameterElement) {
+	deleteSuchParameter = function (suchParameterElement) {
 
 		let parent = suchParameterElement.parentElement.parentElement;
 		parent.remove();
 	}
 
-	static resetSelects(element) {
+	resetSelects = function (element) {
 
 		let allSelects = element.querySelectorAll("select");
 		allSelects.forEach(element => {
@@ -199,17 +212,17 @@ class GlobaleSuche {
 		})
 	}
 
-	static resetSelect(element) {
+	resetSelect = function (element) {
 		element.options[0].selected = "true";
 	}
 
-	static createParameters(event) {
+	createParameters = function (event) {
 
 		const htmlElement = event.target;
 
 		const parameterCategory = htmlElement.value;
 
-		let selectElement = htmlElement.parentElement.parentElement.getElementsByClassName("such_parameter")[0];
+		let selectElement = htmlElement.parentElement.parentElement.getElementsByClassName(searchParameterClass)[0];
 
 		removeOptions(selectElement);
 		let parameters = getParameters(parameterCategory);
@@ -244,163 +257,155 @@ class GlobaleSuche {
 		}
 	}
 
-	static search() {
-		
+	search = function () {
+
 		clearHTMLErgebnisListe();
-		
+
 		let searchCategories = getSearchCategories();
 		let searchParameters = getSearchParameters();
 		let searchInputFields = getSearchInputFields();
-		
-		const tupelList = getDatabaseAsTupelList();
-		
+
+		const tupelList = getDatabaseAsTupelList(database);
+
 		const resultHeader = createResultHeader(tupelList);
 		showResultHeader(resultHeader);
-		
+
 		const results = getResults(tupelList, searchCategories, searchParameters, searchInputFields);
-		console.log({results});
 		showResults(results);
-		
-		// FUNCTIONS --------------------------------------------------------------------------
+	}
 
-		function createResultHeader(relationDatabase){
-			return GlobaleSuche.createTableHeaderRowWithValues(relationDatabase);
-		}
-		
-		function showResultHeader(headerRow){
-			GlobaleSuche.addRowToHTMLResultList(headerRow);
-		}
+	function createResultHeader(relationDatabase) {
+		return createTableHeaderRowWithValues(relationDatabase);
+	}
 
-		function showResults(filteredRelationDatabase){
+	function showResultHeader(headerRow) {
+		addRowToHTMLResultList(headerRow);
+	}
 
-			filteredRelationDatabase.forEach(tupel => {
-				let tableRow = GlobaleSuche.createTableRow();
-				tupel.forEach(tupelElement => {
-					for(let key in tupelElement){
-						let tableData = GlobaleSuche.createTableData();
-						tableData.append(tupelElement[key]);
-						tableRow.append(tableData);
-					}
-				});
-				GlobaleSuche.addRowToHTMLResultList(tableRow);
+	function showResults(filteredRelationDatabase) {
+
+		filteredRelationDatabase.forEach(tupel => {
+			let tableRow = createTableRow();
+			tupel.forEach(tupelElement => {
+				for (let key in tupelElement) {
+					let tableData = createTableData();
+					tableData.append(tupelElement[key]);
+					tableRow.append(tableData);
+				}
 			});
+			addRowToHTMLResultList(tableRow);
+		});
+	}
+
+	function getResults(relationDatabase, searchCategories, searchParameters, searchInputFields) {
+
+		let filteredRelationDatabase = [];
+
+		relationDatabase.forEach(tupel => {
+			if (foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields)) filteredRelationDatabase.push(tupel);
+		})
+
+		return filteredRelationDatabase;
+	}
+
+	function foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields) {
+
+		for (let i = 0; i < searchCategories.length; i++) {
+
+			let searchCategory = searchCategories[i];
+			let searchParameter = searchParameters[i];
+			let searchInputField = searchInputFields[i];
+
+			if (!foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField)) return false;
 		}
-		
-		function getResults(relationDatabase, searchCategories, searchParameters, searchInputFields){
-			
-			console.log({relationDatabase, searchCategories, searchParameters, searchInputFields})
+		return true;
+	}
 
-			let filteredRelationDatabase = [];
+	function foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField) {
 
-			relationDatabase.forEach(tupel => {
-				if(foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields)) filteredRelationDatabase.push(tupel);
-			})
+		let foundSearchValue = false;
 
-			return filteredRelationDatabase;
+		if (searchInputField == "") return true;
+
+		for (let key in tupel) {
+			let tupelElement = tupel[key];
+			if (tupelElement["category"].toLowerCase() != searchCategory) continue;
+			if (tupelElement[searchParameter].toLowerCase() != searchInputField) continue;
+			foundSearchValue = true;
+			break;
 		}
+		return foundSearchValue;
+	}
 
-		function foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields){
+	function htmlCollectionToLowerCaseArray(htmlCollection) {
+		htmlCollection = Array.from(htmlCollection).map((element) => element.value.toLowerCase());
+		return htmlCollection;
+	}
 
-			for(let i = 0; i < searchCategories.length; i++){
+	function getSearchInputFields() {
+		let searchInputFields = getSearchTable().getElementsByClassName(searchValueClass);
+		searchInputFields = htmlCollectionToLowerCaseArray(searchInputFields);
+		return searchInputFields;
+	}
 
-				let searchCategory = searchCategories[i];
-				let searchParameter = searchParameters[i];
-				let searchInputField = searchInputFields[i];
+	function getSearchParameters() {
+		let searchParameters = getSearchTable().getElementsByClassName(searchParameterClass);
+		searchParameters = htmlCollectionToLowerCaseArray(searchParameters);
+		return searchParameters;
+	}
 
-				if(!foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField)) return false;
-			}
-			return true;
-		}
+	function getSearchCategories() {
+		let searchCategories = getSearchTable().getElementsByClassName(categorySelectClass);
+		searchCategories = htmlCollectionToLowerCaseArray(searchCategories);
+		return searchCategories;
+	}
 
-		function foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField){
+	function getDatabaseAsTupelList(database) {
 
-			let foundSearchValue = false;
+		let relationDatabase = [];
 
-			if(searchInputField == "") return true;
+		let lowestBranchArray = getLowestCategory(databaseIndexTable, database);
 
-			for(let key in tupel){
-				let tupelElement = tupel[key];
-				if(tupelElement["category"].toLowerCase() != searchCategory) continue;
-				if(tupelElement[searchParameter].toLowerCase() != searchInputField) continue;
-				foundSearchValue = true;
-				break;
-			}
-			return foundSearchValue;
-		}
+		lowestBranchArray.forEach(lowestCategoryElement => {
 
-		function htmlCollectionToLowerCaseArray(htmlCollection) {
-			htmlCollection = Array.from(htmlCollection).map((element) => element.value.toLowerCase());
-			return htmlCollection;
-		}
+			lowestCategoryElement["category"] = databaseIndexTable[databaseIndexTable.length - 1]
 
-		function getSearchInputFields() {
-			let searchInputFields = GlobaleSuche.getSearchTable().getElementsByClassName("such_parameter_inhalt");
-			searchInputFields = htmlCollectionToLowerCaseArray(searchInputFields);
-			return searchInputFields;
-		}
-	
-		function getSearchParameters() {
-			let searchParameters = GlobaleSuche.getSearchTable().getElementsByClassName("such_parameter");
-			searchParameters = htmlCollectionToLowerCaseArray(searchParameters);
-			return searchParameters;
-		}
-	
-		function getSearchCategories() {
-			let searchCategories = GlobaleSuche.getSearchTable().getElementsByClassName("select_main_category");
-			searchCategories = htmlCollectionToLowerCaseArray(searchCategories);
-			return searchCategories;
-		}
+			let relationTupel = [];
+			relationTupel.push(lowestCategoryElement);
 
-		function clearHTMLErgebnisListe(){
-			GlobaleSuche.clearHTMLErgebnisListe();
-		}
+			let fk = lowestCategoryElement["fk"];
 
-		function getDatabaseAsTupelList(){
+			for (let i = databaseIndexTable.length - 2; i >= 0; i--) {
 
-			let database = GlobaleSuche.getDatabase();
-			let databaseIndexTable = GlobaleSuche.getDatabaseRelationIndexTable();
-			let relationDatabase = [];
-	
-			let lowestBranchArray = getLowestCategory(databaseIndexTable, database);
-	
-			lowestBranchArray.forEach( lowestCategoryElement => {
-	
-				lowestCategoryElement["category"] = databaseIndexTable[databaseIndexTable.length-1]
-	
-				let relationTupel = [];
-				relationTupel.push(lowestCategoryElement);
-				
-				let fk = lowestCategoryElement["fk"];
-	
-				for(let i = databaseIndexTable.length - 2; i >= 0; i--){
-	
-					let category = databaseIndexTable[i];
-					
-					let categoryElementArray = database[category];
-	
-					for(let key in categoryElementArray){
-						let element = categoryElementArray[key];
-						if(element["pk"] == fk){
-							element["category"] = category;
-							relationTupel.push(element);
-							fk = element["fk"];
-							break;
-						}
+				let category = databaseIndexTable[i];
+
+				let categoryElementArray = database[category];
+
+				for (let key in categoryElementArray) {
+					let element = categoryElementArray[key];
+					if (element["pk"] == fk) {
+						element["category"] = category;
+						relationTupel.push(element);
+						fk = element["fk"];
+						break;
 					}
 				}
-				relationDatabase.push(relationTupel);
-			})
-	
-			return relationDatabase;
-	
-			function getLowestCategory(databaseIndexTable, database) {
-				const lowestBranchIndex = databaseIndexTable.length - 1;
-				const lowestBranchCategory = databaseIndexTable[lowestBranchIndex];
-				const lowestBranchArray = database[lowestBranchCategory];
-				return lowestBranchArray;
 			}
-		}
+			relationDatabase.push(relationTupel);
+		})
+
+		return relationDatabase;
 	}
-}
+
+	function getLowestCategory(databaseIndexTable, database) {
+		const lowestBranchIndex = databaseIndexTable.length - 1;
+		const lowestBranchCategory = databaseIndexTable[lowestBranchIndex];
+		const lowestBranchArray = database[lowestBranchCategory];
+		return lowestBranchArray;
+	}
+
+	return public;
+
+})();
 
 GlobaleSuche.init();
