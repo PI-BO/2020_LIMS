@@ -2,22 +2,22 @@ var GlobaleSuche = (function () {
 
 	public = {};
 
-	const addButton = "globale_suche_add_parameter_button";
-	const searchButton = "globale_suche_button";
-	const tableDataClass = "table_globale_suche_td";
-	const parameterTableId = "such_parameter_table";
-	const tableRowClass = "table_globale_suche_tr";
-	const tableHeaderClass = "table_globale_suche_th";
-	const resultTableId = "table_globale_suche";
-	const rowTemplateId = "such_parameter_row_template";
-	const categorySelectClass = "select_main_category"
-	const deleteButtonClass = "globale_suche_delete_parameter_button";
-	const searchParameterClass = "such_parameter";
-	const searchValueClass = "such_parameter_inhalt";
+	const addButton = "global_search_add_parameter_button";
+	const searchButton = "global_search_button";
+	// const tableDataClass = "table_globale_suche_td";
+	const parameterTableId = "global_search_parameter_table";
+	// const tableRowClass = "table_globale_suche_tr";
+	// const tableHeaderClass = "table_globale_suche_th";
+	const resultTableId = "global_search_result_table";
+	const rowTemplateId = "global_search_parameter_row_template";
+	const categorySelectClass = "global_search_select_main_category"
+	const deleteButtonClass = "global_search_delete_parameter_button";
+	const searchParameterClass = "global_search_parameter";
+	const searchValueClass = "global_search_parameter_input";
 
 	const database = initDatabase();
 
-	const databaseIndexTable = 	[
+	const databaseIndexTable = [
 		"projektpartner",
 		"projekt",
 		"probe",
@@ -25,35 +25,35 @@ var GlobaleSuche = (function () {
 		"methode"
 	]
 
-	public.init = function () {
+	public.init = function init() {
 
 		initAddParameterButton();
 		initSearchButton();
 		initFirstParameterRow();
 	}
 
-	initAddParameterButton = function () {
+	function initAddParameterButton() {
 		document.getElementById(addButton).addEventListener("click", () => addParameterRow());
 	}
 
-	initSearchButton = function () {
+	function initSearchButton() {
 		document.getElementById(searchButton).addEventListener("click", () => search());
 	}
 
-	initFirstParameterRow = function () {
+	function initFirstParameterRow() {
 		document.getElementById(addButton).click();
 	}
 
-	initMainCategorySelect = function (element) {
+	function initMainCategorySelect(element) {
 		element.addEventListener("change", (event) => createParameters(event));
 		createParameters({ target: element });
 	}
 
-	initDeleteButton = function (element) {
+	function initDeleteButton(element) {
 		element.addEventListener("click", (element) => deleteSuchParameter(element.target));
 	}
 
-	addEnterListener = function (element) {
+	function addEnterListener(element) {
 
 		element.addEventListener("keyup", (event) => {
 
@@ -63,7 +63,7 @@ var GlobaleSuche = (function () {
 		})
 	}
 
-	createTableHeaderRowWithValues = function (relationDatabase) {
+	function createTableHeaderRowWithValues(relationDatabase) {
 		let headerRow = createTableHeaderRow();
 		relationDatabase[0].forEach(element => {
 			for (let key in element) {
@@ -75,13 +75,13 @@ var GlobaleSuche = (function () {
 		return headerRow;
 	}
 
-	createTableData = function () {
+	function createTableData() {
 		let tableData = document.createElement("div");
 		tableData.classList.add(tableDataClass);
 		return tableData;
 	}
 
-	getSearchTable = function () {
+	function getSearchTable() {
 		return document.getElementById(parameterTableId);
 	}
 
@@ -144,26 +144,26 @@ var GlobaleSuche = (function () {
 		return database;
 	}
 
-	createTableRow = function () {
+	function createTableRow() {
 		let tableRow = document.createElement("div");
 		tableRow.classList.add(tableRowClass);
 		return tableRow;
 	}
 
-	createTableHeaderRow = function () {
+	function createTableHeaderRow() {
 		let tableHeaderRow = document.createElement("div");
 		tableHeaderRow.classList.add(tableRowClass);
 		tableHeaderRow.classList.add(tableHeaderClass);
 		return tableHeaderRow;
 	}
 
-	addRowToHTMLResultList = function (row) {
+	function addRowToHTMLResultList(row) {
 
 		const tableGlobaleSuche = document.getElementById(resultTableId);
 		tableGlobaleSuche.append(row);
 	}
 
-	clearHTMLErgebnisListe = function () {
+	function clearHTMLErgebnisListe() {
 
 		const ergebnisListe = document.getElementById(resultTableId);
 
@@ -172,22 +172,21 @@ var GlobaleSuche = (function () {
 		}
 	}
 
-	addParameterRow = function () {
 
-		let container = document.getElementById(parameterTableId);
 
+	function addParameterRow() {
+
+		let table = document.getElementById(parameterTableId);
 		let template = document.getElementById(rowTemplateId);
-
-		let childNodes = template.children;
-
-		let row = container.insertRow(-1);
+		let templateChildNodes = template.children;
+		let row = table.insertRow(-1);
 
 		let mainCategorySelect;
 
-		for (let i = 0; i < childNodes.length; i++) {
+		for (let i = 0; i < templateChildNodes.length; i++) {
 
 			let cell = row.insertCell(i);
-			var child = childNodes[i].cloneNode(true);
+			var child = templateChildNodes[i].cloneNode(true);
 			addEnterListener(child);
 			cell.append(child);
 
@@ -198,13 +197,13 @@ var GlobaleSuche = (function () {
 		initMainCategorySelect(mainCategorySelect);
 	}
 
-	deleteSuchParameter = function (suchParameterElement) {
+	function deleteSuchParameter(suchParameterElement) {
 
 		let parent = suchParameterElement.parentElement.parentElement;
 		parent.remove();
 	}
 
-	resetSelects = function (element) {
+	function resetSelects(element) {
 
 		let allSelects = element.querySelectorAll("select");
 		allSelects.forEach(element => {
@@ -212,11 +211,11 @@ var GlobaleSuche = (function () {
 		})
 	}
 
-	resetSelect = function (element) {
+	function resetSelect(element) {
 		element.options[0].selected = "true";
 	}
 
-	createParameters = function (event) {
+	function createParameters(event) {
 
 		const htmlElement = event.target;
 
@@ -227,37 +226,37 @@ var GlobaleSuche = (function () {
 		removeOptions(selectElement);
 		let parameters = getParameters(parameterCategory);
 		insertParameters(parameters, selectElement);
-
-		function insertParameters(parameters, selectElement) {
-
-			parameters.forEach(parameter => {
-				let selectOption = document.createElement("option");
-				selectOption.text = parameter;
-				selectOption.value = parameter;
-				selectElement.add(selectOption);
-			});
-		}
-
-		function removeOptions(selectElement) {
-
-
-			let selectOptions = selectElement.querySelectorAll("option");
-			selectOptions.forEach(option => option.remove());
-		}
-
-		function getParameters(parameterCategory) {
-			const parameters = {
-				"projektpartner": ["pk", "name"],
-				"projekt": ["pk", "name", "fk"],
-				"probe": ["pk", "name", "fk"],
-				"experiment": ["pk", "name", "fk"],
-				"methode": ["pk", "name", "fk", "operator"]
-			}
-			return parameters[parameterCategory.toLowerCase()];
-		}
 	}
 
-	search = function () {
+	function insertParameters(parameters, selectElement) {
+
+		parameters.forEach(parameter => {
+			let selectOption = document.createElement("option");
+			selectOption.text = parameter;
+			selectOption.value = parameter;
+			selectElement.add(selectOption);
+		});
+	}
+
+	function removeOptions(selectElement) {
+
+
+		let selectOptions = selectElement.querySelectorAll("option");
+		selectOptions.forEach(option => option.remove());
+	}
+
+	function getParameters(parameterCategory) {
+		const parameters = {
+			"projektpartner": ["pk", "name"],
+			"projekt": ["pk", "name", "fk"],
+			"probe": ["pk", "name", "fk"],
+			"experiment": ["pk", "name", "fk"],
+			"methode": ["pk", "name", "fk", "operator"]
+		}
+		return parameters[parameterCategory.toLowerCase()];
+	}
+
+	function search() {
 
 		clearHTMLErgebnisListe();
 
@@ -267,11 +266,11 @@ var GlobaleSuche = (function () {
 
 		const tupelList = getDatabaseAsTupelList(database);
 
-		const resultHeader = createResultHeader(tupelList);
-		showResultHeader(resultHeader);
+		// const resultHeader = createResultHeader(tupelList);
+		// showResultHeader(resultHeader);
 
-		const results = getResults(tupelList, searchCategories, searchParameters, searchInputFields);
-		showResults(results);
+		// const results = getResults(tupelList, searchCategories, searchParameters, searchInputFields);
+		// showResults(results);
 	}
 
 	function createResultHeader(relationDatabase) {

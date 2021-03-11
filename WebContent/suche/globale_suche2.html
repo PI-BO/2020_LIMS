@@ -1,101 +1,96 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<style>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<style>
+		#global_search_main_container {
+			background-color: #f2f2f2;
+		}
 
+		#global_search_main_header {
+			background-color: #77bbff;
+			padding: 16px;
+			font-weight: bold;
+		}
 
-#globale_suche_main_container{
-	background-color: #f2f2f2;
-}
+		.global_search_parameter {
+			width: 100%;
+		}
 
-#globale_suche_main_header {
-	background-color: #77bbff;
-	padding: 16px;
-	font-weight: bold;
-}
+		.global_search_parameter_table_th {
+			font-weight: 700;
+			background-color: #ffffff;
+			border-top: 1px solid #d0d0d0;
+		}
 
-.such_parameter {
-	width: 100%;
-}
+		.global_search_parameter_table_tr {
+			display: flex;
+		}
 
-.table_globale_suche {
-	display: flex;
-	flex-flow: column;
-}
+		.global_search_result_table_tr:nth-of-type(even) {
+			background-color: #ffffff;
+		}
 
-.table_globale_suche_th {
-	font-weight: 700;
-	background-color: #ffffff;
-	border-top: 1px solid #d0d0d0;
-}
+		.global_search_result_table_tr:nth-of-type(odd) {
+			background-color: #f2f2f2;
+		}
 
-.table_globale_suche_tr {
-	display: flex;
-}
-
-.table_globale_suche_tr:nth-of-type(even) {
-	background-color: #ffffff;
-}
-
-.table_globale_suche_tr:nth-of-type(odd) {
-	background-color: #f2f2f2;
-}
-
-.table_globale_suche_td {
-	flex-grow: 2;
-	padding: 0.5em;
-	overflow: hidden; /*Text-Overflow*/
-	text-overflow: ellipsis; /* "..." nach Text-Overflow*/
-	white-space: nowrap;
-	border-bottom: 1px solid #d0d0d0;
-}
-</style>
+		.global_search_result_table_td {
+			flex-grow: 2;
+			padding: 0.5em;
+			overflow: hidden;
+			/*Text-Overflow*/
+			text-overflow: ellipsis;
+			/* "..." nach Text-Overflow*/
+			white-space: nowrap;
+			border-bottom: 1px solid #d0d0d0;
+		}
+	</style>
 </head>
+
 <body>
 
-<div id="globale_suche_main_container">
-<div id="globale_suche_main_header">Suche</div>
-	<div id="such_parameter_container">
-		<table id="such_parameter_table">
+	<div id="global_search_main_container">
+		<div id="global_search_main_header">Suche</div>
+		<table id="global_search_parameter_table">
 			<tr>
 				<th></th>
 				<th></th>
 				<th></th>
 				<th style="font-weight: normal">Filter hinzufuegen</th>
-				<th><input type="button" value="+" id="globale_suche_add_parameter_button"></th>
-				<th><input type="button" value="suchen" id="globale_suche_button"></th>
+				<th><input type="button" value="+" id="global_search_add_parameter_button"></th>
+				<th><input type="button" value="suchen" id="global_search_button"></th>
 			</tr>
 		</table>
+
+		<table id="global_search_result_table"></table>
+
+		<!-- HIDDEN PARAMETER TEMPLATE  -->
+
+		<div id="global_search_parameter_row_template" style="display: none;">
+			<select class="global_search_select_main_category">
+				<option value="Projektpartner">Projektpartner</option>
+				<option value="Projekt">Projekt</option>
+				<option value="Probe">Probe</option>
+				<option value="Experiment">Experiment</option>
+				<option value="Methode">Methode</option>
+			</select>
+			<select class="global_search_parameter">
+				<option value="Name">Name</option>
+				<option>ID</option>
+			</select> <select>
+				<option>entspricht</option>
+				<option>beinhaltet</option>
+			</select>
+			<input class="global_search_parameter_input" type="text" />
+			<input type="button" value="-" class="global_search_delete_parameter_button" />
+		</div>
+
+		<!-- END TEMPLATE -->
 	</div>
-
-	<div id="table_globale_suche">
-	</div>
-
-	<!-- HIDDEN PARAMETER TEMPLATE  -->
-
-	<div id="such_parameter_row_template" style="display: none;">
-		<select class="select_main_category">
-			<option value="Projektpartner">Projektpartner</option>
-			<option value="Projekt">Projekt</option>
-			<option value="Probe">Probe</option>
-			<option value="Experiment">Experiment</option>
-			<option value="Methode">Methode</option>
-		</select>
-		<select class="such_parameter">
-			<option value="Name">Name</option>
-			<option>ID</option>
-		</select> <select>
-			<option>entspricht</option>
-			<option>beinhaltet</option>
-		</select>
-		<input class="such_parameter_inhalt" type="text" />
-		<input type="button" value="-" class="globale_suche_delete_parameter_button" />
-	</div>
-
-	<!-- END TEMPLATE -->
-</div>
-<script src="http://localhost:8080/2020_LIMS/suche/globale_suche2.js"></script>
+	<script src="globale_suche2.js"></script>
 </body>
+
 </html>
