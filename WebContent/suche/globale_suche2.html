@@ -7,6 +7,7 @@
 	<style>
 		#global_search_main_container {
 			background-color: #f2f2f2;
+			font-family: Arial, Helvetica, sans-serif;
 		}
 
 		#global_search_main_header {
@@ -19,34 +20,34 @@
 			width: 100%;
 		}
 
-		.global_search_parameter_table_th {
-			font-weight: 700;
+		#global_search_result_table {
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+		}
+
+		#global_search_result_table td {
+			border: 1px solid #ddd;
+			padding: 8px;
+			cursor: pointer;
+		}
+
+		#global_search_result_table tr:nth-of-type(even) {
 			background-color: #ffffff;
-			border-top: 1px solid #d0d0d0;
 		}
 
-		.global_search_parameter_table_tr {
-			display: flex;
-		}
-
-		.global_search_result_table_tr:nth-of-type(even) {
-			background-color: #ffffff;
-		}
-
-		.global_search_result_table_tr:nth-of-type(odd) {
+		#global_search_result_table tr:nth-of-type(odd) {
 			background-color: #f2f2f2;
 		}
 
-		.global_search_result_table_td {
-			flex-grow: 2;
-			padding: 0.5em;
-			overflow: hidden;
-			/*Text-Overflow*/
-			text-overflow: ellipsis;
-			/* "..." nach Text-Overflow*/
-			white-space: nowrap;
-			border-bottom: 1px solid #d0d0d0;
+		#global_search_result_table tr:not(:first-child) td:hover  {
+			background-color: #ddd;
 		}
+
+		#global_search_result_table tr:first-child {
+			background-color: #77bbff;
+			font-weight: bold;
+			text-align: center;
+		}		
 	</style>
 </head>
 
@@ -70,17 +71,9 @@
 		<!-- HIDDEN PARAMETER TEMPLATE  -->
 
 		<div id="global_search_parameter_row_template" style="display: none;">
-			<select class="global_search_select_main_category">
-				<option value="Projektpartner">Projektpartner</option>
-				<option value="Projekt">Projekt</option>
-				<option value="Probe">Probe</option>
-				<option value="Experiment">Experiment</option>
-				<option value="Methode">Methode</option>
-			</select>
-			<select class="global_search_parameter">
-				<option value="Name">Name</option>
-				<option>ID</option>
-			</select> <select>
+			<select class="global_search_select_main_category"></select>
+			<select class="global_search_parameter"></select> 
+			<select>
 				<option>entspricht</option>
 				<option>beinhaltet</option>
 			</select>

@@ -4,10 +4,7 @@ var GlobaleSuche = (function () {
 
 	const addButton = "global_search_add_parameter_button";
 	const searchButton = "global_search_button";
-	// const tableDataClass = "table_globale_suche_td";
 	const parameterTableId = "global_search_parameter_table";
-	// const tableRowClass = "table_globale_suche_tr";
-	// const tableHeaderClass = "table_globale_suche_th";
 	const resultTableId = "global_search_result_table";
 	const rowTemplateId = "global_search_parameter_row_template";
 	const categorySelectClass = "global_search_select_main_category"
@@ -17,13 +14,23 @@ var GlobaleSuche = (function () {
 
 	const database = initDatabase();
 
-	const databaseIndexTable = [
+	const databaseIndexTable = [	// Reihenfolge ist der Index
 		"projektpartner",
 		"projekt",
 		"probe",
 		"experiment",
-		"methode"
+		"methode",
+		"operator"
 	]
+
+	const parameters = {
+		"projektpartner": ["name", "pk"],
+		"projekt": ["name", "fk", "pk"],
+		"probe": ["name", "fk", "pk"],
+		"experiment": ["name", "fk", "pk"],
+		"methode": ["name", "fk", "pk"],
+		"operator": ["name", "fk", "pk"]
+	}
 
 	public.init = function init() {
 
@@ -44,10 +51,6 @@ var GlobaleSuche = (function () {
 		document.getElementById(addButton).click();
 	}
 
-	function initMainCategorySelect(element) {
-		element.addEventListener("change", (event) => createParameters(event));
-		createParameters({ target: element });
-	}
 
 	function initDeleteButton(element) {
 		element.addEventListener("click", (element) => deleteSuchParameter(element.target));
@@ -61,24 +64,6 @@ var GlobaleSuche = (function () {
 				document.getElementById(searchButton).click();
 			}
 		})
-	}
-
-	function createTableHeaderRowWithValues(relationDatabase) {
-		let headerRow = createTableHeaderRow();
-		relationDatabase[0].forEach(element => {
-			for (let key in element) {
-				let tableData = createTableData();
-				tableData.append(key);
-				headerRow.append(tableData);
-			}
-		});
-		return headerRow;
-	}
-
-	function createTableData() {
-		let tableData = document.createElement("div");
-		tableData.classList.add(tableDataClass);
-		return tableData;
 	}
 
 	function getSearchTable() {
@@ -113,66 +98,62 @@ var GlobaleSuche = (function () {
 		const methode1 = {
 			"pk": "1",
 			"name": "Methode 1",
-			"fk": "1",
-			"operator": "John Doe"
+			"fk": "1"
 		};
 		const methode2 = {
 			"pk": "2",
 			"name": "Methode 2",
-			"fk": "1",
-			"operator": "Jane Doe"
+			"fk": "1"
 		};
 		const methode3 = {
 			"pk": "3",
 			"name": "Methode 3",
-			"fk": "2",
-			"operator": "Jane Doe"
+			"fk": "2"
 		};
 		const methode4 = {
 			"pk": "4",
 			"name": "Methode 4",
-			"fk": "2",
-			"operator": "Jane Doe"
+			"fk": "2"
+		};
+		const operator1 = {
+			"name": "John Doe",
+			"pk": "1",
+			"fk": "1"
+		};
+		const operator2 = {
+			"name": "Jane Doe",
+			"pk": "2",
+			"fk": "2"
+		};
+		const operator3 = {
+			"name": "Jane Doe",
+			"pk": "2",
+			"fk": "3"
+		};
+		const operator4 = {
+			"name": "Jane Doe",
+			"pk": "2",
+			"fk": "4"
 		};
 		const database = {
 			"projektpartner": [partner1],
 			"projekt": [projekt1],
 			"probe": [probe1],
 			"experiment": [experiment1, experiment2],
-			"methode": [methode1, methode2, methode3, methode4]
+			"methode": [methode1, methode2, methode3, methode4],
+			"operator": [operator1, operator2, operator3, operator4]
 		};
 		return database;
 	}
 
-	function createTableRow() {
-		let tableRow = document.createElement("div");
-		tableRow.classList.add(tableRowClass);
-		return tableRow;
-	}
+	function clearResultTable() {
 
-	function createTableHeaderRow() {
-		let tableHeaderRow = document.createElement("div");
-		tableHeaderRow.classList.add(tableRowClass);
-		tableHeaderRow.classList.add(tableHeaderClass);
-		return tableHeaderRow;
-	}
+		const resultTable = document.getElementById(resultTableId);
 
-	function addRowToHTMLResultList(row) {
-
-		const tableGlobaleSuche = document.getElementById(resultTableId);
-		tableGlobaleSuche.append(row);
-	}
-
-	function clearHTMLErgebnisListe() {
-
-		const ergebnisListe = document.getElementById(resultTableId);
-
-		while (ergebnisListe.hasChildNodes()) {
-			ergebnisListe.removeChild(ergebnisListe.lastChild);
+		while (resultTable.hasChildNodes()) {
+			resultTable.removeChild(resultTable.lastChild);
 		}
 	}
-
-
 
 	function addParameterRow() {
 
@@ -190,11 +171,55 @@ var GlobaleSuche = (function () {
 			addEnterListener(child);
 			cell.append(child);
 
-			if (child.className == categorySelectClass) mainCategorySelect = child;
+			if (child.className == categorySelectClass) {
+
+				mainCategorySelect = child;
+
+			}
 			if (child.className == deleteButtonClass) initDeleteButton(child);
 		}
 
 		initMainCategorySelect(mainCategorySelect);
+	}
+
+	function createMainCategory(event) {
+
+		const htmlElement = event.target;
+		let categories = []
+
+		for (let key in parameters) {
+			categories.push(capitalize(key));
+		}
+
+		insertParameters(categories, htmlElement);
+	}
+
+	function initMainCategorySelect(element) {
+		element.addEventListener("change", (event) => createParameters(event));
+		createMainCategory({ target: element });
+		createParameters({ target: element });
+	}
+
+	function createParameters(event) {
+
+		const htmlElement = event.target;
+		const parameterCategory = htmlElement.value;
+		let selectElement = htmlElement.parentElement.parentElement.getElementsByClassName(searchParameterClass)[0];
+
+		removeOptions(selectElement);
+
+		let parameters = getParameters(parameterCategory);
+		insertParameters(parameters, selectElement);
+	}
+
+	function insertParameters(parameters, selectElement) {
+
+		parameters.forEach(parameter => {
+			let selectOption = document.createElement("option");
+			selectOption.text = parameter;
+			selectOption.value = parameter;
+			selectElement.add(selectOption);
+		});
 	}
 
 	function deleteSuchParameter(suchParameterElement) {
@@ -215,29 +240,6 @@ var GlobaleSuche = (function () {
 		element.options[0].selected = "true";
 	}
 
-	function createParameters(event) {
-
-		const htmlElement = event.target;
-
-		const parameterCategory = htmlElement.value;
-
-		let selectElement = htmlElement.parentElement.parentElement.getElementsByClassName(searchParameterClass)[0];
-
-		removeOptions(selectElement);
-		let parameters = getParameters(parameterCategory);
-		insertParameters(parameters, selectElement);
-	}
-
-	function insertParameters(parameters, selectElement) {
-
-		parameters.forEach(parameter => {
-			let selectOption = document.createElement("option");
-			selectOption.text = parameter;
-			selectOption.value = parameter;
-			selectElement.add(selectOption);
-		});
-	}
-
 	function removeOptions(selectElement) {
 
 
@@ -246,61 +248,78 @@ var GlobaleSuche = (function () {
 	}
 
 	function getParameters(parameterCategory) {
-		const parameters = {
-			"projektpartner": ["pk", "name"],
-			"projekt": ["pk", "name", "fk"],
-			"probe": ["pk", "name", "fk"],
-			"experiment": ["pk", "name", "fk"],
-			"methode": ["pk", "name", "fk", "operator"]
-		}
 		return parameters[parameterCategory.toLowerCase()];
 	}
 
 	function search() {
 
-		clearHTMLErgebnisListe();
+		clearResultTable();
 
 		let searchCategories = getSearchCategories();
 		let searchParameters = getSearchParameters();
 		let searchInputFields = getSearchInputFields();
 
 		const tupelList = getDatabaseAsTupelList(database);
+		const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields);
 
-		// const resultHeader = createResultHeader(tupelList);
-		// showResultHeader(resultHeader);
-
-		// const results = getResults(tupelList, searchCategories, searchParameters, searchInputFields);
-		// showResults(results);
+		showResultHeader(results, resultTableId);
+		showResults(results, resultTableId);
 	}
 
-	function createResultHeader(relationDatabase) {
-		return createTableHeaderRowWithValues(relationDatabase);
+	function showResultHeader(results, resultTableId) {
+
+		let resultHeaderTupel = [];
+		const firstTupel = results[0];
+		if (firstTupel === undefined) return;
+		firstTupel.forEach(tupelElement => {
+			resultHeaderTupel.push(capitalize(tupelElement["category"]));
+		})
+
+		addTupelToTableHeader(resultHeaderTupel, resultTableId);
 	}
 
-	function showResultHeader(headerRow) {
-		addRowToHTMLResultList(headerRow);
+	function addTupelToTableHeader(tupel, tableId) {
+
+		let table = document.getElementById(tableId);
+		let header = table.createTHead();
+		let row = header.insertRow(-1);
+
+		let index = 0;
+		tupel.forEach(tupelElement => {
+			let cell = row.insertCell(-1);
+			cell.append(tupelElement);
+			let n = index;
+			cell.addEventListener("click", () => sortTable(resultTableId, n));
+			index++;
+		})
 	}
 
-	function showResults(filteredRelationDatabase) {
+	function showResults(results, resultTableId) {
+		addTupelArrayToTable(results, resultTableId);
+	}
 
-		filteredRelationDatabase.forEach(tupel => {
-			let tableRow = createTableRow();
+	function addTupelArrayToTable(results, tableId) {
+
+		let table = document.getElementById(tableId);
+
+		results.forEach(tupel => {
+			let row = table.insertRow(-1);
 			tupel.forEach(tupelElement => {
-				for (let key in tupelElement) {
-					let tableData = createTableData();
-					tableData.append(tupelElement[key]);
-					tableRow.append(tableData);
-				}
-			});
-			addRowToHTMLResultList(tableRow);
-		});
+				let cell = row.insertCell(-1);
+				cell.append(tupelElement["name"]);
+			})
+		})
 	}
 
-	function getResults(relationDatabase, searchCategories, searchParameters, searchInputFields) {
+	function capitalize(string) {
+		return string[0].toUpperCase() + string.slice(1);
+	}
+
+	function getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields) {
 
 		let filteredRelationDatabase = [];
 
-		relationDatabase.forEach(tupel => {
+		tupelList.forEach(tupel => {
 			if (foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields)) filteredRelationDatabase.push(tupel);
 		})
 
@@ -401,6 +420,62 @@ var GlobaleSuche = (function () {
 		const lowestBranchCategory = databaseIndexTable[lowestBranchIndex];
 		const lowestBranchArray = database[lowestBranchCategory];
 		return lowestBranchArray;
+	}
+
+	function sortTable(tableId, n) {
+		console.log({n})
+		var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+		table = document.getElementById(tableId);
+		switching = true;
+		// Set the sorting direction to ascending:
+		dir = "asc";
+		/* Make a loop that will continue until
+		no switching has been done: */
+		while (switching) {
+			// Start by saying: no switching is done:
+			switching = false;
+			rows = table.rows;
+			/* Loop through all table rows (except the
+			first, which contains table headers): */
+			for (i = 1; i < (rows.length - 1); i++) {
+				// Start by saying there should be no switching:
+				shouldSwitch = false;
+				/* Get the two elements you want to compare,
+				one from current row and one from the next: */
+				x = rows[i].getElementsByTagName("TD")[n];
+				y = rows[i + 1].getElementsByTagName("TD")[n];
+				/* Check if the two rows should switch place,
+				based on the direction, asc or desc: */
+				if (dir == "asc") {
+					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						// If so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				} else if (dir == "desc") {
+					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+						// If so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			if (shouldSwitch) {
+				/* If a switch has been marked, make the switch
+				and mark that a switch has been done: */
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+				// Each time a switch is done, increase this count by 1:
+				switchcount++;
+			} else {
+				/* If no switching has been done AND the direction is "asc",
+				set the direction to "desc" and run the while loop again. */
+				if (switchcount == 0 && dir == "asc") {
+					dir = "desc";
+					switching = true;
+				}
+			}
+		}
 	}
 
 	return public;
