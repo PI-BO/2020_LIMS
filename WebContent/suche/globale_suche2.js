@@ -281,33 +281,63 @@ var GlobaleSuche = (function () {
 	function addTupelToTableHeader(tupel, tableId) {
 
 		let table = document.getElementById(tableId);
-		let header = table.createTHead();
-		let row = header.insertRow(-1);
+		let row = table.insertRow(-1);
 
 		let index = 0;
 		tupel.forEach(tupelElement => {
 			let cell = row.insertCell(-1);
 			cell.append(tupelElement);
-			let n = index;
+			let n = index;	// "n" muss angelegt werden da "index" außerhalb der Schleife definiert ist und somit nur "Pass-By-Reference"
 			cell.addEventListener("click", () => sortTable(resultTableId, n));
 			index++;
 		})
 	}
 
 	function showResults(results, resultTableId) {
-		addTupelArrayToTable(results, resultTableId);
+		addTupelArrayToTable(results, resultTableId, "name");
 	}
 
-	function addTupelArrayToTable(results, tableId) {
+	function addTupelArrayToTable(results, tableId, onlyThisKey) {
 
 		let table = document.getElementById(tableId);
 
 		results.forEach(tupel => {
 			let row = table.insertRow(-1);
 			tupel.forEach(tupelElement => {
-				let cell = row.insertCell(-1);
-				cell.append(tupelElement["name"]);
+
+				for (let key in tupelElement) {
+
+					if (onlyThisKey === undefined) {
+						let cell = addElementToRowAndReturnCell(tupelElement[key], row)
+						addListenerToCell(cell, tupelElement);
+						continue;
+					}
+
+					if (key === onlyThisKey) {
+						let cell = addElementToRowAndReturnCell(tupelElement[key], row)
+						addListenerToCell(cell, tupelElement);
+						break;
+					}
+				}
 			})
+
+			function addElementToRowAndReturnCell(tupelElement, row) {
+				let cell = row.insertCell(-1);
+				cell.append(tupelElement);
+				return cell;
+			}
+
+			function addListenerToCell(cell, tupelElement) {
+				cell.addEventListener("click", () => {
+					clearResultTable();
+					let tupelElementArray = [];
+					for (let key in tupelElement) {
+						tupelElementArray.push(key);
+					}
+					addTupelToTableHeader(tupelElementArray, resultTableId);
+					addTupelArrayToTable([[tupelElement]], resultTableId);
+				});
+			}
 		})
 	}
 
@@ -423,7 +453,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function sortTable(tableId, n) {
-		console.log({n})
 		var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 		table = document.getElementById(tableId);
 		switching = true;
