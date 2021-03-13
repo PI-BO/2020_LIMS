@@ -40,10 +40,10 @@ var GlobaleSuche = (function () {
 	}
 
 	public.initTemplateParameters = function initTemplateParameters(template){
-		deleteAllParameters();
+
+		clearParameterRows();
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
-
 
 		function setTemplateParameters(template){
 
@@ -61,18 +61,17 @@ var GlobaleSuche = (function () {
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
 				let categoryOptions = categorySelect.options;
 				let parameterOptions = parameterSelect.options;
-				let templateOption = template[templateIndex++];
-				let categoryParameterKeyValuePair = templateOption;
-				let category = getCategory(categoryParameterKeyValuePair)
-				let parameter = categoryParameterKeyValuePair[category].toLowerCase();
+				let templateElement = template[templateIndex++];
+				let category = getCategory(templateElement)
+				let parameter = templateElement[category].toLowerCase();
 				selectCorrectCategoryOption(categoryOptions, category)
 				createParametersForSelectedCategory(parameterSelect, category);
 				selectCorrectParameterOption(parameterOptions, parameter);
 			}
-			
 		}
 		
 		function selectCorrectCategoryOption(categoryOptions, category){
+
 			for(let optionIndex = 0; optionIndex < categoryOptions.length; optionIndex++){
 				let option = categoryOptions[optionIndex];
 				let optionText = option.text.toLowerCase();
@@ -83,18 +82,11 @@ var GlobaleSuche = (function () {
 
 		function createParametersForSelectedCategory(parameterSelect, category){
 			
-			removeAllOptions(parameterSelect);
+			removeOptions(parameterSelect);
 			addCategoryOptions(category, parameterSelect);
 			
 		}
 		
-		function removeAllOptions(selectElement){
-			for(let length = selectElement.options.length; length != 0; length--){
-				let option = selectElement.options[length-1];
-				selectElement.removeChild(option);
-			}
-		}
-
 		function addCategoryOptions(category, parameterSelect){
 			let searchParameters = parameters[category];
 			searchParameters.forEach(searchParameter => {
@@ -121,7 +113,7 @@ var GlobaleSuche = (function () {
 		}
 	}
 
-	function deleteAllParameters(){
+	function clearParameterRows(){
 		let table = document.getElementById(parameterTableId);
 		let rows = table.rows;
 		removeAllExceptFirstRow();
@@ -289,7 +281,10 @@ var GlobaleSuche = (function () {
 
 		const htmlElement = event.target;
 		const parameterCategory = htmlElement.value;
-		let selectElement = htmlElement.parentElement.parentElement.getElementsByClassName(searchParameterClass)[0];
+
+		let row = htmlElement;
+		while(row.nodeName != "TR") row = row.parentNode;
+		selectElement = row.getElementsByClassName(searchParameterClass)[0];
 
 		removeOptions(selectElement);
 
@@ -326,7 +321,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function removeOptions(selectElement) {
-
 
 		let selectOptions = selectElement.querySelectorAll("option");
 		selectOptions.forEach(option => option.remove());
@@ -598,8 +592,7 @@ var GlobaleSuche = (function () {
 
 GlobaleSuche.init();
 const template = [
-	{"probe" : "pk"},
-	{"experiment" : "fk"},
-	{"experiment" : "name"}
+	{"experiment" : "name"},
+	{"operator" : "name"}
 ];
 GlobaleSuche.initTemplateParameters(template);
