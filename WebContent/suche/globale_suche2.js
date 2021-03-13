@@ -36,7 +36,101 @@ var GlobaleSuche = (function () {
 
 		initAddParameterButton();
 		initSearchButton();
-		initFirstParameterRow();
+		addParameterRow();
+	}
+
+	public.initTemplateParameters = function initTemplateParameters(template){
+		deleteAllParameters();
+		addRowsForTemplate(template);
+		setTemplateParameters(template);
+
+
+		function setTemplateParameters(template){
+
+			let table = document.getElementById(parameterTableId);
+			let rows = table.rows;
+
+			setTemplateParameterForEachRow(template, rows);
+		}
+		
+		function setTemplateParameterForEachRow(template, rows){
+			let templateIndex = 0;
+			for(let rowIndex = 1; rowIndex < rows.length; rowIndex++){
+				let row = rows[rowIndex];
+				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
+				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
+				let categoryOptions = categorySelect.options;
+				let parameterOptions = parameterSelect.options;
+				let templateOption = template[templateIndex++];
+				let categoryParameterKeyValuePair = templateOption;
+				let category = getCategory(categoryParameterKeyValuePair)
+				let parameter = categoryParameterKeyValuePair[category].toLowerCase();
+				selectCorrectCategoryOption(categoryOptions, category)
+				createParametersForSelectedCategory(parameterSelect, category);
+				selectCorrectParameterOption(parameterOptions, parameter);
+			}
+			
+		}
+		
+		function selectCorrectCategoryOption(categoryOptions, category){
+			for(let optionIndex = 0; optionIndex < categoryOptions.length; optionIndex++){
+				let option = categoryOptions[optionIndex];
+				let optionText = option.text.toLowerCase();
+				if(optionText != category) continue;
+				option.selected = "true";
+			}
+		}
+
+		function createParametersForSelectedCategory(parameterSelect, category){
+			
+			removeAllOptions(parameterSelect);
+			addCategoryOptions(category, parameterSelect);
+			
+		}
+		
+		function removeAllOptions(selectElement){
+			for(let length = selectElement.options.length; length != 0; length--){
+				let option = selectElement.options[length-1];
+				selectElement.removeChild(option);
+			}
+		}
+
+		function addCategoryOptions(category, parameterSelect){
+			let searchParameters = parameters[category];
+			searchParameters.forEach(searchParameter => {
+				let option = document.createElement("option");
+				option.text = searchParameter;
+				parameterSelect.add(option);
+			})
+		}
+
+		function selectCorrectParameterOption(parameterOptions, parameter){
+			for(let parameterOptionIndex = 0; parameterOptionIndex < parameterOptions.length; parameterOptionIndex++){
+				let parameterOption = parameterOptions[parameterOptionIndex];
+				if(parameterOption.text.toLowerCase() == parameter) parameterOption.selected = "true";
+			}
+		}
+
+		function getCategory(categoryParameterKeyValuePair){
+			return Object.keys(categoryParameterKeyValuePair)[0].toLowerCase();
+		}
+
+		function addRowsForTemplate(template){
+			for(let i = 0; i < template.length; i++) addParameterRow();
+
+		}
+	}
+
+	function deleteAllParameters(){
+		let table = document.getElementById(parameterTableId);
+		let rows = table.rows;
+		removeAllExceptFirstRow();
+
+		function removeAllExceptFirstRow() {
+			for (let i = 1; i < rows.length; i++) {
+				rows[i].remove();
+			}
+		}
 	}
 
 	function initAddParameterButton() {
@@ -47,16 +141,11 @@ var GlobaleSuche = (function () {
 		document.getElementById(searchButton).addEventListener("click", () => search());
 	}
 
-	function initFirstParameterRow() {
-		document.getElementById(addButton).click();
-	}
-
-
 	function initDeleteButton(element) {
 		element.addEventListener("click", (element) => deleteSuchParameter(element.target));
 	}
 
-	function addEnterListener(element) {
+	function addEnterListenerToNode(element) {
 
 		element.addEventListener("keyup", (event) => {
 
@@ -167,16 +256,12 @@ var GlobaleSuche = (function () {
 		for (let i = 0; i < templateChildNodes.length; i++) {
 
 			let cell = row.insertCell(i);
-			var child = templateChildNodes[i].cloneNode(true);
-			addEnterListener(child);
-			cell.append(child);
+			var childNode = templateChildNodes[i].cloneNode(true);
+			cell.append(childNode);
+			addEnterListenerToNode(childNode);
 
-			if (child.className == categorySelectClass) {
-
-				mainCategorySelect = child;
-
-			}
-			if (child.className == deleteButtonClass) initDeleteButton(child);
+			if (childNode.className == categorySelectClass) mainCategorySelect = childNode;
+			if (childNode.className == deleteButtonClass) initDeleteButton(childNode);
 		}
 
 		initMainCategorySelect(mainCategorySelect);
@@ -512,3 +597,9 @@ var GlobaleSuche = (function () {
 })();
 
 GlobaleSuche.init();
+const template = [
+	{"probe" : "pk"},
+	{"experiment" : "fk"},
+	{"experiment" : "name"}
+];
+GlobaleSuche.initTemplateParameters(template);
