@@ -260,9 +260,10 @@ var GlobaleSuche = (function () {
 
 			if (childNode.className == categorySelectClass) mainCategorySelect = childNode;
 			if (childNode.className == deleteButtonClass) initDeleteButton(childNode);
+			if (childNode.className == searchFilterClass) initFilterTypes(childNode);
 		}
 
-		initMainCategorySelect(mainCategorySelect);
+		initMainCategory(mainCategorySelect);
 	}
 
 	function createMainCategory(event) {
@@ -277,29 +278,37 @@ var GlobaleSuche = (function () {
 		insertParameters(categories, htmlElement);
 	}
 
-	function initMainCategorySelect(element) {
-		element.addEventListener("change", (event) => createParameters(event));
-		createMainCategory({ target: element });
-		createParameters({ target: element });
+	function initMainCategory(selectElement) {
+		selectElement.addEventListener("change", (event) => createParameters(event));
+		createMainCategory({ target: selectElement });
+		createParameters({ target: selectElement });
 	}
 
+	function initFilterTypes(selectElement){
+		let filterTypesArray = [];
+		for(let key in filterTypes){
+			filterTypesArray.push(filterTypes[key]);
+		}
+		insertParameters(filterTypesArray, selectElement);
+	}
+	
 	function createParameters(event) {
-
+		
 		const htmlElement = event.target;
 		const parameterCategory = htmlElement.value;
-
+		
 		let row = htmlElement;
 		while (row.nodeName != "TR") row = row.parentNode;
 		selectElement = row.getElementsByClassName(searchParameterClass)[0];
-
+		
 		removeOptions(selectElement);
-
+		
 		let parameters = getParameters(parameterCategory);
 		insertParameters(parameters, selectElement);
 	}
-
+	
 	function insertParameters(parameters, selectElement) {
-
+		
 		parameters.forEach(parameter => {
 			let selectOption = document.createElement("option");
 			selectOption.text = parameter;
@@ -344,8 +353,6 @@ var GlobaleSuche = (function () {
 		let searchParameters = getSearchParameters();
 		let searchInputFields = getSearchInputFields();
 		let searchFilterTypes = getSearchFilterTypes();
-
-		console.log({searchFilterTypes});
 
 		const tupelList = getDatabaseAsTupelList(database);
 		const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
@@ -486,7 +493,7 @@ var GlobaleSuche = (function () {
 				if (!category.includes(searchCategory)) continue;
 				if (!parameter.includes(searchInputField)) continue;
 			}
-			
+
 			foundSearchValue = true;
 			break;
 		}
