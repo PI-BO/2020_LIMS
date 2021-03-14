@@ -15,7 +15,7 @@ var GlobaleSuche = (function () {
 
 	const database = initDatabase();
 
-	const databaseIndexTable = [	// Reihenfolge ist der Index
+	const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
 		"projektpartner",
 		"projekt",
 		"probe",
@@ -61,7 +61,9 @@ var GlobaleSuche = (function () {
 
 		function setTemplateParameterForEachRow(template, rows) {
 			let templateIndex = 0;
+
 			for (let rowIndex = 1; rowIndex < rows.length; rowIndex++) {
+				
 				let row = rows[rowIndex];
 				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
@@ -70,6 +72,7 @@ var GlobaleSuche = (function () {
 				let templateElement = template[templateIndex++];
 				let category = getCategory(templateElement)
 				let parameter = templateElement[category].toLowerCase();
+
 				selectCorrectCategoryOption(categoryOptions, category)
 				createParametersForSelectedCategory(parameterSelect, category);
 				selectCorrectParameterOption(parameterOptions, parameter);
@@ -86,19 +89,19 @@ var GlobaleSuche = (function () {
 			}
 		}
 
-		function createParametersForSelectedCategory(parameterSelect, category) {
+		function createParametersForSelectedCategory(selectElement, category) {
 
-			removeOptions(parameterSelect);
-			addCategoryOptions(category, parameterSelect);
+			removeOptions(selectElement);
+			addCategoryOptions(category, selectElement);
 
 		}
 
-		function addCategoryOptions(category, parameterSelect) {
+		function addCategoryOptions(category, selectElement) {
 			let searchParameters = parameters[category];
 			searchParameters.forEach(searchParameter => {
 				let option = document.createElement("option");
 				option.text = searchParameter;
-				parameterSelect.add(option);
+				selectElement.add(option);
 			})
 		}
 
