@@ -16,6 +16,7 @@ public class ExperimentServlet extends HttpServlet {
     public static final String EXPERIMENT_SERIE_TEXT = "EXPERIMENT_EXPERIMENT_SERIE_TEXT";
     public static final String EXPERIMENT_NO = "EXPERIMENT_EXPERIMENT_NO"; // Ist zwei mal da
     public static final String DURCHFUEHRUNGSTEXT = "EXPERIMENT_DURCHFUEHRUNGSTEXT";
+    public static final Object DURCHFUEHRUNGSTEXT_TITEL = "EXPERIMENT_DURCHFUEHRUNGSTEXT_TITEL";
     public static final String DURCHFUEHRUNGSTEXT_TEXT = "EXPERIMENT_DURCHFUEHRUNGSTEXT_TEXT";
     public static final String PROJEKTLEITERNOTIZ_INTENTION = "EXPERIMENT_PROJEKTLEITERNOTIZ_INTENTION";
     public static final String VERWEIS = "EXPERIMENT_VERWEIS";

@@ -12,7 +12,7 @@ function showExperimenttypFieldsMethode(select) {
     }
 
     const experimentErstellenPosting = $.post(experimentErstellenSubPage, {});
-    experimentErstellenPosting.done(function(data) {
+    experimentErstellenPosting.done(function (data) {
         $("#experiment_erstellen_content").empty().append(data);
     });
 }
@@ -23,7 +23,13 @@ function newExperimentSerie(value) {
     else text.hide()
 }
 
-function newExperimentDurchfuehrungstext(value) {
+function newExperimentDurchfuehrungstext(select) {
     const text = $("#experiment_durchführungstext_text")
-    text.prop( "disabled", value !== "new" );
+    const value = select.value
+    const durchfuehrungstext = select.selectedOptions[0].firstChild.data.trim()
+    text.val(durchfuehrungstext)
+    text.prop("readonly", value !== "new")
+    const titel = $("#experiment_durchfuehrungstext_titel")
+    if (value === "new") titel.show()
+    else titel.hide()
 }

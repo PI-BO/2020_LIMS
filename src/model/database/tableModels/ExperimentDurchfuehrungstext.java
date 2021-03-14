@@ -40,9 +40,29 @@ public class ExperimentDurchfuehrungstext extends Model{
         return primaryKey;
     }
 
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
+    }
+
+    public static String getColumnPrimaryKey() {
+        return COLUMN_PRIMARY_KEY;
+    }
+
+    public static String getColumnText() {
+        return COLUMN_TEXT;
     }
 
     @Override
@@ -73,9 +93,5 @@ public class ExperimentDurchfuehrungstext extends Model{
     @Override
     public void saveToDatabase() {
 
-    }
-
-    public String getText() {
-        return text;
     }
 }

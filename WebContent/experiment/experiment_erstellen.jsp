@@ -22,7 +22,7 @@
                     ModelList experimentTypModelList = new ModelList(new Experimenttyp());
                     for (Model model : experimentTypModelList.getModelList()) {
             %>
-            <option value=<%=model.getPrimaryKey()%>><%=((Experimenttyp) model).getTyp()%>
+            <option value="<%=model.getPrimaryKey()%>"><%=((Experimenttyp) model).getTyp()%>
             </option>
             <%
                     }

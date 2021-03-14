@@ -6,7 +6,7 @@
 
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.NO_ID%>>
+    <input required type="text" name=<%=ExperimentServlet.NO_ID%>>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -29,7 +29,7 @@
                 ModelList experimentSerien = new ModelList(new ExperimentSerie());
                 for (Model model : experimentSerien.getModelList()) {
         %>
-        <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%>
+        <option value="<%=model.getPrimaryKey()%>"><%=model.getPrimaryKey()%>
         </option>
         <%
                 }
@@ -40,7 +40,8 @@
             }
         %>
     </select>
-    <input id="experiment_serie_text" style="display: none" type="text" name=<%=ExperimentServlet.EXPERIMENT_SERIE_TEXT%>>
+    <input id="experiment_serie_text" style="display: none" type="text"
+           name=<%=ExperimentServlet.EXPERIMENT_SERIE_TEXT%>>
 </div>
 
 <div class="experiment_erstellen_header">Experiment No.</div>
@@ -50,7 +51,7 @@
 
 <div class="experiment_erstellen_header">Durchführung</div>
 <div class="experiment_erstellen_entry">
-    <select onchange="newExperimentDurchfuehrungstext(this.value)" required name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT%>>
+    <select onchange="newExperimentDurchfuehrungstext(this)" required name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">neuer Durchführungstext</option>
         <%
@@ -58,7 +59,8 @@
                 ModelList experimentDurchfuehrungtext = new ModelList(new ExperimentDurchfuehrungstext());
                 for (Model model : experimentDurchfuehrungtext.getModelList()) {
         %>
-        <option value=<%=model.getPrimaryKey()%>><%=((ExperimentDurchfuehrungstext) model).getText()%>
+        <option label="<%=model.getPrimaryKey()%>" value="<%=model.getPrimaryKey()%>">
+            <%=((ExperimentDurchfuehrungstext) model).getText()%>
         </option>
         <%
                 }
@@ -69,7 +71,21 @@
             }
         %>
     </select>
-    <textarea id="experiment_durchführungstext_text" disabled="true" rows="4" cols="50" name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
+    <table>
+        <tr>
+            <th>
+                <input id="experiment_durchfuehrungstext_titel" style="display: none" type="text"
+                       placeholder="neuer Titel"
+                       name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <textarea id="experiment_durchführungstext_text" rows="4" cols="50"
+                          name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
+            </th>
+        </tr>
+    </table>
 </div>
 
 <div class="experiment_erstellen_header">Projektleiternotiz / Intention</div>
@@ -89,7 +105,7 @@
 
 <div class="experiment_erstellen_header">Erledigt bis (soll)</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.ERLEDIGT_BIS%>>
+    <input type="date" name=<%=ExperimentServlet.ERLEDIGT_BIS%>>
 </div>
 
 <div class="experiment_erstellen_header">Hinweis an Laborleiter</div>

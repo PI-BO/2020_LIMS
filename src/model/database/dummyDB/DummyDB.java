@@ -168,6 +168,55 @@ public class DummyDB implements Database {
         experimenttyp.setPrimaryKey("202");
         experimenttyp.setTyp("Slurry 1Lömi");
         modelList.add(experimenttyp);
+
+        // Experiment Durchführungstext
+        ExperimentDurchfuehrungstext experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
+        experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext A");
+        experimentDurchfuehrungstext.setText(
+                "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
+                        "Die genaue Einwaage in den Datensatz eintragen.\n" +
+                        "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
+                        "Zugabe von 3.0 mL Lösungsmittel.\n" +
+                        "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n" +
+                        "Ultraschalldauer 5 min.\n" +
+                        "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n" +
+                        "5 ml Spritzen, Kanülen und 0.2 µm Rezist Spritzenfilteraufsätze sind im 25 °C vortemperierten Trockenschrank aufzubewahren.\n" +
+                        "Mit einer Spritze wird zügig die Lösung oder Suspension vollständig aufgezogen und über einen 0.2 µm Rezist Filter in ein neues 4.0 mL Vial mit aufgeklebter Experiment-No, dessen Tara-Wert im Datensatz notiert wird, filtriert und für das Verdampfungsexperiment in den Abzug gestellt.\n" +
+                        "Es werden, wenn möglich, täglich alle Vials auf Fortschritt der Verdampfung überprüft und die Beobachtung mit Datum im Datensatz notiert, bis die vollständige Verdampfung des Lösungsmittels festgestellt wurde.\n\n" +
+                        "Von den fertigen vials, die einen Rückstand enthalten wird zunächst eine Rückwaage durchgeführt und im Datensatz notiert und dann Makrofotos (Labor-Kamera genügt) angefertigt und dem Datensatz zugeordnet.\n" +
+                        "Die Vials werden dann mit dem Keyence Mikroskop in Augenschein genommen.\n" +
+                        "Sollten interessante Beobachtungen, Strukturen, Kristalle zu sehen sein, dann sind mit dem Keyence Mikroskop Fotos zu machen und diese werden dem Datensatz zugeordnet.\n" +
+                        "In kurzen Worten sind die Resultate im Datensatz zu notieren.\n" +
+                        "Es ist besonders Ausschau zu halten ob vermeintliche Einkristalle zu sehen sind, die dann gesondert heraus präpariert werden.\n\n" +
+                        "Die Proben werden verschlossen der Analytik übergeben.\n" +
+                        "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
+                        "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
+        );
+        modelList.add(experimentDurchfuehrungstext);
+
+        experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
+        experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext B");
+        experimentDurchfuehrungstext.setText(
+                "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
+                        "Die genaue Einwaage in den Datensatz eintragen.\n" +
+                        "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
+                        "Zugabe von 3.0 mL Lösungsmittel.\n" +
+                        "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n" +
+                        "Ultraschalldauer 5 min.\n" +
+                        "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n" +
+                        "5 ml Spritzen, Kanülen und 0.2 µm Rezist Spritzenfilteraufsätze sind im 25 °C vortemperierten Trockenschrank aufzubewahren.\n" +
+                        "Mit einer Spritze wird zügig die Lösung oder Suspension vollständig aufgezogen und über einen 0.2 µm Rezist Filter in ein neues 4.0 mL Vial mit aufgeklebter Experiment-No, dessen Tara-Wert im Datensatz notiert wird, filtriert und für das Verdampfungsexperiment in den Abzug gestellt.\n" +
+                        "Es werden, wenn möglich, täglich alle Vials auf Fortschritt der Verdampfung überprüft und die Beobachtung mit Datum im Datensatz notiert, bis die vollständige Verdampfung des Lösungsmittels festgestellt wurde.\n\n" +
+                        "Von den fertigen vials, die einen Rückstand enthalten wird zunächst eine Rückwaage durchgeführt und im Datensatz notiert und dann Makrofotos (Labor-Kamera genügt) angefertigt und dem Datensatz zugeordnet.\n" +
+                        "Die Vials werden dann mit dem Keyence Mikroskop in Augenschein genommen.\n" +
+                        "Sollten interessante Beobachtungen, Strukturen, Kristalle zu sehen sein, dann sind mit dem Keyence Mikroskop Fotos zu machen und diese werden dem Datensatz zugeordnet.\n" +
+                        "In kurzen Worten sind die Resultate im Datensatz zu notieren.\n" +
+                        "Es ist besonders Ausschau zu halten ob vermeintliche Einkristalle zu sehen sind, die dann gesondert heraus präpariert werden.\n\n" +
+                        "Die Proben werden verschlossen der Analytik übergeben.\n" +
+                        "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
+                        "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
+        );
+        modelList.add(experimentDurchfuehrungstext);
     }
 
     @Override
