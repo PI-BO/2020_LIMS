@@ -11,6 +11,31 @@
 <meta charset="UTF-8" />
 <title>Solid-Chem | LIMS - Insert Projekt</title>
 <link rel="stylesheet" href="projekt/projekt_erstellen.css">
+<style>
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+</style>
 </head>
 <body>
 	<form id="form_projekt_erstellen">
@@ -45,7 +70,11 @@
 				</select></td>
 
 				<td style="">Projekt ID</td>
-				<td><input type=text placeholder="Projekt ID" name=<%=Projekt.COLUMN_PRIMARY_KEY %>></td>
+				<td><input onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="Projekt ID" name=<%=Projekt.COLUMN_PRIMARY_KEY %>>
+					  <div id="myDropdown" class="dropdown-content">
+					    <a id="drop_down_suche" href="#">suchen</a>
+					  </div>
+				</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -72,6 +101,24 @@
 
 	<script>
 	
+	function dropDownFunction() {
+		  document.getElementById("myDropdown").classList.toggle("show");
+		}
+
+		// Close the dropdown menu if the user clicks outside of it
+		window.onclick = function(event) {
+		  if (!event.target.matches('.drop_down_field')) {
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		} 
+	
 	$("#form_projekt_erstellen").submit(function(e){
 		e.preventDefault();
 		
@@ -91,7 +138,20 @@
 		});
 	})
 	
+	document.getElementById("drop_down_suche").addEventListener("click", () => {
+		
+		hideAllExcept("#main-content-global-search");
+		const template = [
+			{ "projekt": "pk" },
+		];
+		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.addSearchCallback((callbackContent)=>{
+			hideAllExcept("#main-content-input-masks");
+			console.log({callbackContent});
+			let inputField = document.getElementById("projekt_id_input_field");
+			inputField.value = callbackContent;
+		})
+	}); 
+	
 	</script>
-
-</body>
 </html>
