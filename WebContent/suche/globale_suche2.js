@@ -10,6 +10,7 @@ var GlobaleSuche = (function () {
 	const categorySelectClass = "global_search_select_main_category"
 	const deleteButtonClass = "global_search_delete_parameter_button";
 	const searchParameterClass = "global_search_parameter";
+	const searchFilterClass = "global_search_parameter_filter";
 	const searchValueClass = "global_search_parameter_input";
 
 	const database = initDatabase();
@@ -32,6 +33,11 @@ var GlobaleSuche = (function () {
 		"operator": ["name", "fk", "pk"]
 	}
 
+	const filterTypes = {
+		matches : "entspricht", 
+		contains : "beinhaltet"
+	};
+
 	public.init = function init() {
 
 		initAddParameterButton();
@@ -39,23 +45,23 @@ var GlobaleSuche = (function () {
 		addParameterRow();
 	}
 
-	public.initTemplateParameters = function initTemplateParameters(template){
+	public.initTemplateParameters = function initTemplateParameters(template) {
 
 		clearParameterRows();
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
 
-		function setTemplateParameters(template){
+		function setTemplateParameters(template) {
 
 			let table = document.getElementById(parameterTableId);
 			let rows = table.rows;
 
 			setTemplateParameterForEachRow(template, rows);
 		}
-		
-		function setTemplateParameterForEachRow(template, rows){
+
+		function setTemplateParameterForEachRow(template, rows) {
 			let templateIndex = 0;
-			for(let rowIndex = 1; rowIndex < rows.length; rowIndex++){
+			for (let rowIndex = 1; rowIndex < rows.length; rowIndex++) {
 				let row = rows[rowIndex];
 				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
@@ -69,25 +75,25 @@ var GlobaleSuche = (function () {
 				selectCorrectParameterOption(parameterOptions, parameter);
 			}
 		}
-		
-		function selectCorrectCategoryOption(categoryOptions, category){
 
-			for(let optionIndex = 0; optionIndex < categoryOptions.length; optionIndex++){
+		function selectCorrectCategoryOption(categoryOptions, category) {
+
+			for (let optionIndex = 0; optionIndex < categoryOptions.length; optionIndex++) {
 				let option = categoryOptions[optionIndex];
 				let optionText = option.text.toLowerCase();
-				if(optionText != category) continue;
+				if (optionText != category) continue;
 				option.selected = "true";
 			}
 		}
 
-		function createParametersForSelectedCategory(parameterSelect, category){
-			
+		function createParametersForSelectedCategory(parameterSelect, category) {
+
 			removeOptions(parameterSelect);
 			addCategoryOptions(category, parameterSelect);
-			
+
 		}
-		
-		function addCategoryOptions(category, parameterSelect){
+
+		function addCategoryOptions(category, parameterSelect) {
 			let searchParameters = parameters[category];
 			searchParameters.forEach(searchParameter => {
 				let option = document.createElement("option");
@@ -96,24 +102,24 @@ var GlobaleSuche = (function () {
 			})
 		}
 
-		function selectCorrectParameterOption(parameterOptions, parameter){
-			for(let parameterOptionIndex = 0; parameterOptionIndex < parameterOptions.length; parameterOptionIndex++){
+		function selectCorrectParameterOption(parameterOptions, parameter) {
+			for (let parameterOptionIndex = 0; parameterOptionIndex < parameterOptions.length; parameterOptionIndex++) {
 				let parameterOption = parameterOptions[parameterOptionIndex];
-				if(parameterOption.text.toLowerCase() == parameter) parameterOption.selected = "true";
+				if (parameterOption.text.toLowerCase() == parameter) parameterOption.selected = "true";
 			}
 		}
 
-		function getCategory(categoryParameterKeyValuePair){
+		function getCategory(categoryParameterKeyValuePair) {
 			return Object.keys(categoryParameterKeyValuePair)[0].toLowerCase();
 		}
 
-		function addRowsForTemplate(template){
-			for(let i = 0; i < template.length; i++) addParameterRow();
+		function addRowsForTemplate(template) {
+			for (let i = 0; i < template.length; i++) addParameterRow();
 
 		}
 	}
 
-	function clearParameterRows(){
+	function clearParameterRows() {
 		let table = document.getElementById(parameterTableId);
 		let rows = table.rows;
 		removeAllExceptFirstRow();
@@ -283,7 +289,7 @@ var GlobaleSuche = (function () {
 		const parameterCategory = htmlElement.value;
 
 		let row = htmlElement;
-		while(row.nodeName != "TR") row = row.parentNode;
+		while (row.nodeName != "TR") row = row.parentNode;
 		selectElement = row.getElementsByClassName(searchParameterClass)[0];
 
 		removeOptions(selectElement);
@@ -337,9 +343,12 @@ var GlobaleSuche = (function () {
 		let searchCategories = getSearchCategories();
 		let searchParameters = getSearchParameters();
 		let searchInputFields = getSearchInputFields();
+		let searchFilterTypes = getSearchFilterTypes();
+
+		console.log({searchFilterTypes});
 
 		const tupelList = getDatabaseAsTupelList(database);
-		const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields);
+		const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
 		showResultHeader(results, resultTableId);
 		showResults(results, resultTableId);
@@ -424,66 +433,92 @@ var GlobaleSuche = (function () {
 		return string[0].toUpperCase() + string.slice(1);
 	}
 
-	function getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields) {
+	function getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes) {
 
 		let filteredRelationDatabase = [];
 
 		tupelList.forEach(tupel => {
-			if (foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields)) filteredRelationDatabase.push(tupel);
+			if (foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields, searchFilterTypes)) filteredRelationDatabase.push(tupel);
 		})
 
 		return filteredRelationDatabase;
 	}
 
-	function foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields) {
+	function foundSearchValuesInTupel(tupel, searchCategories, searchParameters, searchInputFields, searchFilterTypes) {
 
 		for (let i = 0; i < searchCategories.length; i++) {
 
 			let searchCategory = searchCategories[i];
 			let searchParameter = searchParameters[i];
 			let searchInputField = searchInputFields[i];
+			let filterType = searchFilterTypes[i];
 
-			if (!foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField)) return false;
+			if (!foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField, filterType)) return false;
 		}
 		return true;
 	}
 
-	function foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField) {
+	function foundSearchValueInTupel(tupel, searchCategory, searchParameter, searchInputField, filterType) {
 
 		let foundSearchValue = false;
 
-		if (searchInputField == "") return true;
+		searchCategory = searchCategory.trim();
+		searchCategory = searchCategory.toLowerCase();
+		searchParameter = searchParameter.trim();
+		searchParameter = searchParameter.toLowerCase();
+		searchInputField = searchInputField.trim();
+		searchInputField = searchInputField.toLowerCase();
+
+		if (searchInputField === "") return true;
 
 		for (let key in tupel) {
+
 			let tupelElement = tupel[key];
-			if (tupelElement["category"].toLowerCase() != searchCategory) continue;
-			if (tupelElement[searchParameter].toLowerCase() != searchInputField) continue;
+			let category = tupelElement["category"].toLowerCase();
+			let parameter = tupelElement[searchParameter].toLowerCase();
+
+			if(filterType === filterTypes.matches){
+				if (category !== searchCategory) continue;
+				if (parameter !== searchInputField) continue;
+			}
+
+			if(filterType === filterTypes.contains){
+				if (!category.includes(searchCategory)) continue;
+				if (!parameter.includes(searchInputField)) continue;
+			}
+			
 			foundSearchValue = true;
 			break;
 		}
 		return foundSearchValue;
 	}
 
-	function htmlCollectionToLowerCaseArray(htmlCollection) {
-		htmlCollection = Array.from(htmlCollection).map((element) => element.value.toLowerCase());
+	function htmlCollectionToArray(htmlCollection) {
+		htmlCollection = Array.from(htmlCollection).map((element) => element.value);
 		return htmlCollection;
 	}
 
 	function getSearchInputFields() {
 		let searchInputFields = getSearchTable().getElementsByClassName(searchValueClass);
-		searchInputFields = htmlCollectionToLowerCaseArray(searchInputFields);
+		searchInputFields = htmlCollectionToArray(searchInputFields);
 		return searchInputFields;
 	}
 
 	function getSearchParameters() {
 		let searchParameters = getSearchTable().getElementsByClassName(searchParameterClass);
-		searchParameters = htmlCollectionToLowerCaseArray(searchParameters);
+		searchParameters = htmlCollectionToArray(searchParameters);
 		return searchParameters;
+	}
+
+	function getSearchFilterTypes() {
+		let searchInputFields = getSearchTable().getElementsByClassName(searchFilterClass);
+		searchInputFields = htmlCollectionToArray(searchInputFields);
+		return searchInputFields;
 	}
 
 	function getSearchCategories() {
 		let searchCategories = getSearchTable().getElementsByClassName(categorySelectClass);
-		searchCategories = htmlCollectionToLowerCaseArray(searchCategories);
+		searchCategories = htmlCollectionToArray(searchCategories);
 		return searchCategories;
 	}
 
@@ -592,7 +627,7 @@ var GlobaleSuche = (function () {
 
 GlobaleSuche.init();
 const template = [
-	{"experiment" : "name"},
-	{"operator" : "name"}
+	{ "experiment": "name" },
+	{ "operator": "name" }
 ];
 GlobaleSuche.initTemplateParameters(template);
