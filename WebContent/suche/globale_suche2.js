@@ -45,21 +45,21 @@ var GlobaleSuche = (function () {
 		addParameterRow();
 	}
 
-	let callbackInputMask;
+	let callbackInputMask = undefined;
 
 	public.addSearchCallback = function addSearchCallback(callback){
 		callbackInputMask = callback;
-		// callback({ "projekt": {"pk" : "bla" }});
 	}
 
 	public.initTemplateParameters = function initTemplateParameters(template) {
 
 		clearParameterRows();
+		clearResultTable();
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
-
+		
 		function setTemplateParameters(template) {
-
+			
 			let table = document.getElementById(parameterTableId);
 			let rows = table.rows;
 
@@ -125,17 +125,17 @@ var GlobaleSuche = (function () {
 
 		function addRowsForTemplate(template) {
 			for (let i = 0; i < template.length; i++) addParameterRow();
-
+			
 		}
 	}
-
+	
 	function clearParameterRows() {
 		let table = document.getElementById(parameterTableId);
 		let rows = table.rows;
 		removeAllExceptFirstRow();
-
+		
 		function removeAllExceptFirstRow() {
-			for (let i = 1; i < rows.length; i++) {
+			for (let i = rows.length-1; i > 0; i--) {
 				rows[i].remove();
 			}
 		}
@@ -417,7 +417,9 @@ var GlobaleSuche = (function () {
 						addListenerToCell(cell, tupelElement);
 						let cellContent = tupelElement[key];
 						cell.addEventListener("click", ()=>{
+							if(callbackInputMask === undefined) return;
 							callbackInputMask(cellContent);
+							callbackInputMask = undefined;
 						})
 						continue;
 					}

@@ -142,12 +142,11 @@
 		
 		hideAllExcept("#main-content-global-search");
 		const template = [
-			{ "projekt": "pk" },
+			{ "projekt": "pk" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
 			hideAllExcept("#main-content-input-masks");
-			console.log({callbackContent});
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
 		})

@@ -166,6 +166,11 @@
 		});
 		
 		$("#globale_suche_anzeigen2").click(function(){
+			const template = [
+				{ "experiment": "name" },
+				{ "operator": "name" }
+			];
+			GlobaleSuche.initTemplateParameters(template);
 			hideAllExcept("#main-content-global-search");
 		});
 	</script>
