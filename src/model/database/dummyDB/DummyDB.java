@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DummyDB implements Database {
 
-    private List<Model> modelList = new LinkedList<>();
+    private final List<Model> modelList = new LinkedList<>();
 
     public DummyDB() {
         initModels();
@@ -27,6 +27,7 @@ public class DummyDB implements Database {
         mitarbeiter.setNachname("Mustermann");
         mitarbeiter.setPassword("abc");
         mitarbeiter.setPrimaryKey("123");
+        mitarbeiter.setRolle(1);
         modelList.add(mitarbeiter);
 
         // Partner
@@ -153,19 +154,20 @@ public class DummyDB implements Database {
         // Experimente
         Experiment experiment = new Experiment();
         experiment.setPrimaryKey("Experiment1");
-        experiment.setTyp("1");
+        experiment.setTyp("101");
         experiment.setProbenNr("ProbeA");
         modelList.add(experiment);
 
         // Experiment Typen
         Experimenttyp experimenttyp = new Experimenttyp();
-        experimenttyp.setPrimaryKey("0");
-        experiment.setTyp("Verdampfung 1Lömi");
+        experimenttyp.setPrimaryKey("101");
+        experimenttyp.setTyp("Verdampfung 1Lömi");
         modelList.add(experimenttyp);
 
         experimenttyp = new Experimenttyp();
-        experimenttyp.setPrimaryKey("1");
+        experimenttyp.setPrimaryKey("202");
         experimenttyp.setTyp("Slurry 1Lömi");
+        modelList.add(experimenttyp);
     }
 
     @Override
@@ -226,7 +228,8 @@ public class DummyDB implements Database {
         DummyResultSet dummyResultSet = new DummyResultSet();
 
         for (Model listModel : modelList) {
-            if (listModel.getTable() != requestedModel.getTable()) continue;
+            if (!listModel.getTable().equals(requestedModel.getTable())) continue;
+            System.out.println(listModel.returnAsDummyResultSet().getEntryList().get(0).get(1).getValue());
             dummyResultSet.addResultSet(listModel.returnAsDummyResultSet());
         }
 

@@ -15,8 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ModelList extends Model{
-
-
     private static final Logger LOGGER = LogManager.getLogger(ModelList.class.getSimpleName());
 
     private String table;
@@ -38,7 +36,6 @@ public class ModelList extends Model{
     }
     
     public void setAttributes(ResultSet resultSet) throws SQLException {
-        
     	modelList = new LinkedList<>();
 
         while (!resultSet.isLast()) {
@@ -88,7 +85,6 @@ public class ModelList extends Model{
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		
 		for(Model model : modelList){
-			
 			dummyResultSet.addResultSet((model.returnAsDummyResultSet()));
 		}
 		

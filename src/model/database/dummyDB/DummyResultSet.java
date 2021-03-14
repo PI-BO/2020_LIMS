@@ -42,7 +42,6 @@ public class DummyResultSet implements ResultSet{
 
 	
 	public void addResultSet(DummyResultSet dummyResultSet){
-		
 		for(DummyResultSetEntry resultSetEntry : dummyResultSet.getEntryList()){
 			resultSetEntryList.add(resultSetEntry);
 		}
@@ -54,16 +53,26 @@ public class DummyResultSet implements ResultSet{
 		DummyResultSetEntry entry = resultSetEntryList.get(resultSetIndex);
 		
 		if(columnIndex > entry.size()-1) throw new SQLException();
-		
-		String value = entry.get(columnIndex).getValue();
-		
-		return value;
+
+		return entry.get(columnIndex).getValue();
+	}
+
+	@Override
+	public int getInt(int columnIndex) throws SQLException {
+		String value = getString(columnIndex);
+		return Integer.parseInt(value);
 	}
 
 	@Override
 	public String getString(String columnLabel) throws SQLException {
 		int columnIndex = findColumn(columnLabel);
 		return getString(columnIndex);
+	}
+
+	@Override
+	public int getInt(String columnLabel) throws SQLException {
+		String value = getString(columnLabel);
+		return Integer.parseInt(value);
 	}
 
 	@Override
@@ -83,7 +92,7 @@ public class DummyResultSet implements ResultSet{
 				break;
 			}
 		}
-		
+
 		if(index == null) throw new SQLException();
 		
 		return index;
@@ -102,196 +111,182 @@ public class DummyResultSet implements ResultSet{
 	
 	@Override
 	public boolean isAfterLast() throws SQLException {
-	
 		return (resultSetIndex >= resultSetEntryList.size());
 	}
 	
 
 	@Override
 	public boolean isLast() throws SQLException {
-		
-		return (resultSetIndex == resultSetEntryList.size() - 1);
+		return (resultSetIndex == (resultSetEntryList.size() - 1));
 	}
 
 // -------------------------------------------------------------------------------------------------------------------------------
 	
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD unwrap NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD isWrapperFor NOT IMPLEMENTED!");
 		return false;
 	}
 
 	@Override
 	public void close() throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD close NOT IMPLEMENTED!");
 		
 	}
 
 	@Override
 	public boolean wasNull() throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD wasNull NOT IMPLEMENTED!");
 		return false;
 	}
 
 	@Override
 	public boolean getBoolean(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBoolean NOT IMPLEMENTED!");
 		return false;
 	}
 
 	@Override
 	public byte getByte(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getByte NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public short getShort(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
-		return 0;
-	}
-
-	@Override
-	public int getInt(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getSort NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public long getLong(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getLong NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public float getFloat(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getFloat NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public double getDouble(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getDouble NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBigDecimal NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public byte[] getBytes(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBytes NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public Date getDate(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getDate NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public Time getTime(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getTime NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public Timestamp getTimestamp(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getTimestamp NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public InputStream getAsciiStream(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getAsciiStream NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getUnicodeStream NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBinaryStream NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public boolean getBoolean(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBoolean NOT IMPLEMENTED!");
 		return false;
 	}
 
 	@Override
 	public byte getByte(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getByte NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public short getShort(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
-		return 0;
-	}
-
-	@Override
-	public int getInt(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getShort NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public long getLong(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getLong NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public float getFloat(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getFloat NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public double getDouble(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getDouble NOT IMPLEMENTED!");
 		return 0;
 	}
 
 	@Override
 	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBigDecimal NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public byte[] getBytes(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getBytes NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public Date getDate(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD  getDate NOT IMPLEMENTED!");
 		return null;
 	}
 
 	@Override
 	public Time getTime(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD NOT IMPLEMENTED!");
+		System.out.println(this.getClass() + " METHOD getTime NOT IMPLEMENTED!");
 		return null;
 	}
 

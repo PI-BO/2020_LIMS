@@ -48,7 +48,7 @@ public class Experimenttyp extends Model{
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("Experimenttyp nicht gefunden");
         }
     }
 
@@ -89,7 +89,7 @@ public class Experimenttyp extends Model{
 
 	@Override
 	public String getForeignKey() {
-		// TODO Auto-generated method stub
+		// Does not have a foreign key
 		return null;
 	}
 }

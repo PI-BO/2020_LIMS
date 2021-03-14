@@ -70,19 +70,32 @@ public class JSTreeNodesServlet extends HttpServlet {
      *
      * @param model    Model from database to create JSONObject with
      * @param parent   Parent Node of JSTree, if null takes root
+     * @param text     Display text of JSTree node
      * @param children Boolean to determinate if Node has Children
      * @return JSONObject String
      */
-    private String jsonObject(Model model, String parent, boolean children) {
+    private String jsonObject(Model model, String parent, String text, boolean children) {
         StringBuilder json = new StringBuilder();
         json.append("{\"id\":\"").append(model.getTable()).append(":").append(model.getPrimaryKey()).append("\"");
         if (parent != null && !parent.isEmpty()) json.append(",\"parent\":\"").append(parent).append("\"");
-        json.append(",\"text\":\"").append(model.getPrimaryKey()).append("\"");
+        json.append(",\"text\":\"").append(text).append("\"");
         json.append(",\"icon\":\"symbol_folder_closed\"");
         if (children) json.append(",\"children\":true");
         json.append("}");
 
         return json.toString();
+    }
+
+    /**
+     * Create JSTree JSONObject
+     *
+     * @param model    Model from database to create JSONObject with
+     * @param parent   Parent Node of JSTree, if null takes root
+     * @param children Boolean to determinate if Node has Children
+     * @return JSONObject String
+     */
+    private String jsonObject(Model model, String parent, boolean children) {
+        return jsonObject(model, parent, model.getPrimaryKey(), children);
     }
 
     /**
@@ -92,8 +105,7 @@ public class JSTreeNodesServlet extends HttpServlet {
      * @return JSONArray String
      */
     private String jsonArray(List<String> objects) {
-        StringBuilder array = new StringBuilder();
-        array.append("[");
+        StringBuilder array = new StringBuilder("[");
 
         if (!objects.isEmpty()) {
             for (String object : objects) {
@@ -117,8 +129,10 @@ public class JSTreeNodesServlet extends HttpServlet {
         }
 
         List<String> jsons = new ArrayList<>();
-        for (String id : ids)
-            jsons.add(jsonObject(new Partner(id), null, true));
+        for (String id : ids) {
+            Partner partner = new Partner(id);
+            jsons.add(jsonObject(partner, null, partner.getName(), true));
+        }
 
         response.getWriter().write(
                 "{\"parent\":\"#\",\"text\":\"Partner\",\"icon\":\"symbol_folder_closed\",\"children\":" + jsonArray(jsons) + "}"

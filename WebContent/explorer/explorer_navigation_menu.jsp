@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="config.Address" %>
+<%@page import="model.database.tableModels.Partner" %>
 <%@page import="model.database.tableModels.Projekt" %>
 <%@page import="model.database.tableModels.Substanz" %>
 <%@page import="model.database.tableModels.Probe" %>
@@ -74,31 +75,38 @@
         <div class="dropdown-content">
             <table>
                 <tr>
-                    <th>Projekte</th>
-                    <th>Substanzen</th>
-                    <th>Proben</th>
+                    <th>Partner</th>
+                    <td>
+                        <label><input type="checkbox" id="Partner:${Partner.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">Vertragsnummer</label>
+                    </td>
                 </tr>
                 <tr>
+                    <th>Projekte</th>
                     <td>
                         <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_PRIMARY_KEY}" class="checkbox"
                                       checked="true">id</label>
                     </td>
                     <td>
+                        <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}" class="checkbox">Vertragsnummer</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Substanzen</th>
+                    <td>
                         <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PRIMARY_KEY}" class="checkbox"
                                       checked="true">id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Probe:${Probe.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">id</label>
+                        <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}" class="checkbox">Projekt
+                            id</label>
                     </td>
                 </tr>
                 <tr>
+                    <th>Proben</th>
                     <td>
-                        <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}" class="checkbox">Vertragsnummer</label>
-                    </td>
-                    <td>
-                        <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}" class="checkbox">Projekt
-                            id</label>
+                        <label><input type="checkbox" id="Probe:${Probe.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">id</label>
                     </td>
                     <td>
                         <label><input type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}" class="checkbox">Substanz
@@ -137,6 +145,7 @@
             ajax: {
                 url: "jstree/search",
                 data: {
+                    "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
                     "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
                     "Substanz": ["${Substanz.COLUMN_PRIMARY_KEY}"],
                     "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"]
