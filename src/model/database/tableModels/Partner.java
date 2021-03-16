@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 public class Partner extends Model {
 
@@ -110,5 +111,17 @@ public class Partner extends Model {
 	public String getForeignKey() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("category", "projektpartner");
+		json.addKeyValue(COLUMN_PRIMARY_KEY, getPrimaryKey());
+		json.addKeyValue(COLUMN_NAME, getName());
+		json.addKeyValue(COLUMN_EMAIL, getEmail());
+		
+		return json;
 	}
 }

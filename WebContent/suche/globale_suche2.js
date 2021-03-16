@@ -373,7 +373,9 @@ var GlobaleSuche = (function () {
 
 		fetchDatabase((database) => {
 
-			const tupelList = getDatabaseAsTupelList(database);
+			// const tupelList = getDatabaseAsTupelList(database);
+			const tupelList = database;
+			console.log({tupelList});
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
 			showResultHeader(results, resultTableId);
@@ -589,7 +591,6 @@ var GlobaleSuche = (function () {
 			}
 			relationDatabase.push(relationTupel);
 		})
-
 		return relationDatabase;
 	}
 

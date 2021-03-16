@@ -9,7 +9,7 @@ import model.database.dummyDB.DummyRelation;
 import model.database.dummyDB.DummyResultSetInterface;
 import model.database.manager.DatabaseManager;
 
-public abstract class Model implements DummyResultSetInterface, DummyRelation{
+public abstract class Model implements DummyResultSetInterface, DummyRelation, JSONModel{
 	
 	protected Database database = DatabaseManager.getDatabaseInstance();
 	

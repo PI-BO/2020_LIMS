@@ -8,6 +8,7 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.relations.ProjekteSubstanz;
+import utility.JSON;
 
 public class Projekt extends Model {
 	
@@ -76,6 +77,10 @@ public class Projekt extends Model {
 	public void setVertragsnummer(String vertragsnummer) {
 		this.vertragsnummer = vertragsnummer;
 	}
+	
+	public String getVertragsnummer() {
+		return vertragsnummer;
+	}
 
 	@Override
 	public void saveToDatabase() {
@@ -101,5 +106,16 @@ public class Projekt extends Model {
 	public String getForeignKey() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("category", "projekt");
+		json.addKeyValue("name", getPrimaryKey());
+		json.addKeyValue(COLUMN_VERTRAGSNUMMER, getVertragsnummer());
+		
+		return json;
 	}
 }

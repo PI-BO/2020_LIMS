@@ -1,6 +1,7 @@
 package model.database;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import exceptions.ModelNotFoundException;
 import model.database.relations.ManyToManyA;
@@ -24,4 +25,6 @@ public interface Database {
     <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> relation) throws SQLException, ModelNotFoundException;
 
     <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N,M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException;
+    
+    public List<Model[]> getRelationList();
 }

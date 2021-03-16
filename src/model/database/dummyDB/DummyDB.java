@@ -10,12 +10,15 @@ import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.tableModels.Mitarbeiter;
 import model.database.tableModels.Model;
+import model.database.tableModels.Partner;
+import model.database.tableModels.Probe;
 import model.database.tableModels.Projekt;
 import model.database.tableModels.Substanz;
 
 public class DummyDB implements Database{
 
 	private List<Model> modelList = new LinkedList<>();
+	private List<Model[]> modelRelationList = new LinkedList<>();
 	
 	public DummyDB() {
 		
@@ -76,6 +79,32 @@ public class DummyDB implements Database{
 		substanz.setProjektID("A");
 		modelList.add(substanz);
 		
+		//------------Relation-Test fuer Suche------------//
+		
+		Partner partner1 = new Partner();
+		partner1.setName("Partner A");
+		partner1.setPrimaryKey("1");
+		partner1.setEmail("test@gmail.com");
+		modelList.add(partner1);
+		
+		Projekt projekt1 = new Projekt();
+		projekt1.setPrimaryKey("Projekt A");
+		projekt1.setVertragsnummer("123");
+		modelList.add(projekt1);
+		
+		Probe probe1 = new Probe();
+		probe1.setName("Probe A");
+		modelList.add(probe1);
+		
+		Probe probe2 = new Probe();
+		probe2.setName("Probe B");
+		modelList.add(probe2);
+		
+		Model[] relation1 = {partner1, projekt1, probe1};
+		Model[] relation2 = {partner1, projekt1, probe2};
+		
+		modelRelationList.add(relation1);
+		modelRelationList.add(relation2);
 	}
 
 	@Override
@@ -185,4 +214,8 @@ public class DummyDB implements Database{
 		System.out.println("resolveManyToMany() not implemented");
 	}
 
+	@Override
+	public List<Model[]> getRelationList() {
+		return modelRelationList;
+	}
 }

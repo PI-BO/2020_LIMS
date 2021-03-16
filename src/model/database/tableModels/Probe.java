@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +11,10 @@ import java.sql.SQLException;
 public class Probe extends Model{
     private String primaryKey;
     private String substanzID;
+    private String name;
     public static final String COLUMN_PRIMARY_KEY = "proben_nr";
     public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
+    public static final String COLUMN_NAME = "substanz_name";
     public static final String TABLE = "probe";
 
     public Probe(String id) throws SQLException, ModelNotFoundException {
@@ -89,5 +92,23 @@ public class Probe extends Model{
 	@Override
 	public String getForeignKey() {
 		return substanzID;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public JSON toJSON() {
+		
+		JSON json = new JSON();
+		json.addKeyValue("category", "probe");
+		json.addKeyValue("name", getName());
+		
+		return json;
 	}
 }

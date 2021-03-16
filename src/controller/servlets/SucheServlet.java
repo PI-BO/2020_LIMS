@@ -2,8 +2,7 @@ package controller.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.URL;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.database.Database;
+import model.database.manager.DatabaseManager;
+import model.database.tableModels.Model;
 import utility.JSON;
 import utility.JSONArray;
 
@@ -61,7 +63,55 @@ public class SucheServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		
+		Database database = DatabaseManager.getDatabaseInstance();
+		List<Model[]> relationList = database.getRelationList();
 		
+		sendDummyDBJson(out, relationList);
+		
+//		sendJavascriptJson(out);
+		
+		
+
+//		String objectToReturn = "[ { \"blaArray\":\"test\" } ]";
+//		String objectToReturn2 = "{ \"blaArray\":\"test\",\"blaArray2\":\"test2\" }";
+//		String objectToReturn3 = "{ \"array 1\": [ { \"param 1\":\"value 1\" }, { \"param 2\":\"value 2\" } ] }";
+//		String objectToReturn4 = "[ { \"array 1\": [ { \"param 1\":\"value 1\" } ] } ]";
+//		String objectToReturn5 = "{ \"json 1\": { \"param 1\":\"value 1\" } }";
+//		String objectToReturn6 = "[ [ { \"param 1\":\"value 1\" } ] ]";
+//		
+//		JSON json = new JSON();
+//		json.addKeyValue("parameter 1", "value 1");
+//		json.addKeyValue("parameter 2", "value 2");
+////		out.print(json.toString());
+//		
+//		JSON json2 = new JSON();
+//		json2.addKeyValue("parameter 3", "value 3");
+//		json2.addKeyValue("parameter 4", "value 4");
+////		out.print(json2.toString());
+//
+//		JSONArray jsonArray = new JSONArray();
+//		jsonArray.addJSON(json);
+//		
+//		json = new JSON();
+//		json.addKeyValue("parameter 3", "value 3");
+//		json.addKeyValue("parameter 4", "value 4");
+//		
+//		
+//		jsonArray.addJSON(json);
+////		jsonArray.addJSON(json2);
+////		out.print(jsonArray.toString());
+//		
+//		JSON jsonWithArray = new JSON();
+//		jsonWithArray.addJSONArray("jsonWithArray", jsonArray);
+//		out.print(jsonWithArray.toString());
+//		
+//		JSON jsonWithJSON = new JSON();
+//		jsonWithJSON.addJSON("jsonWithJSON", json);
+////		out.print(jsonWithJSON.toString());
+		
+	}
+
+	private void sendJavascriptJson(PrintWriter out) {
 		JSON partner1 = new JSON();
 		partner1.addKeyValue("pk", "1");
 		partner1.addKeyValue("name", "Partner A");
@@ -160,46 +210,34 @@ public class SucheServlet extends HttpServlet {
 		database.addJSONArray("operator", operator);
 		
 		out.print(database.toString());
-		
-		
+	}
 
-//		String objectToReturn = "[ { \"blaArray\":\"test\" } ]";
-//		String objectToReturn2 = "{ \"blaArray\":\"test\",\"blaArray2\":\"test2\" }";
-//		String objectToReturn3 = "{ \"array 1\": [ { \"param 1\":\"value 1\" }, { \"param 2\":\"value 2\" } ] }";
-//		String objectToReturn4 = "[ { \"array 1\": [ { \"param 1\":\"value 1\" } ] } ]";
-//		String objectToReturn5 = "{ \"json 1\": { \"param 1\":\"value 1\" } }";
-//		String objectToReturn6 = "[ [ { \"param 1\":\"value 1\" } ] ]";
-//		
-//		JSON json = new JSON();
-//		json.addKeyValue("parameter 1", "value 1");
-//		json.addKeyValue("parameter 2", "value 2");
-////		out.print(json.toString());
-//		
-//		JSON json2 = new JSON();
-//		json2.addKeyValue("parameter 3", "value 3");
-//		json2.addKeyValue("parameter 4", "value 4");
-////		out.print(json2.toString());
-//
-//		JSONArray jsonArray = new JSONArray();
-//		jsonArray.addJSON(json);
-//		
-//		json = new JSON();
-//		json.addKeyValue("parameter 3", "value 3");
-//		json.addKeyValue("parameter 4", "value 4");
-//		
-//		
-//		jsonArray.addJSON(json);
-////		jsonArray.addJSON(json2);
-////		out.print(jsonArray.toString());
-//		
-//		JSON jsonWithArray = new JSON();
-//		jsonWithArray.addJSONArray("jsonWithArray", jsonArray);
-//		out.print(jsonWithArray.toString());
-//		
-//		JSON jsonWithJSON = new JSON();
-//		jsonWithJSON.addJSON("jsonWithJSON", json);
-////		out.print(jsonWithJSON.toString());
+	private void sendDummyDBJson(PrintWriter out, List<Model[]> relationList) {
+		String databaseJson = "[";
 		
+		int index = 0;
+		for(Model[] modelArray : relationList){
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			for(Model model : modelArray){
+				
+				JSON modelJson = model.toJSON();
+				jsonArray.addJSON(modelJson);
+//				System.out.println(modelJson.toString());
+			}
+			
+			databaseJson += jsonArray.toString();
+			index++;
+			if(index < relationList.size()) databaseJson += ",";
+		}
+		
+		databaseJson += "]";
+		
+		System.out.println(databaseJson);
+		
+		
+		out.print(databaseJson);
 	}
 
 	private void setAccessControlHeaders(HttpServletResponse resp) {
