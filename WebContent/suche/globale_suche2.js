@@ -13,7 +13,7 @@ var GlobaleSuche = (function () {
 	const searchFilterClass = "global_search_parameter_filter";
 	const searchValueClass = "global_search_parameter_input";
 
-	const database = initDatabase();
+	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
 	const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
 		"projektpartner",
@@ -39,19 +39,9 @@ var GlobaleSuche = (function () {
 	};
 
 	public.init = function init() {
-
 		initAddParameterButton();
 		initSearchButton();
 		addParameterRow();
-
-
-		let url = "http://localhost:8080/2020_LIMS/Suche";
-
-		fetch(url, {
-			method: "post",
-		})
-			.then(response => response.json())
-			.then(data => console.log(data));
 	}
 
 	let callbackInputMask = undefined;
@@ -176,80 +166,88 @@ var GlobaleSuche = (function () {
 		return document.getElementById(parameterTableId);
 	}
 
-	function initDatabase() {
-		const partner1 = {
-			"pk": "1",
-			"name": "Partner A",
-		};
-		const projekt1 = {
-			"pk": "1",
-			"name": "Projekt 1",
-			"fk": "1"
-		};
-		const probe1 = {
-			"pk": "1",
-			"name": "Probe 1",
-			"fk": "1"
-		};
-		const experiment1 = {
-			"pk": "1",
-			"name": "Experiment 1",
-			"fk": "1"
-		};
-		const experiment2 = {
-			"pk": "2",
-			"name": "Experiment 2",
-			"fk": "1"
-		};
-		const methode1 = {
-			"pk": "1",
-			"name": "Methode 1",
-			"fk": "1"
-		};
-		const methode2 = {
-			"pk": "2",
-			"name": "Methode 2",
-			"fk": "1"
-		};
-		const methode3 = {
-			"pk": "3",
-			"name": "Methode 3",
-			"fk": "2"
-		};
-		const methode4 = {
-			"pk": "4",
-			"name": "Methode 4",
-			"fk": "2"
-		};
-		const operator1 = {
-			"name": "John Doe",
-			"pk": "1",
-			"fk": "1"
-		};
-		const operator2 = {
-			"name": "Jane Doe",
-			"pk": "2",
-			"fk": "2"
-		};
-		const operator3 = {
-			"name": "Jane Doe",
-			"pk": "2",
-			"fk": "3"
-		};
-		const operator4 = {
-			"name": "Jane Doe",
-			"pk": "2",
-			"fk": "4"
-		};
-		const database = {
-			"projektpartner": [partner1],
-			"projekt": [projekt1],
-			"probe": [probe1],
-			"experiment": [experiment1, experiment2],
-			"methode": [methode1, methode2, methode3, methode4],
-			"operator": [operator1, operator2, operator3, operator4]
-		};
-		return database;
+	function fetchDatabase(callback) {
+		// const partner1 = {
+		// 	"pk": "1",
+		// 	"name": "Partner A",
+		// };
+		// const projekt1 = {
+		// 	"pk": "1",
+		// 	"name": "Projekt 1",
+		// 	"fk": "1"
+		// };
+		// const probe1 = {
+		// 	"pk": "1",
+		// 	"name": "Probe 1",
+		// 	"fk": "1"
+		// };
+		// const experiment1 = {
+		// 	"pk": "1",
+		// 	"name": "Experiment 1",
+		// 	"fk": "1"
+		// };
+		// const experiment2 = {
+		// 	"pk": "2",
+		// 	"name": "Experiment 2",
+		// 	"fk": "1"
+		// };
+		// const methode1 = {
+		// 	"pk": "1",
+		// 	"name": "Methode 1",
+		// 	"fk": "1"
+		// };
+		// const methode2 = {
+		// 	"pk": "2",
+		// 	"name": "Methode 2",
+		// 	"fk": "1"
+		// };
+		// const methode3 = {
+		// 	"pk": "3",
+		// 	"name": "Methode 3",
+		// 	"fk": "2"
+		// };
+		// const methode4 = {
+		// 	"pk": "4",
+		// 	"name": "Methode 4",
+		// 	"fk": "2"
+		// };
+		// const operator1 = {
+		// 	"name": "John Doe",
+		// 	"pk": "1",
+		// 	"fk": "1"
+		// };
+		// const operator2 = {
+		// 	"name": "Jane Doe",
+		// 	"pk": "2",
+		// 	"fk": "2"
+		// };
+		// const operator3 = {
+		// 	"name": "Jane Doe",
+		// 	"pk": "2",
+		// 	"fk": "3"
+		// };
+		// const operator4 = {
+		// 	"name": "Jane Doe",
+		// 	"pk": "2",
+		// 	"fk": "4"
+		// };
+		// const database = {
+		// 	"projektpartner": [partner1],
+		// 	"projekt": [projekt1],
+		// 	"probe": [probe1],
+		// 	"experiment": [experiment1, experiment2],
+		// 	"methode": [methode1, methode2, methode3, methode4],
+		// 	"operator": [operator1, operator2, operator3, operator4]
+		// };
+
+
+		fetch(servletURL, {
+			method: "post",
+		})
+			.then(response => response.json())
+			.then(data => {
+				callback(data)
+			});
 	}
 
 	function clearResultTable() {
@@ -373,11 +371,15 @@ var GlobaleSuche = (function () {
 		let searchInputFields = getSearchInputFields();
 		let searchFilterTypes = getSearchFilterTypes();
 
-		const tupelList = getDatabaseAsTupelList(database);
-		const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
+		fetchDatabase((database) => {
 
-		showResultHeader(results, resultTableId);
-		showResults(results, resultTableId);
+			const tupelList = getDatabaseAsTupelList(database);
+			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
+
+			showResultHeader(results, resultTableId);
+			showResults(results, resultTableId);
+		})
+
 	}
 
 	function showResultHeader(results, resultTableId) {
@@ -421,31 +423,27 @@ var GlobaleSuche = (function () {
 
 				for (let key in tupelElement) {
 
-					let tupelElementValue = tupelElement[key];
+					let cellContent = tupelElement[key];
 
 					if (onlyThisKey === undefined) {
-						let cell = addElementToRowAndReturnCell(tupelElementValue, row)
-						addListenerToCell(cell, tupelElementValue);
-						addCallbackToCell(cell, tupelElementValue)
+						let cell = addToNewTableCell(cellContent, row)
+						addListenerToCell(cell, tupelElement);
+						cell.addEventListener("click", () => {
+							if (callbackInputMask === undefined) return;
+							callbackInputMask(cellContent);
+							callbackInputMask = undefined;
+						})
 					}
 
 					if (onlyThisKey === key) {
-						let cell = addElementToRowAndReturnCell(tupelElementValue, row);
+						let cell = addToNewTableCell(cellContent, row)
 						addListenerToCell(cell, tupelElement);
 						break;
 					}
 				}
 			})
 
-			function addCallbackToCell(cell, cellContent) {
-				cell.addEventListener("click", () => {
-					if (callbackInputMask === undefined) return;
-					callbackInputMask(cellContent);
-					callbackInputMask = undefined;
-				})
-			}
-
-			function addElementToRowAndReturnCell(tupelElement, row) {
+			function addToNewTableCell(tupelElement, row) {
 				let cell = row.insertCell(-1);
 				cell.append(tupelElement);
 				return cell;

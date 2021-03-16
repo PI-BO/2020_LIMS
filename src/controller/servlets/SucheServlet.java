@@ -55,7 +55,7 @@ public class SucheServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		setAccessControlHeaders(response);
+		setAccessControlHeaders(response);	//TODO nur fuer Testzwecke! in Produktion rausnehmen!
 //		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
@@ -126,7 +126,40 @@ public class SucheServlet extends HttpServlet {
 		operator4.addKeyValue("name", "Jane Doe");
 		operator4.addKeyValue("fk", "4");
 		
+		JSONArray projektpartner = new JSONArray();
+		projektpartner.addJSON(partner1);
 		
+		JSONArray projekt = new JSONArray();
+		projekt.addJSON(projekt1);
+		
+		JSONArray probe = new JSONArray();
+		probe.addJSON(probe1);
+		
+		JSONArray experiment = new JSONArray();
+		experiment.addJSON(experiment1);
+		experiment.addJSON(experiment2);
+		
+		JSONArray methode = new JSONArray();
+		methode.addJSON(methode1);
+		methode.addJSON(methode2);
+		methode.addJSON(methode3);
+		methode.addJSON(methode4);
+		
+		JSONArray operator = new JSONArray();
+		operator.addJSON(operator1);
+		operator.addJSON(operator2);
+		operator.addJSON(operator3);
+		operator.addJSON(operator4);
+		
+		JSON database = new JSON();
+		database.addJSONArray("projektpartner", projektpartner);
+		database.addJSONArray("projekt", projekt);
+		database.addJSONArray("probe", probe);
+		database.addJSONArray("experiment", experiment);
+		database.addJSONArray("methode", methode);
+		database.addJSONArray("operator", operator);
+		
+		out.print(database.toString());
 		
 		
 
