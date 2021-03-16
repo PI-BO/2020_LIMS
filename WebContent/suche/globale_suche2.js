@@ -7,7 +7,7 @@ var GlobaleSuche = (function () {
 	const parameterTableId = "global_search_parameter_table";
 	const resultTableId = "global_search_result_table";
 	const rowTemplateId = "global_search_parameter_row_template";
-	const categorySelectClass = "global_search_select_main_category"
+	const categorySelectClass = "global_search_select_main_category";
 	const deleteButtonClass = "global_search_delete_parameter_button";
 	const searchParameterClass = "global_search_parameter";
 	const searchFilterClass = "global_search_parameter_filter";
@@ -34,8 +34,8 @@ var GlobaleSuche = (function () {
 	}
 
 	const filterTypes = {
-		matches : "entspricht", 
-		contains : "beinhaltet"
+		matches: "entspricht",
+		contains: "beinhaltet"
 	};
 
 	public.init = function init() {
@@ -43,11 +43,20 @@ var GlobaleSuche = (function () {
 		initAddParameterButton();
 		initSearchButton();
 		addParameterRow();
+
+
+		let url = "http://localhost:8080/2020_LIMS/Suche";
+
+		fetch(url, {
+			method: "post",
+		})
+			.then(response => response.json())
+			.then(data => console.log(data));
 	}
 
 	let callbackInputMask = undefined;
 
-	public.addSearchCallback = function addSearchCallback(callback){
+	public.addSearchCallback = function addSearchCallback(callback) {
 		callbackInputMask = callback;
 	}
 
@@ -57,9 +66,9 @@ var GlobaleSuche = (function () {
 		clearResultTable();
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
-		
+
 		function setTemplateParameters(template) {
-			
+
 			let table = document.getElementById(parameterTableId);
 			let rows = table.rows;
 
@@ -70,7 +79,7 @@ var GlobaleSuche = (function () {
 			let templateIndex = 0;
 
 			for (let rowIndex = 1; rowIndex < rows.length; rowIndex++) {
-				
+
 				let row = rows[rowIndex];
 				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
@@ -125,17 +134,17 @@ var GlobaleSuche = (function () {
 
 		function addRowsForTemplate(template) {
 			for (let i = 0; i < template.length; i++) addParameterRow();
-			
+
 		}
 	}
-	
+
 	function clearParameterRows() {
 		let table = document.getElementById(parameterTableId);
 		let rows = table.rows;
 		removeAllExceptFirstRow();
-		
+
 		function removeAllExceptFirstRow() {
-			for (let i = rows.length-1; i > 0; i--) {
+			for (let i = rows.length - 1; i > 0; i--) {
 				rows[i].remove();
 			}
 		}
@@ -294,31 +303,31 @@ var GlobaleSuche = (function () {
 		createParameters({ target: selectElement });
 	}
 
-	function initFilterTypes(selectElement){
+	function initFilterTypes(selectElement) {
 		let filterTypesArray = [];
-		for(let key in filterTypes){
+		for (let key in filterTypes) {
 			filterTypesArray.push(filterTypes[key]);
 		}
 		insertParameters(filterTypesArray, selectElement);
 	}
-	
+
 	function createParameters(event) {
-		
+
 		const htmlElement = event.target;
 		const parameterCategory = htmlElement.value;
-		
+
 		let row = htmlElement;
 		while (row.nodeName != "TR") row = row.parentNode;
 		selectElement = row.getElementsByClassName(searchParameterClass)[0];
-		
+
 		removeOptions(selectElement);
-		
+
 		let parameters = getParameters(parameterCategory);
 		insertParameters(parameters, selectElement);
 	}
-	
+
 	function insertParameters(parameters, selectElement) {
-		
+
 		parameters.forEach(parameter => {
 			let selectOption = document.createElement("option");
 			selectOption.text = parameter;
@@ -412,25 +421,29 @@ var GlobaleSuche = (function () {
 
 				for (let key in tupelElement) {
 
+					let tupelElementValue = tupelElement[key];
+
 					if (onlyThisKey === undefined) {
-						let cell = addElementToRowAndReturnCell(tupelElement[key], row)
-						addListenerToCell(cell, tupelElement);
-						let cellContent = tupelElement[key];
-						cell.addEventListener("click", ()=>{
-							if(callbackInputMask === undefined) return;
-							callbackInputMask(cellContent);
-							callbackInputMask = undefined;
-						})
-						continue;
+						let cell = addElementToRowAndReturnCell(tupelElementValue, row)
+						addListenerToCell(cell, tupelElementValue);
+						addCallbackToCell(cell, tupelElementValue)
 					}
 
-					if (key === onlyThisKey) {
-						let cell = addElementToRowAndReturnCell(tupelElement[key], row)
+					if (onlyThisKey === key) {
+						let cell = addElementToRowAndReturnCell(tupelElementValue, row);
 						addListenerToCell(cell, tupelElement);
 						break;
 					}
 				}
 			})
+
+			function addCallbackToCell(cell, cellContent) {
+				cell.addEventListener("click", () => {
+					if (callbackInputMask === undefined) return;
+					callbackInputMask(cellContent);
+					callbackInputMask = undefined;
+				})
+			}
 
 			function addElementToRowAndReturnCell(tupelElement, row) {
 				let cell = row.insertCell(-1);
@@ -500,12 +513,12 @@ var GlobaleSuche = (function () {
 			let category = tupelElement["category"].toLowerCase();
 			let parameter = tupelElement[searchParameter].toLowerCase();
 
-			if(filterType === filterTypes.matches){
+			if (filterType === filterTypes.matches) {
 				if (category !== searchCategory) continue;
 				if (parameter !== searchInputField) continue;
 			}
 
-			if(filterType === filterTypes.contains){
+			if (filterType === filterTypes.contains) {
 				if (!category.includes(searchCategory)) continue;
 				if (!parameter.includes(searchInputField)) continue;
 			}

@@ -24,6 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import utility.KeyValuePair;
+
 public class DummyResultSet implements ResultSet{
 	
 	private final static int START_INDEX = -1;
