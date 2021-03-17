@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MariaDB implements Database {
 
@@ -118,5 +119,11 @@ public class MariaDB implements Database {
     @Override
     public void deleteModel(Model model) throws SQLException {
         // TODO Auto-generated method stub
+    }
+    
+    @Override
+    public List<Model[]> getRelationList() {
+    	// TODO Auto-generated method stub
+    	return null;
     }
 }

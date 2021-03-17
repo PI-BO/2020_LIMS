@@ -5,6 +5,7 @@ import model.database.Database;
 import model.database.dummyDB.DummyResultSet;
 import model.database.mariaDB.MariaDB;
 import utility.JSON;
+import utility.JSONArray;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -103,7 +104,16 @@ public class ModelList extends Model{
 	
 	@Override
 	public JSON toJSON() {
-		// TODO Auto-generated method stub
-		return null;
+
+		JSON json = new JSON();
+		JSONArray jsonArray = new JSONArray();
+		
+		for(Model model : modelList){
+			jsonArray.addJSON(model.toJSON());
+		}
+		
+		json.addJSONArray("ModelList", jsonArray);
+		
+		return json;
 	}
 }
