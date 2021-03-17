@@ -8,6 +8,7 @@ import exceptions.PasswordIncorrectException;
 import model.Login;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 public class Mitarbeiter extends Model implements Login {
 	
@@ -129,4 +130,15 @@ public class Mitarbeiter extends Model implements Login {
 		return null;
 	}
 	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_NACHNAME, getNachname());
+		json.addKeyValue(COLUMN_VORNAME, getVorname());
+		
+		return json;
+	}
 }

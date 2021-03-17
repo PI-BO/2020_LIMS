@@ -4,6 +4,7 @@ import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.dummyDB.DummyResultSet;
 import model.database.mariaDB.MariaDB;
+import utility.JSON;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -98,5 +99,11 @@ public class ModelList extends Model{
 	@Override
 	public String getForeignKey() {
 		return model.getForeignKey();
+	}
+	
+	@Override
+	public JSON toJSON() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

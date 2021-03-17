@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import javax.servlet.http.Cookie;
 
@@ -122,5 +123,17 @@ public class Sessions extends Model{
 	@Override
 	public String getForeignKey() {
 		return mitarbeiterID;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_DATE, getDate());
+		json.addKeyValue(COLUMN_MITARBEITER_ID, getMitarbeiterID());
+		
+		return json;
 	}
 }

@@ -117,8 +117,8 @@ public class Partner extends Model {
 	public JSON toJSON() {
 
 		JSON json = new JSON();
-		json.addKeyValue("category", "projektpartner");
-		json.addKeyValue(COLUMN_PRIMARY_KEY, getPrimaryKey());
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
 		json.addKeyValue(COLUMN_NAME, getName());
 		json.addKeyValue(COLUMN_EMAIL, getEmail());
 		

@@ -106,7 +106,8 @@ public class Probe extends Model{
 	public JSON toJSON() {
 		
 		JSON json = new JSON();
-		json.addKeyValue("category", "probe");
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
 		json.addKeyValue("name", getName());
 		
 		return json;

@@ -112,8 +112,8 @@ public class Projekt extends Model {
 	public JSON toJSON() {
 
 		JSON json = new JSON();
-		json.addKeyValue("category", "projekt");
-		json.addKeyValue("name", getPrimaryKey());
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
 		json.addKeyValue(COLUMN_VERTRAGSNUMMER, getVertragsnummer());
 		
 		return json;
