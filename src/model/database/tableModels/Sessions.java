@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import javax.servlet.http.Cookie;
 
@@ -15,8 +16,8 @@ import java.sql.SQLException;
  * created on 03.02.2021
  */
 public class Sessions extends Model{
-    private String primaryKey;
-    private String date;
+
+	private String date;
     private String mitarbeiterID;
     public static final String COLUMN_PRIMARY_KEY = "session_key";
     public static final String COLUMN_DATE = "creation_date";
@@ -33,9 +34,16 @@ public class Sessions extends Model{
         mitarbeiterID = mitarbeiter.getPrimaryKey();
     }
 
-    public Sessions(String id) throws SQLException, ModelNotFoundException{
-        this.primaryKey = id;
-        database.getModel(this);
+    public Sessions(){
+		super();
+	}
+	
+	public Sessions(Model parent) {
+    	super(parent);
+    }
+    
+    public Sessions(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
@@ -49,15 +57,6 @@ public class Sessions extends Model{
         } else {
             throw new ModelNotFoundException("Session nicht gefunden");
         }
-    }
-
-    public void save() throws SQLException{
-        database.setModel(this);
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
     }
 
     @Override
@@ -96,10 +95,6 @@ public class Sessions extends Model{
         return COLUMN_PRIMARY_KEY + "," + COLUMN_DATE + "," + COLUMN_MITARBEITER_ID;
     }
 
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
-    }
-
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 		DummyResultSet dummyResultSet = new DummyResultSet();
@@ -115,5 +110,17 @@ public class Sessions extends Model{
 	@Override
 	public String getForeignKey() {
 		return mitarbeiterID;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_DATE, getDate());
+		json.addKeyValue(COLUMN_MITARBEITER_ID, getMitarbeiterID());
+		
+		return json;
 	}
 }

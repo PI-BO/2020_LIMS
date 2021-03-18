@@ -3,32 +3,28 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Analysen extends Model{
-    private String primaryKey;
-    private String api;
+
+	private String api;
     private String bemerkung;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_API = "api";
     public static final String COLUMN_BEMERKUNG = "bemerkung";
     public static final String TABLE = "analysen";
+     
+    public Analysen(Model parent) {
+    	super(parent);
+    }
     
-    public Analysen() {
+    public Analysen(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
-
-    public Analysen(String id) throws SQLException, ModelNotFoundException {
-        this.primaryKey = id;
-        database.getModel(this);
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
+    
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
@@ -84,5 +80,18 @@ public class Analysen extends Model{
 	public String getForeignKey() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+		
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_API, getApi());
+		json.addKeyValue(COLUMN_BEMERKUNG, getBemerkung());
+		
+		
+		return json;
 	}
 }

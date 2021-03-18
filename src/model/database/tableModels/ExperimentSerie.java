@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,12 +13,25 @@ import java.sql.SQLException;
  * created on 11.03.2021
  */
 public class ExperimentSerie extends Model{
-    private String primaryKey;
+    
     public static final String COLUMN_PRIMARY_KEY = "serie";
     public static final String TABLE = "experiment_serie";
 
+	public ExperimentSerie(){
+		super();
+	}
+	
+	public ExperimentSerie(Model parent) {
+    	super(parent);
+    }
+    
+    public ExperimentSerie(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
     @Override
     public String getForeignKey() {
+    	// TODO 
         return null;
     }
 
@@ -29,15 +43,6 @@ public class ExperimentSerie extends Model{
         dummyResultSet.addEntry(dummyResultSetEntry);
 
         return dummyResultSet;
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
     }
 
     @Override
@@ -61,11 +66,23 @@ public class ExperimentSerie extends Model{
 
     @Override
     public String getValuesAsSQLString() {
+    	// TODO 
         return null;
     }
 
     @Override
     public String getRelationSchema() {
+    	// TODO 
         return null;
     }
+    
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		
+		return json;
+	}
 }

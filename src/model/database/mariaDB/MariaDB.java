@@ -9,11 +9,14 @@ import model.database.relations.OneToMany;
 import model.database.sqlQuerryBuilder.SQLQueryBuilder;
 import model.database.tableModels.AnalyseTemperaturprogramme;
 import model.database.tableModels.Model;
+import model.database.tableModels.ModelTable;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MariaDB implements Database {
 
@@ -40,15 +43,15 @@ public class MariaDB implements Database {
     }
 
     @Override
-    public void getTable(Model modelList) throws SQLException, ModelNotFoundException {
+    public void getTable(ModelTable modelTable) throws SQLException, ModelNotFoundException {
 
-        String sqlStatement = "SELECT * FROM " + modelList.getTable() + ";";
+        String sqlStatement = "SELECT * FROM " + modelTable.getTable() + ";";
 
         System.out.println(sqlStatement);
 
         ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 
-        modelList.setAttributes(resultSet);
+        modelTable.setAttributes(resultSet);
     }
 
     @Override
@@ -121,7 +124,7 @@ public class MariaDB implements Database {
     }
 
     @Override
-    public void setModel(Model model) throws SQLException {
+    public void saveModel(Model model) throws SQLException {
 
         String sqlStatement = "INSERT INTO " + model.getTable() + " (" + model.getRelationSchema() + ") VALUES (" + model.getValuesAsSQLString() + ");";
 
@@ -138,5 +141,11 @@ public class MariaDB implements Database {
     @Override
     public void deleteModel(Model model) throws SQLException {
         // TODO Auto-generated method stub
+    }
+    
+    @Override
+    public List<List<Model>> getRelationList() {
+    	// TODO Auto-generated method stub
+    	return null;
     }
 }

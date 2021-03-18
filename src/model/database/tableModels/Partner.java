@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 public class Partner extends Model {
 
-	private String primaryKey;
 	private String name;
 	private String email;
 	public static final String COLUMN_PRIMARY_KEY = "vertragsnummer";
@@ -17,19 +17,17 @@ public class Partner extends Model {
 	public static final String COLUMN_EMAIL = "email";
 	public static final String TABLE = "partner";
 
-	public Partner() {
-		
+	public Partner(){
+		super();
 	}
 	
-	public Partner(String vertragsnummer) throws SQLException, ModelNotFoundException {
-		this.primaryKey = vertragsnummer;
-		database.getModel(this);
-	}
-	
-	@Override
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
+	public Partner(Model parent) {
+    	super(parent);
+    }
+    
+    public Partner(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
 
 	@Override
 	public String getPrimaryKeyColumn() {
@@ -68,10 +66,6 @@ public class Partner extends Model {
 		this.email = email;
 	}
 
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
 	@Override
 	public String getValuesAsSQLString() {
 		return primaryKey + "," + name + "," + email;
@@ -101,5 +95,17 @@ public class Partner extends Model {
 	public String getForeignKey() {
 		// Partner has no Foreign key
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id",primaryKey);
+		json.addKeyValue(COLUMN_NAME, getName());
+		json.addKeyValue(COLUMN_EMAIL, getEmail());
+		
+		return json;
 	}
 }

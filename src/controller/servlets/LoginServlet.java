@@ -163,7 +163,7 @@ public class LoginServlet extends HttpServlet {
         if (getKeepLogin(request)) cookie.setMaxAge(60 * 60 * 24 * 30); // Set age in seconds for 30 Days
         response.addCookie(cookie);
         Sessions session = new Sessions(cookie, login);
-        session.save();
+        session.saveToDatabase();
     }
 
     private boolean getKeepLogin(HttpServletRequest request) {

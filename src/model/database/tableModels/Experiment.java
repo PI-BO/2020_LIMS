@@ -3,13 +3,13 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Experiment extends Model{
 	
-    private String primaryKey;
     private String typ;
     private String proben_nr;
     public static final String COLUMN_PRIMARY_KEY = "id";
@@ -17,32 +17,16 @@ public class Experiment extends Model{
     public static final String COLUMN_PROBEN_NR = "proben_nr";
     public static final String TABLE = "experiment";
 
-    /**
-     * Model Class for Database Eigenschaften
-     * @param primaryKey
-     * Primary key of Database TAbele
-     * @throws ModelNotFoundException
-     * @throws SQLException
-     */
-    public Experiment(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
-    /**
-     * Create Empty Experiment for new Database Entry
-     * Add values over setter
-     */
-    public Experiment() {
+    public Experiment(){
+		super();
 	}
 
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
+	public Experiment(Model parent) {
+    	super(parent);
     }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
+    
+    public Experiment(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     @Override
@@ -70,13 +54,19 @@ public class Experiment extends Model{
         return typ;
     }
 
-    public void setTyp(String typ) {
-        this.typ = typ;
-    }
+
 
     public String getProbenNr() {
         return proben_nr;
     }
+
+    public void setForeignKey(String proben_nr) {
+		this.proben_nr = proben_nr;
+	}
+    
+    public void setTyp(String typ) {
+		this.typ = typ;
+	}
 
     public void setProbenNr(String proben_nr) {
         this.proben_nr = proben_nr;
@@ -107,5 +97,16 @@ public class Experiment extends Model{
 	@Override
 	public String getForeignKey() {
 		return proben_nr;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_TYP, getTyp());	
+		
+		return json;
 	}
 }

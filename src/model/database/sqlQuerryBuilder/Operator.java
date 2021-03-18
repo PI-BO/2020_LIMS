@@ -1,6 +1,5 @@
 package model.database.sqlQuerryBuilder;
 
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 
 /**
  * Operator class to build Operation

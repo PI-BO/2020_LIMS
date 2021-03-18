@@ -3,30 +3,32 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Probe extends Model{
-    private String primaryKey;
-    private String substanzID;
+
+	private String substanzID;
+    private String name;
     public static final String COLUMN_PRIMARY_KEY = "probennummer";
     public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
+    public static final String COLUMN_NAME = "substanz_name";
     public static final String TABLE = "probe";
 
-    public Probe(String id) throws SQLException, ModelNotFoundException {
-        this.primaryKey = id;
-        database.getModel(this);
-    }
-
-    public Probe() {
+    public Probe(){
+		super();
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
+	
+	public Probe(Model parent) {
+    	super(parent);
     }
-
+    
+    public Probe(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
@@ -64,10 +66,6 @@ public class Probe extends Model{
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_SUBSTANZ_ID;
 	}
 
-	public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
-    }
-
     public void setSubstanzID(String substanzID) {
         this.substanzID = substanzID;
     }
@@ -91,5 +89,24 @@ public class Probe extends Model{
 	@Override
 	public String getForeignKey() {
 		return substanzID;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	@Override
+	public JSON toJSON() {
+		
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue("name", getName());
+		
+		return json;
 	}
 }

@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,15 +13,27 @@ import java.sql.SQLException;
  * created on 11.03.2021
  */
 public class ExperimentDurchfuehrungstext extends Model{
-    private String primaryKey;
-    private String text;
+
+	private String text;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TEXT = "text";
-    public static final String TABLE = "experiment_durchführungstext";
+    public static final String TABLE = "experiment_durchführungstext";		//TODO
 
+	public ExperimentDurchfuehrungstext(){
+		super();
+	}
+	
+	public ExperimentDurchfuehrungstext(Model parent) {
+    	super(parent);
+    }
+    
+    public ExperimentDurchfuehrungstext(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
     @Override
     public String getForeignKey() {
-        // Does not have a foreign key
+        // TODO
         return null;
     }
 
@@ -33,15 +46,6 @@ public class ExperimentDurchfuehrungstext extends Model{
         dummyResultSet.addEntry(dummyResultSetEntry);
 
         return dummyResultSet;
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
     }
 
     public String getText() {
@@ -82,11 +86,24 @@ public class ExperimentDurchfuehrungstext extends Model{
 
     @Override
     public String getValuesAsSQLString() {
+    	// TODO
         return null;
     }
 
     @Override
     public String getRelationSchema() {
+    	// TODO
         return null;
     }
+    
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_TEXT, text);
+		
+		return json;
+	}
 }

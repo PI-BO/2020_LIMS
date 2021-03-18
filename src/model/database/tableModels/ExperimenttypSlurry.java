@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -124,22 +125,16 @@ public class ExperimenttypSlurry extends Model {
     public static final String COLUMN_EINSTUFUNG_ERGEBNIS_KEY = "einstufung_ergebnis";
     public static final String TABLE = "experimenttyp_verdampfung";
 
-    public ExperimenttypSlurry(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
+    public ExperimenttypSlurry(){
+		super();
+	}
+	
+	public ExperimenttypSlurry(Model parent) {
+    	super(parent);
     }
-
-    public ExperimenttypSlurry() {
-        // TODO Auto-generated constructor stub
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
+    
+    public ExperimenttypSlurry(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     public int getPlanung() {
@@ -883,7 +878,7 @@ public class ExperimenttypSlurry extends Model {
             gesamt_ergebnis = resultSet.getString(COLUMN_GESAMT_ERGEBNIS_KEY);
             einstufung_ergebnis = resultSet.getString(COLUMN_EINSTUFUNG_ERGEBNIS_KEY);
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("ExperimenttypSlurry nicht gefunden");
         }
     }
 
@@ -962,8 +957,74 @@ public class ExperimenttypSlurry extends Model {
         return dummyResultSet;
     }
 
-    @Override
-    public String getForeignKey() {
-        return null;
-    }
+	@Override
+	public String getForeignKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue("table", TABLE);
+		
+        json.addKeyValue(COLUMN_PLANUNG_KEY, Integer.toString(planung));
+        json.addKeyValue(COLUMN_SERIE_KEY, serie);
+        json.addKeyValue(COLUMN_DURCHFÜHRUNG_KEY, durchfuehrung);
+        json.addKeyValue(COLUMN_NOTIZ_INTENTION_KEY, notiz_intention);
+        json.addKeyValue(COLUMN_VERWEIS_KEY, verweis);
+        json.addKeyValue(COLUMN_STARTFREIGABE_KEY, startfreigabe.toString());
+        json.addKeyValue(COLUMN_ERLEDIGT_BIS_KEY, erledigt_bis.toString());
+        json.addKeyValue(COLUMN_HINWEIS_LABORLEITER_KEY, hinweis_laborleiter);
+        json.addKeyValue(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, Boolean.toString(planung_abgeschlossen));
+        json.addKeyValue(COLUMN_PRIORITAET_KEY, prioritaet);
+        json.addKeyValue(COLUMN_SICHERHEITSHINWEIS_KEY, sicherheitshinweis);
+        json.addKeyValue(COLUMN_OPERATOR_KEY, Integer.toString(operator));
+        json.addKeyValue(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
+        json.addKeyValue(COLUMN_SOLL_EINWAAGE_KEY, Double.toString(soll_einwaage));
+        json.addKeyValue(COLUMN_EINWAAGE_KEY, Double.toString(einwaage));
+        json.addKeyValue(COLUMN_COF_BEZEICHNUNG_KEY, cof_bezeichnung);
+        json.addKeyValue(COLUMN_COF_REF_CODE_KEY, cof_ref_code);
+        json.addKeyValue(COLUMN_COF_SOLL_EINWAAGE_KEY, Double.toString(cof_soll_einwaaage));
+        json.addKeyValue(COLUMN_COF_EINWAAGE_KEY, Double.toString(cof_einwaage));
+        json.addKeyValue(COLUMN_SOLL_TEMPERATUR_KEY, Double.toString(soll_temperatur));
+        json.addKeyValue(COLUMN_LOESUNGSMITTEL_KEY, loesungsmittel);
+        json.addKeyValue(COLUMN_VORGABE_VOLUMEN_KEY, vorgabe_volumen);
+        json.addKeyValue(COLUMN_IST_VOLUMEN_KEY, ist_volumen);
+        json.addKeyValue(COLUMN_BEOBACHTUNGEN_AENDERUNGEN_KEY, beobachtungen_aenderungen);
+        json.addKeyValue(COLUMN_START_KEY, start.toString());
+        json.addKeyValue(COLUMN_BEOBACHTUNGEN_VERLAUF_KEY, beobachtungen_verlauf);
+        json.addKeyValue(COLUMN_ENDE_KEY, this.dummyResultSetEntry.toString());
+        json.addKeyValue(COLUMN_STATUS_KEY, status);
+        json.addKeyValue(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, aufarbeitung_präsentation_pxrd.toString());
+        json.addKeyValue(COLUMN_BEOBACHTUNG_AUFBEREITUNG_KEY, beobachtung_aufarbeitung);
+        json.addKeyValue(COLUMN_LAGERORTE_KEY, lagerorte);
+        json.addKeyValue(CPLUMN_PRIORITAET_ANALYSTIK_KEY, prioritaet_analytik);
+        json.addKeyValue(COLUMN_ERSTANALYTIK_PXRD_KEY, erstanalytik_pxrd);
+        json.addKeyValue(COLUMN_PXRD_MOEGLICH_KEY, Boolean.toString(pxrd_moeglich));
+        json.addKeyValue(COLUMN_WEITERE_ANALYTIK_MOEGLICH_KEY, weitere_analytik_moeglich);
+        json.addKeyValue(COLUMN_ERGEBNIS_PXRD_KEY, Boolean.toString(ergebnis_pxrd));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_DSC_KEY, Boolean.toString(folgeanalytik_dsc));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_TG_KEY, Boolean.toString(folgeanalytik_tg));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_PXRD_II_KEY, Boolean.toString(folgeanalytik_pxrd_ii));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_H_NMR_KEY, Boolean.toString(folgeanalytik_h_nmr));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_IR_KEY, Boolean.toString(folgeanalytik_ir));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_RAMAN_KEY, Boolean.toString(folgeanalytik_raman));
+        json.addKeyValue(COLUMN_FOLGEANALYTIK_OMI_KEY, Boolean.toString(folgeanalytik_omi));
+        json.addKeyValue(COLUMN_INFORMATIONEN_FOLGEANALYTIK_KEY, informationen_folgeanalytik);
+        json.addKeyValue(COLUMN_ERGEBNIS_DSC_KEY, ergebnis_dsc);
+        json.addKeyValue(COLUMN_ERGEBNIS_TG_KEY, ergebnis_tg);
+        json.addKeyValue(COLUMN_ERGEBNIS_PXRD_II_KEY, ergebnis_pxrd_ii);
+        json.addKeyValue(COLUMN_ERGEBNIS_H_NMR_KEY, ergebnis_h_nmr);
+        json.addKeyValue(COLUMN_ERGEBNIS_IR_KEY, ergebnis_ir);
+        json.addKeyValue(COLUMN_ERGEBNIS_RAMAN_KEY, ergebnis_raman);
+        json.addKeyValue(COLUMN_ERGEBNIS_OMI_KEY, ergebnis_omi);
+        json.addKeyValue(COLUMN_STATUS_ANALYTIK_KEY, status_analytik);
+        json.addKeyValue(COLUMN_GESAMT_ERGEBNIS_KEY, gesamt_ergebnis);
+        json.addKeyValue(COLUMN_EINSTUFUNG_ERGEBNIS_KEY, einstufung_ergebnis);
+		
+		return json;
+	}
 }

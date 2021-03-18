@@ -15,9 +15,9 @@ public class DummyDB implements Database {
 
     private final List<Model> modelList = new LinkedList<>();
 
-    public DummyDB() {
-        initModels();
-    }
+	public DummyDB(){
+		initModels();
+	}
 
     private void initModels() {
         // Rollen
@@ -251,19 +251,60 @@ public class DummyDB implements Database {
                         "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
         );
         modelList.add(experimentDurchfuehrungstext);
-    }
-
-    @Override
-    public void getModel(Model requestedModel) throws SQLException, ModelNotFoundException {
-        for (Model model : modelList) {
-            if (tableNotFound(requestedModel, model)) continue;
-            if (primaryKeyNotFound(requestedModel, model)) continue;
-
-            DummyResultSet dummyResultSet = model.returnAsDummyResultSet();
-            requestedModel.setAttributes(dummyResultSet);
-
-            break;
-        }
+        
+		//------------Relation-Test fuer Suche------------//
+		
+//		Partner partner1 = new Partner();
+//		partner1.setName("Partner A");
+//		partner1.setPrimaryKey("1");
+//		partner1.setEmail("partner-A@gmail.com");
+//		modelList.add(partner1);
+//		
+//		Partner partner2 = new Partner();
+//		partner2.setName("Partner B");
+//		partner2.setPrimaryKey("2");
+//		partner2.setEmail("partner-B@gmx.com");
+//		modelList.add(partner2);
+//		
+//		Projekt projekt1 = new Projekt(partner1);
+//		projekt1.setPrimaryKey("Projekt A");
+//		projekt1.setVertragsnummer("1");
+//		modelList.add(projekt1);
+//		
+//		Projekt projekt2 = new Projekt(partner2);
+//		projekt2.setPrimaryKey("Projekt B");
+//		projekt2.setVertragsnummer("2");
+//		modelList.add(projekt2);
+//		
+//		Probe probe1 = new Probe(projekt1);
+//		probe1.setPrimaryKey("0001A");
+//		probe1.setName("Probe A");
+//		modelList.add(probe1);
+//		
+//		Probe probe2 = new Probe(projekt2);
+//		probe2.setPrimaryKey("0001B");
+//		probe2.setName("Probe B");
+//		modelList.add(probe2);
+//		
+//		Experiment experiment1 = new Experiment(probe1);
+//		experiment1.setPrimaryKey("0001Aexp0");
+//		experiment1.setTyp("Slurry");
+//		modelList.add(experiment1);
+//		
+//		Experiment experiment2 = new Experiment(probe1);
+//		experiment2.setPrimaryKey("0001Aexp1");
+//		experiment2.setTyp("Vedampfung");
+//		modelList.add(experiment2);
+//		
+//		Experiment experiment3 = new Experiment(probe2);
+//		experiment3.setPrimaryKey("0001Bexp0");
+//		experiment3.setTyp("Slurry");
+//		modelList.add(experiment3);
+//		
+//		Experiment experiment4 = new Experiment(probe2);
+//		experiment4.setPrimaryKey("0001Bexp1");
+//		experiment4.setTyp("Vedampfung");
+//		modelList.add(experiment4);
     }
 
     @Override
@@ -278,7 +319,22 @@ public class DummyDB implements Database {
             break;
         }
     }
+    
+    @Override
+	public void getModel(Model requestedModel) throws SQLException, ModelNotFoundException {
 
+		for(Model model : modelList){
+			
+			if(tableNotFound(requestedModel, model)) continue;
+			if(primaryKeyNotFound(requestedModel, model)) continue;
+			
+			DummyResultSet dummyResultSet = model.returnAsDummyResultSet();
+			requestedModel.setAttributes(dummyResultSet);
+			
+			break;
+		}
+	}
+    
     private boolean primaryKeyNotFound(Model requestedModel, Model model) {
         return !model.getPrimaryKey().equals(requestedModel.getPrimaryKey());
     }
@@ -291,6 +347,10 @@ public class DummyDB implements Database {
         return !model.getForeignKey().equals(requestedKey);
     }
 
+    private boolean tableNotFound(String requestedTable, Model model) {
+    	return !model.getTable().equals(requestedTable);
+    }
+    
     private boolean compositeKeyNotFound(AnalyseTemperaturprogramme requestModel, DummyRelation model) {
         boolean ret = false;
         String[] keys = requestModel.getPrimaryKeys();
@@ -303,13 +363,9 @@ public class DummyDB implements Database {
         return ret;
     }
 
-    private boolean tableNotFound(String requestedTable, Model model) {
-        return !model.getTable().equals(requestedTable);
-    }
-
     @Override
-    public void setModel(Model model) throws SQLException {
-        modelList.add(model);
+    public void saveModel(Model model) throws SQLException {
+    	modelList.add(model);
     }
 
     @Override
@@ -327,7 +383,7 @@ public class DummyDB implements Database {
     }
 
     @Override
-    public void getTable(Model requestedModel) throws SQLException, ModelNotFoundException {
+    public void getTable(ModelTable requestedModel) throws SQLException, ModelNotFoundException {
 
         DummyResultSet dummyResultSet = new DummyResultSet();
 
@@ -374,13 +430,6 @@ public class DummyDB implements Database {
     }
 
     @Override
-    public <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N, M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException {
-        // TODO Auto-generated method stub
-        System.out.print(this.getClass());
-        System.out.println("resolveManyToMany() not implemented");
-    }
-
-    @Override
     public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException {
         DummyResultSet dummyResultSet = new DummyResultSet();
 
@@ -397,4 +446,69 @@ public class DummyDB implements Database {
 
         return dummyResultSet;
     }
+
+	@Override
+	public <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N, M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException {
+		// TODO Auto-generated method stub
+		System.out.print(this.getClass());
+		System.out.println("resolveManyToMany() not implemented");
+	}
+
+	@Override
+	public List<List<Model>> getRelationList() {
+		
+		List<List<Model>> branches = new LinkedList<>();
+		
+		List<Model> rootModelList = getAllRootModels();
+		
+		for(Model rootModel : rootModelList){
+			
+			List<Model> branch = new LinkedList<>();
+			branches.add(branch);
+			
+			branch.add(rootModel);
+			
+			System.out.println(rootModel.toJSON());
+			
+			extendBranch(branch, rootModel, branches);
+			
+		}
+		
+		return branches;
+	}
+
+	private void extendBranch(List<Model> branch, Model nextModel, List<List<Model>> branches) {
+		
+		while(nextModel.hasChildren()){
+			
+			if(nextModel.getChildren().size() > 1){
+				
+				for(int i = 1; i < nextModel.getChildren().size(); i++){
+					
+					List<Model> newBranch = new LinkedList<>();
+					newBranch.addAll(branch);
+					branches.add(newBranch);
+					
+					Model child = nextModel.getChildren().get(i);
+					newBranch.add(child);
+					
+					extendBranch(newBranch, child, branches);
+				}
+			}
+				
+			nextModel = nextModel.getChildren().get(0);
+			System.out.println(nextModel.toJSON());
+			branch.add(nextModel);
+		}
+	}
+
+	private List<Model> getAllRootModels() {
+		List<Model> rootModelList = new LinkedList<>();
+		
+		for(Model model : modelList){
+//			if(model.getClass() == Partner.class) rootModelList.add(model);
+			if(!model.hasParents()) rootModelList.add(model);
+		}
+		return rootModelList;
+	}
 }

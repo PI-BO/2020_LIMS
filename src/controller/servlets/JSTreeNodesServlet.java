@@ -5,7 +5,13 @@ import model.database.relations.PartnerProjekt;
 import model.database.relations.ProbeExperiment;
 import model.database.relations.ProjekteSubstanz;
 import model.database.relations.SubstanzenProbe;
-import model.database.tableModels.*;
+import model.database.tableModels.Experiment;
+import model.database.tableModels.Model;
+import model.database.tableModels.ModelTable;
+import model.database.tableModels.Partner;
+import model.database.tableModels.Probe;
+import model.database.tableModels.Projekt;
+import model.database.tableModels.Substanz;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -121,7 +127,7 @@ public class JSTreeNodesServlet extends HttpServlet {
 
     private void getPartner(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
 
-        ModelList projektList = new ModelList(new Partner());
+        ModelTable projektList = new ModelTable(new Partner());
 
         List<String> ids = new LinkedList<>();
         for (Model partnerModel : projektList.getModelList()) {

@@ -8,31 +8,34 @@ import exceptions.PasswordIncorrectException;
 import model.Login;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 public class Mitarbeiter extends Model implements Login {
 	
-	private String primaryKey;
 	private String password;
 	private String vorname;
 	private String nachname;
 	private int rolle;
 	
-	public static final String TABLE= "mitarbeiter";
-	public static final String COLUMN_PRIMARY_KEY= "mitarbeiterID";
-	public static final String COLUMN_VORNAME= "vorname";
+	public static final String TABLE = "mitarbeiter";
+	public static final String COLUMN_PRIMARY_KEY = "mitarbeiterID";
+	public static final String COLUMN_VORNAME = "vorname";
 	public static final String COLUMN_NACHNAME = "nachname";
 	public static final String COLUMN_PASSWORD= "passwort";
 	public static final String COLUMN_ROLLE = "rolle";
 
-	public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
-    	this.primaryKey = primaryKey;
-    	database.getModel(this);
-    }
-
-	public Mitarbeiter() {
-		// TODO Auto-generated constructor stub
+	public Mitarbeiter(){
+		super();
 	}
-
+	
+	public Mitarbeiter(Model parent) {
+    	super(parent);
+    }
+    
+    public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
 	public void setAttributes(ResultSet mitarbeiterResultSet) throws SQLException, ModelNotFoundException {
 		if (mitarbeiterResultSet.next()) {
 	       	int vornameIndex = mitarbeiterResultSet.findColumn(COLUMN_VORNAME);
@@ -79,11 +82,6 @@ public class Mitarbeiter extends Model implements Login {
 	}
 
 	@Override
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
-
-	@Override
 	public String getPrimaryKeyColumn() {
 		return COLUMN_PRIMARY_KEY;
 	}
@@ -102,13 +100,9 @@ public class Mitarbeiter extends Model implements Login {
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_VORNAME + "," + COLUMN_NACHNAME + "," + COLUMN_PASSWORD;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
 	}
 
 	@Override
@@ -131,4 +125,16 @@ public class Mitarbeiter extends Model implements Login {
 		return rolle+"";
 	}
 	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_NACHNAME, nachname);
+		json.addKeyValue(COLUMN_VORNAME, vorname);
+		json.addKeyValue(COLUMN_ROLLE, Integer.toString(rolle));
+		
+		return json;
+	}
 }

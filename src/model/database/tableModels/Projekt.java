@@ -8,22 +8,26 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.relations.ProjekteSubstanz;
+import utility.JSON;
 
 public class Projekt extends Model {
-	private String primaryKey;
-	private String vertragsnummer;
+
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
 	public static final String COLUMN_VERTRAGSNUMMER = "vertragsnummer";
 	public static final String TABLE = "projekte";
-
+	private String vertragsnummer;
+	
 	public Projekt(){
-		
+		super();
 	}
 	
-	public Projekt(String id) throws SQLException, ModelNotFoundException{
-		this.primaryKey = id;
-		database.getModel(this);
-	}
+	public Projekt(Model parent) {
+    	super(parent);
+    }
+    
+    public Projekt(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
 	
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
 		if (resultSet.next()) {
@@ -39,15 +43,15 @@ public class Projekt extends Model {
 		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
 		return projekteSubstanz.getSubstanzen();
 	}
-
-	@Override
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
-
+	
 	@Override
 	public String getPrimaryKeyColumn() {
 		return COLUMN_PRIMARY_KEY;
+	}
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_VERTRAGSNUMMER;
 	}
 
 	@Override
@@ -60,15 +64,6 @@ public class Projekt extends Model {
 		return "\"" + primaryKey + "\",\"" + vertragsnummer + "\"";
 	}
 
-	@Override
-	public String getRelationSchema() {
-		return COLUMN_PRIMARY_KEY + "," + COLUMN_VERTRAGSNUMMER;
-	}
-
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
 	public void setVertragsnummer(String vertragsnummer) {
 		this.vertragsnummer = vertragsnummer;
 	}
@@ -76,7 +71,7 @@ public class Projekt extends Model {
 	public String getVertragsnummer() {
 		return vertragsnummer;
 	}
-
+	
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 
@@ -90,9 +85,19 @@ public class Projekt extends Model {
 		
 		return dummyResultSet;
 	}
-
+	
 	@Override
 	public String getForeignKey() {
 		return vertragsnummer;
+	}
+	
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_VERTRAGSNUMMER, getVertragsnummer());
+		
+		return json;
 	}
 }

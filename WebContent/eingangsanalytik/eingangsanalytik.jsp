@@ -152,6 +152,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- END TEMPLATE -->
 	</div>
 
 	<script>

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="config.Address" %>
 <%@ page import="controller.servlets.AnalyseServlet" %>
-<%@ page import="model.database.tableModels.ModelList" %>
+<%@ page import="model.database.tableModels.ModelTable" %>
 <%@ page import="model.database.tableModels.Analysetyp" %>
 <%@ page import="model.database.tableModels.Model" %>
 <%@ page import="java.sql.SQLException" %>
@@ -41,7 +41,7 @@
             <option value="" selected disabled>bitte auswaehlen</option>
             <%
                 try {
-                    ModelList analyseTypModelList = new ModelList(new Analysetyp());
+                    ModelTable analyseTypModelList = new ModelTable(new Analysetyp());
                     for (Model model : analyseTypModelList.getModelList()) {
             %>
             <option value="<%=model.getPrimaryKey()%>"><%=((Analysetyp) model).getTyp()%>

@@ -3,29 +3,27 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Eigenschaften extends Model{
-    private String primaryKey;
     private String value;
     public static final String COLUMN_PRIMARY_KEY = "eigenschaft_key";
     public static final String COLUMN_VALUE = "value";
     public static final String TABLE = "eigenschaften";
 
     public Eigenschaften(){
-    	
+		super();
+	}
+	
+	public Eigenschaften(Model parent) {
+    	super(parent);
     }
     
-    public Eigenschaften(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
+    public Eigenschaften(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     @Override
@@ -85,6 +83,17 @@ public class Eigenschaften extends Model{
 	public String getForeignKey() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+		
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_VALUE, getEigenschaftValue());
+		
+		return json;
 	}
 
 }
