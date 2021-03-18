@@ -144,7 +144,7 @@ public class MariaDB implements Database {
     }
     
     @Override
-    public List<List<Model>> getRelationList() {
+    public List<List<Model>> getDatabaseAsTupelList() {
     	// TODO Auto-generated method stub
     	return null;
     }

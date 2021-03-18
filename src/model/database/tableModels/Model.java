@@ -75,7 +75,7 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 		parent.addChild(this);
 	}
 	
-	protected void addChild(Model child){
+	private void addChild(Model child){
 		children.add(child);
 	}
 	

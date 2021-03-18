@@ -34,20 +34,6 @@ public class SucheServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at:
-		// ").append(request.getContextPath());
-
-		setAccessControlHeaders(response);
-		response.setStatus(HttpServletResponse.SC_OK);
-
-		String objectToReturn = "key1: 'value1', key2: 'value2'";
-
-//		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
-
-		out.print(objectToReturn);
 
 	}
 
@@ -64,7 +50,7 @@ public class SucheServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		Database database = DatabaseManager.getDatabaseInstance();
-		List<List<Model>> branches = database.getRelationList();
+		List<List<Model>> branches = database.getDatabaseAsTupelList();
 		
 		
 		sendRelationsAsJSONArray(out, branches);

@@ -33,5 +33,5 @@ public interface Database {
 
     public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException;
     
-    public List<List<Model>> getRelationList();
+    public List<List<Model>> getDatabaseAsTupelList();
 }

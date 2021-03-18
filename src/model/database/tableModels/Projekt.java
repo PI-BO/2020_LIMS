@@ -94,9 +94,9 @@ public class Projekt extends Model {
 	public JSON toJSON() {
 
 		JSON json = new JSON();
-		json.addKeyValue("table", getTable());
-		json.addKeyValue("id", getPrimaryKey());
-		json.addKeyValue(COLUMN_VERTRAGSNUMMER, getVertragsnummer());
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_VERTRAGSNUMMER, vertragsnummer);
 		
 		return json;
 	}

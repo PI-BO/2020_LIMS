@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class Substanz extends Model {
 
-    private String primaryKey;
     private String projektID;
     public static final String COLUMN_PRIMARY_KEY = "substanz_id";
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
@@ -90,9 +89,9 @@ public class Substanz extends Model {
 	public JSON toJSON() {
 
 		JSON json = new JSON();
-		json.addKeyValue("table", getTable());
-		json.addKeyValue("id", getPrimaryKey());
-		json.addKeyValue(COLUMN_PROJEKT_ID, getProjektID());
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_PROJEKT_ID, projektID);
 		
 		return json;
 	}

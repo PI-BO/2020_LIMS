@@ -2,6 +2,7 @@ package model.database.dummyDB;
 
 import exceptions.ModelNotFoundException;
 import model.database.Database;
+import model.database.relations.ExperimentExperimenttyp;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.tableModels.*;
@@ -40,219 +41,240 @@ public class DummyDB implements Database {
         modelList.add(rolle);
 
         // Mitarbeiter
-        Mitarbeiter mitarbeiter = new Mitarbeiter();
-        mitarbeiter.setVorname("Max");
-        mitarbeiter.setNachname("Mustermann");
-        mitarbeiter.setPassword("abc");
-        mitarbeiter.setPrimaryKey("123");
-        mitarbeiter.setRolle(1);
-        modelList.add(mitarbeiter);
+        Mitarbeiter mitarbeiter1 = new Mitarbeiter();
+        mitarbeiter1.setVorname("Max");
+        mitarbeiter1.setNachname("Mustermann");
+        mitarbeiter1.setPassword("abc");
+        mitarbeiter1.setPrimaryKey("123");
+        mitarbeiter1.setRolle(1);
+        modelList.add(mitarbeiter1);
 
-        mitarbeiter = new Mitarbeiter();
-        mitarbeiter.setVorname("Maxime");
-        mitarbeiter.setNachname("Musterfrau");
-        mitarbeiter.setPassword("dot");
-        mitarbeiter.setPrimaryKey("987");
-        mitarbeiter.setRolle(2);
-        modelList.add(mitarbeiter);
+        Mitarbeiter mitarbeiter2 = new Mitarbeiter();
+        mitarbeiter2.setVorname("Maxime");
+        mitarbeiter2.setNachname("Musterfrau");
+        mitarbeiter2.setPassword("dot");
+        mitarbeiter2.setPrimaryKey("987");
+        mitarbeiter2.setRolle(2);
+        modelList.add(mitarbeiter2);
 
-        mitarbeiter = new Mitarbeiter();
-        mitarbeiter.setVorname("Harry");
-        mitarbeiter.setNachname("Potter");
-        mitarbeiter.setPassword("qwe");
-        mitarbeiter.setPrimaryKey("456");
-        mitarbeiter.setRolle(3);
-        modelList.add(mitarbeiter);
+        Mitarbeiter mitarbeiter3 = new Mitarbeiter();
+        mitarbeiter3.setVorname("Harry");
+        mitarbeiter3.setNachname("Potter");
+        mitarbeiter3.setPassword("qwe");
+        mitarbeiter3.setPrimaryKey("456");
+        mitarbeiter3.setRolle(3);
+        modelList.add(mitarbeiter3);
 
         // Partner
-        Partner partner = new Partner();
-        partner.setPrimaryKey("1");
-        partner.setName("PETER");
-        partner.setEmail("peter@Unternehmen.de");
-        modelList.add(partner);
+        Partner partner1 = new Partner();
+        partner1.setPrimaryKey("1");
+        partner1.setName("Bayer");
+        partner1.setEmail("bayer@Unternehmen.de");
+        modelList.add(partner1);
 
-        partner = new Partner();
-        partner.setPrimaryKey("2");
-        partner.setName("Jeff");
-        partner.setEmail("jeff@Amazon.com");
-        modelList.add(partner);
+        Partner partner2 = new Partner();
+        partner2.setPrimaryKey("2");
+        partner2.setName("Novartis");
+        partner2.setEmail("novartis@pharma.com");
+        modelList.add(partner2);
 
         // Projekte
-        Projekt projekt = new Projekt();
-        projekt.setPrimaryKey("A");
-        projekt.setVertragsnummer("1");
-        modelList.add(projekt);
+        Projekt projekt1 = new Projekt(partner1);
+        projekt1.setPrimaryKey("A");
+        projekt1.setVertragsnummer("1");
+        modelList.add(projekt1);
 
-        projekt = new Projekt();
-        projekt.setPrimaryKey("B");
-        projekt.setVertragsnummer("1");
-        modelList.add(projekt);
+        Projekt projekt2 = new Projekt(partner1);
+        projekt2.setPrimaryKey("B");
+        projekt2.setVertragsnummer("1");
+        modelList.add(projekt2);
 
-        projekt = new Projekt();
-        projekt.setPrimaryKey("C");
-        projekt.setVertragsnummer("2");
-        modelList.add(projekt);
+        Projekt projekt3 = new Projekt(partner2);
+        projekt3.setPrimaryKey("C");
+        projekt3.setVertragsnummer("2");
+        modelList.add(projekt3);
 
         // Substanzen
-        Substanz substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzA1");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+        Substanz substanz1 = new Substanz(projekt1);
+        substanz1.setPrimaryKey("SubstanzA1");
+        substanz1.setProjektID("A");
+        modelList.add(substanz1);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzA2");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+        Substanz substanz2 = new Substanz(projekt1);
+        substanz2.setPrimaryKey("SubstanzA2");
+        substanz2.setProjektID("A");
+        modelList.add(substanz2);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzA3");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+        Substanz substanz3 = new Substanz(projekt1);
+        substanz3.setPrimaryKey("SubstanzA3");
+        substanz3.setProjektID("A");
+        modelList.add(substanz3);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzB");
-        substanz.setProjektID("B");
-        modelList.add(substanz);
+        Substanz substanz4 = new Substanz(projekt2);
+        substanz4.setPrimaryKey("SubstanzB");
+        substanz4.setProjektID("B");
+        modelList.add(substanz4);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzC");
-        substanz.setProjektID("C");
-        modelList.add(substanz);
-
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzG");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+        Substanz substanz5 = new Substanz(projekt3);
+        substanz5.setPrimaryKey("SubstanzC");
+        substanz5.setProjektID("C");
+        modelList.add(substanz5);
 
         // Proben
-        Probe probe = new Probe();
-        probe.setPrimaryKey("ProbeA");
-        probe.setSubstanzID("SubstanzA1");
-        modelList.add(probe);
+        Probe probe1 = new Probe(substanz1);
+        probe1.setPrimaryKey("ProbeA1");
+        probe1.setSubstanzID("SubstanzA1");
+        probe1.setName("Aspirin");
+        modelList.add(probe1);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeA2");
-        probe.setSubstanzID("SubstanzA1");
-        modelList.add(probe);
+        Probe probe2 = new Probe(substanz1);
+        probe2.setPrimaryKey("ProbeA2");
+        probe2.setSubstanzID("SubstanzA1");
+        probe2.setName("Aspirin");
+        modelList.add(probe2);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeB");
-        probe.setSubstanzID("SubstanzA2");
-        modelList.add(probe);
+        Probe probe3 = new Probe(substanz2);
+        probe3.setPrimaryKey("ProbeB1");
+        probe3.setSubstanzID("SubstanzB2");
+        probe3.setName("Hippursaeure");
+        modelList.add(probe3);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeB2");
-        probe.setSubstanzID("SubstanzA2");
-        modelList.add(probe);
+        Probe probe4 = new Probe(substanz2);
+        probe4.setPrimaryKey("ProbeB2");
+        probe4.setSubstanzID("SubstanzB2");
+        probe4.setName("Hippursaeure");
+        modelList.add(probe4);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeC");
-        probe.setSubstanzID("SubstanzA3");
-        modelList.add(probe);
+        Probe probe5 = new Probe(substanz3);
+        probe5.setPrimaryKey("ProbeC");
+        probe5.setSubstanzID("SubstanzC");
+        probe5.setName("Oxalsaeure");
+        modelList.add(probe5);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeC2");
-        probe.setSubstanzID("SubstanzA3");
-        modelList.add(probe);
+        Probe probe6 = new Probe(substanz3);
+        probe6.setPrimaryKey("ProbeC2");
+        probe6.setSubstanzID("SubstanzC2");
+        probe6.setName("Oxalsaeure");
+        modelList.add(probe6);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeD");
-        probe.setSubstanzID("SubstanzB");
-        modelList.add(probe);
-
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeD2");
-        probe.setSubstanzID("SubstanzB");
-        modelList.add(probe);
-
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeE");
-        probe.setSubstanzID("SubstanzC");
-        modelList.add(probe);
-
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeE2");
-        probe.setSubstanzID("SubstanzC");
-        modelList.add(probe);
-
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeF");
-        probe.setSubstanzID("SubstanzG");
-        modelList.add(probe);
-
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeF2");
-        probe.setSubstanzID("SubstanzG");
-        modelList.add(probe);
-
+//        Probe probe7 = new Probe();
+//        probe7.setPrimaryKey("ProbeD");
+//        probe7.setSubstanzID("SubstanzB");
+//        probe7.setName("Aspirin");
+//        modelList.add(probe7);
+//
+//        Probe probe8 = new Probe();
+//        probe8.setPrimaryKey("ProbeD2");
+//        probe8.setSubstanzID("SubstanzB");
+//        probe8.setName("Aspirin");
+//        modelList.add(probe8);
+//
+//        Probe probe9 = new Probe();
+//        probe9.setPrimaryKey("ProbeE");
+//        probe9.setSubstanzID("SubstanzC");
+//        probe9.setName("Aspirin");
+//        modelList.add(probe9);
+//
+//        Probe probe10 = new Probe();
+//        probe10.setPrimaryKey("ProbeE2");
+//        probe10.setSubstanzID("SubstanzC");
+//        probe10.setName("Aspirin");
+//        modelList.add(probe10);
+//
+//        Probe probe11 = new Probe();
+//        probe11.setPrimaryKey("ProbeF");
+//        probe11.setSubstanzID("SubstanzG");
+//        probe11.setName("Aspirin");
+//        modelList.add(probe11);
+//
+//        Probe probe12 = new Probe();
+//        probe12.setPrimaryKey("ProbeF2");
+//        probe12.setSubstanzID("SubstanzG");
+//        probe12.setName("Aspirin");
+//        modelList.add(probe12);
+        
         // Experimente
-        Experiment experiment = new Experiment();
-        experiment.setPrimaryKey("Experiment1");
-        experiment.setTyp("101");
-        experiment.setProbenNr("ProbeA");
-        modelList.add(experiment);
+        Experiment experiment1 = new Experiment(probe1);
+        experiment1.setPrimaryKey("Experiment1");
+        experiment1.setTyp("101");
+        experiment1.setProbenNr("ProbeA");
+        modelList.add(experiment1);
+        
+        Experiment experiment2 = new Experiment(probe2);
+        experiment2.setPrimaryKey("Experiment2");
+        experiment2.setTyp("202");
+        experiment2.setProbenNr("ProbeB");
+        modelList.add(experiment2);
 
         // Experiment Typen
-        Experimenttyp experimenttyp = new Experimenttyp();
-        experimenttyp.setPrimaryKey("101");
-        experimenttyp.setTyp("Verdampfung 1Lömi");
-        modelList.add(experimenttyp);
+        Experimenttyp experimenttyp1 = new Experimenttyp(experiment1);
+        experimenttyp1.setPrimaryKey("101");
+        experimenttyp1.setTyp("Verdampfung");
+        modelList.add(experimenttyp1);
 
-        experimenttyp = new Experimenttyp();
-        experimenttyp.setPrimaryKey("202");
-        experimenttyp.setTyp("Slurry 1Lömi");
-        modelList.add(experimenttyp);
+        Experimenttyp experimenttyp2 = new Experimenttyp(experiment2);
+        experimenttyp2.setPrimaryKey("202");
+        experimenttyp2.setTyp("Slurry");
+        modelList.add(experimenttyp2);
 
-        // Experiment Durchführungstext
-        ExperimentDurchfuehrungstext experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
-        experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext A");
-        experimentDurchfuehrungstext.setText(
-                "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
-                        "Die genaue Einwaage in den Datensatz eintragen.\n" +
-                        "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
-                        "Zugabe von 3.0 mL Lösungsmittel.\n" +
-                        "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n" +
-                        "Ultraschalldauer 5 min.\n" +
-                        "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n" +
-                        "5 ml Spritzen, Kanülen und 0.2 µm Rezist Spritzenfilteraufsätze sind im 25 °C vortemperierten Trockenschrank aufzubewahren.\n" +
-                        "Mit einer Spritze wird zügig die Lösung oder Suspension vollständig aufgezogen und über einen 0.2 µm Rezist Filter in ein neues 4.0 mL Vial mit aufgeklebter Experiment-No, dessen Tara-Wert im Datensatz notiert wird, filtriert und für das Verdampfungsexperiment in den Abzug gestellt.\n" +
-                        "Es werden, wenn möglich, täglich alle Vials auf Fortschritt der Verdampfung überprüft und die Beobachtung mit Datum im Datensatz notiert, bis die vollständige Verdampfung des Lösungsmittels festgestellt wurde.\n\n" +
-                        "Von den fertigen vials, die einen Rückstand enthalten wird zunächst eine Rückwaage durchgeführt und im Datensatz notiert und dann Makrofotos (Labor-Kamera genügt) angefertigt und dem Datensatz zugeordnet.\n" +
-                        "Die Vials werden dann mit dem Keyence Mikroskop in Augenschein genommen.\n" +
-                        "Sollten interessante Beobachtungen, Strukturen, Kristalle zu sehen sein, dann sind mit dem Keyence Mikroskop Fotos zu machen und diese werden dem Datensatz zugeordnet.\n" +
-                        "In kurzen Worten sind die Resultate im Datensatz zu notieren.\n" +
-                        "Es ist besonders Ausschau zu halten ob vermeintliche Einkristalle zu sehen sind, die dann gesondert heraus präpariert werden.\n\n" +
-                        "Die Proben werden verschlossen der Analytik übergeben.\n" +
-                        "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
-                        "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
-        );
-        modelList.add(experimentDurchfuehrungstext);
-
-        experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
-        experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext B");
-        experimentDurchfuehrungstext.setText(
-                "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
-                        "Die genaue Einwaage in den Datensatz eintragen.\n" +
-                        "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
-                        "Zugabe von 3.0 mL Lösungsmittel.\n" +
-                        "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n" +
-                        "Ultraschalldauer 5 min.\n" +
-                        "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n" +
-                        "5 ml Spritzen, Kanülen und 0.2 µm Rezist Spritzenfilteraufsätze sind im 25 °C vortemperierten Trockenschrank aufzubewahren.\n" +
-                        "Mit einer Spritze wird zügig die Lösung oder Suspension vollständig aufgezogen und über einen 0.2 µm Rezist Filter in ein neues 4.0 mL Vial mit aufgeklebter Experiment-No, dessen Tara-Wert im Datensatz notiert wird, filtriert und für das Verdampfungsexperiment in den Abzug gestellt.\n" +
-                        "Es werden, wenn möglich, täglich alle Vials auf Fortschritt der Verdampfung überprüft und die Beobachtung mit Datum im Datensatz notiert, bis die vollständige Verdampfung des Lösungsmittels festgestellt wurde.\n\n" +
-                        "Von den fertigen vials, die einen Rückstand enthalten wird zunächst eine Rückwaage durchgeführt und im Datensatz notiert und dann Makrofotos (Labor-Kamera genügt) angefertigt und dem Datensatz zugeordnet.\n" +
-                        "Die Vials werden dann mit dem Keyence Mikroskop in Augenschein genommen.\n" +
-                        "Sollten interessante Beobachtungen, Strukturen, Kristalle zu sehen sein, dann sind mit dem Keyence Mikroskop Fotos zu machen und diese werden dem Datensatz zugeordnet.\n" +
-                        "In kurzen Worten sind die Resultate im Datensatz zu notieren.\n" +
-                        "Es ist besonders Ausschau zu halten ob vermeintliche Einkristalle zu sehen sind, die dann gesondert heraus präpariert werden.\n\n" +
-                        "Die Proben werden verschlossen der Analytik übergeben.\n" +
-                        "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
-                        "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
-        );
-        modelList.add(experimentDurchfuehrungstext);
+        // Experiment Durchfuehrungstext
+        ExperimentDurchfuehrungstext experimentDurchfuehrungstext1 = new ExperimentDurchfuehrungstext();
+        experimentDurchfuehrungstext1.setPrimaryKey("Durchfuehrungstext A");
         
-		//------------Relation-Test fuer Suche------------//
+        // TODO Sonderzeichen machen Probleme
+        
+        experimentDurchfuehrungstext1.setText(
+                "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
+                        "Die genaue Einwaage in den Datensatz eintragen.\n" +
+                        "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
+                        "Zugabe von 3.0 mL Lösungsmittel.\n" +
+                        "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n" +
+                        "Ultraschalldauer 5 min.\n" +
+                        "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n" +
+                        "5 ml Spritzen, Kanülen und 0.2 µm Rezist Spritzenfilteraufsätze sind im 25 °C vortemperierten Trockenschrank aufzubewahren.\n" +
+                        "Mit einer Spritze wird zügig die Lösung oder Suspension vollständig aufgezogen und über einen 0.2 µm Rezist Filter in ein neues 4.0 mL Vial mit aufgeklebter Experiment-No, dessen Tara-Wert im Datensatz notiert wird, filtriert und für das Verdampfungsexperiment in den Abzug gestellt.\n" +
+                        "Es werden, wenn möglich, täglich alle Vials auf Fortschritt der Verdampfung überprüft und die Beobachtung mit Datum im Datensatz notiert, bis die vollständige Verdampfung des Lösungsmittels festgestellt wurde.\n\n" +
+                        "Von den fertigen vials, die einen Rückstand enthalten wird zunächst eine Rückwaage durchgeführt und im Datensatz notiert und dann Makrofotos (Labor-Kamera genügt) angefertigt und dem Datensatz zugeordnet.\n" +
+                        "Die Vials werden dann mit dem Keyence Mikroskop in Augenschein genommen.\n" +
+                        "Sollten interessante Beobachtungen, Strukturen, Kristalle zu sehen sein, dann sind mit dem Keyence Mikroskop Fotos zu machen und diese werden dem Datensatz zugeordnet.\n" +
+                        "In kurzen Worten sind die Resultate im Datensatz zu notieren.\n" +
+                        "Es ist besonders Ausschau zu halten ob vermeintliche Einkristalle zu sehen sind, die dann gesondert heraus präpariert werden.\n\n" +
+                        "Die Proben werden verschlossen der Analytik übergeben.\n" +
+                        "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
+                        "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
+        );
+        modelList.add(experimentDurchfuehrungstext1);
+
+        ExperimentDurchfuehrungstext experimentDurchfuehrungstext2 = new ExperimentDurchfuehrungstext();
+        experimentDurchfuehrungstext2.setPrimaryKey("Durchführungstext B");
+        
+        // TODO Sonderzeichen machen Probleme
+        
+        experimentDurchfuehrungstext2.setText(
+                "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
+                        "Die genaue Einwaage in den Datensatz eintragen.\n" +
+                        "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
+                        "Zugabe von 3.0 mL Lösungsmittel.\n" +
+                        "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n" +
+                        "Ultraschalldauer 5 min.\n" +
+                        "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n" +
+                        "5 ml Spritzen, Kanülen und 0.2 µm Rezist Spritzenfilteraufsätze sind im 25 °C vortemperierten Trockenschrank aufzubewahren.\n" +
+                        "Mit einer Spritze wird zügig die Lösung oder Suspension vollständig aufgezogen und über einen 0.2 µm Rezist Filter in ein neues 4.0 mL Vial mit aufgeklebter Experiment-No, dessen Tara-Wert im Datensatz notiert wird, filtriert und für das Verdampfungsexperiment in den Abzug gestellt.\n" +
+                        "Es werden, wenn möglich, täglich alle Vials auf Fortschritt der Verdampfung überprüft und die Beobachtung mit Datum im Datensatz notiert, bis die vollständige Verdampfung des Lösungsmittels festgestellt wurde.\n\n" +
+                        "Von den fertigen vials, die einen Rückstand enthalten wird zunächst eine Rückwaage durchgeführt und im Datensatz notiert und dann Makrofotos (Labor-Kamera genügt) angefertigt und dem Datensatz zugeordnet.\n" +
+                        "Die Vials werden dann mit dem Keyence Mikroskop in Augenschein genommen.\n" +
+                        "Sollten interessante Beobachtungen, Strukturen, Kristalle zu sehen sein, dann sind mit dem Keyence Mikroskop Fotos zu machen und diese werden dem Datensatz zugeordnet.\n" +
+                        "In kurzen Worten sind die Resultate im Datensatz zu notieren.\n" +
+                        "Es ist besonders Ausschau zu halten ob vermeintliche Einkristalle zu sehen sind, die dann gesondert heraus präpariert werden.\n\n" +
+                        "Die Proben werden verschlossen der Analytik übergeben.\n" +
+                        "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
+                        "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
+        );
+        modelList.add(experimentDurchfuehrungstext2);
+        
+        
+        
+		//------------Test-Daten fuer Suche------------//
 		
 //		Partner partner1 = new Partner();
 //		partner1.setName("Partner A");
@@ -455,7 +477,7 @@ public class DummyDB implements Database {
 	}
 
 	@Override
-	public List<List<Model>> getRelationList() {
+	public List<List<Model>> getDatabaseAsTupelList() {
 		
 		List<List<Model>> branches = new LinkedList<>();
 		
@@ -506,8 +528,8 @@ public class DummyDB implements Database {
 		List<Model> rootModelList = new LinkedList<>();
 		
 		for(Model model : modelList){
-//			if(model.getClass() == Partner.class) rootModelList.add(model);
-			if(!model.hasParents()) rootModelList.add(model);
+			if(model.getClass() == Partner.class) rootModelList.add(model);
+//			if(!model.hasParents()) rootModelList.add(model);
 		}
 		return rootModelList;
 	}
