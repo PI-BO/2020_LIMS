@@ -92,11 +92,6 @@ public class Mitarbeiter extends Model implements Login {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_VORNAME + "," + COLUMN_NACHNAME + "," + COLUMN_PASSWORD;
 	}
 
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-	}
-	
 	public void setPassword(String password) {
 		this.password = password;
 	}

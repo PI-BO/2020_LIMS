@@ -78,12 +78,6 @@ public class Projekt extends Model {
 		return dummyResultSet;
 	}
 
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
 		if (resultSet.next()) {
 			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);

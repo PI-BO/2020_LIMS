@@ -23,8 +23,6 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	public abstract void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException;
 	public abstract String getValuesAsSQLString();
 	public abstract String getRelationSchema();
-	public abstract void saveToDatabase();
-	
 	
 	/**
 	 * creates Model as root-node (no parent models)
@@ -50,6 +48,10 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	public Model(String primaryKey) throws SQLException, ModelNotFoundException {
 		this.primaryKey = primaryKey;
         database.getModel(this);
+	}
+	
+	public void saveToDatabase() throws SQLException{
+		database.saveModel(this);
 	}
 	
 	public String getPrimaryKey(){

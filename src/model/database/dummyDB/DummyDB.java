@@ -19,14 +19,19 @@ import model.database.tableModels.Substanz;
 public class DummyDB implements Database{
 
 	private List<Model> modelList = new LinkedList<>();
-	private List<Model[]> modelRelationList = new LinkedList<>();
 	
-	public DummyDB() {
-		
-		initModels();
+	public DummyDB(){
+		try
+		{
+			initModels();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	private void initModels() {
+	public void initModels() throws SQLException {
 		
 		Mitarbeiter mitarbeiter = new Mitarbeiter();
 		mitarbeiter.setVorname("Max");
@@ -97,44 +102,42 @@ public class DummyDB implements Database{
 		Projekt projekt1 = new Projekt(partner1);
 		projekt1.setPrimaryKey("Projekt A");
 		projekt1.setVertragsnummer("1");
+		modelList.add(projekt1);
 		
 		Projekt projekt2 = new Projekt(partner2);
 		projekt2.setPrimaryKey("Projekt B");
 		projekt2.setVertragsnummer("2");
+		modelList.add(projekt2);
 		
 		Probe probe1 = new Probe(projekt1);
 		probe1.setPrimaryKey("0001A");
 		probe1.setName("Probe A");
+		modelList.add(probe1);
 		
 		Probe probe2 = new Probe(projekt2);
 		probe2.setPrimaryKey("0001B");
 		probe2.setName("Probe B");
+		modelList.add(probe2);
 		
 		Experiment experiment1 = new Experiment(probe1);
 		experiment1.setPrimaryKey("0001Aexp0");
 		experiment1.setTyp("Slurry");
+		modelList.add(experiment1);
 		
 		Experiment experiment2 = new Experiment(probe1);
 		experiment2.setPrimaryKey("0001Aexp1");
 		experiment2.setTyp("Vedampfung");
+		modelList.add(experiment2);
 		
 		Experiment experiment3 = new Experiment(probe2);
 		experiment3.setPrimaryKey("0001Bexp0");
 		experiment3.setTyp("Slurry");
+		modelList.add(experiment3);
 		
 		Experiment experiment4 = new Experiment(probe2);
 		experiment4.setPrimaryKey("0001Bexp1");
 		experiment4.setTyp("Vedampfung");
-		
-//		Model[] relation1 = {partner1, projekt1, probe1, experiment1};
-//		Model[] relation2 = {partner1, projekt1, probe1, experiment2};
-//		Model[] relation3 = {partner2, projekt2, probe2, experiment3};
-//		Model[] relation4 = {partner2, projekt2, probe2, experiment4};
-//		
-//		modelRelationList.add(relation1);
-//		modelRelationList.add(relation2);
-//		modelRelationList.add(relation3);
-//		modelRelationList.add(relation4);
+		modelList.add(experiment4);
 	}
 
 	@Override
@@ -170,9 +173,7 @@ public class DummyDB implements Database{
 	
 	@Override
 	public void saveModel(Model model) throws SQLException {
-		// TODO Auto-generated method stub
-		System.out.print(this.getClass());
-		System.out.println("setModel() not implemented");
+		modelList.add(model);
 	}
 
 	@Override
@@ -296,7 +297,8 @@ public class DummyDB implements Database{
 		List<Model> rootModelList = new LinkedList<>();
 		
 		for(Model model : modelList){
-			if(model.getClass() == Partner.class) rootModelList.add(model);
+//			if(model.getClass() == Partner.class) rootModelList.add(model);
+			if(!model.hasParents()) rootModelList.add(model);
 		}
 		return rootModelList;
 	}

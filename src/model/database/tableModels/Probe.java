@@ -66,12 +66,6 @@ public class Probe extends Model{
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_SUBSTANZ_ID;
 	}
 
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public Substanz getSubstanz() throws ModelNotFoundException, SQLException {
         return new Substanz(substanzID);
     }
