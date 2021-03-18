@@ -1,9 +1,7 @@
 package model.database.tableModels;
 
 import exceptions.ModelNotFoundException;
-import model.database.Database;
 import model.database.dummyDB.DummyResultSet;
-import model.database.mariaDB.MariaDB;
 import utility.JSON;
 import utility.JSONArray;
 
@@ -16,16 +14,16 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ModelList extends Model{
+public class ModelTable extends Model{
 
-
-    private static final Logger LOGGER = LogManager.getLogger(ModelList.class.getSimpleName());
+    private static final Logger LOGGER = LogManager.getLogger(ModelTable.class.getSimpleName());
 
     private String table;
     private Model model;
     private List<Model> modelList = new LinkedList<>();;
 
-    public ModelList(Model model) throws SQLException, ModelNotFoundException {
+    public ModelTable(Model model) throws SQLException, ModelNotFoundException {
+    	super(model);
         this.model = model;
         table = model.getTable();
         database.getTable(this);
@@ -58,12 +56,6 @@ public class ModelList extends Model{
     }
 
 	@Override
-	public String getPrimaryKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getPrimaryKeyColumn() {
 		return model.getPrimaryKeyColumn();
 	}
@@ -81,7 +73,6 @@ public class ModelList extends Model{
 	@Override
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

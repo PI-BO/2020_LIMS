@@ -38,7 +38,7 @@ public class Gefahrensymbol extends Eigenschaften{
 	}
 
 	public void save() throws SQLException{
-		database.setModel(this);
+		database.saveModel(this);
 	}
 
 	@Override

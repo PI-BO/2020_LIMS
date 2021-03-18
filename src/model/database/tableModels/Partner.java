@@ -10,7 +10,6 @@ import utility.JSON;
 
 public class Partner extends Model {
 
-	private String primaryKey;
 	private String name;
 	private String email;
 	public static final String COLUMN_PRIMARY_KEY = "vertragsnummer";
@@ -18,19 +17,17 @@ public class Partner extends Model {
 	public static final String COLUMN_EMAIL = "email";
 	public static final String TABLE = "partner";
 
-	public Partner() {
-		
+	public Partner(){
+		super();
 	}
 	
-	public Partner(String vertragsnummer) throws SQLException, ModelNotFoundException {
-		this.primaryKey = vertragsnummer;
-		database.getModel(this);
-	}
-	
-	@Override
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
+	public Partner(Model parent) {
+    	super(parent);
+    }
+    
+    public Partner(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
 
 	@Override
 	public String getPrimaryKeyColumn() {
@@ -70,10 +67,6 @@ public class Partner extends Model {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import model.database.connection.DatabaseConnection;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.tableModels.Model;
-import model.database.tableModels.ModelList;
+import model.database.tableModels.ModelTable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -102,7 +102,7 @@ public class MariaDB implements Database {
     }
 
     @Override
-    public void setModel(Model model) throws SQLException {
+    public void saveModel(Model model) throws SQLException {
 
         String sqlStatement = "INSERT INTO " + model.getTable() + " (" + model.getRelationSchema() + ") VALUES (" + model.getValuesAsSQLString() + ");";
 
@@ -122,7 +122,7 @@ public class MariaDB implements Database {
     }
     
     @Override
-    public List<Model[]> getRelationList() {
+    public List<List<Model>> getRelationList() {
     	// TODO Auto-generated method stub
     	return null;
     }

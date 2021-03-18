@@ -9,27 +9,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Analysen extends Model{
-    private String primaryKey;
-    private String api;
+
+	private String api;
     private String bemerkung;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_API = "api";
     public static final String COLUMN_BEMERKUNG = "bemerkung";
     public static final String TABLE = "analysen";
+     
+    public Analysen(Model parent) {
+    	super(parent);
+    }
     
-    public Analysen() {
+    public Analysen(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
-
-    public Analysen(String id) throws SQLException, ModelNotFoundException {
-        this.primaryKey = id;
-        database.getModel(this);
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
+    
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;

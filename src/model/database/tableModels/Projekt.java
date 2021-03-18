@@ -12,47 +12,42 @@ import utility.JSON;
 
 public class Projekt extends Model {
 	
-	private String primaryKey;
-	private String vertragsnummer;
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
 	public static final String COLUMN_VERTRAGSNUMMER = "vertragsnummer";
 	public static final String TABLE = "projekte";
-
+	private String vertragsnummer;
+	
 	public Projekt(){
-		
+		super();
 	}
 	
-	public Projekt(String id) throws SQLException, ModelNotFoundException{
-		this.primaryKey = id;
-		database.getModel(this);
+	public Projekt(Model parent) {
+    	super(parent);
+    }
+    
+    public Projekt(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+	
+	@Override
+	public String getForeignKey() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-		if (resultSet.next()) {
-			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
-			primaryKey = resultSet.getString(projektIdIndex);
-		} else {
-			throw new ModelNotFoundException("Projekt nicht gefunden");
-		}
+	@Override
+	public String getPrimaryKeyColumn() {
+		return COLUMN_PRIMARY_KEY;
 	}
-	
-	public void save() throws SQLException{
-		database.setModel(this);
+
+	@Override
+	public String getRelationSchema() {
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_VERTRAGSNUMMER;
 	}
 
 	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
 		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
 		return projekteSubstanz.getSubstanzen();
-	}
-
-	@Override
-	public String getPrimaryKey() {
-		return primaryKey;
-	}
-
-	@Override
-	public String getPrimaryKeyColumn() {
-		return COLUMN_PRIMARY_KEY;
 	}
 
 	@Override
@@ -65,29 +60,10 @@ public class Projekt extends Model {
 		return "\"" + primaryKey + "\",\"" + vertragsnummer + "\"";
 	}
 
-	@Override
-	public String getRelationSchema() {
-		return COLUMN_PRIMARY_KEY + "," + COLUMN_VERTRAGSNUMMER;
-	}
-
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
-	public void setVertragsnummer(String vertragsnummer) {
-		this.vertragsnummer = vertragsnummer;
-	}
-	
 	public String getVertragsnummer() {
 		return vertragsnummer;
 	}
-
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 
@@ -103,9 +79,22 @@ public class Projekt extends Model {
 	}
 
 	@Override
-	public String getForeignKey() {
+	public void saveToDatabase() {
 		// TODO Auto-generated method stub
-		return null;
+		
+	}
+
+	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
+		if (resultSet.next()) {
+			int projektIdIndex = resultSet.findColumn(COLUMN_PRIMARY_KEY);
+			primaryKey = resultSet.getString(projektIdIndex);
+		} else {
+			throw new ModelNotFoundException("Projekt nicht gefunden");
+		}
+	}
+
+	public void setVertragsnummer(String vertragsnummer) {
+		this.vertragsnummer = vertragsnummer;
 	}
 	
 	@Override

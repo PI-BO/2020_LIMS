@@ -16,8 +16,8 @@ import java.sql.SQLException;
  * created on 03.02.2021
  */
 public class Sessions extends Model{
-    private String primaryKey;
-    private String date;
+
+	private String date;
     private String mitarbeiterID;
     public static final String COLUMN_PRIMARY_KEY = "session_key";
     public static final String COLUMN_DATE = "creation_date";
@@ -34,9 +34,16 @@ public class Sessions extends Model{
         mitarbeiterID = mitarbeiter.getPrimaryKey();
     }
 
-    public Sessions(String id) throws SQLException, ModelNotFoundException{
-        this.primaryKey = id;
-        database.getModel(this);
+    public Sessions(){
+		super();
+	}
+	
+	public Sessions(Model parent) {
+    	super(parent);
+    }
+    
+    public Sessions(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
@@ -50,15 +57,6 @@ public class Sessions extends Model{
         } else {
             throw new ModelNotFoundException("Session nicht gefunden");
         }
-    }
-
-    public void save() throws SQLException{
-        database.setModel(this);
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
     }
 
     @Override
@@ -97,14 +95,9 @@ public class Sessions extends Model{
         return COLUMN_PRIMARY_KEY + "," + COLUMN_DATE + "," + COLUMN_MITARBEITER_ID;
     }
 
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
-    }
-
 	@Override
 	public void saveToDatabase() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

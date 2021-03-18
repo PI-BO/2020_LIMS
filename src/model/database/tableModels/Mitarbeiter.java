@@ -12,27 +12,28 @@ import utility.JSON;
 
 public class Mitarbeiter extends Model implements Login {
 	
-	private String primaryKey;
 	private String password;
 	private String vorname;
 	private String nachname;
 	
-	public static final String TABLE= "mitarbeiter";
-	public static final String COLUMN_PRIMARY_KEY= "mitarbeiterID";
-	public static final String COLUMN_VORNAME= "vorname";
+	public static final String TABLE = "mitarbeiter";
+	public static final String COLUMN_PRIMARY_KEY = "mitarbeiterID";
+	public static final String COLUMN_VORNAME = "vorname";
 	public static final String COLUMN_NACHNAME = "nachname";
-	public static final String COLUMN_PASSWORD= "passwort";
+	public static final String COLUMN_PASSWORD = "passwort";
 
-	public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
-    	
-    	this.primaryKey = primaryKey;
-    	database.getModel(this);
-    }
-
-	public Mitarbeiter() {
-		// TODO Auto-generated constructor stub
+	public Mitarbeiter(){
+		super();
 	}
-
+	
+	public Mitarbeiter(Model parent) {
+    	super(parent);
+    }
+    
+    public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
 	public void setAttributes(ResultSet mitarbeiterResultSet) throws SQLException, ModelNotFoundException {
 
 		if (mitarbeiterResultSet.next()) {
@@ -69,11 +70,6 @@ public class Mitarbeiter extends Model implements Login {
 	
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
-	}
-
-	@Override
-	public String getPrimaryKey() {
-		return primaryKey;
 	}
 
 	@Override

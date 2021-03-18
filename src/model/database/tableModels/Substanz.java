@@ -16,26 +16,22 @@ public class Substanz extends Model {
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
     public static final String TABLE = "substanz";
 
-    public Substanz(String id) throws SQLException, ModelNotFoundException {
-        this.primaryKey = id;
-        database.getModel(this);
+    public Substanz(){
+		super();
+	}
+	
+	public Substanz(Model parent) {
+    	super(parent);
     }
-
-    public Substanz() {
-	}
     
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
+    public Substanz(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
 
 	public void setProjektID(String projektID) {
 		this.projektID = projektID;
 	}
 
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
 
     @Override
     public String getPrimaryKeyColumn() {

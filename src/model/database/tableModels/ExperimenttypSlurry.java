@@ -9,24 +9,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ExperimenttypSlurry extends Model{
-    private String primaryKey;
-    private String value;
+
+	private String value;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_VALUE = "value";
     public static final String TABLE = "experimenttyp_slurry";
 
-    public ExperimenttypSlurry(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
-    public ExperimenttypSlurry() {
-		// TODO Auto-generated constructor stub
+    public ExperimenttypSlurry(){
+		super();
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
+	
+	public ExperimenttypSlurry(Model parent) {
+    	super(parent);
+    }
+    
+    public ExperimenttypSlurry(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class ExperimenttypSlurry extends Model{
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             value = resultSet.getString(resultSet.findColumn(COLUMN_VALUE));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("ExperimenttypSlurry nicht gefunden");
         }
     }
 

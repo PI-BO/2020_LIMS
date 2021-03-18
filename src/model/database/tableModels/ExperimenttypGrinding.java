@@ -13,20 +13,18 @@ public class ExperimenttypGrinding extends Model{
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String TABLE = "experimenttyp_grinding";
 
-    public ExperimenttypGrinding(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
-    public ExperimenttypGrinding() {
-		// TODO Auto-generated constructor stub
+    public ExperimenttypGrinding(){
+		super();
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
+	
+	public ExperimenttypGrinding(Model parent) {
+    	super(parent);
     }
-
+    
+    public ExperimenttypGrinding(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
@@ -42,7 +40,7 @@ public class ExperimenttypGrinding extends Model{
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("ExperimenttypGrinding nicht gefunden");
         }
     }
 

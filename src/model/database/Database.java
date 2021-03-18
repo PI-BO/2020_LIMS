@@ -12,7 +12,7 @@ public interface Database {
 
     public void getModel(Model model) throws SQLException, ModelNotFoundException;
 
-    public void setModel(Model model) throws SQLException;
+    public void saveModel(Model model) throws SQLException;
 
     public void updateModel(Model model) throws SQLException;
 
@@ -26,5 +26,5 @@ public interface Database {
 
     <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N,M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException;
     
-    public List<Model[]> getRelationList();
+    public List<List<Model>> getRelationList();
 }

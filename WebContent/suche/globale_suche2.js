@@ -381,7 +381,6 @@ var GlobaleSuche = (function () {
 			showResultHeader(results, resultTableId);
 			showResults(results, resultTableId);
 		})
-
 	}
 
 	function showResultHeader(results, resultTableId) {
@@ -390,7 +389,7 @@ var GlobaleSuche = (function () {
 		const firstTupel = results[0];
 		if (firstTupel === undefined) return;
 		firstTupel.forEach(tupelElement => {
-			resultHeaderTupel.push(capitalize(tupelElement["category"]));
+			resultHeaderTupel.push(capitalize(tupelElement["table"]));
 		})
 
 		addTupelToTableHeader(resultHeaderTupel, resultTableId);
@@ -412,7 +411,7 @@ var GlobaleSuche = (function () {
 	}
 
 	function showResults(results, resultTableId) {
-		addTupelArrayToTable(results, resultTableId, "name");
+		addTupelArrayToTable(results, resultTableId, "id");
 	}
 
 	function addTupelArrayToTable(results, tableId, onlyThisKey) {

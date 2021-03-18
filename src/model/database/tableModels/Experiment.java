@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class Experiment extends Model{
 	
-    private String primaryKey;
     private String typ;
     private String proben_nr;
     public static final String COLUMN_PRIMARY_KEY = "id";
@@ -18,35 +17,26 @@ public class Experiment extends Model{
     public static final String COLUMN_PROBEN_NR = "proben_nr";
     public static final String TABLE = "experiment";
 
-    /**
-     * Model Class for Database Eigenschaften
-     * @param primaryKey
-     * Primary key of Database TAbele
-     * @throws ModelNotFoundException
-     * @throws SQLException
-     */
-    public Experiment(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
-    public Experiment() {
-		// TODO Auto-generated constructor stub
+    public Experiment(){
+		super();
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
+	
+	public Experiment(Model parent) {
+    	super(parent);
+    }
+    
+    public Experiment(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
     @Override
     public String getPrimaryKeyColumn() {
-        return null;
+        return COLUMN_PRIMARY_KEY;
     }
 
     @Override
     public String getTable() {
-        return null;
+        return TABLE;
     }
 
     @Override
@@ -64,9 +54,13 @@ public class Experiment extends Model{
         return typ;
     }
 
-    public String getProbenNr() {
-        return proben_nr;
-    }
+    public void setForeignKey(String proben_nr) {
+		this.proben_nr = proben_nr;
+	}
+    
+    public void setTyp(String typ) {
+		this.typ = typ;
+	}
 
 	@Override
 	public String getValuesAsSQLString() {
@@ -108,7 +102,6 @@ public class Experiment extends Model{
 		JSON json = new JSON();
 		json.addKeyValue("table", getTable());
 		json.addKeyValue("id", getPrimaryKey());
-		json.addKeyValue(COLUMN_PROBEN_NR, getProbenNr());	
 		json.addKeyValue(COLUMN_TYP, getTyp());	
 		
 		return json;
