@@ -11,10 +11,31 @@
     <title>Solid-Chem | LIMS - Insert Experiment</title>
     <link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
     <script src="<%=Address.getExperimentErstellenJS()%>"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#form_experiment_erstellen').submit(function () {
+                $.ajax({
+                    url: '<%=Address.getExperimentErstellenServlet()%>',
+                    type: 'post',
+                    data: $(this).serialize(),
+                    success: function () {
+                        replaceContent("button_experiment_speichern", "Erfolgreich gespeichert", "green");
+                    },
+                    error: function (e) {
+                        replaceContent("button_experiment_speichern", "Fehler: " + e, "red");
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
 <form id="form_experiment_erstellen">
-    <div class="experiment_erstellen_main_header">Experiment erstellen
+    <div class="experiment_erstellen_main_header">Experiment erstellen</div>
+
+    <div class="experiment_erstellen_header">Experiment Typ:</div>
+    <div class="experiment_erstellen_entry">
         <select required onchange="showExperimenttypFieldsMethode(this.value)" name=<%=ExperimentServlet.TYP%>>
             <option value="" selected disabled>bitte auswaehlen</option>
             <%
@@ -39,7 +60,7 @@
     </div>
 
     <div class="experiment_erstellen_entry">
-        <button type="submit">Speichern</button>
+        <button id="button_experiment_speichern" type="submit">Speichern</button>
     </div>
 </form>
 </body>

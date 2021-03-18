@@ -83,12 +83,6 @@ public class Partner extends Model {
 	}
 
 	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 
 		DummyResultSet dummyResultSet = new DummyResultSet();

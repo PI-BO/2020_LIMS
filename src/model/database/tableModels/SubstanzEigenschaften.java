@@ -60,11 +60,6 @@ public class SubstanzEigenschaften extends Model{
         return COLUMN_SUBSTANZ_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
     }
 
-    @Override
-    public void saveToDatabase() {
-
-    }
-
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 		

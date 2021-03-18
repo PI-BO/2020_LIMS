@@ -7,6 +7,7 @@ import model.database.connection.DatabaseConnection;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.sqlQuerryBuilder.SQLQueryBuilder;
+import model.database.tableModels.AnalyseTemperaturprogramme;
 import model.database.tableModels.Model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,6 +32,11 @@ public class MariaDB implements Database {
         ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 
         model.setAttributes(resultSet);
+    }
+
+    @Override
+    public void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestModel) throws ModelNotFoundException, SQLException {
+
     }
 
     @Override

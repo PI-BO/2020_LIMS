@@ -3,9 +3,11 @@
 <%@ page import="model.database.tableModels.*" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="exceptions.ModelNotFoundException" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.stream.Collectors" %>
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.NO_ID%>>
+    <input required type="number" name=<%=ExperimentServlet.NO_ID%>>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -15,7 +17,25 @@
 
 <div class="experiment_erstellen_header">Planung erfolgt durch</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.PLANUNG_ERFOLGT_DURCH%>>
+    <select required name=<%=ExperimentServlet.PLANUNG_ERFOLGT_DURCH%>>
+        <option value="" selected disabled>bitte auswaehlen</option>
+        <%
+            try {
+                ModelList modelList = new ModelList(new Mitarbeiter());
+                List<Model> projektplanung = modelList.getModelList().stream().filter(m -> ((Mitarbeiter) m).getRolle() == 1).collect(Collectors.toList());
+                for (Model model : projektplanung) {
+        %>
+        <option value="<%=model.getPrimaryKey()%>"><%=((Mitarbeiter) model).getNachname()%>
+        </option>
+        <%
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ModelNotFoundException e) {
+                e.printStackTrace();
+            }
+        %>
+    </select>
 </div>
 
 <div class="experiment_erstellen_header">Experiment Serie</div>
@@ -99,12 +119,12 @@
 
 <div class="experiment_erstellen_header">Startfreigabe (ab)</div>
 <div class="experiment_erstellen_entry">
-    <input type="date" name=<%=ExperimentServlet.STARTFREIGABE%>>
+    <input required type="date" name=<%=ExperimentServlet.STARTFREIGABE%>>
 </div>
 
 <div class="experiment_erstellen_header">Erledigt bis (soll)</div>
 <div class="experiment_erstellen_entry">
-    <input type="date" name=<%=ExperimentServlet.ERLEDIGT_BIS%>>
+    <input required type="date" name=<%=ExperimentServlet.ERLEDIGT_BIS%>>
 </div>
 
 <div class="experiment_erstellen_header">Hinweis an Laborleiter</div>
@@ -114,7 +134,7 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <input required type="text" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
 </div>
 
 <div class="experiment_erstellen_header">Planung Abgeschlossen</div>
@@ -134,12 +154,13 @@
 
 <div class="experiment_erstellen_header">Verantwortlicher Operator</div>
 <div class="experiment_erstellen_entry">
-    <select required name=<%=ExperimentServlet.VERANTWORTLICHER_OPERATOR%>>
+    <select name=<%=ExperimentServlet.VERANTWORTLICHER_OPERATOR%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
                 ModelList modelList = new ModelList(new Mitarbeiter());
-                for (Model model : modelList.getModelList()) {
+                List<Model> laborbetreuung = modelList.getModelList().stream().filter(m -> ((Mitarbeiter) m).getRolle() == 2).collect(Collectors.toList());
+                for (Model model : laborbetreuung) {
         %>
         <option value=<%=model.getPrimaryKey()%>><%=((Mitarbeiter) model).getNachname()%>
         </option>
@@ -183,12 +204,13 @@
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE%>>
+    <input type="number" value="0" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE%>">
+    <i>mg</i>
 </div>
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>>
+    <input type="number" value="0" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">CoF Bezeichnung</div>
@@ -203,17 +225,18 @@
 
 <div class="experiment_erstellen_header">CoF Soll Einwaage</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.COF_SOLL_EINWAAGE%>>
+    <input type="number" value="0" name="<%=ExperimentServlet.COF_SOLL_EINWAAGE%>">
+    <i>mg</i>
 </div>
 
 <div class="experiment_erstellen_header">CoF Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.COF_SOLL_EINWAAGE_MG%>>
+    <input type="number" value="0" name="<%=ExperimentServlet.COF_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">Soll Temperatur</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.SOLL_TEMPERATUR%>>
+    <input type="number" value="0" name="<%=ExperimentServlet.SOLL_TEMPERATUR%>">
 </div>
 
 <div class="experiment_erstellen_header">Lösungsmittel für API & CoF</div>
@@ -223,7 +246,7 @@
 
 <div class="experiment_erstellen_header">Vorgabe/Info Volumen</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.VORGABE_INFO_VOLUMEN%>>
+    <input type="text" value="keine Info" name=<%=ExperimentServlet.VORGABE_INFO_VOLUMEN%>>
 </div>
 
 <div class="experiment_erstellen_header">Lösungsmittel Ist Volumen</div>
@@ -253,7 +276,14 @@
 
 <div class="experiment_erstellen_header">Status Experiment</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.STATUS_EXPERIMENT%>>
+    <select required name=<%=ExperimentServlet.STATUS_EXPERIMENT%>>
+        <option value="" selected disabled>bitte auswaehlen</option>
+        <option value="angesetzt">angesetzt</option>
+        <option value="abgebrochen">abgebrochen</option>
+        <option value="abgeschlossen">abgeschlossen</option>
+        <option value="Probe aufgebraucht">Probe aufgebraucht</option>
+        <option value="rücksprache">rücksprache</option>
+    </select>
 </div>
 
 <div class="experiment_erstellen_header">Aufbereitung & Präsentation PXRD</div>

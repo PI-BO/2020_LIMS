@@ -25,7 +25,6 @@ public class Mitarbeiter extends Model implements Login {
 	public static final String COLUMN_ROLLE = "rolle";
 
 	public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
-    	
     	this.primaryKey = primaryKey;
     	database.getModel(this);
     }
@@ -39,7 +38,8 @@ public class Mitarbeiter extends Model implements Login {
 	       	int vornameIndex = mitarbeiterResultSet.findColumn(COLUMN_VORNAME);
 	       	int nachnameIndex = mitarbeiterResultSet.findColumn(COLUMN_NACHNAME);
 	       	int passwordIndex = mitarbeiterResultSet.findColumn(COLUMN_PASSWORD);
-	       	
+
+	       	primaryKey = mitarbeiterResultSet.getString(COLUMN_PRIMARY_KEY);
 	       	vorname = mitarbeiterResultSet.getString(vornameIndex);
 	       	nachname = mitarbeiterResultSet.getString(nachnameIndex);
 	       	password = mitarbeiterResultSet.getString(passwordIndex);
@@ -102,11 +102,6 @@ public class Mitarbeiter extends Model implements Login {
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_VORNAME + "," + COLUMN_NACHNAME + "," + COLUMN_PASSWORD;
 	}
-
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-	}
 	
 	public void setPassword(String password) {
 		this.password = password;
@@ -118,13 +113,13 @@ public class Mitarbeiter extends Model implements Login {
 
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
-
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry entry = new DummyResultSetEntry();
 		entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
 		entry.addKeyValuePair(COLUMN_NACHNAME, nachname);
 		entry.addKeyValuePair(COLUMN_VORNAME, vorname);
 		entry.addKeyValuePair(COLUMN_PASSWORD, password);
+		entry.addKeyValuePair(COLUMN_ROLLE, Integer.toString(rolle));
 		
 		dummyResultSet.addEntry(entry);
 		

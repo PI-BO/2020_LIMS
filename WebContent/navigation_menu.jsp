@@ -145,6 +145,17 @@
         });
     });
 
+    $("#experiment_erstellen").click(function () {
+        const url = "<%=Address.getAnalyseErstellenJsp()%>";
+        const posting = $.post(url, {});
+        posting.done(function (data) {
+            $("#main-content-explorer").hide();
+            $("#main-content-input-masks").hide();
+            $("#main-content-input-masks").empty().append(data);
+            $("#main-content-input-masks").show(500);
+        });
+    });
+
     $("#probeneingang_erstellen").click(function () {
         var url = "<%=Address.getProbeneingangJSP()%>";
         var posting = $.post(url, {});

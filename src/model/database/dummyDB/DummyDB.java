@@ -20,6 +20,24 @@ public class DummyDB implements Database {
     }
 
     private void initModels() {
+        // Rollen
+        MitarbeiterRolle rolle = new MitarbeiterRolle();
+        rolle.setPrimaryKey("1");
+        rolle.setTyp("Projektplanung");
+        rolle.setZugehoerigkeit("Projektmanager");
+        modelList.add(rolle);
+
+        rolle = new MitarbeiterRolle();
+        rolle.setPrimaryKey("2");
+        rolle.setTyp("Laborbetreuung");
+        rolle.setZugehoerigkeit("Laborleiter");
+        modelList.add(rolle);
+
+        rolle = new MitarbeiterRolle();
+        rolle.setPrimaryKey("3");
+        rolle.setTyp("Durchführung");
+        rolle.setZugehoerigkeit("Laborteam");
+        modelList.add(rolle);
 
         // Mitarbeiter
         Mitarbeiter mitarbeiter = new Mitarbeiter();
@@ -28,6 +46,22 @@ public class DummyDB implements Database {
         mitarbeiter.setPassword("abc");
         mitarbeiter.setPrimaryKey("123");
         mitarbeiter.setRolle(1);
+        modelList.add(mitarbeiter);
+
+        mitarbeiter = new Mitarbeiter();
+        mitarbeiter.setVorname("Maxime");
+        mitarbeiter.setNachname("Musterfrau");
+        mitarbeiter.setPassword("dot");
+        mitarbeiter.setPrimaryKey("987");
+        mitarbeiter.setRolle(2);
+        modelList.add(mitarbeiter);
+
+        mitarbeiter = new Mitarbeiter();
+        mitarbeiter.setVorname("Harry");
+        mitarbeiter.setNachname("Potter");
+        mitarbeiter.setPassword("qwe");
+        mitarbeiter.setPrimaryKey("456");
+        mitarbeiter.setRolle(3);
         modelList.add(mitarbeiter);
 
         // Partner
@@ -221,11 +255,22 @@ public class DummyDB implements Database {
 
     @Override
     public void getModel(Model requestedModel) throws SQLException, ModelNotFoundException {
-
         for (Model model : modelList) {
-
             if (tableNotFound(requestedModel, model)) continue;
             if (primaryKeyNotFound(requestedModel, model)) continue;
+
+            DummyResultSet dummyResultSet = model.returnAsDummyResultSet();
+            requestedModel.setAttributes(dummyResultSet);
+
+            break;
+        }
+    }
+
+    @Override
+    public void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestedModel) throws ModelNotFoundException, SQLException {
+        for (Model model : modelList) {
+            if (tableNotFound(requestedModel, model)) continue;
+            if (compositeKeyNotFound(requestedModel, model)) continue;
 
             DummyResultSet dummyResultSet = model.returnAsDummyResultSet();
             requestedModel.setAttributes(dummyResultSet);
@@ -246,15 +291,25 @@ public class DummyDB implements Database {
         return !model.getForeignKey().equals(requestedKey);
     }
 
+    private boolean compositeKeyNotFound(AnalyseTemperaturprogramme requestModel, DummyRelation model) {
+        boolean ret = false;
+        String[] keys = requestModel.getPrimaryKeys();
+        if (model instanceof AnalyseTemperaturprogramme) {
+            String[] dummyKeys = ((AnalyseTemperaturprogramme) model).getPrimaryKeys();
+            ret = true;
+            for (int i = 0; i < keys.length; i++)
+                ret = ret && keys[i].equals(dummyKeys[i]);
+        }
+        return ret;
+    }
+
     private boolean tableNotFound(String requestedTable, Model model) {
         return !model.getTable().equals(requestedTable);
     }
 
     @Override
     public void setModel(Model model) throws SQLException {
-        // TODO Auto-generated method stub
-        System.out.print(this.getClass());
-        System.out.println("setModel() not implemented");
+        modelList.add(model);
     }
 
     @Override
@@ -278,7 +333,6 @@ public class DummyDB implements Database {
 
         for (Model listModel : modelList) {
             if (!listModel.getTable().equals(requestedModel.getTable())) continue;
-            System.out.println(listModel.returnAsDummyResultSet().getEntryList().get(0).get(1).getValue());
             dummyResultSet.addResultSet(listModel.returnAsDummyResultSet());
         }
 
@@ -343,5 +397,4 @@ public class DummyDB implements Database {
 
         return dummyResultSet;
     }
-
 }

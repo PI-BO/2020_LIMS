@@ -1,4 +1,4 @@
-function showExperimenttypFieldsMethode(select) {
+function showAnalysetypFieldsMethode(select) {
     let experimentErstellenSubPage;
     switch (select) {
         case "202":
@@ -13,17 +13,11 @@ function showExperimenttypFieldsMethode(select) {
 
     const experimentErstellenPosting = $.post(experimentErstellenSubPage, {});
     experimentErstellenPosting.done(function (data) {
-        $("#experiment_erstellen_content").empty().append(data);
+        $("#analyse_erstellen_content").empty().append(data);
     });
 }
 
-function newExperimentSerie(value) {
-    const text = $("#experiment_serie_text")
-    if (value === "new") text.show()
-    else text.hide()
-}
-
-function newExperimentDurchfuehrungstext(select) {
+function newAnalyseTemeraturprogramme(select) {
     const text = $("#experiment_durchführungstext_text")
     const value = select.value
     const durchfuehrungstext = select.selectedOptions[0].firstChild.data.trim()

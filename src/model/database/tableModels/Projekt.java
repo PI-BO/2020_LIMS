@@ -10,7 +10,6 @@ import model.database.dummyDB.DummyResultSetEntry;
 import model.database.relations.ProjekteSubstanz;
 
 public class Projekt extends Model {
-	
 	private String primaryKey;
 	private String vertragsnummer;
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
@@ -34,10 +33,6 @@ public class Projekt extends Model {
 		} else {
 			throw new ModelNotFoundException("Projekt nicht gefunden");
 		}
-	}
-	
-	public void save() throws SQLException{
-		database.setModel(this);
 	}
 
 	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
@@ -80,12 +75,6 @@ public class Projekt extends Model {
 
 	public String getVertragsnummer() {
 		return vertragsnummer;
-	}
-
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

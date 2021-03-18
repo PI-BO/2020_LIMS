@@ -73,9 +73,4 @@ public class Gefahrensymbol extends Eigenschaften{
 	public void setImage(InputStream image) {
 		this.image = image;
 	}
-
-	@Override
-	public void saveToDatabase() {
-		// TODO Auto-generated method stub
-	}
 }

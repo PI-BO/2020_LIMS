@@ -19,5 +19,7 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation{
 	public abstract void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException;
 	public abstract String getValuesAsSQLString();
 	public abstract String getRelationSchema();
-	public abstract void saveToDatabase();
+	public void saveToDatabase() throws SQLException {
+		database.setModel(this);
+	}
 }

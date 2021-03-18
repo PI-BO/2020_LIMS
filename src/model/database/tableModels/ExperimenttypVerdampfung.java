@@ -10,45 +10,46 @@ import java.sql.SQLException;
 
 public class ExperimenttypVerdampfung extends Model {
     private String primaryKey;
-    private int planung;
-    private String serie;
+    private String screening_no;
+    private int planung_erfolgt_durch;
+    private String experiment_serie;
+    private String experiment_no;
     private String durchfuehrung;
-    private String notiz_intention;
+    private String projektleiternotiz_intention;
     private String verweis;
     private Date startfreigabe;
     private Date erledigt_bis;
-    private String hinweis_laborleiter;
+    private String hinweis_an_laborleiter;
     private boolean planung_abgeschlossen;
-    private String prioritaet;
+    private String prioritaet_experiment;
     private String sicherheitshinweis;
-    private int operator;
+    private int verantwortlicher_operator;
     private Date experiment_start;
     private double vial_tara;
-    private double soll_einwaage;
-    private double einwaage;
+    private double api_startmaterial_soll_einwaage;
+    private double api_startmaterial_soll_einwaage_mg;
     private String cof_bezeichnung;
     private String cof_ref_code;
     private double cof_soll_einwaaage;
-    private double cof_einwaage;
+    private double cof_soll_einwaage_mg;
     private double soll_temperatur;
-    private String loesungsmittel;
-    private String vorgabe_volumen;
-    private String ist_volumen;
-    private String beobachtungen_aenderungen;
-    private Date start;
-    private String beobachtungen_verlauf;
-    private Date ende;
-    private String status;
+    private String loesungsmittel_fuer_api_cof;
+    private String vorgabe_info_volumen;
+    private String loesungsmittel_ist_volumen;
+    private String beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments;
+    private String beobachtungen_zum_experimentverlauf;
+    private Date experiment_ende;
+    private String status_experiment;
     private Date aufarbeitung_präsentation_pxrd;
-    private String beobachtung_aufarbeitung;
-    private double ausbeute_vial_kristallisat;
-    private double ausbeute_praep_analystik;
-    private String lagerorte;
+    private String beobachtung_zum_ende_des_experiments_aufarbeitung;
+    private double auswaage_vial_kristallisat;
+    private double ausbeute_von_praep_analystik;
+    private String standort_lagerorte_der_finalen_probe;
     private String prioritaet_analytik;
     private String erstanalytik_pxrd;
     private boolean pxrd_moeglich;
-    private String weitere_analytik_moeglich;
-    private boolean ergebnis_pxrd;
+    private String mit_ausbeute_rest_weitere_analytik_moeglich;
+    private String ergebnis_pxrd;
     private boolean folgeanalytik_dsc;
     private boolean folgeanalytik_tg;
     private boolean folgeanalytik_pxrd_ii;
@@ -56,7 +57,7 @@ public class ExperimenttypVerdampfung extends Model {
     private boolean folgeanalytik_ir;
     private boolean folgeanalytik_raman;
     private boolean folgeanalytik_omi;
-    private String informationen_folgeanalytik;
+    private String informationen_zur_folgeanalytik;
     private String ergebnis_dsc;
     private String ergebnis_tg;
     private String ergebnis_pxrd_ii;
@@ -68,57 +69,58 @@ public class ExperimenttypVerdampfung extends Model {
     private String gesamt_ergebnis;
     private String einstufung_ergebnis;
     public static final String COLUMN_PRIMARY_KEY = "id";
-    public static final String COLUMN_PLANUNG_KEY = "planung";
-    public static final String COLUMN_SERIE_KEY = "serie";
-    public static final String COLUMN_DURCHFÜHRUNG_KEY = "durchfuehrung";
-    public static final String COLUMN_NOTIZ_INTENTION_KEY = "notiz_intention";
+    public static final String COLUMN_SCREENING_NO_KEY = "screening_no";
+    public static final String COLUMN_PLANUNG_ERFOLGT_DURCH_KEY = "planung_erfolgt_durch";
+    public static final String COLUMN_EXPERIMENT_SERIE_KEY = "experiment_serie";
+    public static final String COLUMN_EXPERIMENT_NO_KEY = "experimnt_no";
+    public static final String COLUMN_DURCHFUEHRUNG_KEY = "durchfuehrung";
+    public static final String COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY = "projektleiternotiz_intention";
     public static final String COLUMN_VERWEIS_KEY = "verweis";
     public static final String COLUMN_STARTFREIGABE_KEY = "startfreigabe";
     public static final String COLUMN_ERLEDIGT_BIS_KEY = "erledigt_bis";
-    public static final String COLUMN_HINWEIS_LABORLEITER_KEY = "hinweis_laborleiter";
+    public static final String COLUMN_HINWEIS_LABORLEITER_KEY = "hinweis_an_laborleiter";
     public static final String COLUMN_PLANUNG_ABGESCHLOSSEN_KEY = "planung_abgeschlossen";
-    public static final String COLUMN_PRIORITAET_KEY = "prioritaet";
+    public static final String COLUMN_PRIORITAET_EXPERIMENT_KEY = "prioritaet_experiment";
     public static final String COLUMN_SICHERHEITSHINWEIS_KEY = "sicherheitshinweis";
-    public static final String COLUMN_OPERATOR_KEY = "operator";
+    public static final String COLUMN_VERANTWORTLICHER_OPERATOR = "verantwortlicher_operator";
     public static final String COLUMN_EXPERIMENT_START_KEY = "experiment_start";
     public static final String COLUMN_VIAL_TARA_KEY = "vial_tara";
-    public static final String COLUMN_SOLL_EINWAAGE_KEY = "soll_einwaage";
-    public static final String COLUMN_EINWAAGE_KEY = "einwaage";
+    public static final String COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE = "api_startmaterial_soll_einwaage";
+    public static final String COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG = "api_startmaterial_soll_einwaage_mg";
     public static final String COLUMN_COF_BEZEICHNUNG_KEY = "cof_bezeichnung";
     public static final String COLUMN_COF_REF_CODE_KEY = "cof_ref_code";
     public static final String COLUMN_COF_SOLL_EINWAAGE_KEY = "cof_soll_einwaaage";
-    public static final String COLUMN_COF_EINWAAGE_KEY = "cof_einwaage";
+    public static final String COLUMN_COF_SOLL_EINWAAGE_MG_KEY = "cof_soll_einwaage_mg";
     public static final String COLUMN_SOLL_TEMPERATUR_KEY = "soll_temperatur";
-    public static final String COLUMN_LOESUNGSMITTEL_KEY = "loesungsmittel";
-    public static final String COLUMN_VORGABE_VOLUMEN_KEY = "vorgabe_volumen";
-    public static final String COLUMN_IST_VOLUMEN_KEY = "ist_volumen";
-    public static final String COLUMN_BEOBACHTUNGEN_AENDERUNGEN_KEY = "beobachtungen_aenderungen";
-    public static final String COLUMN_START_KEY = "start";
-    public static final String COLUMN_BEOBACHTUNGEN_VERLAUF_KEY = "beobachtungen_verlauf";
-    public static final String COLUMN_ENDE_KEY = "ende";
-    public static final String COLUMN_STATUS_KEY = "status";
+    public static final String COLUMN_LOESUNGSMITTEL_FUER_API_COF_KEY = "loesungsmittel_fuer_api_cof";
+    public static final String COLUMN_VORGABE_INFO_VOLUMEN_KEY = "vorgabe_info_volumen";
+    public static final String COLUMN_LOESUNGSMITTEL_IST_VOLUMEN_KEY = "loesungsmittel_ist_volumen";
+    public static final String COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY = "beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments";
+    public static final String COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY = "beobachtungen_zum_experimentverlauf";
+    public static final String COLUMN_EXPERIMENT_ENDE = "experiment_ende";
+    public static final String COLUMN_STATUS_EXPERIMENT_KEY = "status_experiment";
     public static final String COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY = "aufarbeitung_präsentation_pxrd";
-    public static final String COLUMN_BEOBACHTUNG_AUFBEREITUNG_KEY = "beobachtung_aufarbeitung";
-    public static final String COLUMN_AUSBEUTE_VIAL_KRISTALLISAT_KEY = "ausbeute_vial_kristallisat";
-    public static final String COLUMN_AUSBEUTE_PRAEP_ANALYSTIK_KEY = "ausbeute_praep_analystik";
-    public static final String COLUMN_LAGERORTE_KEY = "lagerorte";
-    public static final String CPLUMN_PRIORITAET_ANALYSTIK_KEY = "prioritaet_analytik";
+    public static final String COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY = "beobachtung_zum_ende_des_experiments_aufarbeitung";
+    public static final String COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY = "ausbeute_vial_kristallisat";
+    public static final String COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY = "ausbeute_von_praep_analystik";
+    public static final String COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE = "standort_lagerorte_der_finalen_probe";
+    public static final String COLUMN_PRIORITAET_ANALYTIK_KEY = "prioritaet_analytik";
     public static final String COLUMN_ERSTANALYTIK_PXRD_KEY = "erstanalytik_pxrd";
     public static final String COLUMN_PXRD_MOEGLICH_KEY = "pxrd_moeglich";
-    public static final String COLUMN_WEITERE_ANALYTIK_MOEGLICH_KEY = "weitere_analytik_moeglich";
+    public static final String COLUMN_MIT_AUSBEUTE_REST_WEITERE_ANALYTIK_MOEGLICH_KEY = "mit_ausbeute_rest_weitere_analytik_moeglich";
     public static final String COLUMN_ERGEBNIS_PXRD_KEY = "ergebnis_pxrd";
     public static final String COLUMN_FOLGEANALYTIK_DSC_KEY = "folgeanalytik_dsc";
     public static final String COLUMN_FOLGEANALYTIK_TG_KEY = "folgeanalytik_tg";
     public static final String COLUMN_FOLGEANALYTIK_PXRD_II_KEY = "folgeanalytik_pxrd_ii";
-    public static final String COLUMN_FOLGEANALYTIK_H_NMR_KEY = "folgeanalytik_h-nmr";
+    public static final String COLUMN_FOLGEANALYTIK_H_NMR_KEY = "folgeanalytik_h_nmr";
     public static final String COLUMN_FOLGEANALYTIK_IR_KEY = "folgeanalytik_ir";
     public static final String COLUMN_FOLGEANALYTIK_RAMAN_KEY = "folgeanalytik_raman";
     public static final String COLUMN_FOLGEANALYTIK_OMI_KEY = "folgeanalytik_omi";
-    public static final String COLUMN_INFORMATIONEN_FOLGEANALYTIK_KEY = "informationen_folgeanalytik";
+    public static final String COLUMN_INFORMATIONEN_ZUR_FOLGEANALYTIK_KEY = "informationen_zur_folgeanalytik";
     public static final String COLUMN_ERGEBNIS_DSC_KEY = "ergebnis_dsc";
     public static final String COLUMN_ERGEBNIS_TG_KEY = "ergebnis_tg";
     public static final String COLUMN_ERGEBNIS_PXRD_II_KEY = "ergebnis_pxrd_ii";
-    public static final String COLUMN_ERGEBNIS_H_NMR_KEY = "ergebnis_h-nmr";
+    public static final String COLUMN_ERGEBNIS_H_NMR_KEY = "ergebnis_h_nmr";
     public static final String COLUMN_ERGEBNIS_IR_KEY = "ergebnis_ir";
     public static final String COLUMN_ERGEBNIS_RAMAN_KEY = "ergebnis_raman";
     public static final String COLUMN_ERGEBNIS_OMI_KEY = "ergebnis_omi";
@@ -138,7 +140,74 @@ public class ExperimenttypVerdampfung extends Model {
 
     @Override
     public String getForeignKey() {
-        return null;
+        return primaryKey;
+    }
+
+    @Override
+    public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
+        if (resultSet.next()) {
+            primaryKey = resultSet.getString(COLUMN_PRIMARY_KEY);
+            screening_no = resultSet.getString(COLUMN_SCREENING_NO_KEY);
+            planung_erfolgt_durch = resultSet.getInt(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY);
+            experiment_serie = resultSet.getString(COLUMN_EXPERIMENT_SERIE_KEY);
+            experiment_no = resultSet.getString(COLUMN_EXPERIMENT_NO_KEY);
+            durchfuehrung = resultSet.getString(COLUMN_DURCHFUEHRUNG_KEY);
+            projektleiternotiz_intention = resultSet.getString(COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY);
+            verweis = resultSet.getString(COLUMN_VERWEIS_KEY);
+            startfreigabe = resultSet.getDate(COLUMN_STARTFREIGABE_KEY);
+            erledigt_bis = resultSet.getDate(COLUMN_ERLEDIGT_BIS_KEY);
+            hinweis_an_laborleiter = resultSet.getString(COLUMN_HINWEIS_LABORLEITER_KEY);
+            planung_abgeschlossen = resultSet.getBoolean(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY);
+            prioritaet_experiment = resultSet.getString(COLUMN_PRIORITAET_EXPERIMENT_KEY);
+            sicherheitshinweis = resultSet.getString(COLUMN_SICHERHEITSHINWEIS_KEY);
+            verantwortlicher_operator = resultSet.getInt(COLUMN_VERANTWORTLICHER_OPERATOR);
+            experiment_start = resultSet.getDate(COLUMN_EXPERIMENT_START_KEY);
+            vial_tara = resultSet.getDouble(COLUMN_VIAL_TARA_KEY);
+            api_startmaterial_soll_einwaage = resultSet.getDouble(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE);
+            api_startmaterial_soll_einwaage_mg = resultSet.getDouble(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG);
+            cof_bezeichnung = resultSet.getString(COLUMN_COF_BEZEICHNUNG_KEY);
+            cof_ref_code = resultSet.getString(COLUMN_COF_REF_CODE_KEY);
+            cof_soll_einwaaage = resultSet.getDouble(COLUMN_COF_SOLL_EINWAAGE_KEY);
+            cof_soll_einwaage_mg = resultSet.getDouble(COLUMN_COF_SOLL_EINWAAGE_MG_KEY);
+            soll_temperatur = resultSet.getDouble(COLUMN_SOLL_TEMPERATUR_KEY);
+            loesungsmittel_fuer_api_cof = resultSet.getString(COLUMN_LOESUNGSMITTEL_FUER_API_COF_KEY);
+            vorgabe_info_volumen = resultSet.getString(COLUMN_VORGABE_INFO_VOLUMEN_KEY);
+            loesungsmittel_ist_volumen = resultSet.getString(COLUMN_LOESUNGSMITTEL_IST_VOLUMEN_KEY);
+            beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments = resultSet.getString(COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY);
+            beobachtungen_zum_experimentverlauf = resultSet.getString(COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY);
+            experiment_ende = resultSet.getDate(COLUMN_EXPERIMENT_ENDE);
+            status_experiment = resultSet.getString(COLUMN_STATUS_EXPERIMENT_KEY);
+            aufarbeitung_präsentation_pxrd = resultSet.getDate(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY);
+            beobachtung_zum_ende_des_experiments_aufarbeitung = resultSet.getString(COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY);
+            auswaage_vial_kristallisat = resultSet.getDouble(COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY);
+            ausbeute_von_praep_analystik = resultSet.getDouble(COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY);
+            standort_lagerorte_der_finalen_probe = resultSet.getString(COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE);
+            prioritaet_analytik = resultSet.getString(COLUMN_PRIORITAET_ANALYTIK_KEY);
+            erstanalytik_pxrd = resultSet.getString(COLUMN_ERSTANALYTIK_PXRD_KEY);
+            pxrd_moeglich = resultSet.getBoolean(COLUMN_PXRD_MOEGLICH_KEY);
+            mit_ausbeute_rest_weitere_analytik_moeglich = resultSet.getString(COLUMN_MIT_AUSBEUTE_REST_WEITERE_ANALYTIK_MOEGLICH_KEY);
+            ergebnis_pxrd = resultSet.getString(COLUMN_ERGEBNIS_PXRD_KEY);
+            folgeanalytik_dsc = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_DSC_KEY);
+            folgeanalytik_tg = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_TG_KEY);
+            folgeanalytik_pxrd_ii = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_PXRD_II_KEY);
+            folgeanalytik_h_nmr = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_H_NMR_KEY);
+            folgeanalytik_ir = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_IR_KEY);
+            folgeanalytik_raman = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_RAMAN_KEY);
+            folgeanalytik_omi = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_OMI_KEY);
+            informationen_zur_folgeanalytik = resultSet.getString(COLUMN_INFORMATIONEN_ZUR_FOLGEANALYTIK_KEY);
+            ergebnis_dsc = resultSet.getString(COLUMN_ERGEBNIS_DSC_KEY);
+            ergebnis_tg = resultSet.getString(COLUMN_ERGEBNIS_TG_KEY);
+            ergebnis_pxrd_ii = resultSet.getString(COLUMN_ERGEBNIS_PXRD_II_KEY);
+            ergebnis_h_nmr = resultSet.getString(COLUMN_ERGEBNIS_H_NMR_KEY);
+            ergebnis_ir = resultSet.getString(COLUMN_ERGEBNIS_IR_KEY);
+            ergebnis_raman = resultSet.getString(COLUMN_ERGEBNIS_RAMAN_KEY);
+            ergebnis_omi = resultSet.getString(COLUMN_ERGEBNIS_OMI_KEY);
+            status_analytik = resultSet.getString(COLUMN_STATUS_ANALYTIK_KEY);
+            gesamt_ergebnis = resultSet.getString(COLUMN_GESAMT_ERGEBNIS_KEY);
+            einstufung_ergebnis = resultSet.getString(COLUMN_EINSTUFUNG_ERGEBNIS_KEY);
+        } else {
+            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+        }
     }
 
     @Override
@@ -147,45 +216,46 @@ public class ExperimenttypVerdampfung extends Model {
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry entry = new DummyResultSetEntry();
         entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
-        entry.addKeyValuePair(COLUMN_PLANUNG_KEY, Integer.toString(planung));
-        entry.addKeyValuePair(COLUMN_SERIE_KEY, serie);
-        entry.addKeyValuePair(COLUMN_DURCHFÜHRUNG_KEY, durchfuehrung);
-        entry.addKeyValuePair(COLUMN_NOTIZ_INTENTION_KEY, notiz_intention);
+        entry.addKeyValuePair(COLUMN_SCREENING_NO_KEY, screening_no);
+        entry.addKeyValuePair(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, Integer.toString(planung_erfolgt_durch));
+        entry.addKeyValuePair(COLUMN_EXPERIMENT_SERIE_KEY, experiment_serie);
+        entry.addKeyValuePair(COLUMN_EXPERIMENT_NO_KEY, experiment_no);
+        entry.addKeyValuePair(COLUMN_DURCHFUEHRUNG_KEY, durchfuehrung);
+        entry.addKeyValuePair(COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY, projektleiternotiz_intention);
         entry.addKeyValuePair(COLUMN_VERWEIS_KEY, verweis);
         entry.addKeyValuePair(COLUMN_STARTFREIGABE_KEY, startfreigabe.toString());
         entry.addKeyValuePair(COLUMN_ERLEDIGT_BIS_KEY, erledigt_bis.toString());
-        entry.addKeyValuePair(COLUMN_HINWEIS_LABORLEITER_KEY, hinweis_laborleiter);
+        entry.addKeyValuePair(COLUMN_HINWEIS_LABORLEITER_KEY, hinweis_an_laborleiter);
         entry.addKeyValuePair(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, Boolean.toString(planung_abgeschlossen));
-        entry.addKeyValuePair(COLUMN_PRIORITAET_KEY, prioritaet);
+        entry.addKeyValuePair(COLUMN_PRIORITAET_EXPERIMENT_KEY, prioritaet_experiment);
         entry.addKeyValuePair(COLUMN_SICHERHEITSHINWEIS_KEY, sicherheitshinweis);
-        entry.addKeyValuePair(COLUMN_OPERATOR_KEY, Integer.toString(operator));
+        entry.addKeyValuePair(COLUMN_VERANTWORTLICHER_OPERATOR, Integer.toString(verantwortlicher_operator));
         entry.addKeyValuePair(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
         entry.addKeyValuePair(COLUMN_VIAL_TARA_KEY, Double.toString(vial_tara));
-        entry.addKeyValuePair(COLUMN_SOLL_EINWAAGE_KEY, Double.toString(soll_einwaage));
-        entry.addKeyValuePair(COLUMN_EINWAAGE_KEY, Double.toString(einwaage));
+        entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE, Double.toString(api_startmaterial_soll_einwaage));
+        entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG, Double.toString(api_startmaterial_soll_einwaage_mg));
         entry.addKeyValuePair(COLUMN_COF_BEZEICHNUNG_KEY, cof_bezeichnung);
         entry.addKeyValuePair(COLUMN_COF_REF_CODE_KEY, cof_ref_code);
         entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_KEY, Double.toString(cof_soll_einwaaage));
-        entry.addKeyValuePair(COLUMN_COF_EINWAAGE_KEY, Double.toString(cof_einwaage));
+        entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_MG_KEY, Double.toString(cof_soll_einwaage_mg));
         entry.addKeyValuePair(COLUMN_SOLL_TEMPERATUR_KEY, Double.toString(soll_temperatur));
-        entry.addKeyValuePair(COLUMN_LOESUNGSMITTEL_KEY, loesungsmittel);
-        entry.addKeyValuePair(COLUMN_VORGABE_VOLUMEN_KEY, vorgabe_volumen);
-        entry.addKeyValuePair(COLUMN_IST_VOLUMEN_KEY, ist_volumen);
-        entry.addKeyValuePair(COLUMN_BEOBACHTUNGEN_AENDERUNGEN_KEY, beobachtungen_aenderungen);
-        entry.addKeyValuePair(COLUMN_START_KEY, start.toString());
-        entry.addKeyValuePair(COLUMN_BEOBACHTUNGEN_VERLAUF_KEY, beobachtungen_verlauf);
-        entry.addKeyValuePair(COLUMN_ENDE_KEY, ende.toString());
-        entry.addKeyValuePair(COLUMN_STATUS_KEY, status);
+        entry.addKeyValuePair(COLUMN_LOESUNGSMITTEL_FUER_API_COF_KEY, loesungsmittel_fuer_api_cof);
+        entry.addKeyValuePair(COLUMN_VORGABE_INFO_VOLUMEN_KEY, vorgabe_info_volumen);
+        entry.addKeyValuePair(COLUMN_LOESUNGSMITTEL_IST_VOLUMEN_KEY, loesungsmittel_ist_volumen);
+        entry.addKeyValuePair(COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY, beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments);
+        entry.addKeyValuePair(COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY, beobachtungen_zum_experimentverlauf);
+        entry.addKeyValuePair(COLUMN_EXPERIMENT_ENDE, experiment_ende.toString());
+        entry.addKeyValuePair(COLUMN_STATUS_EXPERIMENT_KEY, status_experiment);
         entry.addKeyValuePair(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, aufarbeitung_präsentation_pxrd.toString());
-        entry.addKeyValuePair(COLUMN_BEOBACHTUNG_AUFBEREITUNG_KEY, beobachtung_aufarbeitung);
-        entry.addKeyValuePair(COLUMN_AUSBEUTE_VIAL_KRISTALLISAT_KEY, Double.toString(ausbeute_vial_kristallisat));
-        entry.addKeyValuePair(COLUMN_AUSBEUTE_PRAEP_ANALYSTIK_KEY, Double.toString(ausbeute_praep_analystik));
-        entry.addKeyValuePair(COLUMN_LAGERORTE_KEY, lagerorte);
-        entry.addKeyValuePair(CPLUMN_PRIORITAET_ANALYSTIK_KEY, prioritaet_analytik);
+        entry.addKeyValuePair(COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY, beobachtung_zum_ende_des_experiments_aufarbeitung);
+        entry.addKeyValuePair(COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY, Double.toString(auswaage_vial_kristallisat));
+        entry.addKeyValuePair(COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY, Double.toString(ausbeute_von_praep_analystik));
+        entry.addKeyValuePair(COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE, standort_lagerorte_der_finalen_probe);
+        entry.addKeyValuePair(COLUMN_PRIORITAET_ANALYTIK_KEY, prioritaet_analytik);
         entry.addKeyValuePair(COLUMN_ERSTANALYTIK_PXRD_KEY, erstanalytik_pxrd);
         entry.addKeyValuePair(COLUMN_PXRD_MOEGLICH_KEY, Boolean.toString(pxrd_moeglich));
-        entry.addKeyValuePair(COLUMN_WEITERE_ANALYTIK_MOEGLICH_KEY, weitere_analytik_moeglich);
-        entry.addKeyValuePair(COLUMN_ERGEBNIS_PXRD_KEY, Boolean.toString(ergebnis_pxrd));
+        entry.addKeyValuePair(COLUMN_MIT_AUSBEUTE_REST_WEITERE_ANALYTIK_MOEGLICH_KEY, mit_ausbeute_rest_weitere_analytik_moeglich);
+        entry.addKeyValuePair(COLUMN_ERGEBNIS_PXRD_KEY, ergebnis_pxrd);
         entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_DSC_KEY, Boolean.toString(folgeanalytik_dsc));
         entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_TG_KEY, Boolean.toString(folgeanalytik_tg));
         entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_PXRD_II_KEY, Boolean.toString(folgeanalytik_pxrd_ii));
@@ -193,7 +263,7 @@ public class ExperimenttypVerdampfung extends Model {
         entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_IR_KEY, Boolean.toString(folgeanalytik_ir));
         entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_RAMAN_KEY, Boolean.toString(folgeanalytik_raman));
         entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_OMI_KEY, Boolean.toString(folgeanalytik_omi));
-        entry.addKeyValuePair(COLUMN_INFORMATIONEN_FOLGEANALYTIK_KEY, informationen_folgeanalytik);
+        entry.addKeyValuePair(COLUMN_INFORMATIONEN_ZUR_FOLGEANALYTIK_KEY, informationen_zur_folgeanalytik);
         entry.addKeyValuePair(COLUMN_ERGEBNIS_DSC_KEY, ergebnis_dsc);
         entry.addKeyValuePair(COLUMN_ERGEBNIS_TG_KEY, ergebnis_tg);
         entry.addKeyValuePair(COLUMN_ERGEBNIS_PXRD_II_KEY, ergebnis_pxrd_ii);
@@ -210,29 +280,50 @@ public class ExperimenttypVerdampfung extends Model {
         return dummyResultSet;
     }
 
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
     @Override
     public String getPrimaryKey() {
         return primaryKey;
     }
 
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
+    @Override
+    public String getPrimaryKeyColumn() {
+        return COLUMN_PRIMARY_KEY;
     }
 
-    public int getPlanung() {
-        return planung;
+    public String getScreening_no() {
+        return screening_no;
     }
 
-    public void setPlanung(int planung) {
-        this.planung = planung;
+    public void setScreening_no(String screening_no) {
+        this.screening_no = screening_no;
     }
 
-    public String getSerie() {
-        return serie;
+    public int getPlanung_erfolgt_durch() {
+        return planung_erfolgt_durch;
     }
 
-    public void setSerie(String serie) {
-        this.serie = serie;
+    public void setPlanung_erfolgt_durch(int planung_erfolgt_durch) {
+        this.planung_erfolgt_durch = planung_erfolgt_durch;
+    }
+
+    public String getExperiment_serie() {
+        return experiment_serie;
+    }
+
+    public void setExperiment_serie(String experiment_serie) {
+        this.experiment_serie = experiment_serie;
+    }
+
+    public String getExperiment_no() {
+        return experiment_no;
+    }
+
+    public void setExperiment_no(String experiment_no) {
+        this.experiment_no = experiment_no;
     }
 
     public String getDurchfuehrung() {
@@ -243,12 +334,12 @@ public class ExperimenttypVerdampfung extends Model {
         this.durchfuehrung = durchfuehrung;
     }
 
-    public String getNotiz_intention() {
-        return notiz_intention;
+    public String getProjektleiternotiz_intention() {
+        return projektleiternotiz_intention;
     }
 
-    public void setNotiz_intention(String notiz_intention) {
-        this.notiz_intention = notiz_intention;
+    public void setProjektleiternotiz_intention(String projektleiternotiz_intention) {
+        this.projektleiternotiz_intention = projektleiternotiz_intention;
     }
 
     public String getVerweis() {
@@ -275,12 +366,12 @@ public class ExperimenttypVerdampfung extends Model {
         this.erledigt_bis = erledigt_bis;
     }
 
-    public String getHinweis_laborleiter() {
-        return hinweis_laborleiter;
+    public String getHinweis_an_laborleiter() {
+        return hinweis_an_laborleiter;
     }
 
-    public void setHinweis_laborleiter(String hinweis_laborleiter) {
-        this.hinweis_laborleiter = hinweis_laborleiter;
+    public void setHinweis_an_laborleiter(String hinweis_an_laborleiter) {
+        this.hinweis_an_laborleiter = hinweis_an_laborleiter;
     }
 
     public boolean isPlanung_abgeschlossen() {
@@ -291,12 +382,12 @@ public class ExperimenttypVerdampfung extends Model {
         this.planung_abgeschlossen = planung_abgeschlossen;
     }
 
-    public String getPrioritaet() {
-        return prioritaet;
+    public String getPrioritaet_experiment() {
+        return prioritaet_experiment;
     }
 
-    public void setPrioritaet(String prioritaet) {
-        this.prioritaet = prioritaet;
+    public void setPrioritaet_experiment(String prioritaet_experiment) {
+        this.prioritaet_experiment = prioritaet_experiment;
     }
 
     public String getSicherheitshinweis() {
@@ -307,12 +398,12 @@ public class ExperimenttypVerdampfung extends Model {
         this.sicherheitshinweis = sicherheitshinweis;
     }
 
-    public int getOperator() {
-        return operator;
+    public int getVerantwortlicher_operator() {
+        return verantwortlicher_operator;
     }
 
-    public void setOperator(int operator) {
-        this.operator = operator;
+    public void setVerantwortlicher_operator(int verantwortlicher_operator) {
+        this.verantwortlicher_operator = verantwortlicher_operator;
     }
 
     public Date getExperiment_start() {
@@ -331,20 +422,20 @@ public class ExperimenttypVerdampfung extends Model {
         this.vial_tara = vial_tara;
     }
 
-    public double getSoll_einwaage() {
-        return soll_einwaage;
+    public double getApi_startmaterial_soll_einwaage() {
+        return api_startmaterial_soll_einwaage;
     }
 
-    public void setSoll_einwaage(double soll_einwaage) {
-        this.soll_einwaage = soll_einwaage;
+    public void setApi_startmaterial_soll_einwaage(double api_startmaterial_soll_einwaage) {
+        this.api_startmaterial_soll_einwaage = api_startmaterial_soll_einwaage;
     }
 
-    public double getEinwaage() {
-        return einwaage;
+    public double getApi_startmaterial_soll_einwaage_mg() {
+        return api_startmaterial_soll_einwaage_mg;
     }
 
-    public void setEinwaage(double einwaage) {
-        this.einwaage = einwaage;
+    public void setApi_startmaterial_soll_einwaage_mg(double api_startmaterial_soll_einwaage_mg) {
+        this.api_startmaterial_soll_einwaage_mg = api_startmaterial_soll_einwaage_mg;
     }
 
     public String getCof_bezeichnung() {
@@ -371,12 +462,12 @@ public class ExperimenttypVerdampfung extends Model {
         this.cof_soll_einwaaage = cof_soll_einwaaage;
     }
 
-    public double getCof_einwaage() {
-        return cof_einwaage;
+    public double getCof_soll_einwaage_mg() {
+        return cof_soll_einwaage_mg;
     }
 
-    public void setCof_einwaage(double cof_einwaage) {
-        this.cof_einwaage = cof_einwaage;
+    public void setCof_soll_einwaage_mg(double cof_soll_einwaage_mg) {
+        this.cof_soll_einwaage_mg = cof_soll_einwaage_mg;
     }
 
     public double getSoll_temperatur() {
@@ -387,108 +478,100 @@ public class ExperimenttypVerdampfung extends Model {
         this.soll_temperatur = soll_temperatur;
     }
 
-    public String getLoesungsmittel() {
-        return loesungsmittel;
+    public String getLoesungsmittel_fuer_api_cof() {
+        return loesungsmittel_fuer_api_cof;
     }
 
-    public void setLoesungsmittel(String loesungsmittel) {
-        this.loesungsmittel = loesungsmittel;
+    public void setLoesungsmittel_fuer_api_cof(String loesungsmittel_fuer_api_cof) {
+        this.loesungsmittel_fuer_api_cof = loesungsmittel_fuer_api_cof;
     }
 
-    public String getVorgabe_volumen() {
-        return vorgabe_volumen;
+    public String getVorgabe_info_volumen() {
+        return vorgabe_info_volumen;
     }
 
-    public void setVorgabe_volumen(String vorgabe_volumen) {
-        this.vorgabe_volumen = vorgabe_volumen;
+    public void setVorgabe_info_volumen(String vorgabe_info_volumen) {
+        this.vorgabe_info_volumen = vorgabe_info_volumen;
     }
 
-    public String getIst_volumen() {
-        return ist_volumen;
+    public String getLoesungsmittel_ist_volumen() {
+        return loesungsmittel_ist_volumen;
     }
 
-    public void setIst_volumen(String ist_volumen) {
-        this.ist_volumen = ist_volumen;
+    public void setLoesungsmittel_ist_volumen(String loesungsmittel_ist_volumen) {
+        this.loesungsmittel_ist_volumen = loesungsmittel_ist_volumen;
     }
 
-    public String getBeobachtungen_aenderungen() {
-        return beobachtungen_aenderungen;
+    public String getBeobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments() {
+        return beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments;
     }
 
-    public void setBeobachtungen_aenderungen(String beobachtungen_aenderungen) {
-        this.beobachtungen_aenderungen = beobachtungen_aenderungen;
+    public void setBeobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments(String beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments) {
+        this.beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments = beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments;
     }
 
-    public Date getStart() {
-        return start;
+    public String getBeobachtungen_zum_experimentverlauf() {
+        return beobachtungen_zum_experimentverlauf;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setBeobachtungen_zum_experimentverlauf(String beobachtungen_zum_experimentverlauf) {
+        this.beobachtungen_zum_experimentverlauf = beobachtungen_zum_experimentverlauf;
     }
 
-    public String getBeobachtungen_verlauf() {
-        return beobachtungen_verlauf;
+    public Date getExperiment_ende() {
+        return experiment_ende;
     }
 
-    public void setBeobachtungen_verlauf(String beobachtungen_verlauf) {
-        this.beobachtungen_verlauf = beobachtungen_verlauf;
+    public void setExperiment_ende(Date experiment_ende) {
+        this.experiment_ende = experiment_ende;
     }
 
-    public Date getEnde() {
-        return ende;
+    public String getStatus_experiment() {
+        return status_experiment;
     }
 
-    public void setEnde(Date ende) {
-        this.ende = ende;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus_experiment(String status_experiment) {
+        this.status_experiment = status_experiment;
     }
 
     public Date getAufarbeitung_präsentation_pxrd() {
         return aufarbeitung_präsentation_pxrd;
     }
 
-    public void setAufarbeitung_präsentation_pxrd(Date aufarbeitung_präsentation_pxrd) {
+    public void setAufarbeitung_praesentation_pxrd(Date aufarbeitung_präsentation_pxrd) {
         this.aufarbeitung_präsentation_pxrd = aufarbeitung_präsentation_pxrd;
     }
 
-    public String getBeobachtung_aufarbeitung() {
-        return beobachtung_aufarbeitung;
+    public String getBeobachtung_zum_ende_des_experiments_aufarbeitung() {
+        return beobachtung_zum_ende_des_experiments_aufarbeitung;
     }
 
-    public void setBeobachtung_aufarbeitung(String beobachtung_aufarbeitung) {
-        this.beobachtung_aufarbeitung = beobachtung_aufarbeitung;
+    public void setBeobachtung_zum_ende_des_experiments_aufarbeitung(String beobachtung_zum_ende_des_experiments_aufarbeitung) {
+        this.beobachtung_zum_ende_des_experiments_aufarbeitung = beobachtung_zum_ende_des_experiments_aufarbeitung;
     }
 
-    public double getAusbeute_vial_kristallisat() {
-        return ausbeute_vial_kristallisat;
+    public double getAuswaage_vial_kristallisat() {
+        return auswaage_vial_kristallisat;
     }
 
-    public void setAusbeute_vial_kristallisat(double ausbeute_vial_kristallisat) {
-        this.ausbeute_vial_kristallisat = ausbeute_vial_kristallisat;
+    public void setAuswaage_vial_kristallisat(double auswaage_vial_kristallisat) {
+        this.auswaage_vial_kristallisat = auswaage_vial_kristallisat;
     }
 
-    public double getAusbeute_praep_analystik() {
-        return ausbeute_praep_analystik;
+    public double getAusbeute_von_praep_analystik() {
+        return ausbeute_von_praep_analystik;
     }
 
-    public void setAusbeute_praep_analystik(double ausbeute_praep_analystik) {
-        this.ausbeute_praep_analystik = ausbeute_praep_analystik;
+    public void setAusbeute_von_praep_analystik(double ausbeute_von_praep_analystik) {
+        this.ausbeute_von_praep_analystik = ausbeute_von_praep_analystik;
     }
 
-    public String getLagerorte() {
-        return lagerorte;
+    public String getStandort_lagerorte_der_finalen_probe() {
+        return standort_lagerorte_der_finalen_probe;
     }
 
-    public void setLagerorte(String lagerorte) {
-        this.lagerorte = lagerorte;
+    public void setStandort_lagerorte_der_finalen_probe(String standort_lagerorte_der_finalen_probe) {
+        this.standort_lagerorte_der_finalen_probe = standort_lagerorte_der_finalen_probe;
     }
 
     public String getPrioritaet_analytik() {
@@ -515,19 +598,19 @@ public class ExperimenttypVerdampfung extends Model {
         this.pxrd_moeglich = pxrd_moeglich;
     }
 
-    public String getWeitere_analytik_moeglich() {
-        return weitere_analytik_moeglich;
+    public String getMit_ausbeute_rest_weitere_analytik_moeglich() {
+        return mit_ausbeute_rest_weitere_analytik_moeglich;
     }
 
-    public void setWeitere_analytik_moeglich(String weitere_analytik_moeglich) {
-        this.weitere_analytik_moeglich = weitere_analytik_moeglich;
+    public void setMit_ausbeute_rest_weitere_analytik_moeglich(String mit_ausbeute_rest_weitere_analytik_moeglich) {
+        this.mit_ausbeute_rest_weitere_analytik_moeglich = mit_ausbeute_rest_weitere_analytik_moeglich;
     }
 
-    public boolean isErgebnis_pxrd() {
+    public String getErgebnis_pxrd() {
         return ergebnis_pxrd;
     }
 
-    public void setErgebnis_pxrd(boolean ergebnis_pxrd) {
+    public void setErgebnis_pxrd(String  ergebnis_pxrd) {
         this.ergebnis_pxrd = ergebnis_pxrd;
     }
 
@@ -587,12 +670,12 @@ public class ExperimenttypVerdampfung extends Model {
         this.folgeanalytik_omi = folgeanalytik_omi;
     }
 
-    public String getInformationen_folgeanalytik() {
-        return informationen_folgeanalytik;
+    public String getInformationen_zur_folgeanalytik() {
+        return informationen_zur_folgeanalytik;
     }
 
-    public void setInformationen_folgeanalytik(String informationen_folgeanalytik) {
-        this.informationen_folgeanalytik = informationen_folgeanalytik;
+    public void setInformationen_zur_folgeanalytik(String informationen_zur_folgeanalytik) {
+        this.informationen_zur_folgeanalytik = informationen_zur_folgeanalytik;
     }
 
     public String getErgebnis_dsc() {
@@ -675,25 +758,32 @@ public class ExperimenttypVerdampfung extends Model {
         this.einstufung_ergebnis = einstufung_ergebnis;
     }
 
-    @Override
-    public String getPrimaryKeyColumn() {
+    public static String getColumnPrimaryKey() {
         return COLUMN_PRIMARY_KEY;
     }
 
-    public static String getColumnPlanungKey() {
-        return COLUMN_PLANUNG_KEY;
+    public static String getColumnScreeningNoKey() {
+        return COLUMN_SCREENING_NO_KEY;
     }
 
-    public static String getColumnSerieKey() {
-        return COLUMN_SERIE_KEY;
+    public static String getColumnPlanungErfolgtDurchKey() {
+        return COLUMN_PLANUNG_ERFOLGT_DURCH_KEY;
+    }
+
+    public static String getColumnExperimentSerieKey() {
+        return COLUMN_EXPERIMENT_SERIE_KEY;
+    }
+
+    public static String getColumnExperimentNoKey() {
+        return COLUMN_EXPERIMENT_NO_KEY;
     }
 
     public static String getColumnDurchfuehrungKey() {
-        return COLUMN_DURCHFÜHRUNG_KEY;
+        return COLUMN_DURCHFUEHRUNG_KEY;
     }
 
-    public static String getColumnNotizIntentionKey() {
-        return COLUMN_NOTIZ_INTENTION_KEY;
+    public static String getColumnProjektleiternotizIntentionKey() {
+        return COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY;
     }
 
     public static String getColumnVerweisKey() {
@@ -716,16 +806,16 @@ public class ExperimenttypVerdampfung extends Model {
         return COLUMN_PLANUNG_ABGESCHLOSSEN_KEY;
     }
 
-    public static String getColumnPrioritaetKey() {
-        return COLUMN_PRIORITAET_KEY;
+    public static String getColumnPrioritaetExperimentKey() {
+        return COLUMN_PRIORITAET_EXPERIMENT_KEY;
     }
 
     public static String getColumnSicherheitshinweisKey() {
         return COLUMN_SICHERHEITSHINWEIS_KEY;
     }
 
-    public static String getColumnOperatorKey() {
-        return COLUMN_OPERATOR_KEY;
+    public static String getColumnVerantwortlicherOperator() {
+        return COLUMN_VERANTWORTLICHER_OPERATOR;
     }
 
     public static String getColumnExperimentStartKey() {
@@ -736,12 +826,12 @@ public class ExperimenttypVerdampfung extends Model {
         return COLUMN_VIAL_TARA_KEY;
     }
 
-    public static String getColumnSollEinwaageKey() {
-        return COLUMN_SOLL_EINWAAGE_KEY;
+    public static String getColumnApiStartmaterialSollEinwaage() {
+        return COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE;
     }
 
-    public static String getColumnEinwaageKey() {
-        return COLUMN_EINWAAGE_KEY;
+    public static String getColumnApiStartmaterialSollEinwaageMg() {
+        return COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG;
     }
 
     public static String getColumnCofBezeichnungKey() {
@@ -756,68 +846,64 @@ public class ExperimenttypVerdampfung extends Model {
         return COLUMN_COF_SOLL_EINWAAGE_KEY;
     }
 
-    public static String getColumnCofEinwaageKey() {
-        return COLUMN_COF_EINWAAGE_KEY;
+    public static String getColumnCofSollEinwaageMgKey() {
+        return COLUMN_COF_SOLL_EINWAAGE_MG_KEY;
     }
 
     public static String getColumnSollTemperaturKey() {
         return COLUMN_SOLL_TEMPERATUR_KEY;
     }
 
-    public static String getColumnLoesungsmittelKey() {
-        return COLUMN_LOESUNGSMITTEL_KEY;
+    public static String getColumnLoesungsmittelFuerApiCofKey() {
+        return COLUMN_LOESUNGSMITTEL_FUER_API_COF_KEY;
     }
 
-    public static String getColumnVorgabeVolumenKey() {
-        return COLUMN_VORGABE_VOLUMEN_KEY;
+    public static String getColumnVorgabeInfoVolumenKey() {
+        return COLUMN_VORGABE_INFO_VOLUMEN_KEY;
     }
 
-    public static String getColumnIstVolumenKey() {
-        return COLUMN_IST_VOLUMEN_KEY;
+    public static String getColumnLoesungsmittelIstVolumenKey() {
+        return COLUMN_LOESUNGSMITTEL_IST_VOLUMEN_KEY;
     }
 
-    public static String getColumnBeobachtungenAenderungenKey() {
-        return COLUMN_BEOBACHTUNGEN_AENDERUNGEN_KEY;
+    public static String getColumnBeobachtungenZumLoesevorgangOderAenderungenDesExperimentsKey() {
+        return COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY;
     }
 
-    public static String getColumnStartKey() {
-        return COLUMN_START_KEY;
+    public static String getColumnBeobachtungenZumExperimentverlaufKey() {
+        return COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY;
     }
 
-    public static String getColumnBeobachtungenVerlaufKey() {
-        return COLUMN_BEOBACHTUNGEN_VERLAUF_KEY;
+    public static String getColumnExperimentEnde() {
+        return COLUMN_EXPERIMENT_ENDE;
     }
 
-    public static String getColumnEndeKey() {
-        return COLUMN_ENDE_KEY;
-    }
-
-    public static String getColumnStatusKey() {
-        return COLUMN_STATUS_KEY;
+    public static String getColumnStatusExperimentKey() {
+        return COLUMN_STATUS_EXPERIMENT_KEY;
     }
 
     public static String getColumnAufbereitungPraesentationPxrdKey() {
         return COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY;
     }
 
-    public static String getColumnBeobachtungAufbereitungKey() {
-        return COLUMN_BEOBACHTUNG_AUFBEREITUNG_KEY;
+    public static String getColumnBeobachtungZumEndeDesExperimentsAufbereitungKey() {
+        return COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY;
     }
 
-    public static String getColumnAusbeuteVialKristallisatKey() {
-        return COLUMN_AUSBEUTE_VIAL_KRISTALLISAT_KEY;
+    public static String getColumnAuswaageVialKristallisatKey() {
+        return COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY;
     }
 
-    public static String getColumnAusbeutePraepAnalystikKey() {
-        return COLUMN_AUSBEUTE_PRAEP_ANALYSTIK_KEY;
+    public static String getColumnAusbeuteVonPraepAnalystikKey() {
+        return COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY;
     }
 
-    public static String getColumnLagerorteKey() {
-        return COLUMN_LAGERORTE_KEY;
+    public static String getColumnStandortLagerorteDerFinalenProbe() {
+        return COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE;
     }
 
-    public static String getCplumnPrioritaetAnalystikKey() {
-        return CPLUMN_PRIORITAET_ANALYSTIK_KEY;
+    public static String getColumnPrioritaetAnalytikKey() {
+        return COLUMN_PRIORITAET_ANALYTIK_KEY;
     }
 
     public static String getColumnErstanalytikPxrdKey() {
@@ -828,8 +914,8 @@ public class ExperimenttypVerdampfung extends Model {
         return COLUMN_PXRD_MOEGLICH_KEY;
     }
 
-    public static String getColumnWeitereAnalytikMoeglichKey() {
-        return COLUMN_WEITERE_ANALYTIK_MOEGLICH_KEY;
+    public static String getColumnMitAusbeuteRestWeitereAnalytikMoeglichKey() {
+        return COLUMN_MIT_AUSBEUTE_REST_WEITERE_ANALYTIK_MOEGLICH_KEY;
     }
 
     public static String getColumnErgebnisPxrdKey() {
@@ -864,8 +950,8 @@ public class ExperimenttypVerdampfung extends Model {
         return COLUMN_FOLGEANALYTIK_OMI_KEY;
     }
 
-    public static String getColumnInformationenFolgeanalytikKey() {
-        return COLUMN_INFORMATIONEN_FOLGEANALYTIK_KEY;
+    public static String getColumnInformationenZurFolgeanalytikKey() {
+        return COLUMN_INFORMATIONEN_ZUR_FOLGEANALYTIK_KEY;
     }
 
     public static String getColumnErgebnisDscKey() {
@@ -914,72 +1000,6 @@ public class ExperimenttypVerdampfung extends Model {
     }
 
     @Override
-    public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-        if (resultSet.next()) {
-            primaryKey = resultSet.getString(COLUMN_PRIMARY_KEY);
-            planung = resultSet.getInt(COLUMN_PLANUNG_KEY);
-            serie = resultSet.getString(COLUMN_SERIE_KEY);
-            durchfuehrung = resultSet.getString(COLUMN_DURCHFÜHRUNG_KEY);
-            notiz_intention = resultSet.getString(COLUMN_NOTIZ_INTENTION_KEY);
-            verweis = resultSet.getString(COLUMN_VERWEIS_KEY);
-            startfreigabe = resultSet.getDate(COLUMN_STARTFREIGABE_KEY);
-            erledigt_bis = resultSet.getDate(COLUMN_ERLEDIGT_BIS_KEY);
-            hinweis_laborleiter = resultSet.getString(COLUMN_HINWEIS_LABORLEITER_KEY);
-            planung_abgeschlossen = resultSet.getBoolean(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY);
-            prioritaet = resultSet.getString(COLUMN_PRIORITAET_KEY);
-            sicherheitshinweis = resultSet.getString(COLUMN_SICHERHEITSHINWEIS_KEY);
-            operator = resultSet.getInt(COLUMN_OPERATOR_KEY);
-            experiment_start = resultSet.getDate(COLUMN_EXPERIMENT_START_KEY);
-            vial_tara = resultSet.getDouble(COLUMN_VIAL_TARA_KEY);
-            soll_einwaage = resultSet.getDouble(COLUMN_SOLL_EINWAAGE_KEY);
-            einwaage = resultSet.getDouble(COLUMN_EINWAAGE_KEY);
-            cof_bezeichnung = resultSet.getString(COLUMN_COF_BEZEICHNUNG_KEY);
-            cof_ref_code = resultSet.getString(COLUMN_COF_REF_CODE_KEY);
-            cof_soll_einwaaage = resultSet.getDouble(COLUMN_COF_SOLL_EINWAAGE_KEY);
-            cof_einwaage = resultSet.getDouble(COLUMN_COF_EINWAAGE_KEY);
-            soll_temperatur = resultSet.getDouble(COLUMN_SOLL_TEMPERATUR_KEY);
-            loesungsmittel = resultSet.getString(COLUMN_LOESUNGSMITTEL_KEY);
-            vorgabe_volumen = resultSet.getString(COLUMN_VORGABE_VOLUMEN_KEY);
-            ist_volumen = resultSet.getString(COLUMN_IST_VOLUMEN_KEY);
-            beobachtungen_aenderungen = resultSet.getString(COLUMN_BEOBACHTUNGEN_AENDERUNGEN_KEY);
-            start = resultSet.getDate(COLUMN_START_KEY);
-            beobachtungen_verlauf = resultSet.getString(COLUMN_BEOBACHTUNGEN_VERLAUF_KEY);
-            ende = resultSet.getDate(COLUMN_ENDE_KEY);
-            status = resultSet.getString(COLUMN_STATUS_KEY);
-            aufarbeitung_präsentation_pxrd = resultSet.getDate(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY);
-            beobachtung_aufarbeitung = resultSet.getString(COLUMN_BEOBACHTUNG_AUFBEREITUNG_KEY);
-            ausbeute_vial_kristallisat = resultSet.getDouble(COLUMN_AUSBEUTE_VIAL_KRISTALLISAT_KEY);
-            ausbeute_praep_analystik = resultSet.getDouble(COLUMN_AUSBEUTE_PRAEP_ANALYSTIK_KEY);
-            lagerorte = resultSet.getString(COLUMN_LAGERORTE_KEY);
-            prioritaet_analytik = resultSet.getString(CPLUMN_PRIORITAET_ANALYSTIK_KEY);
-            erstanalytik_pxrd = resultSet.getString(COLUMN_ERSTANALYTIK_PXRD_KEY);
-            pxrd_moeglich = resultSet.getBoolean(COLUMN_PXRD_MOEGLICH_KEY);
-            weitere_analytik_moeglich = resultSet.getString(COLUMN_WEITERE_ANALYTIK_MOEGLICH_KEY);
-            ergebnis_pxrd = resultSet.getBoolean(COLUMN_ERGEBNIS_PXRD_KEY);
-            folgeanalytik_dsc = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_DSC_KEY);
-            folgeanalytik_tg = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_TG_KEY);
-            folgeanalytik_pxrd_ii = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_PXRD_II_KEY);
-            folgeanalytik_h_nmr = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_H_NMR_KEY);
-            folgeanalytik_ir = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_IR_KEY);
-            folgeanalytik_raman = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_RAMAN_KEY);
-            folgeanalytik_omi = resultSet.getBoolean(COLUMN_FOLGEANALYTIK_OMI_KEY);
-            informationen_folgeanalytik = resultSet.getString(COLUMN_INFORMATIONEN_FOLGEANALYTIK_KEY);
-            ergebnis_dsc = resultSet.getString(COLUMN_ERGEBNIS_DSC_KEY);
-            ergebnis_tg = resultSet.getString(COLUMN_ERGEBNIS_TG_KEY);
-            ergebnis_pxrd_ii = resultSet.getString(COLUMN_ERGEBNIS_PXRD_II_KEY);
-            ergebnis_h_nmr = resultSet.getString(COLUMN_ERGEBNIS_H_NMR_KEY);
-            ergebnis_ir = resultSet.getString(COLUMN_ERGEBNIS_IR_KEY);
-            ergebnis_raman = resultSet.getString(COLUMN_ERGEBNIS_RAMAN_KEY);
-            ergebnis_omi = resultSet.getString(COLUMN_ERGEBNIS_OMI_KEY);
-            status_analytik = resultSet.getString(COLUMN_STATUS_ANALYTIK_KEY);
-            gesamt_ergebnis = resultSet.getString(COLUMN_GESAMT_ERGEBNIS_KEY);
-            einstufung_ergebnis = resultSet.getString(COLUMN_EINSTUFUNG_ERGEBNIS_KEY);
-        } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
-        }
-    }
-
-    @Override
     public String getValuesAsSQLString() {
         return null;
     }
@@ -987,10 +1007,5 @@ public class ExperimenttypVerdampfung extends Model {
     @Override
     public String getRelationSchema() {
         return null;
-    }
-
-    @Override
-    public void saveToDatabase() {
-
     }
 }

@@ -7,20 +7,26 @@ import model.database.dummyDB.DummyResultSetEntry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * @author Narwutsch Dominic
- * created on 11.03.2021
- */
-public class ExperimentDurchfuehrungstext extends Model{
+public class MitarbeiterRolle extends Model{
     private String primaryKey;
-    private String text;
+    private String typ;
+    private String zugehoerigkeit;
     public static final String COLUMN_PRIMARY_KEY = "id";
-    public static final String COLUMN_TEXT = "text";
-    public static final String TABLE = "experiment_durchführungstext";
+    public static final String COLUMN_TYP = "typ";
+    public static final String COLUMN_ZUGEHOERIGKEIT = "zugehoerigkeit";
+    public static final String TABLE = "rollen";
+
+    public MitarbeiterRolle() {
+
+    }
+
+    public MitarbeiterRolle(String primaryKey) throws ModelNotFoundException, SQLException {
+        this.primaryKey = primaryKey;
+        database.getModel(this);
+    }
 
     @Override
     public String getForeignKey() {
-        // Does not have a foreign key
         return null;
     }
 
@@ -29,7 +35,8 @@ public class ExperimentDurchfuehrungstext extends Model{
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
         dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
-        dummyResultSetEntry.addKeyValuePair(COLUMN_TEXT, text);
+        dummyResultSetEntry.addKeyValuePair(COLUMN_ZUGEHOERIGKEIT, zugehoerigkeit);
+        dummyResultSetEntry.addKeyValuePair(COLUMN_TYP, typ);
         dummyResultSet.addEntry(dummyResultSetEntry);
 
         return dummyResultSet;
@@ -44,12 +51,20 @@ public class ExperimentDurchfuehrungstext extends Model{
         this.primaryKey = primaryKey;
     }
 
-    public String getText() {
-        return text;
+    public String getTyp() {
+        return typ;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTyp(String typ) {
+        this.typ = typ;
+    }
+
+    public String getZugehoerigkeit() {
+        return zugehoerigkeit;
+    }
+
+    public void setZugehoerigkeit(String zugehoerigkeit) {
+        this.zugehoerigkeit = zugehoerigkeit;
     }
 
     @Override
@@ -57,12 +72,12 @@ public class ExperimentDurchfuehrungstext extends Model{
         return COLUMN_PRIMARY_KEY;
     }
 
-    public static String getColumnPrimaryKey() {
-        return COLUMN_PRIMARY_KEY;
+    public static String getColumnTyp() {
+        return COLUMN_TYP;
     }
 
-    public static String getColumnText() {
-        return COLUMN_TEXT;
+    public static String getColumnZugehoerigkeit() {
+        return COLUMN_ZUGEHOERIGKEIT;
     }
 
     @Override
@@ -74,9 +89,10 @@ public class ExperimentDurchfuehrungstext extends Model{
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
-            text = resultSet.getString(resultSet.findColumn(COLUMN_TEXT));
+            typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
+            zugehoerigkeit = resultSet.getString(resultSet.findColumn(COLUMN_ZUGEHOERIGKEIT));
         } else {
-            throw new ModelNotFoundException("Durchführungstext nicht gefunden");
+            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
         }
     }
 

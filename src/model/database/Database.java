@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import exceptions.ModelNotFoundException;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
+import model.database.tableModels.AnalyseTemperaturprogramme;
 import model.database.tableModels.Model;
 
 public interface Database {
 
     public void getModel(Model model) throws SQLException, ModelNotFoundException;
+
+    void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestModel)  throws ModelNotFoundException, SQLException;
 
     public void setModel(Model model) throws SQLException;
 
@@ -27,4 +30,5 @@ public interface Database {
     <M extends Model, N extends Model> void resolveManyToMany(ManyToManyA<N,M> manyToMany) throws NoSuchFieldException, IllegalAccessException, SQLException;
 
     public ResultSet findSubstring(Class<? extends Model> m, String str, String... fields) throws NoSuchFieldException, IllegalAccessException, SQLException;
+
 }

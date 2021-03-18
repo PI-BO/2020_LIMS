@@ -23,6 +23,12 @@ public class Address {
 	private final static String EXPERIMENT_ERSTELLEN_JS = "/experiment/experiment_erstellen.js";
 	private final static String SUBSTANZ_ERSTELLEN_JSP = "/substanz_erstellen.html";
 	private final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
+	private static final String EXPERIMENT_ERSTELLEN_SERVLET = "/experiment/erstellen";
+	private static final String ANALYSE_ERSTELLEN_JSP = "/analyse/analyse_erstellen.jsp";
+	private static final String ANALYSE_ERSTELLEN_CSS = "/analyse/analyse_erstellen.css";
+	private static final String ANALYSE_ERSTELLEN_JS = "/analyse/analyse_erstellen.js";
+	private static final String ANALYSE_ERSTELLEN_SERVLET = "/analyse/erstellen";
+
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -116,7 +122,27 @@ public class Address {
 		return MAIN_PATH + PROJEKT_ERSTELLEN_JSP;
 	}
 
-    public static Object getExperimentErstellenJS() {
+    public static String getExperimentErstellenJS() {
 		return MAIN_PATH + EXPERIMENT_ERSTELLEN_JS;
     }
+
+    public static String getExperimentErstellenServlet() {
+		return MAIN_PATH + EXPERIMENT_ERSTELLEN_SERVLET;
+    }
+
+	public static String getAnalyseErstellenServlet() {
+		return MAIN_PATH + ANALYSE_ERSTELLEN_SERVLET;
+	}
+
+	public static String getAnalyseErstellenJsp() {
+		return MAIN_PATH + ANALYSE_ERSTELLEN_JSP;
+	}
+
+    public static String getAnalyseErstellenCss() {
+		return MAIN_PATH + ANALYSE_ERSTELLEN_CSS;
+    }
+
+	public static String getAnalyseErstellenJS() {
+		return MAIN_PATH + ANALYSE_ERSTELLEN_JS;
+	}
 }

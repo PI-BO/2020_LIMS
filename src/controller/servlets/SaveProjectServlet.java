@@ -33,7 +33,7 @@ public class SaveProjectServlet extends HttpServlet {
 		projekt.setVertragsnummer(request.getParameter(Partner.COLUMN_PRIMARY_KEY));
 		
 		try {
-			projekt.save();
+			projekt.saveToDatabase();
 			response.getWriter().println("<div style=\"color:green\">Erfolgreich gespeichert</div>");
 		}
 		catch (SQLException e) {
