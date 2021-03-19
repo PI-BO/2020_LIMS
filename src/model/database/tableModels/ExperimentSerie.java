@@ -21,10 +21,6 @@ public class ExperimentSerie extends Model{
 		super();
 	}
 	
-	public ExperimentSerie(Model parent) {
-    	super(parent);
-    }
-    
     public ExperimentSerie(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
@@ -60,7 +56,7 @@ public class ExperimentSerie extends Model{
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
         } else {
-            throw new ModelNotFoundException("Durchführungstext nicht gefunden");
+            throw new ModelNotFoundException("Durchführungstext nicht gefunden"); // TODO
         }
     }
 

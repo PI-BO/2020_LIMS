@@ -17,10 +17,6 @@ public class ExperimenttypGrinding extends Model{
 		super();
 	}
 	
-	public ExperimenttypGrinding(Model parent) {
-    	super(parent);
-    }
-    
     public ExperimenttypGrinding(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }

@@ -16,9 +16,9 @@ public class Analysen extends Model{
     public static final String COLUMN_API = "api";
     public static final String COLUMN_BEMERKUNG = "bemerkung";
     public static final String TABLE = "analysen";
-     
-    public Analysen(Model parent) {
-    	super(parent);
+
+    public Analysen(){
+    	super();
     }
     
     public Analysen(String primaryKey) throws SQLException, ModelNotFoundException {
@@ -41,7 +41,7 @@ public class Analysen extends Model{
             api = resultSet.getString(resultSet.findColumn(COLUMN_API));
             bemerkung = resultSet.getString(resultSet.findColumn(COLUMN_BEMERKUNG));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("Analysen nicht gefunden");
         }
     }
 
@@ -86,10 +86,10 @@ public class Analysen extends Model{
 	public JSON toJSON() {
 		
 		JSON json = new JSON();
-		json.addKeyValue("table", getTable());
-		json.addKeyValue("id", getPrimaryKey());
-		json.addKeyValue(COLUMN_API, getApi());
-		json.addKeyValue(COLUMN_BEMERKUNG, getBemerkung());
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_API, api);
+		json.addKeyValue(COLUMN_BEMERKUNG, bemerkung);
 		
 		
 		return json;

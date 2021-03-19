@@ -19,16 +19,14 @@ public class Substanz extends Model {
 		super();
 	}
 	
-	public Substanz(Model parent) {
-    	super(parent);
-    }
-    
     public Substanz(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
 
-	public void setProjektID(String projektID) {
+	public void setProjektID(String projektID) throws SQLException, ModelNotFoundException {
 		this.projektID = projektID;
+		Projekt projekt = new Projekt(projektID);
+		this.addParent(projekt);
 	}
 
     @Override

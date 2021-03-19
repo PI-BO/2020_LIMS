@@ -129,10 +129,6 @@ public class ExperimenttypSlurry extends Model {
 		super();
 	}
 	
-	public ExperimenttypSlurry(Model parent) {
-    	super(parent);
-    }
-    
     public ExperimenttypSlurry(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
@@ -822,6 +818,12 @@ public class ExperimenttypSlurry extends Model {
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
+        	
+        	/* TODO
+        	 * es fehlt findColumn()
+        	 * primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
+			*/
+        	
             primaryKey = resultSet.getString(COLUMN_PRIMARY_KEY);
             planung = resultSet.getInt(COLUMN_PLANUNG_KEY);
             serie = resultSet.getString(COLUMN_SERIE_KEY);
@@ -884,12 +886,12 @@ public class ExperimenttypSlurry extends Model {
 
     @Override
     public String getValuesAsSQLString() {
-        return primaryKey + ",";
+        return primaryKey + ",";			// TODO nicht vollstaendig, muessen gucken ob das nicht irgendwie einfacher geht
     }
 
     @Override
     public String getRelationSchema() {
-        return COLUMN_PRIMARY_KEY + ",";
+        return COLUMN_PRIMARY_KEY + ",";	// TODO nicht vollstaendig
     }
 
     @Override

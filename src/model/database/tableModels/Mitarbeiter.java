@@ -28,25 +28,18 @@ public class Mitarbeiter extends Model implements Login {
 		super();
 	}
 	
-	public Mitarbeiter(Model parent) {
-    	super(parent);
-    }
-    
     public Mitarbeiter(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
     
 	public void setAttributes(ResultSet mitarbeiterResultSet) throws SQLException, ModelNotFoundException {
 		if (mitarbeiterResultSet.next()) {
-	       	int vornameIndex = mitarbeiterResultSet.findColumn(COLUMN_VORNAME);
-	       	int nachnameIndex = mitarbeiterResultSet.findColumn(COLUMN_NACHNAME);
-	       	int passwordIndex = mitarbeiterResultSet.findColumn(COLUMN_PASSWORD);
 
-	       	primaryKey = mitarbeiterResultSet.getString(COLUMN_PRIMARY_KEY);
-	       	vorname = mitarbeiterResultSet.getString(vornameIndex);
-	       	nachname = mitarbeiterResultSet.getString(nachnameIndex);
-	       	password = mitarbeiterResultSet.getString(passwordIndex);
-	       	rolle = mitarbeiterResultSet.getInt(COLUMN_ROLLE);
+	       	primaryKey = mitarbeiterResultSet.getString(mitarbeiterResultSet.findColumn(COLUMN_PRIMARY_KEY));
+	       	vorname = mitarbeiterResultSet.getString(mitarbeiterResultSet.findColumn(COLUMN_VORNAME));
+	       	nachname = mitarbeiterResultSet.getString(mitarbeiterResultSet.findColumn(COLUMN_NACHNAME));
+	       	password = mitarbeiterResultSet.getString(mitarbeiterResultSet.findColumn(COLUMN_PASSWORD));
+	       	rolle = mitarbeiterResultSet.getInt(mitarbeiterResultSet.findColumn(COLUMN_ROLLE));
 		}else{
 			throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
        }

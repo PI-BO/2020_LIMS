@@ -11,19 +11,13 @@ import java.sql.SQLException;
 public class Probe extends Model{
 
 	private String substanzID;
-    private String name;
     public static final String COLUMN_PRIMARY_KEY = "probennummer";
     public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
-    public static final String COLUMN_NAME = "substanz_name";
     public static final String TABLE = "probe";
 
     public Probe(){
 		super();
 	}
-	
-	public Probe(Model parent) {
-    	super(parent);
-    }
     
     public Probe(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
@@ -48,27 +42,29 @@ public class Probe extends Model{
 
         } else {
 
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("Probe nicht gefunden");
         }
     }
 
     public String getSubstanzID() {
         return substanzID;
     }
+    
+    public void setSubstanzID(String substanzID) throws SQLException, ModelNotFoundException {
+    	this.substanzID = substanzID;
+    	Substanz substanz = new Substanz(substanzID);
+    	this.addParent(substanz);
+    }
 
 	@Override
 	public String getValuesAsSQLString() {
 		return primaryKey + "," + substanzID;
 	}
-
+	
 	@Override
 	public String getRelationSchema() {
 		return COLUMN_PRIMARY_KEY + "," + COLUMN_SUBSTANZ_ID;
 	}
-
-    public void setSubstanzID(String substanzID) {
-        this.substanzID = substanzID;
-    }
 
 	public Substanz getSubstanz() throws ModelNotFoundException, SQLException {
         return new Substanz(substanzID);
@@ -91,21 +87,13 @@ public class Probe extends Model{
 		return substanzID;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
 	@Override
 	public JSON toJSON() {
 		
 		JSON json = new JSON();
 		json.addKeyValue("table", TABLE);
 		json.addKeyValue("id", primaryKey);
-		json.addKeyValue("name", name);
+		json.addKeyValue(COLUMN_SUBSTANZ_ID, substanzID);
 		
 		return json;
 	}

@@ -18,10 +18,6 @@ public class Eigenschaften extends Model{
 		super();
 	}
 	
-	public Eigenschaften(Model parent) {
-    	super(parent);
-    }
-    
     public Eigenschaften(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
@@ -89,9 +85,9 @@ public class Eigenschaften extends Model{
 	public JSON toJSON() {
 		
 		JSON json = new JSON();
-		json.addKeyValue("table", getTable());
-		json.addKeyValue("id", getPrimaryKey());
-		json.addKeyValue(COLUMN_VALUE, getEigenschaftValue());
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_VALUE, value);
 		
 		return json;
 	}

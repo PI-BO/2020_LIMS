@@ -19,10 +19,6 @@ public class Experimenttyp extends Model{
 		super();
 	}
 	
-	public Experimenttyp(Model parent) {
-    	super(parent);
-    }
-    
     public Experimenttyp(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
@@ -78,7 +74,7 @@ public class Experimenttyp extends Model{
 
 	@Override
 	public String getForeignKey() {
-		// Does not have a foreign key
+		// Does not have a foreign key TODO
 		return null;
 	}
 	
@@ -88,7 +84,7 @@ public class Experimenttyp extends Model{
 		JSON json = new JSON();
 		json.addKeyValue("table", TABLE);
 		json.addKeyValue("id", primaryKey);
-		json.addKeyValue(COLUMN_TYP, getTyp());
+		json.addKeyValue(COLUMN_TYP, typ);
 		
 		return json;
 	}

@@ -32,14 +32,6 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	}
 	
 	/**
-	 * creates empty Model
-	 * @param parent if parent is null, this model is root-node in hierarchy (for example: Projektpartner)
-	 */
-	public Model(Model parent){
-		if(parent != null) addParent(parent);
-	}
-	
-	/**
 	 * retrieves Model from database
 	 * @param primaryKey of Model that is requested
 	 * @throws SQLException
@@ -47,7 +39,8 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	 */
 	public Model(String primaryKey) throws SQLException, ModelNotFoundException {
 		this.primaryKey = primaryKey;
-        database.getModel(this);
+        //database.getModel(this);
+		this = database.findModel(this);
 	}
 	
 	public void saveToDatabase() throws SQLException{
@@ -70,9 +63,10 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 		return children;
 	};
 	
-	public void addParent(Model parent){
+	public void addParent(Model parent) throws SQLException{
 		parents.add(parent);
 		parent.addChild(this);
+		database.updateModel(parent);
 	}
 	
 	private void addChild(Model child){

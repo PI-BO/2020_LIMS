@@ -14,6 +14,8 @@ import model.database.tableModels.ModelTable;
 public interface Database {
 
     public void getModel(Model model) throws SQLException, ModelNotFoundException;
+    
+    public Model findModel(Model model) throws SQLException, ModelNotFoundException;
 
     void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestModel)  throws ModelNotFoundException, SQLException;
 

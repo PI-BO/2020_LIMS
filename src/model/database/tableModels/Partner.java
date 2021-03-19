@@ -21,10 +21,6 @@ public class Partner extends Model {
 		super();
 	}
 	
-	public Partner(Model parent) {
-    	super(parent);
-    }
-    
     public Partner(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }

@@ -21,10 +21,6 @@ public class Experiment extends Model{
 		super();
 	}
 
-	public Experiment(Model parent) {
-    	super(parent);
-    }
-    
     public Experiment(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
@@ -43,10 +39,10 @@ public class Experiment extends Model{
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
-            typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
             proben_nr = resultSet.getString(resultSet.findColumn(COLUMN_PROBEN_NR));
+            typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("Experiment nicht gefunden");
         }
     }
 
@@ -54,23 +50,19 @@ public class Experiment extends Model{
         return typ;
     }
 
-
-
     public String getProbenNr() {
         return proben_nr;
     }
 
-    public void setForeignKey(String proben_nr) {
-		this.proben_nr = proben_nr;
-	}
+    public void setProbenNr(String proben_nr) throws SQLException, ModelNotFoundException {
+    	this.proben_nr = proben_nr;
+    	Probe probe = new Probe(proben_nr);
+    	this.addParent(probe);
+    }
     
     public void setTyp(String typ) {
 		this.typ = typ;
 	}
-
-    public void setProbenNr(String proben_nr) {
-        this.proben_nr = proben_nr;
-    }
 
 	@Override
 	public String getValuesAsSQLString() {
@@ -79,7 +71,7 @@ public class Experiment extends Model{
 
 	@Override
 	public String getRelationSchema() {
-		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROBEN_NR;
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROBEN_NR + "," + COLUMN_TYP;
 	}
 
 	@Override
@@ -105,7 +97,8 @@ public class Experiment extends Model{
 		JSON json = new JSON();
 		json.addKeyValue("table", TABLE);
 		json.addKeyValue("id", primaryKey);
-		json.addKeyValue(COLUMN_TYP, getTyp());	
+		json.addKeyValue(COLUMN_TYP, typ);	
+		json.addKeyValue(COLUMN_PROBEN_NR, proben_nr);	
 		
 		return json;
 	}

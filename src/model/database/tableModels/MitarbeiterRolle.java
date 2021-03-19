@@ -21,20 +21,6 @@ public class MitarbeiterRolle extends Model{
 
     }
 
-	/**
-	 * creates empty Model
-	 * @param parent if parent is null, this model is root-node in hierarchy (for example: Projektpartner)
-	 */
-	public MitarbeiterRolle(Model parent){
-		super(parent);
-	}
-
-	/**
-	 * retrieves Model from database
-	 * @param primaryKey of Model that is requested
-	 * @throws SQLException
-	 * @throws ModelNotFoundException
-	 */
 	public MitarbeiterRolle(String primaryKey) throws ModelNotFoundException, SQLException {
 		super(primaryKey);
 	}
@@ -98,7 +84,7 @@ public class MitarbeiterRolle extends Model{
             typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
             zugehoerigkeit = resultSet.getString(resultSet.findColumn(COLUMN_ZUGEHOERIGKEIT));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("MitarbeiterRolle nicht gefunden");
         }
     }
 

@@ -134,32 +134,13 @@ public class ExperimenttypVerdampfung extends Model {
 
 	}
 
-	/**
-	 * creates empty Model
-	 * 
-	 * @param parent
-	 *            if parent is null, this model is root-node in hierarchy (for
-	 *            example: Projektpartner)
-	 */
-	public ExperimenttypVerdampfung(Model parent) {
-		super(parent);
-	}
-
-	/**
-	 * retrieves Model from database
-	 * 
-	 * @param primaryKey
-	 *            of Model that is requested
-	 * @throws SQLException
-	 * @throws ModelNotFoundException
-	 */
 	public ExperimenttypVerdampfung(String primaryKey) throws SQLException, ModelNotFoundException {
 		super(primaryKey);
 	}
 
 	@Override
 	public String getForeignKey() {
-		return primaryKey;
+		return primaryKey;			// TODO wirklich primaryKey?
 	}
 
 	@Override

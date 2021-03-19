@@ -38,10 +38,6 @@ public class Sessions extends Model{
 		super();
 	}
 	
-	public Sessions(Model parent) {
-    	super(parent);
-    }
-    
     public Sessions(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }

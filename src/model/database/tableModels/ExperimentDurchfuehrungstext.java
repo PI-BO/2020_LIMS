@@ -23,10 +23,6 @@ public class ExperimentDurchfuehrungstext extends Model{
 		super();
 	}
 	
-	public ExperimentDurchfuehrungstext(Model parent) {
-    	super(parent);
-    }
-    
     public ExperimentDurchfuehrungstext(String primaryKey) throws SQLException, ModelNotFoundException {
     	super(primaryKey);
     }
@@ -80,7 +76,7 @@ public class ExperimentDurchfuehrungstext extends Model{
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             text = resultSet.getString(resultSet.findColumn(COLUMN_TEXT));
         } else {
-            throw new ModelNotFoundException("Durchführungstext nicht gefunden");
+            throw new ModelNotFoundException("Durchführungstext nicht gefunden"); // TODO 
         }
     }
 
