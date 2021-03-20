@@ -15,22 +15,22 @@ var GlobaleSuche = (function () {
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
-	const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
-		"projektpartner",
-		"projekt",
-		"probe",
-		"experiment",
-		"methode",
-		"operator"
-	]
+	// const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
+	// 	"projektpartner",
+	// 	"projekt",
+	// 	"probe",
+	// 	"experiment",
+	// 	"methode",
+	// 	"operator"
+	// ]
 
-	const parameters = {
-		"projektpartner": ["name", "pk"],
-		"projekt": ["name", "fk", "pk"],
-		"probe": ["name", "fk", "pk"],
-		"experiment": ["name", "fk", "pk"],
-		"methode": ["name", "fk", "pk"],
-		"operator": ["name", "fk", "pk"]
+	let parameters = {
+		// "projektpartner": ["name", "pk"],
+		// "projekt": ["name", "fk", "pk"],
+		// "probe": ["name", "fk", "pk"],
+		// "experiment": ["name", "fk", "pk"],
+		// "methode": ["name", "fk", "pk"],
+		// "operator": ["name", "fk", "pk"]
 	}
 
 	const filterTypes = {
@@ -39,9 +39,41 @@ var GlobaleSuche = (function () {
 	};
 
 	public.init = function init() {
-		initAddParameterButton();
-		initSearchButton();
-		addParameterRow();
+		
+		fetchDatabase((tupelArray) => {
+			
+			initAddParameterButton();
+			initSearchButton();
+			fetchParameters(tupelArray);
+			addParameterRow();
+		})
+	}
+
+	function fetchParameters(tupelArray){
+
+		tupelArray.forEach((tupel) => {
+			tupel.forEach((tupelElement) => {
+
+				let table = undefined;
+				let tableParameters = [];
+
+				// get table key
+				for(let key in tupelElement){
+					if(key !== "table") continue;
+					table = tupelElement[key];
+					break;
+				}
+
+				if(table === undefined) return;
+
+				// fill table array with parameter values
+				for(let key in tupelElement){
+					if(key === "table") continue;
+					tableParameters.push(key);
+				}
+				parameters[table] = tableParameters;
+			})
+		})
 	}
 
 	let callbackInputMask = undefined;
@@ -375,7 +407,6 @@ var GlobaleSuche = (function () {
 
 			// const tupelList = getDatabaseAsTupelList(database);
 			const tupelList = database;
-			console.log({ tupelList });
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
 			showResultHeader(results, resultTableId);
@@ -386,21 +417,21 @@ var GlobaleSuche = (function () {
 	function showResultHeader(results, resultTableId) {
 
 		let indexOfBiggestResultTupel = findBiggestTupel();
-		
+
 		let resultHeaderTupel = [];
 		const firstTupel = results[indexOfBiggestResultTupel];
 		if (firstTupel === undefined) return;
 		firstTupel.forEach(tupelElement => {
 			resultHeaderTupel.push(capitalize(tupelElement["table"]));
 		})
-		
-		function findBiggestTupel(){
-			
+
+		function findBiggestTupel() {
+
 			let indexOfBiggestResultTupel = 0;
 			let biggestSize = 0;
-			for(let i = 0; i < results.length; i++){
+			for (let i = 0; i < results.length; i++) {
 				let tupel = results[i];
-				if(tupel.length <= biggestSize) continue;
+				if (tupel.length <= biggestSize) continue;
 				biggestSize = tupel.length;
 				indexOfBiggestResultTupel = i;
 			}
@@ -524,16 +555,16 @@ var GlobaleSuche = (function () {
 		for (let key in tupel) {
 
 			let tupelElement = tupel[key];
-			let category = tupelElement["category"].toLowerCase();
+			let category = tupelElement["table"].toLowerCase();
+
+			if (category !== searchCategory) continue;
 			let parameter = tupelElement[searchParameter].toLowerCase();
 
 			if (filterType === filterTypes.matches) {
-				if (category !== searchCategory) continue;
 				if (parameter !== searchInputField) continue;
 			}
 
 			if (filterType === filterTypes.contains) {
-				if (!category.includes(searchCategory)) continue;
 				if (!parameter.includes(searchInputField)) continue;
 			}
 
@@ -624,9 +655,9 @@ var GlobaleSuche = (function () {
 		dir = "asc";
 		/* Make a loop that will continue until
 		no switching has been done: */
-		
+
 		// rows with undefined cell to bottom
-		for (i = rows.length-1; i > 0; i--) {
+		for (i = rows.length - 1; i > 0; i--) {
 			let tableData = rows[i].getElementsByTagName("TD")[n];
 			if (tableData === undefined) rows[i].parentNode.insertBefore(rows[i], null);
 		}
