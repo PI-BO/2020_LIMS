@@ -36,6 +36,12 @@ public class MariaDB implements Database {
 
         model.setAttributes(resultSet);
     }
+    
+    @Override
+    public Model findModel(Model model) throws SQLException, ModelNotFoundException {
+    	// TODO Auto-generated method stub
+    	return null;
+    }
 
     @Override
     public void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestModel) throws ModelNotFoundException, SQLException {

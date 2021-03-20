@@ -122,7 +122,7 @@ public class ExperimentServlet extends HttpServlet {
         }
     }
 
-    private void createExperiment(String primaryKey, String api, String typ) throws SQLException {
+    private void createExperiment(String primaryKey, String api, String typ) throws SQLException, ModelNotFoundException {
         Experiment experiment = new Experiment();
         experiment.setPrimaryKey(primaryKey);
         experiment.setProbenNr(api);

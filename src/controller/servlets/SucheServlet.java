@@ -55,16 +55,16 @@ public class SucheServlet extends HttpServlet {
 
 		List<List<Model>> branches = database.getDatabaseAsTupelList();
 		
-		System.out.println("------------------------");
-//		
-		DummyDB dummyDB = (DummyDB)database;
-		System.out.println("size = "+ dummyDB.modelList.size());
-		for(Model model : dummyDB.modelList){
-			System.out.println(model.toJSON() + "\t" + model.hasChildren());
-			for(Model child : model.getChildren()) System.out.println("\t" + child.toJSON() + "\t" + child.hasChildren());
-		}
+//		System.out.println("------------------------");
+////		
+//		DummyDB dummyDB = (DummyDB)database;
+//		System.out.println("size = "+ dummyDB.modelList.size());
+//		for(Model model : dummyDB.modelList){
+//			System.out.println(model.toJSON() + "\t" + model.hasChildren());
+//			for(Model child : model.getChildren()) System.out.println("\t" + child.toJSON() + "\t" + child.hasChildren());
+//		}
 
-//		sendRelationsAsJSONArray(out, branches);
+		sendRelationsAsJSONArray(out, branches);
 
 		// sendJavascriptJson(out);
 
@@ -219,14 +219,10 @@ public class SucheServlet extends HttpServlet {
 
 			JSONArray jsonArray = new JSONArray();
 
-//			System.out.println("relation: " + (index + 1));
-
 			for (Model model : branch) {
 
 				JSON modelJson = model.toJSON();
 				jsonArray.addJSON(modelJson);
-				
-//				System.out.println(modelJson.toString());
 			}
 
 			databaseJson += jsonArray.toString();
@@ -234,11 +230,7 @@ public class SucheServlet extends HttpServlet {
 			if (index < branches.size())
 				databaseJson += ",";
 		}
-
 		databaseJson += "]";
-
-//		System.out.println(databaseJson);
-
 		out.print(databaseJson);
 	}
 

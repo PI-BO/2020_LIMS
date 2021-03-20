@@ -375,7 +375,7 @@ var GlobaleSuche = (function () {
 
 			// const tupelList = getDatabaseAsTupelList(database);
 			const tupelList = database;
-			console.log({tupelList});
+			console.log({ tupelList });
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
 			showResultHeader(results, resultTableId);
@@ -385,12 +385,27 @@ var GlobaleSuche = (function () {
 
 	function showResultHeader(results, resultTableId) {
 
+		let indexOfBiggestResultTupel = findBiggestTupel();
+		
 		let resultHeaderTupel = [];
-		const firstTupel = results[0];
+		const firstTupel = results[indexOfBiggestResultTupel];
 		if (firstTupel === undefined) return;
 		firstTupel.forEach(tupelElement => {
 			resultHeaderTupel.push(capitalize(tupelElement["table"]));
 		})
+		
+		function findBiggestTupel(){
+			
+			let indexOfBiggestResultTupel = 0;
+			let biggestSize = 0;
+			for(let i = 0; i < results.length; i++){
+				let tupel = results[i];
+				if(tupel.length <= biggestSize) continue;
+				biggestSize = tupel.length;
+				indexOfBiggestResultTupel = i;
+			}
+			return indexOfBiggestResultTupel
+		}
 
 		addTupelToTableHeader(resultHeaderTupel, resultTableId);
 	}
@@ -603,18 +618,35 @@ var GlobaleSuche = (function () {
 	function sortTable(tableId, n) {
 		var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 		table = document.getElementById(tableId);
+		rows = table.rows;
 		switching = true;
 		// Set the sorting direction to ascending:
 		dir = "asc";
 		/* Make a loop that will continue until
 		no switching has been done: */
+		
+		// rows with undefined cell to bottom
+		for (i = rows.length-1; i > 0; i--) {
+			let tableData = rows[i].getElementsByTagName("TD")[n];
+			if (tableData === undefined) rows[i].parentNode.insertBefore(rows[i], null);
+		}
+
+		// index to exclude rows with undefinded fields
+		let maxIndexOfDefinedRows = 0;
+		for (let i = maxIndexOfDefinedRows; i < (rows.length - 1); i++) {
+			let td = rows[i].getElementsByTagName("TD")[n];
+			if (td === undefined) break;
+			maxIndexOfDefinedRows = i;
+		}
+
 		while (switching) {
 			// Start by saying: no switching is done:
 			switching = false;
-			rows = table.rows;
+
 			/* Loop through all table rows (except the
 			first, which contains table headers): */
-			for (i = 1; i < (rows.length - 1); i++) {
+			// for (i = 1; i < (rows.length - 1); i++) {
+			for (i = 1; i < maxIndexOfDefinedRows; i++) {
 				// Start by saying there should be no switching:
 				shouldSwitch = false;
 				/* Get the two elements you want to compare,
@@ -624,12 +656,28 @@ var GlobaleSuche = (function () {
 				/* Check if the two rows should switch place,
 				based on the direction, asc or desc: */
 				if (dir == "asc") {
+					if (y === undefined) {
+						shouldSwitch = true;
+						break;
+					}
+					if (x === undefined) {
+						shouldSwitch = false;
+						break;
+					}
 					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 						// If so, mark as a switch and break the loop:
 						shouldSwitch = true;
 						break;
 					}
 				} else if (dir == "desc") {
+					if (x === undefined) {
+						shouldSwitch = true;
+						break;
+					}
+					if (y === undefined) {
+						shouldSwitch = false;
+						break;
+					}
 					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
 						// If so, mark as a switch and break the loop:
 						shouldSwitch = true;

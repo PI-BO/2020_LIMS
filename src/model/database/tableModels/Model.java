@@ -39,8 +39,7 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	 */
 	public Model(String primaryKey) throws SQLException, ModelNotFoundException {
 		this.primaryKey = primaryKey;
-        //database.getModel(this);
-		this = database.findModel(this);
+        database.getModel(this);
 	}
 	
 	public void saveToDatabase() throws SQLException{
@@ -63,10 +62,12 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 		return children;
 	};
 	
-	public void addParent(Model parent) throws SQLException{
-		parents.add(parent);
-		parent.addChild(this);
-		database.updateModel(parent);
+	public void addParent(Model parent) throws SQLException, ModelNotFoundException{
+		Model realParent = database.findModel(parent);
+		parents.add(realParent);
+		realParent.addChild(this);
+		//database.updateModel(parent);
+		
 	}
 	
 	private void addChild(Model child){
