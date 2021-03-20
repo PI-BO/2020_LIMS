@@ -13,6 +13,8 @@ var GlobaleSuche = (function () {
 	const searchFilterClass = "global_search_parameter_filter";
 	const searchValueClass = "global_search_parameter_input";
 
+	const resultTableHeaderKey = "table";
+
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
 	// const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
@@ -408,6 +410,7 @@ var GlobaleSuche = (function () {
 			// const tupelList = getDatabaseAsTupelList(database);
 			const tupelList = database;
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
+			
 
 			showResultHeader(results, resultTableId);
 			showResults(results, resultTableId);
@@ -416,16 +419,16 @@ var GlobaleSuche = (function () {
 
 	function showResultHeader(results, resultTableId) {
 
-		let indexOfBiggestResultTupel = findBiggestTupel();
-
+		let indexOfLongestTupel = findLongestTupel();
+		const firstTupel = results[indexOfLongestTupel];
 		let resultHeaderTupel = [];
-		const firstTupel = results[indexOfBiggestResultTupel];
+
 		if (firstTupel === undefined) return;
 		firstTupel.forEach(tupelElement => {
-			resultHeaderTupel.push(capitalize(tupelElement["table"]));
+			resultHeaderTupel.push(capitalize(tupelElement[resultTableHeaderKey]));
 		})
 
-		function findBiggestTupel() {
+		function findLongestTupel() {
 
 			let indexOfBiggestResultTupel = 0;
 			let biggestSize = 0;
@@ -438,10 +441,51 @@ var GlobaleSuche = (function () {
 			return indexOfBiggestResultTupel
 		}
 
-		addTupelToTableHeader(resultHeaderTupel, resultTableId);
+		const parameters = getSearchParameters();
+		const categories = getSearchCategories();
+
+		// console.log({parameters})
+		// console.log({categories})
+
+		let colSpanJsonCategories = calculateColSpanJson(categories);
+		let colSpanJsonParameters = calculateColSpanJson(parameters);
+
+		let newCategories = [];
+		let newParameters = [];
+
+		for(let key in colSpanJsonCategories){
+			newCategories.push(key);
+		}
+
+		for(let key in colSpanJsonParameters){
+			newParameters.push(key);
+		}
+
+
+		console.log({results})
+
+		// console.log({colSpanJson: colSpanJsonCategories})
+		// console.log({newCategories})
+
+		addTupelAsTableHeader(newCategories, resultTableId, colSpanJsonCategories);
+		addTupelAsTableHeader(parameters, resultTableId);
 	}
 
-	function addTupelToTableHeader(tupel, tableId) {
+	function calculateColSpanJson(array){
+		let colSpanJson = {};
+
+		array.forEach(element => {
+			colSpanJson[element] = 0;
+		})
+		
+		array.forEach(element => {
+			colSpanJson[element] += 1;
+			
+		})
+		return colSpanJson;
+	}
+
+	function addTupelAsTableHeader(tupel, tableId, colSpanJson) {
 
 		let table = document.getElementById(tableId);
 		let row = table.insertRow(-1);
@@ -449,6 +493,7 @@ var GlobaleSuche = (function () {
 		let index = 0;
 		tupel.forEach(tupelElement => {
 			let cell = row.insertCell(-1);
+			if(colSpanJson !== undefined) cell.colSpan = colSpanJson[tupelElement];
 			cell.append(tupelElement);
 			let n = index;	// "n" muss angelegt werden da "index" außerhalb der Schleife definiert ist und somit nur "Pass-By-Reference"
 			cell.addEventListener("click", () => sortTable(resultTableId, n));
@@ -462,13 +507,22 @@ var GlobaleSuche = (function () {
 
 	function addTupelArrayToTable(results, tableId, onlyThisKey) {
 
-		let table = document.getElementById(tableId);
+		const parameters = getSearchParameters();
+		const categories = getSearchCategories();
 
+		// console.log({parameters})
+		// console.log({categories})
+		// console.log({results})
+		
+		let table = document.getElementById(tableId);
+		
 		results.forEach(tupel => {
 			let row = table.insertRow(-1);
 			tupel.forEach(tupelElement => {
-
+				
 				for (let key in tupelElement) {
+					
+					// console.log({tupelElement})
 
 					let cellContent = tupelElement[key];
 
@@ -503,7 +557,7 @@ var GlobaleSuche = (function () {
 					for (let key in tupelElement) {
 						tupelElementArray.push(key);
 					}
-					addTupelToTableHeader(tupelElementArray, resultTableId);
+					addTupelAsTableHeader(tupelElementArray, resultTableId);
 					addTupelArrayToTable([[tupelElement]], resultTableId);
 				});
 			}

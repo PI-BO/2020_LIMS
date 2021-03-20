@@ -39,15 +39,16 @@
 			background-color: #f2f2f2;
 		}
 
-		#global_search_result_table tr:not(:first-child) td:hover  {
-			background-color: #ddd;
-		}
-
-		#global_search_result_table tr:first-child {
+		#global_search_result_table tr:nth-child(1),
+		#global_search_result_table tr:nth-child(2){
 			background-color: #77bbff;
 			font-weight: bold;
 			text-align: center;
 		}		
+		
+		#global_search_result_table tr:nth-child(n+3) td:hover{
+			background-color: #ddd;
+		}
 	</style>
 </head>
 
