@@ -1,6 +1,6 @@
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="model.database.tableModels.Model"%>
-<%@page import="model.database.tableModels.ModelList"%>
+<%@page import="model.database.tableModels.ModelTable"%>
 <%@page import="config.Address"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
@@ -13,7 +13,7 @@
 </head>
 
 <%
-	ModelList projekte = new ModelList(new Projekt());
+	ModelTable projekte = new ModelTable(new Projekt());
 %>
 
 <body>

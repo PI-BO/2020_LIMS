@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="controller.servlets.AnalyseServlet" %>
+<%@ page import="model.database.tableModels.ModelTable" %>
+<%@ page import="model.database.tableModels.Mitarbeiter" %>
+<%@ page import="model.database.tableModels.Model" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="exceptions.ModelNotFoundException" %>
 <%@ page import="java.util.Set" %>
@@ -9,11 +12,11 @@
 <%@ page import="model.database.tableModels.experimente.Experiment" %>
 
 <%!
-    private ModelList modelList;
+    private ModelTable modelList;
 
     {
         try {
-            modelList = new ModelList(new AnalyseTemperaturprogramme());
+            modelList = new ModelTable(new AnalyseTemperaturprogramme());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ModelNotFoundException e) {
@@ -33,7 +36,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList modelList = new ModelList(new Experiment());
+                ModelTable modelList = new ModelTable(new Experiment());
                 for (Model model : modelList.getModelList()) {
         %>
         <option value=<%=model.getPrimaryKey()%>><%=((Experiment) model).getPrimaryKey()%>
@@ -127,7 +130,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList modelList = new ModelList(new Mitarbeiter());
+                ModelTable modelList = new ModelTable(new Mitarbeiter());
                 for (Model model : modelList.getModelList()) {
         %>
         <option value=<%=model.getPrimaryKey()%>><%=((Mitarbeiter) model).getNachname()%>
@@ -177,7 +180,7 @@
             $("#temperaurprogramme_table_title").hide()
             <%
                 if (modelList != null){
-                    ModelList modelList = new ModelList(new AnalyseTemperaturprogramme());
+                    ModelTable modelList = new ModelTable(new AnalyseTemperaturprogramme());
                     for (Model model : modelList.getModelList()) {
                         AnalyseTemperaturprogramme row = (AnalyseTemperaturprogramme) model;
 

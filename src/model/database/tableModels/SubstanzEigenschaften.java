@@ -3,6 +3,7 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,16 @@ public class SubstanzEigenschaften extends Model{
     public String getPrimaryKey() {
         return substanzKey;
     }
+	
+	@Override
+	public void setPrimaryKey(String substanzKey){
+		this.substanzKey = substanzKey;
+	}
+
+	@Override
+	public String getForeignKey() {
+		return eigenschaftKey;
+	}
 
     @Override
     public String getPrimaryKeyColumn() {
@@ -71,9 +82,15 @@ public class SubstanzEigenschaften extends Model{
 		
 		return dummyResultSet;
 	}
-
+	
 	@Override
-	public String getForeignKey() {
-		return eigenschaftKey;
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_EIGENSCHAFT_KEY, eigenschaftKey);
+		
+		return json;
 	}
 }

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="controller.servlets.AnalyseServlet" %>
-<%@ page import="model.database.tableModels.ModelList" %>
+<%@ page import="model.database.tableModels.ModelTable" %>
 <%@ page import="model.database.tableModels.Mitarbeiter" %>
 <%@ page import="model.database.tableModels.Model" %>
 <%@ page import="java.sql.SQLException" %>
@@ -76,7 +76,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList modelList = new ModelList(new Mitarbeiter());
+                ModelTable modelList = new ModelTable(new Mitarbeiter());
                 for (Model model : modelList.getModelList()) {
         %>
         <option value=<%=model.getPrimaryKey()%>><%=((Mitarbeiter) model).getNachname()%>

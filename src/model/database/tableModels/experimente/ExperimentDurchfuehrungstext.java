@@ -4,24 +4,29 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * @author Narwutsch Dominic
- * created on 11.03.2021
- */
 public class ExperimentDurchfuehrungstext extends Model {
-    private String primaryKey;
     private String text;
+
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TEXT = "text";
-    public static final String TABLE = "experiment_durchführungstext";
+    public static final String TABLE = "experiment_durchführungstext";		//TODO
 
+	public ExperimentDurchfuehrungstext(){
+		super();
+	}
+	
+    public ExperimentDurchfuehrungstext(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
+    }
+    
     @Override
     public String getForeignKey() {
-        // Does not have a foreign key
+        // TODO
         return null;
     }
 
@@ -34,15 +39,6 @@ public class ExperimentDurchfuehrungstext extends Model {
         dummyResultSet.addEntry(dummyResultSetEntry);
 
         return dummyResultSet;
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
     }
 
     public String getText() {
@@ -77,17 +73,30 @@ public class ExperimentDurchfuehrungstext extends Model {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             text = resultSet.getString(resultSet.findColumn(COLUMN_TEXT));
         } else {
-            throw new ModelNotFoundException("Durchführungstext nicht gefunden");
+            throw new ModelNotFoundException("Durchführungstext nicht gefunden"); // TODO 
         }
     }
 
     @Override
     public String getValuesAsSQLString() {
+    	// TODO
         return null;
     }
 
     @Override
     public String getRelationSchema() {
+    	// TODO
         return null;
     }
+    
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_TEXT, text);
+		
+		return json;
+	}
 }

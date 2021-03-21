@@ -24,7 +24,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList modelList = new ModelList(new Mitarbeiter());
+                ModelTable modelList = new ModelTable(new Mitarbeiter());
                 List<Model> projektplanung = modelList.getModelList().stream().filter(m -> ((Mitarbeiter) m).getRolle() == 1).collect(Collectors.toList());
                 for (Model model : projektplanung) {
         %>
@@ -48,7 +48,7 @@
         <option value="new">neue Serie</option>
         <%
             try {
-                ModelList experimentSerien = new ModelList(new ExperimentSerie());
+                ModelTable experimentSerien = new ModelTable(new ExperimentSerie());
                 for (Model model : experimentSerien.getModelList()) {
         %>
         <option value="<%=model.getPrimaryKey()%>"><%=model.getPrimaryKey()%>
@@ -78,7 +78,7 @@
         <option value="new">neuer Durchführungstext</option>
         <%
             try {
-                ModelList experimentDurchfuehrungtext = new ModelList(new ExperimentDurchfuehrungstext());
+                ModelTable experimentDurchfuehrungtext = new ModelTable(new ExperimentDurchfuehrungstext());
                 for (Model model : experimentDurchfuehrungtext.getModelList()) {
         %>
         <option label="<%=model.getPrimaryKey()%>" value="<%=model.getPrimaryKey()%>">
@@ -161,7 +161,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList modelList = new ModelList(new Mitarbeiter());
+                ModelTable modelList = new ModelTable(new Mitarbeiter());
                 List<Model> laborbetreuung = modelList.getModelList().stream().filter(m -> ((Mitarbeiter) m).getRolle() == 2).collect(Collectors.toList());
                 for (Model model : laborbetreuung) {
         %>
@@ -194,7 +194,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList apiModelList = new ModelList(new Probe());
+                ModelTable apiModelList = new ModelTable(new Probe());
                 for (Model model : apiModelList.getModelList()) {
         %>
         <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%>

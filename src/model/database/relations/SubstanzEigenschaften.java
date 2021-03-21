@@ -44,5 +44,4 @@ public class SubstanzEigenschaften extends ManyToManyA<Substanz, Eigenschaften> 
     public List<Eigenschaften> getEigenschaften() {
         return eigenschaften;
     }
-
 }

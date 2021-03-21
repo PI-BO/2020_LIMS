@@ -1,6 +1,6 @@
 <%@page import="model.database.tableModels.Model"%>
 <%@page import="model.database.tableModels.Partner"%>
-<%@page import="model.database.tableModels.ModelList"%>
+<%@page import="model.database.tableModels.ModelTable"%>
 <%@page import="controller.testServlets.FileuploadTestServlet"%>
 <%@page import="controller.servlets.ProbeneingangServlet"%>
 <%@page import="controller.testServlets.PostGetTestServlet"%>
@@ -94,7 +94,7 @@
 						<option value="" selected disabled>bitte auswaehlen</option>
 
 						<%
-					 	ModelList modelList = new ModelList(new Partner());
+					 	ModelTable modelList = new ModelTable(new Partner());
 
 					 	for(Model model : modelList.getModelList()){
 					 		

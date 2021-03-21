@@ -3,38 +3,31 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Substanz extends Model {
 
-    private String primaryKey;
     private String projektID;
     public static final String COLUMN_PRIMARY_KEY = "substanz_id";
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
     public static final String TABLE = "substanz";
 
-    public Substanz(String id) throws SQLException, ModelNotFoundException {
-        this.primaryKey = id;
-        database.getModel(this);
+    public Substanz(){
+		super();
+	}
+	
+    public Substanz(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
 
-    public Substanz() {
-	}
-    
-	public void setPrimaryKey(String primaryKey) {
-		this.primaryKey = primaryKey;
-	}
-
-	public void setProjektID(String projektID) {
+	public void setProjektID(String projektID) throws SQLException, ModelNotFoundException {
 		this.projektID = projektID;
+		Projekt projekt = new Projekt(projektID);
+		this.addParent(projekt);
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
 
     @Override
     public String getPrimaryKeyColumn() {
@@ -88,5 +81,16 @@ public class Substanz extends Model {
 	@Override
 	public String getForeignKey() {
 		return projektID;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_PROJEKT_ID, projektID);
+		
+		return json;
 	}
 }

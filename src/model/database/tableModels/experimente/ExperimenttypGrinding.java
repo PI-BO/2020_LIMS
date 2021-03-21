@@ -3,6 +3,7 @@ package model.database.tableModels.experimente;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +13,10 @@ public class ExperimenttypGrinding extends ExperimenteModel {
 
     public ExperimenttypGrinding(String primaryKey) throws ModelNotFoundException, SQLException {
         super(primaryKey);
-        database.getModel(this);
     }
 
-    public ExperimenttypGrinding() {
-		// TODO Auto-generated constructor stub
+    public ExperimenttypGrinding(){
+		super();
 	}
 
     @Override
@@ -34,7 +34,7 @@ public class ExperimenttypGrinding extends ExperimenteModel {
         if (resultSet.next()) {
             super.setAttributes(resultSet);
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("ExperimenttypGrinding nicht gefunden");
         }
     }
 
@@ -63,5 +63,14 @@ public class ExperimenttypGrinding extends ExperimenteModel {
 	public String getForeignKey() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+
+		return json;
 	}
 }

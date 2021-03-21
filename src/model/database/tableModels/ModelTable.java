@@ -3,7 +3,10 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.dummyDB.DummyResultSet;
-import model.database.mariaDB.MariaDB;
+import model.database.dummyDB.DummyResultSetInterface;
+import model.database.manager.DatabaseManager;
+import utility.JSON;
+import utility.JSONArray;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,17 +17,19 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ModelList extends Model{
-    private static final Logger LOGGER = LogManager.getLogger(ModelList.class.getSimpleName());
+public class ModelTable implements DummyResultSetInterface, JSONModel{
+
+    private static final Logger LOGGER = LogManager.getLogger(ModelTable.class.getSimpleName());
 
     private String table;
     private Model model;
     private List<Model> modelList = new LinkedList<>();
+    private Database databse = DatabaseManager.getDatabaseInstance();
 
-    public ModelList(Model model) throws SQLException, ModelNotFoundException {
+    public ModelTable(Model model) throws SQLException, ModelNotFoundException {
         this.model = model;
         table = model.getTable();
-        database.getTable(this);
+        databse.getTable(this);
     }
 
     public String getTable() {
@@ -53,27 +58,6 @@ public class ModelList extends Model{
     }
 
 	@Override
-	public String getPrimaryKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getPrimaryKeyColumn() {
-		return model.getPrimaryKeyColumn();
-	}
-
-	@Override
-	public String getValuesAsSQLString() {
-		return model.getValuesAsSQLString();
-	}
-
-	@Override
-	public String getRelationSchema() {
-		return model.getRelationSchema();
-	}
-
-	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 
 		DummyResultSet dummyResultSet = new DummyResultSet();
@@ -84,9 +68,19 @@ public class ModelList extends Model{
 		
 		return dummyResultSet;
 	}
-
+	
 	@Override
-	public String getForeignKey() {
-		return model.getForeignKey();
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		JSONArray jsonArray = new JSONArray();
+		
+		for(Model model : modelList){
+			jsonArray.addJSON(model.toJSON());
+		}
+		
+		json.addJSONArray("ModelList", jsonArray);
+		
+		return json;
 	}
 }

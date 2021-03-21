@@ -122,7 +122,7 @@ public class JSTreeNodesServlet extends HttpServlet {
 
     private void getPartner(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
 
-        ModelList projektList = new ModelList(new Partner());
+        ModelTable projektList = new ModelTable(new Partner());
 
         List<String> ids = new LinkedList<>();
         for (Model partnerModel : projektList.getModelList()) {

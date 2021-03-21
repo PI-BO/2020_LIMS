@@ -3,13 +3,14 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MitarbeiterRolle extends Model{
-    private String primaryKey;
-    private String typ;
+
+	private String typ;
     private String zugehoerigkeit;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
@@ -20,13 +21,13 @@ public class MitarbeiterRolle extends Model{
 
     }
 
-    public MitarbeiterRolle(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
+	public MitarbeiterRolle(String primaryKey) throws ModelNotFoundException, SQLException {
+		super(primaryKey);
+	}
+	
     @Override
     public String getForeignKey() {
+    	// TODO
         return null;
     }
 
@@ -40,15 +41,6 @@ public class MitarbeiterRolle extends Model{
         dummyResultSet.addEntry(dummyResultSetEntry);
 
         return dummyResultSet;
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
     }
 
     public String getTyp() {
@@ -92,17 +84,31 @@ public class MitarbeiterRolle extends Model{
             typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
             zugehoerigkeit = resultSet.getString(resultSet.findColumn(COLUMN_ZUGEHOERIGKEIT));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("MitarbeiterRolle nicht gefunden");
         }
     }
 
     @Override
     public String getValuesAsSQLString() {
+    	// TODO
         return null;
     }
 
     @Override
     public String getRelationSchema() {
+    	// TODO
         return null;
     }
+    
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_TYP, typ);
+		json.addKeyValue(COLUMN_ZUGEHOERIGKEIT, zugehoerigkeit);
+		
+		return json;
+	}
 }

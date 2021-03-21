@@ -4,6 +4,7 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,9 +25,9 @@ public class AnalyseTemperaturprogramme extends Model {
     public static final String TABLE = "temperaturprogramme";
 
     public AnalyseTemperaturprogramme() {
-
+        super();
     }
-
+    
     public AnalyseTemperaturprogramme(String tabelle, String schritt) throws ModelNotFoundException, SQLException {
         this.tabelle = tabelle;
         this.schritt = schritt;
@@ -35,6 +36,7 @@ public class AnalyseTemperaturprogramme extends Model {
 
     @Override
     public String getForeignKey() {
+    	//TODO
         return null;
     }
 
@@ -53,18 +55,13 @@ public class AnalyseTemperaturprogramme extends Model {
         return dummyResultSet;
     }
 
-    @Override
-    public String getPrimaryKey() {
-        return null;
-    }
-
     public String[] getPrimaryKeys() {
         return new String[]{tabelle, schritt};
     }
 
     @Override
     public String getPrimaryKeyColumn() {
-        return null;
+        return COLUMN_PRIMARY_KEY;
     }
 
     public String[] getPrimaryKeyColumns() {
@@ -165,11 +162,28 @@ public class AnalyseTemperaturprogramme extends Model {
 
     @Override
     public String getValuesAsSQLString() {
+    	//TODO
         return null;
     }
 
     @Override
     public String getRelationSchema() {
+    	//TODO
         return null;
     }
+    
+	@Override
+	public JSON toJSON() {
+		
+		JSON json = new JSON();
+		json.addKeyValue("table", getTable());
+		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue(COLUMN_RAMPE, rampe);
+		json.addKeyValue(COLUMN_SCHRITT, schritt);
+		json.addKeyValue(COLUMN_SEGENTTYP, segmenttyp);
+		json.addKeyValue(COLUMN_TEMPERATUR, temperatur);
+		json.addKeyValue(COLUMN_ZEIT, zeit);
+		
+		return json;
+	}
 }

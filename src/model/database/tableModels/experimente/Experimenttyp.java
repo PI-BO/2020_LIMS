@@ -4,35 +4,27 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Experimenttyp extends Model {
-    private String primaryKey;
     private String typ;
+
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
+
     public static final String TABLE = "experimenttyp";
 
-    public Experimenttyp(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
-    }
-
-    public Experimenttyp() {
-		// TODO Auto-generated constructor stub
+    public Experimenttyp(){
+		super();
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
+	
+    public Experimenttyp(String primaryKey) throws SQLException, ModelNotFoundException {
+    	super(primaryKey);
     }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
-    }
-
+    
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
@@ -86,5 +78,16 @@ public class Experimenttyp extends Model {
 	public String getForeignKey() {
 		// Does not have a foreign key
 		return null;
+	}
+	
+	@Override
+	public JSON toJSON() {
+
+		JSON json = new JSON();
+		json.addKeyValue("table", TABLE);
+		json.addKeyValue("id", primaryKey);
+		json.addKeyValue(COLUMN_TYP, typ);
+		
+		return json;
 	}
 }
