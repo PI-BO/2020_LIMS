@@ -1,11 +1,9 @@
 package controller.servlets;
 
 import exceptions.ModelNotFoundException;
-import model.database.relations.PartnerProjekt;
-import model.database.relations.ProbeExperiment;
-import model.database.relations.ProjekteSubstanz;
-import model.database.relations.SubstanzenProbe;
+import model.database.relations.*;
 import model.database.tableModels.*;
+import model.database.tableModels.analyse.Analyse;
 import model.database.tableModels.experimente.Experiment;
 
 import javax.servlet.ServletException;
@@ -53,6 +51,8 @@ public class JSTreeNodesServlet extends HttpServlet {
                 getProben(response, new Substanz(parentId));
             } else if (table.equals(Probe.TABLE)) {
                 getExperiments(response, new Probe(parentId));
+            } else if (table.equals(Experiment.TABLE)) {
+                getAnalyse(response, new Experiment(parentId));
             } else {
                 getPartner(response);
             }
@@ -182,7 +182,19 @@ public class JSTreeNodesServlet extends HttpServlet {
         List<Experiment> experiments = probeExperiment.getExperimente();
         List<String> jsons = new ArrayList<>();
         for (Experiment experiment : experiments)
-            jsons.add(jsonObject(experiment, probe.getTable() + ':' + probe.getPrimaryKey(), false));
+            jsons.add(jsonObject(experiment, probe.getTable() + ':' + probe.getPrimaryKey(), true));
+
+        response.getWriter().write(
+                jsonArray(jsons)
+        );
+    }
+
+    private void getAnalyse(HttpServletResponse response, Experiment experiment) throws ModelNotFoundException, SQLException, IOException {
+        ExperimentAnalyse experimentAnalyse = new ExperimentAnalyse(experiment);
+        List<Analyse> analyses = experimentAnalyse.getAnalysen();
+        List<String> jsons = new ArrayList<>();
+        for (Analyse analyse : analyses)
+            jsons.add(jsonObject(analyse, experiment.getTable() + ':' + experiment.getPrimaryKey(), false));
 
         response.getWriter().write(
                 jsonArray(jsons)

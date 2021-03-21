@@ -4,6 +4,8 @@
 <%@page import="model.database.tableModels.Projekt" %>
 <%@page import="model.database.tableModels.Substanz" %>
 <%@page import="model.database.tableModels.Probe" %>
+<%@page import="model.database.tableModels.experimente.Experiment" %>
+<%@page import="model.database.tableModels.analyse.Analyse" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -148,7 +150,9 @@
                     "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
                     "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
                     "Substanz": ["${Substanz.COLUMN_PRIMARY_KEY}"],
-                    "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"]
+                    "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"],
+                    "Experiment": ["${Experiment.COLUMN_PRIMARY_KEY}"],
+                    "Analyse": ["${Analyse.COLUMN_PRIMARY_KEY}"]
                 }
             }
         },

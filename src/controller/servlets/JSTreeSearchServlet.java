@@ -10,6 +10,8 @@ import model.database.tableModels.Partner;
 import model.database.tableModels.Probe;
 import model.database.tableModels.Projekt;
 import model.database.tableModels.Substanz;
+import model.database.tableModels.analyse.Analyse;
+import model.database.tableModels.experimente.Experiment;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,6 +50,12 @@ public class JSTreeSearchServlet extends HttpServlet {
 
         String[] probenparam = request.getParameterValues("Probe[]");
         if (probenparam != null) getProbe(str, probenparam);
+
+        String[] experimentparam = request.getParameterValues("Experiment[]");
+        if (experimentparam != null) getExperiment(str, experimentparam);
+
+        String[] analyseparam = request.getParameterValues("Analyse[]");
+        if (analyseparam != null) getAnalyse(str, analyseparam);
 
         StringBuilder res = new StringBuilder("[");
         if (!keys.isEmpty()) {
@@ -127,6 +135,60 @@ public class JSTreeSearchServlet extends HttpServlet {
                 keys.add(Probe.TABLE + ":" + set.getString(columnPrimaryKey));
                 keys.add(Substanz.TABLE + ":" + set.getString(columnParent));
                 Substanz substanz = new Substanz(set.getString(columnParent));
+                keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
+                Projekt projekt = new Projekt(substanz.getProjektID());
+                keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ModelNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getExperiment(String str, String[] experimentparam) {
+        try {
+            ResultSet set = database.findSubstring(Experiment.class, str, experimentparam);
+            String columnPrimaryKey = Experiment.COLUMN_PRIMARY_KEY;
+            String columnParent = Experiment.COLUMN_PROBEN_NR;
+            while (set.next()) {
+                keys.add(Experiment.TABLE + ":" + set.getString(columnPrimaryKey));
+                keys.add(Probe.TABLE + ":" + set.getString(columnParent));
+                Probe probe = new Probe(set.getString(columnParent));
+                keys.add(Substanz.TABLE + ":" + probe.getSubstanzID());
+                Substanz substanz = new Substanz(probe.getSubstanzID());
+                keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
+                Projekt projekt = new Projekt(substanz.getProjektID());
+                keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ModelNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getAnalyse(String str, String[] analyseparam) {
+        try {
+            ResultSet set = database.findSubstring(Analyse.class, str, analyseparam);
+            String columnPrimaryKey = Analyse.COLUMN_PRIMARY_KEY;
+            String columnParent = Analyse.COLUMN_EXPERIMENT_ID;
+            while (set.next()) {
+                keys.add(Analyse.TABLE + ":" + set.getString(columnPrimaryKey));
+                keys.add(Experiment.TABLE + ":" + set.getString(columnParent));
+                Experiment experiment = new Experiment(set.getString(columnParent));
+                keys.add(Probe.TABLE + ":" + experiment.getProbenNr());
+                Probe probe = new Probe(set.getString(columnParent));
+                keys.add(Substanz.TABLE + ":" + probe.getSubstanzID());
+                Substanz substanz = new Substanz(probe.getSubstanzID());
                 keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
                 Projekt projekt = new Projekt(substanz.getProjektID());
                 keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
