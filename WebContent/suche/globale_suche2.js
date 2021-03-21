@@ -12,8 +12,13 @@ var GlobaleSuche = (function () {
 	const searchParameterClass = "global_search_parameter";
 	const searchFilterClass = "global_search_parameter_filter";
 	const searchValueClass = "global_search_parameter_input";
+	const firstHeaderClass = "global_search_result_table_first_header";
+	const secondHeaderClass = "global_search_result_table_second_header";
+	const resultRowClass = "global_search_result_table_result_row";
 
 	const resultTableHeaderKey = "table";
+
+	const sortFunctionSkipRows = 2;
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
@@ -41,9 +46,9 @@ var GlobaleSuche = (function () {
 	};
 
 	public.init = function init() {
-		
+
 		fetchDatabase((tupelArray) => {
-			
+
 			initAddParameterButton();
 			initSearchButton();
 			fetchParameters(tupelArray);
@@ -51,7 +56,7 @@ var GlobaleSuche = (function () {
 		})
 	}
 
-	function fetchParameters(tupelArray){
+	function fetchParameters(tupelArray) {
 
 		tupelArray.forEach((tupel) => {
 			tupel.forEach((tupelElement) => {
@@ -60,17 +65,17 @@ var GlobaleSuche = (function () {
 				let tableParameters = [];
 
 				// get table key
-				for(let key in tupelElement){
-					if(key !== "table") continue;
+				for (let key in tupelElement) {
+					if (key !== "table") continue;
 					table = tupelElement[key];
 					break;
 				}
 
-				if(table === undefined) return;
+				if (table === undefined) return;
 
 				// fill table array with parameter values
-				for(let key in tupelElement){
-					if(key === "table") continue;
+				for (let key in tupelElement) {
+					if (key === "table") continue;
 					tableParameters.push(key);
 				}
 				parameters[table] = tableParameters;
@@ -78,10 +83,10 @@ var GlobaleSuche = (function () {
 		})
 	}
 
-	let callbackInputMask = undefined;
+	let globalCallbackInputMask = undefined;
 
 	public.addSearchCallback = function addSearchCallback(callback) {
-		callbackInputMask = callback;
+		globalCallbackInputMask = callback;
 	}
 
 	public.initTemplateParameters = function initTemplateParameters(template) {
@@ -410,10 +415,10 @@ var GlobaleSuche = (function () {
 			// const tupelList = getDatabaseAsTupelList(database);
 			const tupelList = database;
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
-			
+
 
 			showResultHeader(results, resultTableId);
-			showResults(results, resultTableId);
+			// showResults(results, resultTableId);
 		})
 	}
 
@@ -453,92 +458,104 @@ var GlobaleSuche = (function () {
 		let newCategories = [];
 		let newParameters = [];
 
-		for(let key in colSpanJsonCategories){
+		for (let key in colSpanJsonCategories) {
 			newCategories.push(key);
 		}
 
-		for(let key in colSpanJsonParameters){
+		for (let key in colSpanJsonParameters) {
 			newParameters.push(key);
 		}
 
 
-		console.log({results})
+		console.log({ results })
+		console.log({ categories })
+		console.log({ parameters })
+
+		let newResults = [];
+
+		results.forEach(tupel => {
+			let newTupel = [];
+			for (let i = 0; i < categories.length; i++) {
+				tupel.forEach(element => {
+					if (element["table"].toLowerCase() !== categories[i].toLowerCase()) return;
+					let elementAsJson = { ...element };
+					elementAsJson["display"] = element[parameters[i]];
+					newTupel.push(elementAsJson);
+				})
+				newResults.push(newTupel);
+			}
+		})
+
+		console.log({ newResults })
 
 		// console.log({colSpanJson: colSpanJsonCategories})
 		// console.log({newCategories})
 
-		addTupelAsTableHeader(newCategories, resultTableId, colSpanJsonCategories);
-		addTupelAsTableHeader(parameters, resultTableId);
+		addTupelAsTableHeader(newCategories, resultTableId, colSpanJsonCategories, firstHeaderClass);
+		addTupelAsTableHeader(parameters, resultTableId, undefined, secondHeaderClass, true);
+		addResultsToTable(newResults, resultTableId, resultRowClass);
 	}
 
-	function calculateColSpanJson(array){
+	function calculateColSpanJson(array) {
 		let colSpanJson = {};
 
 		array.forEach(element => {
 			colSpanJson[element] = 0;
 		})
-		
+
 		array.forEach(element => {
 			colSpanJson[element] += 1;
-			
+
 		})
 		return colSpanJson;
 	}
 
-	function addTupelAsTableHeader(tupel, tableId, colSpanJson) {
+	function addTupelAsTableHeader(tupel, tableId, colSpanJson, className, addSortFunction) {
 
 		let table = document.getElementById(tableId);
 		let row = table.insertRow(-1);
+		if (className !== undefined) row.className = className;
 
 		let index = 0;
 		tupel.forEach(tupelElement => {
 			let cell = row.insertCell(-1);
-			if(colSpanJson !== undefined) cell.colSpan = colSpanJson[tupelElement];
+			if (colSpanJson !== undefined) cell.colSpan = colSpanJson[tupelElement];
 			cell.append(tupelElement);
 			let n = index;	// "n" muss angelegt werden da "index" außerhalb der Schleife definiert ist und somit nur "Pass-By-Reference"
-			cell.addEventListener("click", () => sortTable(resultTableId, n));
+			if (addSortFunction !== undefined && addSortFunction === true) cell.addEventListener("click", () => sortTable(resultTableId, n));
 			index++;
 		})
 	}
 
-	function showResults(results, resultTableId) {
-		addTupelArrayToTable(results, resultTableId, "id");
+	function addResultsToTable(results, resultTableId, className) {
+		addTupelArrayToResults(results, resultTableId, className, "display", true);
 	}
 
-	function addTupelArrayToTable(results, tableId, onlyThisKey) {
+	function addTupelArrayToResults(results, tableId, className, onlyThisKey, showDetails) {
 
 		const parameters = getSearchParameters();
 		const categories = getSearchCategories();
 
-		// console.log({parameters})
-		// console.log({categories})
-		// console.log({results})
-		
 		let table = document.getElementById(tableId);
-		
+
 		results.forEach(tupel => {
 			let row = table.insertRow(-1);
+			if (className !== undefined) row.className = className;
 			tupel.forEach(tupelElement => {
-				
+
 				for (let key in tupelElement) {
-					
-					// console.log({tupelElement})
 
 					let cellContent = tupelElement[key];
 
 					if (onlyThisKey === undefined) {
-						let cell = addToNewTableCell(cellContent, row)
-						addListenerToCell(cell, tupelElement);
-						cell.addEventListener("click", () => {
-							if (callbackInputMask === undefined) return;
-							callbackInputMask(cellContent);
-							callbackInputMask = undefined;
-						})
+						let cell = addToNewTableCell(cellContent, row);
+						if (showDetails !== undefined && showDetails === true) addShowDetailsListener(cell, tupelElement);
+						addCallbackFunction(cell, cellContent);
 					}
 
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
-						addListenerToCell(cell, tupelElement);
+						if (showDetails !== undefined && showDetails === true) addShowDetailsListener(cell, tupelElement);
 						break;
 					}
 				}
@@ -550,15 +567,33 @@ var GlobaleSuche = (function () {
 				return cell;
 			}
 
-			function addListenerToCell(cell, tupelElement) {
+			function addCallbackFunction(cell, cellContent) {
+				cell.addEventListener("click", () => {
+					if (globalCallbackInputMask === undefined) return;
+					globalCallbackInputMask(cellContent);
+					globalCallbackInputMask = undefined;
+				})
+			}
+
+			function addShowDetailsListener(cell, tupelElement) {
 				cell.addEventListener("click", () => {
 					clearResultTable();
 					let tupelElementArray = [];
+					let tableName = tupelElement["table"];
+					delete tupelElement["table"];
+					delete tupelElement["display"];
 					for (let key in tupelElement) {
 						tupelElementArray.push(key);
 					}
-					addTupelAsTableHeader(tupelElementArray, resultTableId);
-					addTupelArrayToTable([[tupelElement]], resultTableId);
+
+					let colSpanJson = {};
+					colSpanJson[tableName] = Object.keys(tupelElement).length;
+
+					tableNameHeaderArray = [tableName];
+
+					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, colSpanJson, firstHeaderClass);
+					addTupelAsTableHeader(tupelElementArray, resultTableId, undefined, secondHeaderClass);
+					addTupelArrayToResults([[tupelElement]], resultTableId, resultRowClass, undefined, false);
 				});
 			}
 		})
@@ -701,6 +736,9 @@ var GlobaleSuche = (function () {
 	}
 
 	function sortTable(tableId, n) {
+
+		console.log("sort")
+		console.log({ n })
 		var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 		table = document.getElementById(tableId);
 		rows = table.rows;
@@ -718,11 +756,13 @@ var GlobaleSuche = (function () {
 
 		// index to exclude rows with undefinded fields
 		let maxIndexOfDefinedRows = 0;
-		for (let i = maxIndexOfDefinedRows; i < (rows.length - 1); i++) {
+		for (let i = sortFunctionSkipRows - 1; i < (rows.length - 1); i++) {
 			let td = rows[i].getElementsByTagName("TD")[n];
 			if (td === undefined) break;
 			maxIndexOfDefinedRows = i;
 		}
+
+		console.log({ maxIndexOfDefinedRows })
 
 		while (switching) {
 			// Start by saying: no switching is done:
@@ -731,7 +771,7 @@ var GlobaleSuche = (function () {
 			/* Loop through all table rows (except the
 			first, which contains table headers): */
 			// for (i = 1; i < (rows.length - 1); i++) {
-			for (i = 1; i < maxIndexOfDefinedRows; i++) {
+			for (i = sortFunctionSkipRows; i < maxIndexOfDefinedRows; i++) {
 				// Start by saying there should be no switching:
 				shouldSwitch = false;
 				/* Get the two elements you want to compare,
