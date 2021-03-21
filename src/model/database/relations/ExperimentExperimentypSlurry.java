@@ -1,8 +1,8 @@
 package model.database.relations;
 
 import exceptions.ModelNotFoundException;
-import model.database.tableModels.Experiment;
-import model.database.tableModels.ExperimenttypSlurry;
+import model.database.tableModels.experimente.Experiment;
+import model.database.tableModels.experimente.ExperimenttypSlurry;
 
 import java.sql.SQLException;
 

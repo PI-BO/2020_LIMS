@@ -57,6 +57,8 @@
 
                     <li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
                         <ul class="navigation_tree_branches">
+                            <li><span class="navigation_tree_node symbol_clipboard"
+                                      id="analyse_erstellen">erstellen</span></li>
                             <li><span class="navigation_tree_node symbol_folder_closed">Eingangsanalyse</span>
                                 <ul class="navigation_tree_branches">
                                     <li><span class="navigation_tree_node symbol_clipboard"
@@ -145,7 +147,7 @@
         });
     });
 
-    $("#experiment_erstellen").click(function () {
+    $("#analyse_erstellen").click(function () {
         const url = "<%=Address.getAnalyseErstellenJsp()%>";
         const posting = $.post(url, {});
         posting.done(function (data) {

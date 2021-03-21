@@ -6,6 +6,7 @@ import model.database.relations.ProbeExperiment;
 import model.database.relations.ProjekteSubstanz;
 import model.database.relations.SubstanzenProbe;
 import model.database.tableModels.*;
+import model.database.tableModels.experimente.Experiment;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

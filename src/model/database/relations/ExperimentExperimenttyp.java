@@ -1,8 +1,8 @@
 package model.database.relations;
 
 import exceptions.ModelNotFoundException;
-import model.database.tableModels.Experiment;
-import model.database.tableModels.Experimenttyp;
+import model.database.tableModels.experimente.Experiment;
+import model.database.tableModels.experimente.Experimenttyp;
 import model.database.tableModels.Model;
 
 import java.sql.SQLException;

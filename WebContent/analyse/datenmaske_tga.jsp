@@ -59,11 +59,6 @@
     <input type="number" name=<%=AnalyseServlet.EINWAAGE_MG%>>
 </div>
 
-<div class="analyse_erstellen_header">Auswaage [mg]</div>
-<div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.AUSWAAGE_MG%>>
-</div>
-
 <div class="analyse_erstellen_header">Rampe [K/min]</div>
 <div class="analyse_erstellen_entry">
     <input type="number" name=<%=AnalyseServlet.RAMPE_K_MIN%>>
@@ -104,16 +99,6 @@
             </tbody>
         </table>
     </div>
-</div>
-
-<div class="analyse_erstellen_header">Tiegel</div>
-<div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.TIEGEL%>>
-</div>
-
-<div class="analyse_erstellen_header">Tiegelpräsentation</div>
-<div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.TIEGELPRAESENTATION%>>
 </div>
 
 <div class="analyse_erstellen_header">Bemerkung</div>
@@ -177,7 +162,6 @@
             $("#temperaurprogramme_table_title").hide()
             <%
                 if (modelList != null){
-                    ModelList modelList = new ModelList(new AnalyseTemperaturprogramme());
                     for (Model model : modelList.getModelList()) {
                         AnalyseTemperaturprogramme row = (AnalyseTemperaturprogramme) model;
 

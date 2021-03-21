@@ -5,9 +5,15 @@ import model.database.Database;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.tableModels.*;
+import model.database.tableModels.analyse.AnalyseTemperaturprogramme;
+import model.database.tableModels.analyse.Analysetyp;
+import model.database.tableModels.experimente.Experiment;
+import model.database.tableModels.experimente.ExperimentDurchfuehrungstext;
+import model.database.tableModels.experimente.Experimenttyp;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -251,6 +257,91 @@ public class DummyDB implements Database {
                         "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
         );
         modelList.add(experimentDurchfuehrungstext);
+
+        // Analysetyp
+        Analysetyp analysetyp = new Analysetyp();
+        analysetyp.setPrimaryKey("1");
+        analysetyp.setTyp("PXRD");
+        modelList.add(analysetyp);
+
+        analysetyp = new Analysetyp();
+        analysetyp.setPrimaryKey("2");
+        analysetyp.setTyp("DSC");
+        modelList.add(analysetyp);
+
+        analysetyp = new Analysetyp();
+        analysetyp.setPrimaryKey("3");
+        analysetyp.setTyp("TGA");
+        modelList.add(analysetyp);
+
+        analysetyp = new Analysetyp();
+        analysetyp.setPrimaryKey("4");
+        analysetyp.setTyp("IR");
+        modelList.add(analysetyp);
+
+        // temperaturprogramme
+        AnalyseTemperaturprogramme temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("1");
+        temperaturprogramme.setSchritt("1");
+        temperaturprogramme.setTemperatur("180");
+        temperaturprogramme.setRampe("10");
+        temperaturprogramme.setZeit(null);
+        temperaturprogramme.setSegmenttyp("Dynamisch");
+        modelList.add(temperaturprogramme);
+
+        temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("1");
+        temperaturprogramme.setSchritt("2");
+        temperaturprogramme.setTemperatur("25");
+        temperaturprogramme.setRampe("10");
+        temperaturprogramme.setZeit(null);
+        temperaturprogramme.setSegmenttyp("Dynamisch");
+        modelList.add(temperaturprogramme);
+
+        temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("1");
+        temperaturprogramme.setSchritt("3");
+        temperaturprogramme.setTemperatur("180");
+        temperaturprogramme.setRampe("10");
+        temperaturprogramme.setZeit(null);
+        temperaturprogramme.setSegmenttyp("Dynamisch");
+        modelList.add(temperaturprogramme);
+
+        temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("1");
+        temperaturprogramme.setSchritt("4");
+        temperaturprogramme.setTemperatur("25");
+        temperaturprogramme.setRampe("10");
+        temperaturprogramme.setZeit(null);
+        temperaturprogramme.setSegmenttyp("Dynamisch");
+        modelList.add(temperaturprogramme);
+
+        temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("2");
+        temperaturprogramme.setSchritt("1");
+        temperaturprogramme.setTemperatur("180");
+        temperaturprogramme.setRampe("10");
+        temperaturprogramme.setZeit(null);
+        temperaturprogramme.setSegmenttyp("Dynamisch");
+        modelList.add(temperaturprogramme);
+
+        temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("2");
+        temperaturprogramme.setSchritt("2");
+        temperaturprogramme.setTemperatur("180");
+        temperaturprogramme.setRampe(null);
+        temperaturprogramme.setZeit("30");
+        temperaturprogramme.setSegmenttyp("Isotherme");
+        modelList.add(temperaturprogramme);
+
+        temperaturprogramme = new AnalyseTemperaturprogramme();
+        temperaturprogramme.setTabelle("2");
+        temperaturprogramme.setSchritt("3");
+        temperaturprogramme.setTemperatur("25");
+        temperaturprogramme.setRampe("10");
+        temperaturprogramme.setZeit(null);
+        temperaturprogramme.setSegmenttyp("Dynamisch");
+        modelList.add(temperaturprogramme);
     }
 
     @Override
@@ -309,6 +400,19 @@ public class DummyDB implements Database {
 
     @Override
     public void setModel(Model model) throws SQLException {
+        modelList.add(model);
+    }
+
+    @Override
+    public void replaceModel(Model model) throws SQLException {
+        if (model instanceof AnalyseTemperaturprogramme)
+            modelList.removeIf(listModel -> {
+                if (listModel instanceof AnalyseTemperaturprogramme)
+                    return Arrays.equals(((AnalyseTemperaturprogramme) listModel).getPrimaryKeys(), ((AnalyseTemperaturprogramme) model).getPrimaryKeys());
+                return false;
+            });
+        else
+            modelList.removeIf(listModel -> listModel.getPrimaryKey().equals(model.getPrimaryKey()));
         modelList.add(model);
     }
 

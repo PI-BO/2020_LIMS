@@ -1,13 +1,14 @@
-package model.database.tableModels;
+package model.database.tableModels.analyse;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.tableModels.Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AnalyseTemperaturprogramme extends Model{
+public class AnalyseTemperaturprogramme extends Model {
     private String tabelle;
     private String schritt;
     private String temperatur;
@@ -75,6 +76,74 @@ public class AnalyseTemperaturprogramme extends Model{
         return TABLE;
     }
 
+    public String getTabelle() {
+        return tabelle;
+    }
+
+    public void setTabelle(String tabelle) {
+        this.tabelle = tabelle;
+    }
+
+    public String getSchritt() {
+        return schritt;
+    }
+
+    public void setSchritt(String schritt) {
+        this.schritt = schritt;
+    }
+
+    public String getTemperatur() {
+        return temperatur;
+    }
+
+    public void setTemperatur(String temperatur) {
+        this.temperatur = temperatur;
+    }
+
+    public String getRampe() {
+        return rampe;
+    }
+
+    public void setRampe(String rampe) {
+        this.rampe = rampe;
+    }
+
+    public String getZeit() {
+        return zeit;
+    }
+
+    public void setZeit(String zeit) {
+        this.zeit = zeit;
+    }
+
+    public String getSegmenttyp() {
+        return segmenttyp;
+    }
+
+    public void setSegmenttyp(String segmenttyp) {
+        this.segmenttyp = segmenttyp;
+    }
+
+    public static String getColumnSchritt() {
+        return COLUMN_SCHRITT;
+    }
+
+    public static String getColumnTemperatur() {
+        return COLUMN_TEMPERATUR;
+    }
+
+    public static String getColumnRampe() {
+        return COLUMN_RAMPE;
+    }
+
+    public static String getColumnZeit() {
+        return COLUMN_ZEIT;
+    }
+
+    public static String getColumnSegenttyp() {
+        return COLUMN_SEGENTTYP;
+    }
+
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
@@ -87,6 +156,11 @@ public class AnalyseTemperaturprogramme extends Model{
         } else {
             throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
         }
+    }
+
+    @Override
+    public void saveToDatabase() throws SQLException {
+        database.replaceModel(this);
     }
 
     @Override

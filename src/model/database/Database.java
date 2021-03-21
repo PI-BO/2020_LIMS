@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import exceptions.ModelNotFoundException;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
-import model.database.tableModels.AnalyseTemperaturprogramme;
+import model.database.tableModels.analyse.AnalyseTemperaturprogramme;
 import model.database.tableModels.Model;
 
 public interface Database {
@@ -16,6 +16,8 @@ public interface Database {
     void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestModel)  throws ModelNotFoundException, SQLException;
 
     public void setModel(Model model) throws SQLException;
+
+    void replaceModel(Model model) throws SQLException;
 
     public void updateModel(Model model) throws SQLException;
 

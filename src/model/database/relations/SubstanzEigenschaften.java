@@ -2,7 +2,6 @@ package model.database.relations;
 
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.Eigenschaften;
-import model.database.tableModels.Experiment;
 import model.database.tableModels.Model;
 import model.database.tableModels.Substanz;
 

@@ -1,25 +1,26 @@
-package model.database.tableModels;
+package model.database.tableModels.experimente;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.tableModels.Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Analysetyp extends Model{
+public class Experimenttyp extends Model {
     private String primaryKey;
     private String typ;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
-    public static final String TABLE = "analysetyp";
+    public static final String TABLE = "experimenttyp";
 
-    public Analysetyp(String primaryKey) throws ModelNotFoundException, SQLException {
+    public Experimenttyp(String primaryKey) throws ModelNotFoundException, SQLException {
         this.primaryKey = primaryKey;
         database.getModel(this);
     }
 
-    public Analysetyp() {
+    public Experimenttyp() {
 		// TODO Auto-generated constructor stub
 	}
 

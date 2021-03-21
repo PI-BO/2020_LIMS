@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="controller.servlets.AnalyseServlet" %>
-<%@ page import="model.database.tableModels.ModelList" %>
-<%@ page import="model.database.tableModels.Mitarbeiter" %>
-<%@ page import="model.database.tableModels.Model" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="exceptions.ModelNotFoundException" %>
+<%@ page import="model.database.tableModels.*" %>
 <%@ page import="model.database.tableModels.experimente.Experiment" %>
 
 <div class="analyse_erstellen_header">Analyse ID</div>
@@ -39,30 +37,29 @@
     <input type="date" name=<%=AnalyseServlet.DATUM%>>
 </div>
 
-<div class="analyse_erstellen_header">Gerät</div>
+<div class="analyse_erstellen_header">Scans</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.GERAET%>>
+    <input type="number" name=<%=AnalyseServlet.SCANS%>>
 </div>
 
-<div class="analyse_erstellen_header">Probenpräparation</div>
+<div class="analyse_erstellen_header">Auflösung [1/cm]</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.PROBENPRAEPARATION%>>
+    <input type="number" name=<%=AnalyseServlet.AUFLOESUNG%>>
 </div>
 
-<div class="analyse_erstellen_header">Position</div>
+<div class="analyse_erstellen_header">Geometrie</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.POSITION%>>
+    <input type="text" name=<%=AnalyseServlet.GEOMETRIE%>>
 </div>
 
-<div class="analyse_erstellen_header">Programm</div>
+<div class="analyse_erstellen_header">Präparation</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.PROGRAMM%>>
+    <input type="text" name=<%=AnalyseServlet.PRAEPARATION%>>
 </div>
 
-<div class="analyse_erstellen_header">Messzeit</div>
+<div class="analyse_erstellen_header">Background</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.MESSZEIT%>>
-    <i>min</i>
+    <input type="date" name=<%=AnalyseServlet.BACKGROUND%>>
 </div>
 
 <div class="analyse_erstellen_header">Bemerkung</div>

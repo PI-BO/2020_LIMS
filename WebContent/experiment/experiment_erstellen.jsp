@@ -4,6 +4,7 @@
 <%@ page import="config.Address" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="exceptions.ModelNotFoundException" %>
+<%@ page import="model.database.tableModels.experimente.Experimenttyp" %>
 <!DOCTYPE html>
 <html lang="de">
 <head>

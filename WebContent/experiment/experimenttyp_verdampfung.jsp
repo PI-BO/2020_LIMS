@@ -5,6 +5,8 @@
 <%@ page import="exceptions.ModelNotFoundException" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.stream.Collectors" %>
+<%@ page import="model.database.tableModels.experimente.ExperimentDurchfuehrungstext" %>
+<%@ page import="model.database.tableModels.experimente.ExperimentSerie" %>
 
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">

@@ -1,7 +1,7 @@
 package model.database.relations;
 
 import exceptions.ModelNotFoundException;
-import model.database.tableModels.Experiment;
+import model.database.tableModels.experimente.Experiment;
 import model.database.tableModels.Probe;
 
 import java.sql.ResultSet;

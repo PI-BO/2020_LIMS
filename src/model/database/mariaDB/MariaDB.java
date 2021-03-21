@@ -1,13 +1,12 @@
 package model.database.mariaDB;
 
 import exceptions.ModelNotFoundException;
-import exceptions.WhereAddedException;
 import model.database.Database;
 import model.database.connection.DatabaseConnection;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.sqlQuerryBuilder.SQLQueryBuilder;
-import model.database.tableModels.AnalyseTemperaturprogramme;
+import model.database.tableModels.analyse.AnalyseTemperaturprogramme;
 import model.database.tableModels.Model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -127,6 +126,12 @@ public class MariaDB implements Database {
 
         System.out.println(sqlStatement);
 
+        databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
+    }
+
+    @Override
+    public void replaceModel(Model model) throws SQLException {
+        String sqlStatement = "REPLACE INTO " + model.getTable() + " (" + model.getRelationSchema() + ") VALUES (" + model.getValuesAsSQLString() + ");";
         databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
     }
 

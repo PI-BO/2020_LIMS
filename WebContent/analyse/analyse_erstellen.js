@@ -1,31 +1,33 @@
 function showAnalysetypFieldsMethode(select) {
-    let experimentErstellenSubPage;
+    let analyseErstellenSubPage;
     switch (select) {
-        case "202":
-            experimentErstellenSubPage = "experiment/experimenttyp_slurry.jsp";
+        case "1":
+            analyseErstellenSubPage = "analyse/datenmaske_pxrd.jsp";
             break;
-        case "101":
-            experimentErstellenSubPage = "experiment/experimenttyp_verdampfung.jsp";
+        case "2":
+            analyseErstellenSubPage = "analyse/datenmaske_dsc.jsp";
+            break;
+        case "3":
+            analyseErstellenSubPage = "analyse/datenmaske_tga.jsp";
+            break;
+        case "4":
+            analyseErstellenSubPage = "analyse/datenmaske_ir.jsp";
             break;
         default:
             return;
     }
 
-    const experimentErstellenPosting = $.post(experimentErstellenSubPage, {});
-    experimentErstellenPosting.done(function (data) {
+    const analyseErstellenPosting = $.post(analyseErstellenSubPage, {});
+    analyseErstellenPosting.done(function (data) {
         $("#analyse_erstellen_content").empty().append(data);
     });
 }
 
-function newAnalyseTemeraturprogramme(select) {
-    const text = $("#experiment_durchführungstext_text")
-    const value = select.value
-    const durchfuehrungstext = select.selectedOptions[0].firstChild.data.trim()
-    text.val(durchfuehrungstext)
-    text.prop("readonly", value !== "new")
-    const titel = $("#experiment_durchfuehrungstext_titel")
-    if (value === "new") titel.show()
-    else titel.hide()
+function newTemperaturprogrammRow() {
+    const temperaturprogramm = $("#template_temperaturprogramme tr:last")
+    const row = $(".temperaturprogramm_tamplate_table_row").clone();
+    row.attr("class", "temperaturprogramm_table_row")
+    temperaturprogramm.after(row)
 }
 
 function replaceContent(id, text, color){

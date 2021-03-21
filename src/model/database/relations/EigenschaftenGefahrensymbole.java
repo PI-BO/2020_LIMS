@@ -3,7 +3,6 @@ package model.database.relations;
 import exceptions.ModelNotFoundException;
 import model.Gefahrensymbol;
 import model.database.tableModels.Eigenschaften;
-import model.database.tableModels.Experiment;
 
 import java.sql.SQLException;
 

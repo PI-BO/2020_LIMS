@@ -19,7 +19,7 @@ public class ModelList extends Model{
 
     private String table;
     private Model model;
-    private List<Model> modelList = new LinkedList<>();;
+    private List<Model> modelList = new LinkedList<>();
 
     public ModelList(Model model) throws SQLException, ModelNotFoundException {
         this.model = model;

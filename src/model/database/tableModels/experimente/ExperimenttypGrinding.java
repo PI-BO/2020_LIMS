@@ -1,4 +1,4 @@
-package model.database.tableModels;
+package model.database.tableModels.experimente;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
@@ -7,24 +7,17 @@ import model.database.dummyDB.DummyResultSetEntry;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ExperimenttypGrinding extends Model{
-    private String primaryKey;
-    public static final String COLUMN_PRIMARY_KEY = "id";
+public class ExperimenttypGrinding extends ExperimenteModel {
     public static final String TABLE = "experimenttyp_grinding";
 
     public ExperimenttypGrinding(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
+        super(primaryKey);
         database.getModel(this);
     }
 
     public ExperimenttypGrinding() {
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
 
     @Override
     public String getPrimaryKeyColumn() {
@@ -39,7 +32,7 @@ public class ExperimenttypGrinding extends Model{
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
-            primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
+            super.setAttributes(resultSet);
         } else {
             throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
         }
@@ -47,7 +40,7 @@ public class ExperimenttypGrinding extends Model{
 
 	@Override
 	public String getValuesAsSQLString() {
-		return primaryKey;
+		return getPrimaryKey();
 	}
 
 	@Override
@@ -60,8 +53,7 @@ public class ExperimenttypGrinding extends Model{
 
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		
-		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
-		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
+		DummyResultSetEntry dummyResultSetEntry = super.getDummyResultsetEntry();
 		dummyResultSet.addEntry(dummyResultSetEntry);
 		
 		return dummyResultSet;

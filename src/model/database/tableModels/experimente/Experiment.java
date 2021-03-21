@@ -1,26 +1,40 @@
-package model.database.tableModels;
+package model.database.tableModels.experimente;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.tableModels.Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Experimenttyp extends Model{
+public class Experiment extends Model {
+	
     private String primaryKey;
     private String typ;
+    private String proben_nr;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
-    public static final String TABLE = "experimenttyp";
+    public static final String COLUMN_PROBEN_NR = "proben_nr";
+    public static final String TABLE = "experiment";
 
-    public Experimenttyp(String primaryKey) throws ModelNotFoundException, SQLException {
+    /**
+     * Model Class for Database Eigenschaften
+     * @param primaryKey
+     * Primary key of Database Tabele
+     * @throws ModelNotFoundException
+     * @throws SQLException
+     */
+    public Experiment(String primaryKey) throws ModelNotFoundException, SQLException {
         this.primaryKey = primaryKey;
         database.getModel(this);
     }
 
-    public Experimenttyp() {
-		// TODO Auto-generated constructor stub
+    /**
+     * Create Empty Experiment for new Database Entry
+     * Add values over setter
+     */
+    public Experiment() {
 	}
 
 	@Override
@@ -47,8 +61,9 @@ public class Experimenttyp extends Model{
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
+            proben_nr = resultSet.getString(resultSet.findColumn(COLUMN_PROBEN_NR));
         } else {
-            throw new ModelNotFoundException("Experimenttyp nicht gefunden");
+            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
         }
     }
 
@@ -60,14 +75,22 @@ public class Experimenttyp extends Model{
         this.typ = typ;
     }
 
+    public String getProbenNr() {
+        return proben_nr;
+    }
+
+    public void setProbenNr(String proben_nr) {
+        this.proben_nr = proben_nr;
+    }
+
 	@Override
 	public String getValuesAsSQLString() {
-		return primaryKey + "," + typ;
+		return primaryKey + "," + proben_nr;
 	}
 
 	@Override
 	public String getRelationSchema() {
-		return COLUMN_PRIMARY_KEY + "," + COLUMN_TYP;
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROBEN_NR;
 	}
 
 	@Override
@@ -75,6 +98,7 @@ public class Experimenttyp extends Model{
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
+		dummyResultSetEntry.addKeyValuePair(COLUMN_PROBEN_NR, proben_nr);
 		dummyResultSetEntry.addKeyValuePair(COLUMN_TYP, typ);
 		dummyResultSet.addEntry(dummyResultSetEntry);
 		
@@ -83,7 +107,6 @@ public class Experimenttyp extends Model{
 
 	@Override
 	public String getForeignKey() {
-		// Does not have a foreign key
-		return null;
+		return proben_nr;
 	}
 }

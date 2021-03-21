@@ -1,8 +1,9 @@
-package model.database.tableModels;
+package model.database.tableModels.experimente;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.tableModels.Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,13 +12,16 @@ import java.sql.SQLException;
  * @author Narwutsch Dominic
  * created on 11.03.2021
  */
-public class ExperimentSerie extends Model{
+public class ExperimentDurchfuehrungstext extends Model {
     private String primaryKey;
-    public static final String COLUMN_PRIMARY_KEY = "serie";
-    public static final String TABLE = "experiment_serie";
+    private String text;
+    public static final String COLUMN_PRIMARY_KEY = "id";
+    public static final String COLUMN_TEXT = "text";
+    public static final String TABLE = "experiment_durchführungstext";
 
     @Override
     public String getForeignKey() {
+        // Does not have a foreign key
         return null;
     }
 
@@ -26,6 +30,7 @@ public class ExperimentSerie extends Model{
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
         dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
+        dummyResultSetEntry.addKeyValuePair(COLUMN_TEXT, text);
         dummyResultSet.addEntry(dummyResultSetEntry);
 
         return dummyResultSet;
@@ -40,9 +45,25 @@ public class ExperimentSerie extends Model{
         this.primaryKey = primaryKey;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public String getPrimaryKeyColumn() {
         return COLUMN_PRIMARY_KEY;
+    }
+
+    public static String getColumnPrimaryKey() {
+        return COLUMN_PRIMARY_KEY;
+    }
+
+    public static String getColumnText() {
+        return COLUMN_TEXT;
     }
 
     @Override
@@ -54,6 +75,7 @@ public class ExperimentSerie extends Model{
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
+            text = resultSet.getString(resultSet.findColumn(COLUMN_TEXT));
         } else {
             throw new ModelNotFoundException("Durchführungstext nicht gefunden");
         }

@@ -2,7 +2,7 @@ package controller.servlets;
 
 import config.Config;
 import exceptions.ModelNotFoundException;
-import model.database.tableModels.*;
+import model.database.tableModels.experimente.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,10 +15,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
-/**
- * @author Narwutsch Dominic
- * created on 08.03.2021
- */
 @WebServlet("/experiment/erstellen")
 public class ExperimentServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Config.class.getName());
@@ -102,19 +98,9 @@ public class ExperimentServlet extends HttpServlet {
             String typId = request.getParameter(TYP);
             String api = request.getParameter(API_STARTMATERIAL);
             Experimenttyp typ = new Experimenttyp(typId);
-            switch (typ.getTyp()) {
-                case "Slurry 1Lömi":
-                    //ExperimenttypSlurry slurry = createExperimentSlurry(request);
-                    //slurry.saveToDatabase();
-                    //createExperiment(slurry.getPrimaryKey(), typ.getPrimaryKey());
-                    System.out.println("Slurry is called!");
-                    break;
-                case "Verdampfung 1Lömi":
-                    ExperimenttypVerdampfung verdampfung = createExperimentVerdampfung(request);
-                    verdampfung.saveToDatabase();
-                    createExperiment(verdampfung.getPrimaryKey(), api, typ.getPrimaryKey());
-                    break;
-            }
+            ExperimenteModel verdampfung = createExperiment(request, typ.getTyp());
+            verdampfung.saveToDatabase();
+            createExperiment(verdampfung.getPrimaryKey(), api, typ.getPrimaryKey());
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -130,8 +116,16 @@ public class ExperimentServlet extends HttpServlet {
         experiment.saveToDatabase();
     }
 
-    private ExperimenttypVerdampfung createExperimentVerdampfung(HttpServletRequest request) throws ModelNotFoundException, SQLException {
-        ExperimenttypVerdampfung experiment = new ExperimenttypVerdampfung();
+    private ExperimenteModel createExperiment(HttpServletRequest request, String typ) throws ModelNotFoundException, SQLException {
+        ExperimenteModel experiment = null;
+        switch (typ) {
+            case "Slurry 1Lömi":
+                experiment = new ExperimenttypSlurry();
+                break;
+            case "Verdampfung 1Lömi":
+                experiment = new ExperimenttypVerdampfung();
+                break;
+        }
 
         Enumeration<String> parameterNames = request.getParameterNames();
 
@@ -210,7 +204,8 @@ public class ExperimentServlet extends HttpServlet {
                     }
                     break;
                 case VIAL_TARA_G:
-                    experiment.setVial_tara(Double.parseDouble(parameter));
+                    if (experiment instanceof ExperimenttypVerdampfung)
+                        ((ExperimenttypVerdampfung) experiment).setVial_tara(Double.parseDouble(parameter));
                     break;
                 case API_STARTMATERIAL_SOLL_EINWAAGE:
                     experiment.setApi_startmaterial_soll_einwaage(Double.parseDouble(parameter));
@@ -242,8 +237,13 @@ public class ExperimentServlet extends HttpServlet {
                 case LOESUNGSMITTEL_IN_VOLUMEN:
                     experiment.setLoesungsmittel_ist_volumen(parameter);
                     break;
+                case BEOBACHTUNG_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS:
+                    if (experiment instanceof ExperimenttypSlurry)
+                        ((ExperimenttypSlurry) experiment).setBeobachtungen_zur_slurryerstellung_oder_aenderungen_des_Experiments(parameter);
+                    break;
                 case BEOBACHTUNG_LOESUNGSVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS:
-                    experiment.setBeobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments(parameter);
+                    if (experiment instanceof ExperimenttypVerdampfung)
+                        ((ExperimenttypVerdampfung) experiment).setBeobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments(parameter);
                     break;
                 case BEOBACHTUNGEN_EXPERIMENTVERLAUF:
                     experiment.setBeobachtungen_zum_experimentverlauf(parameter);
@@ -269,10 +269,12 @@ public class ExperimentServlet extends HttpServlet {
                     experiment.setBeobachtung_zum_ende_des_experiments_aufarbeitung(parameter);
                     break;
                 case AUSBEUTE_VIAL_KRISTALLAT_G:
-                    experiment.setAuswaage_vial_kristallisat(Double.parseDouble(parameter));
+                    if (experiment instanceof ExperimenttypVerdampfung)
+                        ((ExperimenttypVerdampfung) experiment).setAuswaage_vial_kristallisat(Double.parseDouble(parameter));
                     break;
                 case AUSBEUTE_MG_PRAEP_ANALYTIK:
-                    experiment.setAusbeute_von_praep_analystik(Double.parseDouble(parameter));
+                    if (experiment instanceof ExperimenttypVerdampfung)
+                        ((ExperimenttypVerdampfung) experiment).setAusbeute_von_praep_analystik(Double.parseDouble(parameter));
                     break;
                 case STANDORT_LAGERORT_FINALE_PROBE:
                     experiment.setStandort_lagerorte_der_finalen_probe(parameter);
@@ -347,8 +349,6 @@ public class ExperimentServlet extends HttpServlet {
                     experiment.setEinstufung_ergebnis(parameter);
                     break;
             }
-
-
 
 
         }

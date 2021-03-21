@@ -1,13 +1,14 @@
-package model.database.tableModels;
+package model.database.tableModels.analyse;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.tableModels.Model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Analysen extends Model{
+public class Analysen extends Model {
     private String primaryKey;
     private String api;
     private String bemerkung;
