@@ -22,6 +22,14 @@ public class AnalyseDatenmaskeIR extends AnalyseModel {
 
     public static final String TABLE = "datanmaske_ir";
 
+    public AnalyseDatenmaskeIR(String primaryKey) throws ModelNotFoundException, SQLException {
+        super(primaryKey);
+    }
+
+    public AnalyseDatenmaskeIR() {
+        super();
+    }
+
     @Override
     public String getForeignKey() {
         return getPrimaryKey();

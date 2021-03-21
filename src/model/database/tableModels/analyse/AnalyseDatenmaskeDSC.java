@@ -24,6 +24,14 @@ public class AnalyseDatenmaskeDSC extends AnalyseModel {
 
     public static final String TABLE = "datanmaske_dsc";
 
+    public AnalyseDatenmaskeDSC(String primaryKey) throws ModelNotFoundException, SQLException {
+        super(primaryKey);
+    }
+
+    public AnalyseDatenmaskeDSC(){
+        super();
+    }
+
     @Override
     public String getForeignKey() {
         return getPrimaryKey();

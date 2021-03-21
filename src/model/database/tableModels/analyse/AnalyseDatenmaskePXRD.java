@@ -3,6 +3,7 @@ package model.database.tableModels.analyse;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,14 @@ public class AnalyseDatenmaskePXRD extends AnalyseModel {
     public static final String COLUMN_MESSZEIT = "messzeit";
 
     public static final String TABLE = "datanmaske_pxrd";
+
+    public AnalyseDatenmaskePXRD(String primaryKey) throws ModelNotFoundException, SQLException {
+        super(primaryKey);
+    }
+
+    public AnalyseDatenmaskePXRD() {
+        super();
+    }
 
     @Override
     public String getForeignKey() {
@@ -134,5 +143,18 @@ public class AnalyseDatenmaskePXRD extends AnalyseModel {
     @Override
     public String getRelationSchema() {
         return null;
+    }
+
+    @Override
+    public JSON toJSON() {
+        JSON json = super.toJSON();
+        json.addKeyValue("table", TABLE);
+        json.addKeyValue(COLUMN_GERAET, geraet);
+        json.addKeyValue(COLUMN_PRAEPARATION, praeparation);
+        json.addKeyValue(COLUMN_POSITION, position.toString());
+        json.addKeyValue(COLUMN_PROGRAMM, programm);
+        json.addKeyValue(COLUMN_MESSZEIT, messzeit);
+
+        return json;
     }
 }

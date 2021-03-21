@@ -3,13 +3,13 @@ package model.database.tableModels.analyse;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
+import utility.JSON;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public abstract class AnalyseModel extends Model {
-    private int primaryKey;
     private Date datum;
     private String bemerkung;
     private String operator;
@@ -20,15 +20,16 @@ public abstract class AnalyseModel extends Model {
     public static final String COLUMN_OPERATOR = "operator";
 
     protected AnalyseModel() {
+        super();
     }
 
-    protected AnalyseModel(int primaryKey) {
-        this.primaryKey = primaryKey;
+    protected AnalyseModel(String primaryKey) throws ModelNotFoundException, SQLException {
+        super(primaryKey);
     }
 
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-           primaryKey = resultSet.getInt(COLUMN_PRIMARY_KEY);
+           primaryKey = resultSet.getString(COLUMN_PRIMARY_KEY);
            datum = resultSet.getDate(COLUMN_DATUM);
            bemerkung = resultSet.getString(COLUMN_BEMERKUNG);
            operator = resultSet.getString(COLUMN_OPERATOR);
@@ -36,7 +37,7 @@ public abstract class AnalyseModel extends Model {
 
     protected DummyResultSetEntry getDummyResultsetEntry() {
         DummyResultSetEntry entry = new DummyResultSetEntry();
-        entry.addKeyValuePair(COLUMN_PRIMARY_KEY, Integer.toString(primaryKey));
+        entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
         entry.addKeyValuePair(COLUMN_DATUM, datum.toString());
         entry.addKeyValuePair(COLUMN_BEMERKUNG, bemerkung);
         entry.addKeyValuePair(COLUMN_OPERATOR, operator);
@@ -46,16 +47,7 @@ public abstract class AnalyseModel extends Model {
 
     @Override
     public String getForeignKey() {
-        return Integer.toString(primaryKey);
-    }
-
-    public void setPrimaryKey(int primaryKey) {
-        this.primaryKey = primaryKey;
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return Integer.toString(primaryKey);
+        return primaryKey;
     }
 
     public Date getDatum() {
@@ -97,5 +89,16 @@ public abstract class AnalyseModel extends Model {
 
     public static String getColumnOperator() {
         return COLUMN_OPERATOR;
+    }
+
+    @Override
+    public JSON toJSON() {
+        JSON json = new JSON();
+        json.addKeyValue(COLUMN_PRIMARY_KEY, primaryKey);
+        json.addKeyValue(COLUMN_DATUM, datum.toString());
+        json.addKeyValue(COLUMN_BEMERKUNG, bemerkung);
+        json.addKeyValue(COLUMN_OPERATOR, operator);
+
+        return json;
     }
 }

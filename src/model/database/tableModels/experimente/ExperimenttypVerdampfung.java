@@ -4,6 +4,7 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.experimente.ExperimenteModel;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,6 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
 
     public ExperimenttypVerdampfung(String primaryKey) throws ModelNotFoundException, SQLException {
         super(primaryKey);
-        database.getModel(this);
     }
 
     @Override
@@ -102,5 +102,18 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
     @Override
     public String getRelationSchema() {
         return null;
+    }
+
+    @Override
+    public JSON toJSON() {
+
+        JSON json = super.toJSON();
+        json.addKeyValue("table", TABLE);
+        json.addKeyValue(COLUMN_VIAL_TARA_KEY, Double.toString(vial_tara));
+        json.addKeyValue(COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY, beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments);
+        json.addKeyValue(COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY, Double.toString(auswaage_vial_kristallisat));
+        json.addKeyValue(COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY, Double.toString(ausbeute_von_praep_analystik));
+
+        return json;
     }
 }

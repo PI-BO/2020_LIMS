@@ -152,7 +152,7 @@ public class ExperimentServlet extends HttpServlet {
                     break;
                 case EXPERIMENT_SERIE:
                     if (parameter.equals("new")) createNewExperimentSerie(parameter);
-                    experiment.setScreening_no(parameter);
+                    experiment.setExperiment_serie(parameter);
                     break;
                 case EXPERIMENT_NO:
                     experiment.setExperiment_no(parameter);

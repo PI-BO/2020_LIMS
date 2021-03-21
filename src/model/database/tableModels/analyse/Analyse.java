@@ -4,12 +4,12 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Analyse extends Model {
-    private String primaryKey;
     private String typ;
     private String experimentId;
     public static final String COLUMN_PRIMARY_KEY = "id";
@@ -25,8 +25,7 @@ public class Analyse extends Model {
      * @throws SQLException
      */
     public Analyse(String primaryKey) throws ModelNotFoundException, SQLException {
-        this.primaryKey = primaryKey;
-        database.getModel(this);
+        super(primaryKey);
     }
 
     /**
@@ -35,15 +34,6 @@ public class Analyse extends Model {
      */
     public Analyse() {
 	}
-
-	@Override
-    public String getPrimaryKey() {
-        return primaryKey;
-    }
-
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
-    }
 
     @Override
     public String getPrimaryKeyColumn() {
@@ -108,4 +98,15 @@ public class Analyse extends Model {
 	public String getForeignKey() {
 		return experimentId;
 	}
+
+    @Override
+    public JSON toJSON() {
+        JSON json = new JSON();
+        json.addKeyValue("table", TABLE);
+        json.addKeyValue("id", primaryKey);
+        json.addKeyValue(COLUMN_TYP, typ);
+        json.addKeyValue(COLUMN_EXPERIMENT_ID, experimentId);
+
+        return json;
+    }
 }

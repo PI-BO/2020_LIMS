@@ -18,7 +18,7 @@
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
-                ModelList modelList = new ModelList(new Experiment());
+                ModelTable modelList = new ModelTable(new Experiment());
                 for (Model model : modelList.getModelList()) {
         %>
         <option value=<%=model.getPrimaryKey()%>><%=((Experiment) model).getPrimaryKey()%>

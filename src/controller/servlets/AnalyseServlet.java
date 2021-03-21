@@ -105,7 +105,7 @@ public class AnalyseServlet extends HttpServlet {
     private AnalyseModel setBaseFields(String parameterName, String parameter, AnalyseModel model) {
         switch (parameterName) {
             case ANALYSE_ID:
-                model.setPrimaryKey(Integer.parseInt(parameter));
+                model.setPrimaryKey(parameter);
                 break;
             case DATUM:
                 model.setDatum(Date.valueOf(parameter));
@@ -179,7 +179,7 @@ public class AnalyseServlet extends HttpServlet {
         return pxrd;
     }
 
-    private AnalyseDatenmaskeDSC createDatenmaskeDSC(HttpServletRequest request) throws SQLException {
+    private AnalyseDatenmaskeDSC createDatenmaskeDSC(HttpServletRequest request) throws SQLException, ModelNotFoundException {
         AnalyseDatenmaskeDSC dsc = new AnalyseDatenmaskeDSC();
 
         Enumeration<String> parameterNames = request.getParameterNames();

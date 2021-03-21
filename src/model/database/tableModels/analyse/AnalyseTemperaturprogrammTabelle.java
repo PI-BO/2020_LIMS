@@ -3,10 +3,9 @@ package model.database.tableModels.analyse;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.tableModels.Model;
-import model.database.tableModels.ModelList;
-import model.database.tableModels.analyse.AnalyseTemperaturprogramme;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,14 +13,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AnalyseTemperaturprogrammTabelle extends Model {
-    private static final Logger LOGGER = LogManager.getLogger(ModelList.class.getSimpleName());
+    private static final Logger LOGGER = LogManager.getLogger(AnalyseTemperaturprogrammTabelle.class.getSimpleName());
 
-    private String tabelle;
     private List<Model> modelList = new LinkedList<>();
 
     public AnalyseTemperaturprogrammTabelle(String tabelle) throws ModelNotFoundException, SQLException {
-        this.tabelle = tabelle;
-        database.getModel(this);
+        super(tabelle);
     }
 
     @Override
@@ -38,11 +35,6 @@ public class AnalyseTemperaturprogrammTabelle extends Model {
         }
 
         return dummyResultSet;
-    }
-
-    @Override
-    public String getPrimaryKey() {
-        return tabelle;
     }
 
     @Override
@@ -71,6 +63,11 @@ public class AnalyseTemperaturprogrammTabelle extends Model {
 
     @Override
     public String getRelationSchema() {
+        return null;
+    }
+
+    @Override
+    public JSON toJSON() {
         return null;
     }
 }

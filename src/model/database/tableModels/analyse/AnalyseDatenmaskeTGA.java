@@ -18,6 +18,14 @@ public class AnalyseDatenmaskeTGA extends AnalyseModel {
 
     public static final String TABLE = "datanmaske_tga";
 
+    public AnalyseDatenmaskeTGA(String primaryKey) throws ModelNotFoundException, SQLException {
+        super(primaryKey);
+    }
+
+    public AnalyseDatenmaskeTGA() {
+        super();
+    }
+
     @Override
     public String getForeignKey() {
         return getPrimaryKey();

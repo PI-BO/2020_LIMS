@@ -2,6 +2,7 @@ package utility;
 
 import java.util.LinkedList;
 import java.util.List;
+import utility.JSON;
 
 public class JSONArray {
 
@@ -45,5 +46,4 @@ private List<String> stringList = new LinkedList<>();
 		
 		return jsonArray;
 	}
-
 }

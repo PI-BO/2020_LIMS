@@ -3,7 +3,7 @@ package model.database.tableModels.experimente;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
-import model.database.tableModels.experimente.ExperimenteModel;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ public class ExperimenttypSlurry extends ExperimenteModel {
 
     public ExperimenttypSlurry(String primaryKey) throws ModelNotFoundException, SQLException {
         super(primaryKey);
-        database.getModel(this);
     }
 
     public ExperimenttypSlurry() {
@@ -76,5 +75,15 @@ public class ExperimenttypSlurry extends ExperimenteModel {
     @Override
     public String getForeignKey() {
         return null;
+    }
+
+    @Override
+    public JSON toJSON() {
+
+        JSON json = super.toJSON();
+        json.addKeyValue("table", TABLE);
+        json.addKeyValue(COLUMN_BEOBACHTUNGEN_ZUR_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY, beobachtungen_zur_slurryerstellung_oder_aenderungen_des_Experiments);
+
+        return json;
     }
 }
