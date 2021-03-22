@@ -12,7 +12,8 @@ public class Partner extends Model {
 
 	private String name;
 	private String email;
-	public static final String COLUMN_PRIMARY_KEY = "vertragsnummer";
+	public static final String COLUMN_PRIMARY_KEY = "partner_id";
+//	public static final String COLUMN_PRIMARY_KEY = "vertragsnummer";
 	public static final String COLUMN_NAME = "name";
 	public static final String COLUMN_EMAIL = "email";
 	public static final String TABLE = "partner";

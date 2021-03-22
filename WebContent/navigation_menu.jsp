@@ -203,11 +203,16 @@
     });
 
     $("#globale_suche_anzeigen2").click(function () {
-        const template = [
-            {"experiment": "name"},
-            {"operator": "name"}
-        ];
-//         GlobaleSuche.initTemplateParameters(template);
+    	const template = [
+			{ "partner": "id" },
+			{ "probe": "id" },
+			{ "experiment": "typ" },
+			{ "experiment": "id" },
+			{ "projekte": "vertragsnummer" },
+			{ "partner": "email" },
+			{ "partner": "name" }
+		];
+    	GlobaleSuche.initTemplateParameters(template);
         hideAllExcept("#main-content-global-search");
     });
 </script>

@@ -70,8 +70,8 @@
 
 				</select></td>
 
-				<td style="">Projekt ID</td>
-				<td><input onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="Projekt ID" name=<%=Projekt.COLUMN_PRIMARY_KEY %>>
+				<td style="">Partner ID</td>
+				<td><input onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="Partner ID" name=<%=Partner.COLUMN_PRIMARY_KEY %>>
 					  <div id="myDropdown" class="dropdown-content">
 					    <a id="drop_down_suche" href="#">suchen</a>
 					  </div>
@@ -143,9 +143,9 @@
 		
 		hideAllExcept("#main-content-global-search");
 		const template = [
-			{ "Partner": "id" }
+			{ "partner": "name" }
 		];
-// 		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
 			hideAllExcept("#main-content-input-masks");
 			let inputField = document.getElementById("projekt_id_input_field");
