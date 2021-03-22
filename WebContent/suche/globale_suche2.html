@@ -16,7 +16,7 @@
 			font-weight: bold;
 		}
 
-		.global_search_parameter {
+		.global_search_select_parameter {
 			width: 100%;
 		}
 
@@ -39,15 +39,20 @@
 			background-color: #f2f2f2;
 		}
 
-		#global_search_result_table tr:not(:first-child) td:hover  {
-			background-color: #ddd;
-		}
-
-		#global_search_result_table tr:first-child {
+		.global_search_result_table_first_header td{
 			background-color: #77bbff;
 			font-weight: bold;
 			text-align: center;
 		}		
+		.global_search_result_table_second_header td{
+			background-color: #3c9eff;
+			font-weight: bold;
+			text-align: center;
+		}		
+		
+		.global_search_result_table_result_row td:hover{
+			background-color: #ddd;
+		}
 	</style>
 </head>
 
@@ -72,8 +77,8 @@
 
 		<div id="global_search_parameter_row_template" style="display: none;">
 			<select class="global_search_select_main_category"></select>
-			<select class="global_search_parameter"></select> 
-			<select class="global_search_parameter_filter"></select>
+			<select class="global_search_select_parameter"></select> 
+			<select class="global_search_select_parameter_filter"></select>
 			<input class="global_search_parameter_input" type="text" />
 			<input type="button" value="-" class="global_search_delete_parameter_button" />
 		</div>

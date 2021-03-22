@@ -9,29 +9,21 @@ var GlobaleSuche = (function () {
 	const rowTemplateId = "global_search_parameter_row_template";
 	const categorySelectClass = "global_search_select_main_category";
 	const deleteButtonClass = "global_search_delete_parameter_button";
-	const searchParameterClass = "global_search_parameter";
-	const searchFilterClass = "global_search_parameter_filter";
+	const searchParameterClass = "global_search_select_parameter";
+	const searchFilterClass = "global_search_select_parameter_filter";
 	const searchValueClass = "global_search_parameter_input";
+	const firstHeaderClass = "global_search_result_table_first_header";
+	const secondHeaderClass = "global_search_result_table_second_header";
+	const resultRowClass = "global_search_result_table_result_row";
+	const parameterRowClass = "global_search_parameter_row"
+
+	const resultTableHeaderKey = "table";
+	const parameterRowsStartIndex = 1;
+	const sortFunctionSkipRows = 2;
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
-	// const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
-	// 	"projektpartner",
-	// 	"projekt",
-	// 	"probe",
-	// 	"experiment",
-	// 	"methode",
-	// 	"operator"
-	// ]
-
-	let parameters = {
-		// "projektpartner": ["name", "pk"],
-		// "projekt": ["name", "fk", "pk"],
-		// "probe": ["name", "fk", "pk"],
-		// "experiment": ["name", "fk", "pk"],
-		// "methode": ["name", "fk", "pk"],
-		// "operator": ["name", "fk", "pk"]
-	}
+	let parameters = {}
 
 	const filterTypes = {
 		matches: "entspricht",
@@ -39,17 +31,28 @@ var GlobaleSuche = (function () {
 	};
 
 	public.init = function init() {
-		
+
 		fetchDatabase((tupelArray) => {
-			
+
 			initAddParameterButton();
 			initSearchButton();
 			fetchParameters(tupelArray);
 			addParameterRow();
+
+			const template = [
+				{ "partner": "id" },
+				{ "probe": "id" },
+				{ "experiment": "typ" },
+				{ "experiment": "id" },
+				{ "projekte": "vertragsnummer" },
+				{ "partner": "email" },
+				{ "partner": "name" }
+			];
+			// public.initTemplateParameters(template);
 		})
 	}
 
-	function fetchParameters(tupelArray){
+	function fetchParameters(tupelArray) {
 
 		tupelArray.forEach((tupel) => {
 			tupel.forEach((tupelElement) => {
@@ -58,17 +61,17 @@ var GlobaleSuche = (function () {
 				let tableParameters = [];
 
 				// get table key
-				for(let key in tupelElement){
-					if(key !== "table") continue;
+				for (let key in tupelElement) {
+					if (key !== "table") continue;
 					table = tupelElement[key];
 					break;
 				}
 
-				if(table === undefined) return;
+				if (table === undefined) return;
 
 				// fill table array with parameter values
-				for(let key in tupelElement){
-					if(key === "table") continue;
+				for (let key in tupelElement) {
+					if (key === "table") continue;
 					tableParameters.push(key);
 				}
 				parameters[table] = tableParameters;
@@ -76,18 +79,23 @@ var GlobaleSuche = (function () {
 		})
 	}
 
-	let callbackInputMask = undefined;
+	let globalCallbackInputMask = undefined;
 
 	public.addSearchCallback = function addSearchCallback(callback) {
-		callbackInputMask = callback;
+		globalCallbackInputMask = callback;
 	}
 
 	public.initTemplateParameters = function initTemplateParameters(template) {
 
 		clearParameterRows();
 		clearResultTable();
+
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
+
+		function addRowsForTemplate(template) {
+			for (let i = 0; i < template.length; i++) addParameterRow();
+		}
 
 		function setTemplateParameters(template) {
 
@@ -105,24 +113,25 @@ var GlobaleSuche = (function () {
 				let row = rows[rowIndex];
 				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
-				let categoryOptions = categorySelect.options;
 				let parameterOptions = parameterSelect.options;
 				let templateElement = template[templateIndex++];
 				let category = getCategory(templateElement)
 				let parameter = templateElement[category].toLowerCase();
 
-				selectCorrectCategoryOption(categoryOptions, category)
+				selectOption(categorySelect, category)
 				createParametersForSelectedCategory(parameterSelect, category);
 				selectCorrectParameterOption(parameterOptions, parameter);
 			}
 		}
 
-		function selectCorrectCategoryOption(categoryOptions, category) {
+		function selectOption(selectElement, optionToSelect) {
 
-			for (let optionIndex = 0; optionIndex < categoryOptions.length; optionIndex++) {
-				let option = categoryOptions[optionIndex];
+			let selectOptions = selectElement.options;
+
+			for (let optionIndex = 0; optionIndex < selectOptions.length; optionIndex++) {
+				let option = selectOptions[optionIndex];
 				let optionText = option.text.toLowerCase();
-				if (optionText != category) continue;
+				if (optionText != optionToSelect.toLowerCase()) continue;
 				option.selected = "true";
 			}
 		}
@@ -152,11 +161,6 @@ var GlobaleSuche = (function () {
 
 		function getCategory(categoryParameterKeyValuePair) {
 			return Object.keys(categoryParameterKeyValuePair)[0].toLowerCase();
-		}
-
-		function addRowsForTemplate(template) {
-			for (let i = 0; i < template.length; i++) addParameterRow();
-
 		}
 	}
 
@@ -297,6 +301,7 @@ var GlobaleSuche = (function () {
 		let template = document.getElementById(rowTemplateId);
 		let templateChildNodes = template.children;
 		let row = table.insertRow(-1);
+		row.className = parameterRowClass;
 
 		let mainCategorySelect;
 
@@ -316,14 +321,12 @@ var GlobaleSuche = (function () {
 	}
 
 	function createMainCategory(event) {
-
 		const htmlElement = event.target;
 		let categories = []
 
 		for (let key in parameters) {
 			categories.push(capitalize(key));
 		}
-
 		insertParameters(categories, htmlElement);
 	}
 
@@ -342,7 +345,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function createParameters(event) {
-
 		const htmlElement = event.target;
 		const parameterCategory = htmlElement.value;
 
@@ -357,7 +359,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function insertParameters(parameters, selectElement) {
-
 		parameters.forEach(parameter => {
 			let selectOption = document.createElement("option");
 			selectOption.text = parameter;
@@ -367,13 +368,11 @@ var GlobaleSuche = (function () {
 	}
 
 	function deleteSuchParameter(suchParameterElement) {
-
 		let parent = suchParameterElement.parentElement.parentElement;
 		parent.remove();
 	}
 
 	function resetSelects(element) {
-
 		let allSelects = element.querySelectorAll("select");
 		allSelects.forEach(element => {
 			resetSelect(element);
@@ -405,27 +404,25 @@ var GlobaleSuche = (function () {
 
 		fetchDatabase((database) => {
 
-			// const tupelList = getDatabaseAsTupelList(database);
 			const tupelList = database;
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
-			showResultHeader(results, resultTableId);
-			showResults(results, resultTableId);
+			renderResultTable(results, resultTableId);
 		})
 	}
 
-	function showResultHeader(results, resultTableId) {
+	function renderResultTable(results, resultTableId) {
 
-		let indexOfBiggestResultTupel = findBiggestTupel();
-
+		let indexOfLongestTupel = findLongestTupel();
+		const firstTupel = results[indexOfLongestTupel];
 		let resultHeaderTupel = [];
-		const firstTupel = results[indexOfBiggestResultTupel];
+
 		if (firstTupel === undefined) return;
 		firstTupel.forEach(tupelElement => {
-			resultHeaderTupel.push(capitalize(tupelElement["table"]));
+			resultHeaderTupel.push(capitalize(tupelElement[resultTableHeaderKey]));
 		})
 
-		function findBiggestTupel() {
+		function findLongestTupel() {
 
 			let indexOfBiggestResultTupel = 0;
 			let biggestSize = 0;
@@ -438,34 +435,114 @@ var GlobaleSuche = (function () {
 			return indexOfBiggestResultTupel
 		}
 
-		addTupelToTableHeader(resultHeaderTupel, resultTableId);
+		const parameters = getSearchParameters();
+		const categories = getSearchCategories();
+
+		// categories und parameter nach Name sortieren: [a,b,a] -> [a,a,b]
+		for (let i = 0; i < categories.length - 1; i++) {
+			let categoryPivot = categories[i];
+
+			for (let j = i + 1; j < categories.length; j++) {
+				let category = categories[j];
+				let parameter = parameters[j];
+
+				if (category === categoryPivot) {
+					let switchCategory = categories[i + 1];
+					categories[i + 1] = category;
+					categories[j] = switchCategory;
+
+					let switchParameter = parameters[i + 1];
+					parameters[i + 1] = parameter;
+					parameters[j] = switchParameter;
+					break;
+				}
+			}
+		}
+
+		let newResults = [];
+
+		// Ergebnisse mit Parametern heraussuchen und "display" key-value setzen
+		results.forEach(tupel => {
+			let newTupel = [];
+			let found = 0;
+			for (let i = 0; i < categories.length; i++) {
+
+				let category = categories[i];
+
+				for (let j = 0; j < tupel.length; j++) {
+					let element = tupel[j];
+					if (element["table"].toLowerCase() !== category.toLowerCase()) continue;
+					found++;
+					let elementAsJson = { ...element };
+					elementAsJson["display"] = element[parameters[i]];
+					newTupel.push(elementAsJson);
+					break;
+				}
+
+				// Platzhalter generieren damit die Spalten des Tupels nicht in eine falsche Reihenfolge verrutschen
+				if (found == i) {
+					let elementAsJson = { "table": category };
+					elementAsJson["display"] = "";
+					newTupel.push(elementAsJson);
+					found++;
+				}
+			}
+			newResults.push(newTupel);
+		})
+
+		addTupelAsTableHeader(categories, resultTableId, firstHeaderClass, true);
+		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, false, true);
+		addResultsToTable(newResults, resultTableId, resultRowClass);
 	}
 
-	function addTupelToTableHeader(tupel, tableId) {
+	function addTupelAsTableHeader(tupel, tableId, className, mergeHeader, addSortFunction) {
 
 		let table = document.getElementById(tableId);
 		let row = table.insertRow(-1);
+		if (className !== undefined) row.className = className;
 
 		let index = 0;
 		tupel.forEach(tupelElement => {
 			let cell = row.insertCell(-1);
 			cell.append(tupelElement);
 			let n = index;	// "n" muss angelegt werden da "index" außerhalb der Schleife definiert ist und somit nur "Pass-By-Reference"
-			cell.addEventListener("click", () => sortTable(resultTableId, n));
+			if (addSortFunction !== undefined && addSortFunction === true) cell.addEventListener("click", () => sortTable(resultTableId, n));
 			index++;
 		})
+		if (mergeHeader !== undefined && mergeHeader === true) mergeEqualHeaderCells(row);
 	}
 
-	function showResults(results, resultTableId) {
-		addTupelArrayToTable(results, resultTableId, "id");
+	function mergeEqualHeaderCells(row) {
+
+		let childNodes = row.childNodes;
+		let colSpan = 1;
+		for (let i = childNodes.length - 1; i > 0; i--) {
+			let child = childNodes[i];
+			let nextChild = childNodes[i - 1];
+			if (child.innerHTML === nextChild.innerHTML) {
+				colSpan++;
+				row.removeChild(nextChild);
+				child.colSpan = colSpan;
+			} else {
+				colSpan = 1;
+			}
+		}
 	}
 
-	function addTupelArrayToTable(results, tableId, onlyThisKey) {
+	function addResultsToTable(results, resultTableId, className) {
+		addTupelArrayToResults(results, resultTableId, className, "display", true);
+	}
+
+	function addTupelArrayToResults(results, tableId, className, onlyThisKey, showDetails) {
+
+		const parameters = getSearchParameters();
+		const categories = getSearchCategories();
 
 		let table = document.getElementById(tableId);
 
 		results.forEach(tupel => {
 			let row = table.insertRow(-1);
+			if (className !== undefined) row.className = className;
 			tupel.forEach(tupelElement => {
 
 				for (let key in tupelElement) {
@@ -473,18 +550,14 @@ var GlobaleSuche = (function () {
 					let cellContent = tupelElement[key];
 
 					if (onlyThisKey === undefined) {
-						let cell = addToNewTableCell(cellContent, row)
-						addListenerToCell(cell, tupelElement);
-						cell.addEventListener("click", () => {
-							if (callbackInputMask === undefined) return;
-							callbackInputMask(cellContent);
-							callbackInputMask = undefined;
-						})
+						let cell = addToNewTableCell(cellContent, row);
+						if (showDetails !== undefined && showDetails === true && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
+						addCallbackFunction(cell, cellContent);
 					}
 
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
-						addListenerToCell(cell, tupelElement);
+						if (showDetails !== undefined && showDetails === true && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
 						break;
 					}
 				}
@@ -496,15 +569,34 @@ var GlobaleSuche = (function () {
 				return cell;
 			}
 
-			function addListenerToCell(cell, tupelElement) {
+			function addCallbackFunction(cell, cellContent) {
+				cell.addEventListener("click", () => {
+					if (globalCallbackInputMask === undefined) return;
+					globalCallbackInputMask(cellContent);
+					globalCallbackInputMask = undefined;
+				})
+			}
+
+			function addShowDetailsListener(cell, tupelElement) {
 				cell.addEventListener("click", () => {
 					clearResultTable();
 					let tupelElementArray = [];
+					let tableName = tupelElement["table"];
+					delete tupelElement["table"];
+					delete tupelElement["display"];
 					for (let key in tupelElement) {
 						tupelElementArray.push(key);
 					}
-					addTupelToTableHeader(tupelElementArray, resultTableId);
-					addTupelArrayToTable([[tupelElement]], resultTableId);
+
+					// create header for each column -> addTupelAsTableHeader(); will merge with colSpan later
+					tableNameHeaderArray = [];
+					for (let key in tupelElement) {
+						tableNameHeaderArray.push(tableName);
+					}
+
+					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, firstHeaderClass, true);
+					addTupelAsTableHeader(tupelElementArray, resultTableId, secondHeaderClass);
+					addTupelArrayToResults([[tupelElement]], resultTableId, resultRowClass, undefined, false);
 				});
 			}
 		})
@@ -647,6 +739,7 @@ var GlobaleSuche = (function () {
 	}
 
 	function sortTable(tableId, n) {
+
 		var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 		table = document.getElementById(tableId);
 		rows = table.rows;
@@ -656,17 +749,17 @@ var GlobaleSuche = (function () {
 		/* Make a loop that will continue until
 		no switching has been done: */
 
-		// rows with undefined cell to bottom
+		// rows with undefined or empty cell to bottom
 		for (i = rows.length - 1; i > 0; i--) {
 			let tableData = rows[i].getElementsByTagName("TD")[n];
-			if (tableData === undefined) rows[i].parentNode.insertBefore(rows[i], null);
+			if (tableData === undefined || tableData.innerHTML === "") rows[i].parentNode.insertBefore(rows[i], null);
 		}
 
-		// index to exclude rows with undefinded fields
+		// index to exclude rows with undefinded or empty fields
 		let maxIndexOfDefinedRows = 0;
-		for (let i = maxIndexOfDefinedRows; i < (rows.length - 1); i++) {
+		for (let i = sortFunctionSkipRows; i < (rows.length); i++) {
 			let td = rows[i].getElementsByTagName("TD")[n];
-			if (td === undefined) break;
+			if (td === undefined || td.innerHTML === "") break;
 			maxIndexOfDefinedRows = i;
 		}
 
@@ -677,7 +770,7 @@ var GlobaleSuche = (function () {
 			/* Loop through all table rows (except the
 			first, which contains table headers): */
 			// for (i = 1; i < (rows.length - 1); i++) {
-			for (i = 1; i < maxIndexOfDefinedRows; i++) {
+			for (i = sortFunctionSkipRows; i < maxIndexOfDefinedRows; i++) {
 				// Start by saying there should be no switching:
 				shouldSwitch = false;
 				/* Get the two elements you want to compare,
@@ -740,7 +833,12 @@ var GlobaleSuche = (function () {
 
 GlobaleSuche.init();
 // const template = [
-// 	{ "experiment": "name" },
-// 	{ "operator": "name" }
+// 	{ "Partner": "id" },
+// 	{ "Probe": "id" },
+// 	{ "Experiment": "typ" },
+// 	{ "Experiment": "id" },
+// 	{ "Projekte": "vertragsnummer" },
+// 	{ "Partner": "email" },
+// 	{ "Partner": "name" }
 // ];
 // GlobaleSuche.initTemplateParameters(template);
