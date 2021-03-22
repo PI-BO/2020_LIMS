@@ -143,9 +143,9 @@
 		
 		hideAllExcept("#main-content-global-search");
 		const template = [
-			{ "projekt": "pk" }
+			{ "Partner": "id" }
 		];
-		GlobaleSuche.initTemplateParameters(template);
+// 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
 			hideAllExcept("#main-content-input-masks");
 			let inputField = document.getElementById("projekt_id_input_field");

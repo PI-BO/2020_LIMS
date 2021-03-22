@@ -32,13 +32,15 @@ var GlobaleSuche = (function () {
 
 	public.init = function init() {
 
+		console.log("init")
+		
 		fetchDatabase((tupelArray) => {
-
+			
 			initAddParameterButton();
 			initSearchButton();
 			fetchParameters(tupelArray);
 			addParameterRow();
-
+			
 			const template = [
 				{ "partner": "id" },
 				{ "probe": "id" },
@@ -49,6 +51,7 @@ var GlobaleSuche = (function () {
 				{ "partner": "name" }
 			];
 			// public.initTemplateParameters(template);
+			console.log("init finished")
 		})
 	}
 

@@ -82,6 +82,7 @@
 
     // 		init Globale Suche
     $(document).ready(function () {
+    	console.log("init globale suche")
         var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
         var posting = $.post(url, {});
         posting.done(function (data) {
@@ -206,7 +207,7 @@
             {"experiment": "name"},
             {"operator": "name"}
         ];
-        GlobaleSuche.initTemplateParameters(template);
+//         GlobaleSuche.initTemplateParameters(template);
         hideAllExcept("#main-content-global-search");
     });
 </script>
