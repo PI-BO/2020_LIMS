@@ -2,8 +2,8 @@ var GlobaleSuche = (function () {
 
 	public = {};
 
-	const addButton = "global_search_add_parameter_button";
-	const searchButton = "global_search_button";
+	const addButtonId = "global_search_add_parameter_button";
+	const searchButtonId = "global_search_button";
 	const parameterTableId = "global_search_parameter_table";
 	const resultTableId = "global_search_result_table";
 	const rowTemplateId = "global_search_parameter_row_template";
@@ -17,8 +17,8 @@ var GlobaleSuche = (function () {
 	const resultRowClass = "global_search_result_table_result_row";
 	const parameterRowClass = "global_search_parameter_row"
 
-	const resultTableHeaderKey = "table";
-	const parameterRowsStartIndex = 1;
+	const categoryKey = "table";
+	const displayKey = "display";
 	const sortFunctionSkipRows = 2;
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
@@ -62,7 +62,7 @@ var GlobaleSuche = (function () {
 
 				// get table key
 				for (let key in tupelElement) {
-					if (key !== "table") continue;
+					if (key !== categoryKey) continue;
 					table = tupelElement[key];
 					break;
 				}
@@ -71,7 +71,7 @@ var GlobaleSuche = (function () {
 
 				// fill table array with parameter values
 				for (let key in tupelElement) {
-					if (key === "table") continue;
+					if (key === categoryKey) continue;
 					tableParameters.push(key);
 				}
 				parameters[table] = tableParameters;
@@ -86,8 +86,6 @@ var GlobaleSuche = (function () {
 	}
 
 	public.initTemplateParameters = function initTemplateParameters(template) {
-
-		console.log({template})
 
 		clearParameterRows();
 		clearResultTable();
@@ -179,11 +177,11 @@ var GlobaleSuche = (function () {
 	}
 
 	function initAddParameterButton() {
-		document.getElementById(addButton).addEventListener("click", () => addParameterRow());
+		document.getElementById(addButtonId).addEventListener("click", () => addParameterRow());
 	}
 
 	function initSearchButton() {
-		document.getElementById(searchButton).addEventListener("click", () => search());
+		document.getElementById(searchButtonId).addEventListener("click", () => search());
 	}
 
 	function initDeleteButton(element) {
@@ -195,7 +193,7 @@ var GlobaleSuche = (function () {
 		element.addEventListener("keyup", (event) => {
 
 			if (event.keyCode === 13) {
-				document.getElementById(searchButton).click();
+				document.getElementById(searchButtonId).click();
 			}
 		})
 	}
@@ -205,79 +203,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function fetchDatabase(callback) {
-		// const partner1 = {
-		// 	"pk": "1",
-		// 	"name": "Partner A",
-		// };
-		// const projekt1 = {
-		// 	"pk": "1",
-		// 	"name": "Projekt 1",
-		// 	"fk": "1"
-		// };
-		// const probe1 = {
-		// 	"pk": "1",
-		// 	"name": "Probe 1",
-		// 	"fk": "1"
-		// };
-		// const experiment1 = {
-		// 	"pk": "1",
-		// 	"name": "Experiment 1",
-		// 	"fk": "1"
-		// };
-		// const experiment2 = {
-		// 	"pk": "2",
-		// 	"name": "Experiment 2",
-		// 	"fk": "1"
-		// };
-		// const methode1 = {
-		// 	"pk": "1",
-		// 	"name": "Methode 1",
-		// 	"fk": "1"
-		// };
-		// const methode2 = {
-		// 	"pk": "2",
-		// 	"name": "Methode 2",
-		// 	"fk": "1"
-		// };
-		// const methode3 = {
-		// 	"pk": "3",
-		// 	"name": "Methode 3",
-		// 	"fk": "2"
-		// };
-		// const methode4 = {
-		// 	"pk": "4",
-		// 	"name": "Methode 4",
-		// 	"fk": "2"
-		// };
-		// const operator1 = {
-		// 	"name": "John Doe",
-		// 	"pk": "1",
-		// 	"fk": "1"
-		// };
-		// const operator2 = {
-		// 	"name": "Jane Doe",
-		// 	"pk": "2",
-		// 	"fk": "2"
-		// };
-		// const operator3 = {
-		// 	"name": "Jane Doe",
-		// 	"pk": "2",
-		// 	"fk": "3"
-		// };
-		// const operator4 = {
-		// 	"name": "Jane Doe",
-		// 	"pk": "2",
-		// 	"fk": "4"
-		// };
-		// const database = {
-		// 	"projektpartner": [partner1],
-		// 	"projekt": [projekt1],
-		// 	"probe": [probe1],
-		// 	"experiment": [experiment1, experiment2],
-		// 	"methode": [methode1, methode2, methode3, methode4],
-		// 	"operator": [operator1, operator2, operator3, operator4]
-		// };
-
 
 		fetch(servletURL, {
 			method: "post",
@@ -323,6 +248,7 @@ var GlobaleSuche = (function () {
 	}
 
 	function createMainCategory(event) {
+
 		const htmlElement = event.target;
 		let categories = []
 
@@ -333,12 +259,14 @@ var GlobaleSuche = (function () {
 	}
 
 	function initMainCategory(selectElement) {
+
 		selectElement.addEventListener("change", (event) => createParameters(event));
 		createMainCategory({ target: selectElement });
 		createParameters({ target: selectElement });
 	}
 
 	function initFilterTypes(selectElement) {
+
 		let filterTypesArray = [];
 		for (let key in filterTypes) {
 			filterTypesArray.push(filterTypes[key]);
@@ -347,6 +275,7 @@ var GlobaleSuche = (function () {
 	}
 
 	function createParameters(event) {
+
 		const htmlElement = event.target;
 		const parameterCategory = htmlElement.value;
 
@@ -421,7 +350,7 @@ var GlobaleSuche = (function () {
 
 		if (firstTupel === undefined) return;
 		firstTupel.forEach(tupelElement => {
-			resultHeaderTupel.push(capitalize(tupelElement[resultTableHeaderKey]));
+			resultHeaderTupel.push(capitalize(tupelElement[categoryKey]));
 		})
 
 		function findLongestTupel() {
@@ -473,18 +402,18 @@ var GlobaleSuche = (function () {
 
 				for (let j = 0; j < tupel.length; j++) {
 					let element = tupel[j];
-					if (element["table"].toLowerCase() !== category.toLowerCase()) continue;
+					if (element[categoryKey].toLowerCase() !== category.toLowerCase()) continue;
 					found++;
 					let elementAsJson = { ...element };
-					elementAsJson["display"] = element[parameters[i]];
+					elementAsJson[displayKey] = element[parameters[i]];
 					newTupel.push(elementAsJson);
 					break;
 				}
 
 				// Platzhalter generieren damit die Spalten des Tupels nicht in eine falsche Reihenfolge verrutschen
 				if (found == i) {
-					let elementAsJson = { "table": category };
-					elementAsJson["display"] = "";
+					let elementAsJson = { categoryKey: category };
+					elementAsJson[displayKey] = "";
 					newTupel.push(elementAsJson);
 					found++;
 				}
@@ -492,12 +421,31 @@ var GlobaleSuche = (function () {
 			newResults.push(newTupel);
 		})
 
-		addTupelAsTableHeader(categories, resultTableId, firstHeaderClass, true);
-		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, false, true);
+		addTupelAsTableHeader(categories, resultTableId, firstHeaderClass, mergeHeader = true);
+		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, mergeHeader = false, addSortFunction = true);
 		addResultsToTable(newResults, resultTableId, resultRowClass);
+		mergeRedundantRows(resultTableId);
+	}
+
+	function mergeRedundantRows(resultTableId) {
+
+		let table = document.getElementById(resultTableId);
+		let rows = table.rows;
+
+		for (let i = rows.length - 1; i > sortFunctionSkipRows; i--) {
+
+			let row = rows[i];
+			let nextRow = rows[i - 1];
+
+			if (row.innerText === nextRow.innerText) {
+				table.deleteRow(i);
+			}
+		}
 	}
 
 	function addTupelAsTableHeader(tupel, tableId, className, mergeHeader, addSortFunction) {
+
+		console.log({ mergeHeader })
 
 		let table = document.getElementById(tableId);
 		let row = table.insertRow(-1);
@@ -511,10 +459,10 @@ var GlobaleSuche = (function () {
 			if (addSortFunction !== undefined && addSortFunction === true) cell.addEventListener("click", () => sortTable(resultTableId, n));
 			index++;
 		})
-		if (mergeHeader !== undefined && mergeHeader === true) mergeEqualHeaderCells(row);
+		if (mergeHeader !== undefined && mergeHeader === true) mergeRedundantRowCells(row);
 	}
 
-	function mergeEqualHeaderCells(row) {
+	function mergeRedundantRowCells(row) {
 
 		let childNodes = row.childNodes;
 		let colSpan = 1;
@@ -532,13 +480,10 @@ var GlobaleSuche = (function () {
 	}
 
 	function addResultsToTable(results, resultTableId, className) {
-		addTupelArrayToResults(results, resultTableId, className, "display", true);
+		addTupelArrayToResults(results, resultTableId, className, displayKey, addShowDetailsCallbackFunction = true);
 	}
 
-	function addTupelArrayToResults(results, tableId, className, onlyThisKey, showDetails) {
-
-		const parameters = getSearchParameters();
-		const categories = getSearchCategories();
+	function addTupelArrayToResults(results, tableId, className, onlyThisKey, addShowDetailsCallbackFunction) {
 
 		let table = document.getElementById(tableId);
 
@@ -553,13 +498,13 @@ var GlobaleSuche = (function () {
 
 					if (onlyThisKey === undefined) {
 						let cell = addToNewTableCell(cellContent, row);
-						if (showDetails !== undefined && showDetails === true && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
+						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
 						addCallbackFunction(cell, cellContent);
 					}
 
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
-						if (showDetails !== undefined && showDetails === true && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
+						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
 						break;
 					}
 				}
@@ -583,9 +528,9 @@ var GlobaleSuche = (function () {
 				cell.addEventListener("click", () => {
 					clearResultTable();
 					let tupelElementArray = [];
-					let tableName = tupelElement["table"];
-					delete tupelElement["table"];
-					delete tupelElement["display"];
+					let tableName = tupelElement[categoryKey];
+					delete tupelElement[categoryKey];
+					delete tupelElement[displayKey];
 					for (let key in tupelElement) {
 						tupelElementArray.push(key);
 					}
@@ -596,9 +541,9 @@ var GlobaleSuche = (function () {
 						tableNameHeaderArray.push(tableName);
 					}
 
-					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, firstHeaderClass, true);
+					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, firstHeaderClass, mergeHeader = true);
 					addTupelAsTableHeader(tupelElementArray, resultTableId, secondHeaderClass);
-					addTupelArrayToResults([[tupelElement]], resultTableId, resultRowClass, undefined, false);
+					addTupelArrayToResults([[tupelElement]], resultTableId, resultRowClass, onlyThisKey = undefined, addShowDetailsCallbackFunction = false);
 				});
 			}
 		})
@@ -649,7 +594,7 @@ var GlobaleSuche = (function () {
 		for (let key in tupel) {
 
 			let tupelElement = tupel[key];
-			let category = tupelElement["table"].toLowerCase();
+			let category = tupelElement[categoryKey].toLowerCase();
 
 			if (category !== searchCategory) continue;
 			let parameter = tupelElement[searchParameter].toLowerCase();
