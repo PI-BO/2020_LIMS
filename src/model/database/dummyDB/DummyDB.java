@@ -22,193 +22,198 @@ public class DummyDB implements Database {
     private final List<Model> modelList = new LinkedList<>();
 
     public void initModels() throws ModelNotFoundException, SQLException {
-        // Rollen
-        MitarbeiterRolle rolle = new MitarbeiterRolle();
-        rolle.setPrimaryKey("1");
-        rolle.setTyp("Projektplanung");
-        rolle.setZugehoerigkeit("Projektmanager");
-        modelList.add(rolle);
+    	// Rollen
+    			MitarbeiterRolle rolle = new MitarbeiterRolle();
+    			rolle.setPrimaryKey("1");
+    			rolle.setTyp("Projektplanung");
+    			rolle.setZugehoerigkeit("Projektmanager");
+    			modelList.add(rolle);
 
-        rolle = new MitarbeiterRolle();
-        rolle.setPrimaryKey("2");
-        rolle.setTyp("Laborbetreuung");
-        rolle.setZugehoerigkeit("Laborleiter");
-        modelList.add(rolle);
+    			rolle = new MitarbeiterRolle();
+    			rolle.setPrimaryKey("2");
+    			rolle.setTyp("Laborbetreuung");
+    			rolle.setZugehoerigkeit("Laborleiter");
+    			modelList.add(rolle);
 
-        rolle = new MitarbeiterRolle();
-        rolle.setPrimaryKey("3");
-        rolle.setTyp("Durchführung");
-        rolle.setZugehoerigkeit("Laborteam");
-        modelList.add(rolle);
+    			rolle = new MitarbeiterRolle();
+    			rolle.setPrimaryKey("3");
+    			rolle.setTyp("Durchfuehrung");
+    			rolle.setZugehoerigkeit("Laborteam");
+    			modelList.add(rolle);
 
-        // Mitarbeiter
-        Mitarbeiter mitarbeiter = new Mitarbeiter();
-        mitarbeiter.setVorname("Max");
-        mitarbeiter.setNachname("Mustermann");
-        mitarbeiter.setPassword("abc");
-        mitarbeiter.setPrimaryKey("123");
-        mitarbeiter.setRolle(1);
-        modelList.add(mitarbeiter);
+    			// Mitarbeiter
+    			Mitarbeiter mitarbeiter1 = new Mitarbeiter();
+    			mitarbeiter1.setVorname("Max");
+    			mitarbeiter1.setNachname("Mustermann");
+    			mitarbeiter1.setPassword("abc");
+    			mitarbeiter1.setPrimaryKey("123");
+    			mitarbeiter1.setRolle(1);
+    			modelList.add(mitarbeiter1);
 
-        mitarbeiter = new Mitarbeiter();
-        mitarbeiter.setVorname("Maxime");
-        mitarbeiter.setNachname("Musterfrau");
-        mitarbeiter.setPassword("dot");
-        mitarbeiter.setPrimaryKey("987");
-        mitarbeiter.setRolle(2);
-        modelList.add(mitarbeiter);
+    			Mitarbeiter mitarbeiter2 = new Mitarbeiter();
+    			mitarbeiter2.setVorname("Maxime");
+    			mitarbeiter2.setNachname("Musterfrau");
+    			mitarbeiter2.setPassword("dot");
+    			mitarbeiter2.setPrimaryKey("987");
+    			mitarbeiter2.setRolle(2);
+    			modelList.add(mitarbeiter2);
 
-        mitarbeiter = new Mitarbeiter();
-        mitarbeiter.setVorname("Harry");
-        mitarbeiter.setNachname("Potter");
-        mitarbeiter.setPassword("qwe");
-        mitarbeiter.setPrimaryKey("456");
-        mitarbeiter.setRolle(3);
-        modelList.add(mitarbeiter);
+    			Mitarbeiter mitarbeiter3 = new Mitarbeiter();
+    			mitarbeiter3.setVorname("Harry");
+    			mitarbeiter3.setNachname("Potter");
+    			mitarbeiter3.setPassword("qwe");
+    			mitarbeiter3.setPrimaryKey("456");
+    			mitarbeiter3.setRolle(3);
+    			modelList.add(mitarbeiter3);
 
-        // Partner
-        Partner partner = new Partner();
-        partner.setPrimaryKey("1");
-        partner.setName("PETER");
-        partner.setEmail("peter@Unternehmen.de");
-        modelList.add(partner);
+    			// Partner
+    			Partner partner1 = new Partner();
+    			partner1.setPrimaryKey("1");
+    			partner1.setName("Bayer");
+    			partner1.setEmail("bayer@Unternehmen.de");
+    			modelList.add(partner1);
 
-        partner = new Partner();
-        partner.setPrimaryKey("2");
-        partner.setName("Jeff");
-        partner.setEmail("jeff@Amazon.com");
-        modelList.add(partner);
+    			Partner partner2 = new Partner();
+    			partner2.setPrimaryKey("2");
+    			partner2.setName("Novartis");
+    			partner2.setEmail("novartis@pharma.com");
+    			modelList.add(partner2);
 
-        // Projekte
-        Projekt projekt = new Projekt();
-        projekt.setPrimaryKey("A");
-        projekt.setVertragsnummer("1");
-        modelList.add(projekt);
+    			// Projekte
+    			Projekt projekt1 = new Projekt();
+    			projekt1.setPrimaryKey("A");
+    			projekt1.setVertragsnummer("1");
+    			projekt1.setProjektPartnerId("1");
+    			modelList.add(projekt1);
 
-        projekt = new Projekt();
-        projekt.setPrimaryKey("B");
-        projekt.setVertragsnummer("1");
-        modelList.add(projekt);
+    			Projekt projekt2 = new Projekt();
+    			projekt2.setPrimaryKey("B");
+    			projekt2.setVertragsnummer("1");
+    			projekt2.setProjektPartnerId("1");
+    			modelList.add(projekt2);
 
-        projekt = new Projekt();
-        projekt.setPrimaryKey("C");
-        projekt.setVertragsnummer("2");
-        modelList.add(projekt);
+    			Projekt projekt3 = new Projekt();
+    			projekt3.setPrimaryKey("C");
+    			projekt3.setVertragsnummer("2");
+    			projekt3.setProjektPartnerId("2");
+    			modelList.add(projekt3);
 
-        // Substanzen
-        Substanz substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzA1");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+    			// Substanzen
+    			Substanz substanz1 = new Substanz();
+    			substanz1.setPrimaryKey("SubstanzA1");
+    			substanz1.setProjektID("A");
+    			modelList.add(substanz1);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzA2");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+    			Substanz substanz2 = new Substanz();
+    			substanz2.setPrimaryKey("SubstanzA2");
+    			substanz2.setProjektID("A");
+    			modelList.add(substanz2);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzA3");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+    			Substanz substanz3 = new Substanz();
+    			substanz3.setPrimaryKey("SubstanzA3");
+    			substanz3.setProjektID("A");
+    			modelList.add(substanz3);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzB");
-        substanz.setProjektID("B");
-        modelList.add(substanz);
+    			Substanz substanz4 = new Substanz();
+    			substanz4.setPrimaryKey("SubstanzB");
+    			substanz4.setProjektID("B");
+    			modelList.add(substanz4);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzC");
-        substanz.setProjektID("C");
-        modelList.add(substanz);
+    			Substanz substanz5 = new Substanz();
+    			substanz5.setPrimaryKey("SubstanzC");
+    			substanz5.setProjektID("C");
+    			modelList.add(substanz5);
 
-        substanz = new Substanz();
-        substanz.setPrimaryKey("SubstanzG");
-        substanz.setProjektID("A");
-        modelList.add(substanz);
+    			// Proben
+    			Probe probe1 = new Probe();
+    			probe1.setPrimaryKey("ProbeA1");
+    			probe1.setSubstanzID("SubstanzA1");
+    			modelList.add(probe1);
 
-        // Proben
-        Probe probe = new Probe();
-        probe.setPrimaryKey("ProbeA");
-        probe.setSubstanzID("SubstanzA1");
-        modelList.add(probe);
+    			Probe probe2 = new Probe();
+    			probe2.setPrimaryKey("ProbeA2");
+    			probe2.setSubstanzID("SubstanzA2");
+    			modelList.add(probe2);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeA2");
-        probe.setSubstanzID("SubstanzA1");
-        modelList.add(probe);
+    			Probe probe3 = new Probe();
+    			probe3.setPrimaryKey("ProbeB1");
+    			probe3.setSubstanzID("SubstanzA3");
+    			modelList.add(probe3);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeB");
-        probe.setSubstanzID("SubstanzA2");
-        modelList.add(probe);
+    			Probe probe4 = new Probe();
+    			probe4.setPrimaryKey("ProbeB");
+    			probe4.setSubstanzID("SubstanzB");
+    			modelList.add(probe4);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeB2");
-        probe.setSubstanzID("SubstanzA2");
-        modelList.add(probe);
+    			Probe probe5 = new Probe();
+    			probe5.setPrimaryKey("ProbeC");
+    			probe5.setSubstanzID("SubstanzB");
+    			modelList.add(probe5);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeC");
-        probe.setSubstanzID("SubstanzA3");
-        modelList.add(probe);
+    			Probe probe6 = new Probe();
+    			probe6.setPrimaryKey("ProbeC2");
+    			probe6.setSubstanzID("SubstanzC");
+    			modelList.add(probe6);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeC2");
-        probe.setSubstanzID("SubstanzA3");
-        modelList.add(probe);
+    			Probe probe7 = new Probe();
+    			probe7.setPrimaryKey("ProbeD");
+    			probe7.setSubstanzID("SubstanzC");
+    			modelList.add(probe7);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeD");
-        probe.setSubstanzID("SubstanzB");
-        modelList.add(probe);
+    			Probe probe8 = new Probe();
+    			probe8.setPrimaryKey("ProbeD2");
+    			probe8.setSubstanzID("SubstanzC");
+    			modelList.add(probe8);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeD2");
-        probe.setSubstanzID("SubstanzB");
-        modelList.add(probe);
+    			Probe probe9 = new Probe();
+    			probe9.setPrimaryKey("ProbeE");
+    			probe9.setSubstanzID("SubstanzC");
+    			modelList.add(probe9);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeE");
-        probe.setSubstanzID("SubstanzC");
-        modelList.add(probe);
+    			Probe probe10 = new Probe();
+    			probe10.setPrimaryKey("ProbeE2");
+    			probe10.setSubstanzID("SubstanzC");
+    			modelList.add(probe10);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeE2");
-        probe.setSubstanzID("SubstanzC");
-        modelList.add(probe);
+    			Probe probe11 = new Probe();
+    			probe11.setPrimaryKey("ProbeF");
+    			probe11.setSubstanzID("SubstanzC");
+    			modelList.add(probe11);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeF");
-        probe.setSubstanzID("SubstanzG");
-        modelList.add(probe);
+    			Probe probe12 = new Probe();
+    			probe12.setPrimaryKey("ProbeF2");
+    			probe12.setSubstanzID("SubstanzC");
+    			modelList.add(probe12);
 
-        probe = new Probe();
-        probe.setPrimaryKey("ProbeF2");
-        probe.setSubstanzID("SubstanzG");
-        modelList.add(probe);
+    			// Experimente
+    			Experiment experiment1 = new Experiment();
+    			experiment1.setPrimaryKey("Experiment1");
+    			experiment1.setTyp("101");
+    			experiment1.setProbenNr("ProbeA1");
+    			modelList.add(experiment1);
 
-        // Experimente
-        Experiment experiment = new Experiment();
-        experiment.setPrimaryKey("Experiment1");
-        experiment.setTyp("101");
-        experiment.setProbenNr("ProbeA");
-        modelList.add(experiment);
+    			Experiment experiment2 = new Experiment();
+    			experiment2.setPrimaryKey("Experiment2");
+    			experiment2.setTyp("202");
+    			experiment2.setProbenNr("ProbeB");
+    			modelList.add(experiment2);
 
-        // Experiment Typen
-        Experimenttyp experimenttyp = new Experimenttyp();
-        experimenttyp.setPrimaryKey("101");
-        experimenttyp.setTyp("Verdampfung 1Lömi");
-        modelList.add(experimenttyp);
+    			// Experiment Typen
+    			Experimenttyp experimenttyp1 = new Experimenttyp();
+    			experimenttyp1.setPrimaryKey("101");
+    			experimenttyp1.setTyp("Verdampfung");
+    			modelList.add(experimenttyp1);
 
-        experimenttyp = new Experimenttyp();
-        experimenttyp.setPrimaryKey("202");
-        experimenttyp.setTyp("Slurry 1Lömi");
-        modelList.add(experimenttyp);
+    			Experimenttyp experimenttyp2 = new Experimenttyp();
+    			experimenttyp2.setPrimaryKey("202");
+    			experimenttyp2.setTyp("Slurry");
+    			modelList.add(experimenttyp2);
 
-        // Experiment Durchführungstext
-        ExperimentDurchfuehrungstext experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
-        experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext A");
-        experimentDurchfuehrungstext.setText(
+    			// Experiment Durchfuehrungstext
+    			ExperimentDurchfuehrungstext experimentDurchfuehrungstext1 = new ExperimentDurchfuehrungstext();
+    			experimentDurchfuehrungstext1.setPrimaryKey("Durchfuehrungstext A");
+
+        experimentDurchfuehrungstext1.setText(
                 "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
                         "Die genaue Einwaage in den Datensatz eintragen.\n" +
                         "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
@@ -228,11 +233,11 @@ public class DummyDB implements Database {
                         "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
                         "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
         );
-        modelList.add(experimentDurchfuehrungstext);
+        modelList.add(experimentDurchfuehrungstext1);
 
-        experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
-        experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext B");
-        experimentDurchfuehrungstext.setText(
+        ExperimentDurchfuehrungstext experimentDurchfuehrungstext2 = new ExperimentDurchfuehrungstext();
+        experimentDurchfuehrungstext2.setPrimaryKey("Durchführungstext B");
+        experimentDurchfuehrungstext2.setText(
                 "20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" +
                         "Die genaue Einwaage in den Datensatz eintragen.\n" +
                         "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" +
@@ -252,7 +257,7 @@ public class DummyDB implements Database {
                         "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n" +
                         "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz)."
         );
-        modelList.add(experimentDurchfuehrungstext);
+        modelList.add(experimentDurchfuehrungstext2);
 
         // Analysetyp
         Analysetyp analysetyp = new Analysetyp();

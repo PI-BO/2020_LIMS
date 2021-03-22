@@ -835,13 +835,13 @@ var GlobaleSuche = (function () {
 })();
 
 GlobaleSuche.init();
-// const template = [
-// 	{ "Partner": "id" },
-// 	{ "Probe": "id" },
-// 	{ "Experiment": "typ" },
-// 	{ "Experiment": "id" },
-// 	{ "Projekte": "vertragsnummer" },
-// 	{ "Partner": "email" },
-// 	{ "Partner": "name" }
-// ];
-// GlobaleSuche.initTemplateParameters(template);
+const template = [
+	{ "Partner": "id" },
+	{ "Probe": "id" },
+	{ "Experiment": "typ" },
+	{ "Experiment": "id" },
+	{ "Projekte": "vertragsnummer" },
+	{ "Partner": "email" },
+	{ "Partner": "name" }
+];
+GlobaleSuche.initTemplateParameters(template);
