@@ -757,7 +757,7 @@ var GlobaleSuche = (function () {
 
 		// index to exclude rows with undefinded or empty fields
 		let maxIndexOfDefinedRows = 0;
-		for (let i = sortFunctionSkipRows - 1; i < (rows.length - 1); i++) {
+		for (let i = sortFunctionSkipRows; i < (rows.length); i++) {
 			let td = rows[i].getElementsByTagName("TD")[n];
 			if (td === undefined || td.innerHTML === "") break;
 			maxIndexOfDefinedRows = i;
