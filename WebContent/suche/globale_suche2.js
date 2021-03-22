@@ -23,14 +23,7 @@ var GlobaleSuche = (function () {
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
-	let parameters = {
-		// "projektpartner": ["name", "pk"],
-		// "projekt": ["name", "fk", "pk"],
-		// "probe": ["name", "fk", "pk"],
-		// "experiment": ["name", "fk", "pk"],
-		// "methode": ["name", "fk", "pk"],
-		// "operator": ["name", "fk", "pk"]
-	}
+	let parameters = {}
 
 	const filterTypes = {
 		matches: "entspricht",
@@ -55,7 +48,7 @@ var GlobaleSuche = (function () {
 				{ "partner": "email" },
 				{ "partner": "name" }
 			];
-			public.initTemplateParameters(template);
+			// public.initTemplateParameters(template);
 		})
 	}
 
