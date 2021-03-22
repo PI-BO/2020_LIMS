@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public abstract class ExperimenteModel extends Model {
     private String screening_no;
-    private int planung_erfolgt_durch;
+    private Integer planung_erfolgt_durch;
     private String experiment_serie;
     private String experiment_no;
     private String durchfuehrung;
@@ -23,15 +23,15 @@ public abstract class ExperimenteModel extends Model {
     private boolean planung_abgeschlossen;
     private String prioritaet_experiment;
     private String sicherheitshinweis;
-    private int verantwortlicher_operator;
+    private Integer verantwortlicher_operator;
     private Date experiment_start;
-    private double api_startmaterial_soll_einwaage;
-    private double api_startmaterial_soll_einwaage_mg;
+    private Double api_startmaterial_soll_einwaage;
+    private Double api_startmaterial_soll_einwaage_mg;
     private String cof_bezeichnung;
     private String cof_ref_code;
-    private double cof_soll_einwaaage;
-    private double cof_soll_einwaage_mg;
-    private double soll_temperatur;
+    private Double cof_soll_einwaaage;
+    private Double cof_soll_einwaage_mg;
+    private Double soll_temperatur;
     private String loesungsmittel_fuer_api_cof;
     private String vorgabe_info_volumen;
     private String loesungsmittel_ist_volumen;
@@ -266,7 +266,7 @@ public abstract class ExperimenteModel extends Model {
         return planung_erfolgt_durch;
     }
 
-    public void setPlanung_erfolgt_durch(int planung_erfolgt_durch) {
+    public void setPlanung_erfolgt_durch(Integer planung_erfolgt_durch) {
         this.planung_erfolgt_durch = planung_erfolgt_durch;
     }
 
@@ -362,7 +362,7 @@ public abstract class ExperimenteModel extends Model {
         return verantwortlicher_operator;
     }
 
-    public void setVerantwortlicher_operator(int verantwortlicher_operator) {
+    public void setVerantwortlicher_operator(Integer verantwortlicher_operator) {
         this.verantwortlicher_operator = verantwortlicher_operator;
     }
 
@@ -378,7 +378,7 @@ public abstract class ExperimenteModel extends Model {
         return api_startmaterial_soll_einwaage;
     }
 
-    public void setApi_startmaterial_soll_einwaage(double api_startmaterial_soll_einwaage) {
+    public void setApi_startmaterial_soll_einwaage(Double api_startmaterial_soll_einwaage) {
         this.api_startmaterial_soll_einwaage = api_startmaterial_soll_einwaage;
     }
 
@@ -386,7 +386,7 @@ public abstract class ExperimenteModel extends Model {
         return api_startmaterial_soll_einwaage_mg;
     }
 
-    public void setApi_startmaterial_soll_einwaage_mg(double api_startmaterial_soll_einwaage_mg) {
+    public void setApi_startmaterial_soll_einwaage_mg(Double api_startmaterial_soll_einwaage_mg) {
         this.api_startmaterial_soll_einwaage_mg = api_startmaterial_soll_einwaage_mg;
     }
 
@@ -410,7 +410,7 @@ public abstract class ExperimenteModel extends Model {
         return cof_soll_einwaaage;
     }
 
-    public void setCof_soll_einwaaage(double cof_soll_einwaaage) {
+    public void setCof_soll_einwaaage(Double cof_soll_einwaaage) {
         this.cof_soll_einwaaage = cof_soll_einwaaage;
     }
 
@@ -418,7 +418,7 @@ public abstract class ExperimenteModel extends Model {
         return cof_soll_einwaage_mg;
     }
 
-    public void setCof_soll_einwaage_mg(double cof_soll_einwaage_mg) {
+    public void setCof_soll_einwaage_mg(Double cof_soll_einwaage_mg) {
         this.cof_soll_einwaage_mg = cof_soll_einwaage_mg;
     }
 
@@ -426,7 +426,7 @@ public abstract class ExperimenteModel extends Model {
         return soll_temperatur;
     }
 
-    public void setSoll_temperatur(double soll_temperatur) {
+    public void setSoll_temperatur(Double soll_temperatur) {
         this.soll_temperatur = soll_temperatur;
     }
 

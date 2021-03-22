@@ -186,7 +186,7 @@ public class JSTreeSearchServlet extends HttpServlet {
                 keys.add(Experiment.TABLE + ":" + set.getString(columnParent));
                 Experiment experiment = new Experiment(set.getString(columnParent));
                 keys.add(Probe.TABLE + ":" + experiment.getProbenNr());
-                Probe probe = new Probe(set.getString(columnParent));
+                Probe probe = new Probe(experiment.getProbenNr());
                 keys.add(Substanz.TABLE + ":" + probe.getSubstanzID());
                 Substanz substanz = new Substanz(probe.getSubstanzID());
                 keys.add(Projekt.TABLE + ":" + substanz.getProjektID());

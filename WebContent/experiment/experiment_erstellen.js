@@ -19,7 +19,9 @@ function showExperimenttypFieldsMethode(select) {
 
 function newExperimentSerie(value) {
     const text = $("#experiment_serie_text")
-    if (value === "new") text.show()
+    const isNew = (value === "new")
+    text.prop("required", isNew)
+    if (isNew) text.show()
     else text.hide()
 }
 
@@ -28,9 +30,11 @@ function newExperimentDurchfuehrungstext(select) {
     const value = select.value
     const durchfuehrungstext = select.selectedOptions[0].firstChild.data.trim()
     text.val(durchfuehrungstext)
-    text.prop("readonly", value !== "new")
+    const isNew = (value === 'new')
+    text.prop("readonly", !isNew)
     const titel = $("#experiment_durchfuehrungstext_titel")
-    if (value === "new") titel.show()
+    titel.prop('required', isNew)
+    if (isNew) titel.show()
     else titel.hide()
 }
 

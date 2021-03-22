@@ -103,7 +103,7 @@
         </tr>
         <tr>
             <th>
-                <textarea id="experiment_durchführungstext_text" rows="4" cols="50"
+                <textarea required id="experiment_durchführungstext_text" rows="4" cols="50"
                           name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
             </th>
         </tr>

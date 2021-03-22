@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ExperimentSerie extends Model {
-    private String primaryKey;
     public static final String COLUMN_PRIMARY_KEY = "serie";
     public static final String TABLE = "experiment_serie";
 
