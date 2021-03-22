@@ -15,7 +15,8 @@ html, body {
 	grid-template-rows: 75px auto;
 	grid-template-columns: 20% auto;
 	grid-gap: 10px;
-	background-color: #2196F3;
+/* 	background-color: #2196F3; */
+	background-image: url("https://solid-chem.de/wp-content/uploads/2016/12/sc_011.jpg");	
 }
 
 #main-header {
