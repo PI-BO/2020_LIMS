@@ -254,91 +254,91 @@ public class DummyDB implements Database {
 				+ "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz).");
 		modelList.add(experimentDurchfuehrungstext2);
 
-		// // Analysetyp
-		// Analysetyp analysetyp = new Analysetyp();
-		// analysetyp.setPrimaryKey("1");
-		// analysetyp.setTyp("PXRD");
-		// modelList.add(analysetyp);
-		//
-		// analysetyp = new Analysetyp();
-		// analysetyp.setPrimaryKey("2");
-		// analysetyp.setTyp("DSC");
-		// modelList.add(analysetyp);
-		//
-		// analysetyp = new Analysetyp();
-		// analysetyp.setPrimaryKey("3");
-		// analysetyp.setTyp("TGA");
-		// modelList.add(analysetyp);
-		//
-		// analysetyp = new Analysetyp();
-		// analysetyp.setPrimaryKey("4");
-		// analysetyp.setTyp("IR");
-		// modelList.add(analysetyp);
-		//
-		// // temperaturprogramme
-		// AnalyseTemperaturprogramme temperaturprogramme = new
-		// AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("1");
-		// temperaturprogramme.setSchritt("1");
-		// temperaturprogramme.setTemperatur("180");
-		// temperaturprogramme.setRampe("10");
-		// temperaturprogramme.setZeit(null);
-		// temperaturprogramme.setSegmenttyp("Dynamisch");
-		// modelList.add(temperaturprogramme);
-		//
-		// temperaturprogramme = new AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("1");
-		// temperaturprogramme.setSchritt("2");
-		// temperaturprogramme.setTemperatur("25");
-		// temperaturprogramme.setRampe("10");
-		// temperaturprogramme.setZeit(null);
-		// temperaturprogramme.setSegmenttyp("Dynamisch");
-		// modelList.add(temperaturprogramme);
-		//
-		// temperaturprogramme = new AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("1");
-		// temperaturprogramme.setSchritt("3");
-		// temperaturprogramme.setTemperatur("180");
-		// temperaturprogramme.setRampe("10");
-		// temperaturprogramme.setZeit(null);
-		// temperaturprogramme.setSegmenttyp("Dynamisch");
-		// modelList.add(temperaturprogramme);
-		//
-		// temperaturprogramme = new AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("1");
-		// temperaturprogramme.setSchritt("4");
-		// temperaturprogramme.setTemperatur("25");
-		// temperaturprogramme.setRampe("10");
-		// temperaturprogramme.setZeit(null);
-		// temperaturprogramme.setSegmenttyp("Dynamisch");
-		// modelList.add(temperaturprogramme);
-		//
-		// temperaturprogramme = new AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("2");
-		// temperaturprogramme.setSchritt("1");
-		// temperaturprogramme.setTemperatur("180");
-		// temperaturprogramme.setRampe("10");
-		// temperaturprogramme.setZeit(null);
-		// temperaturprogramme.setSegmenttyp("Dynamisch");
-		// modelList.add(temperaturprogramme);
-		//
-		// temperaturprogramme = new AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("2");
-		// temperaturprogramme.setSchritt("2");
-		// temperaturprogramme.setTemperatur("180");
-		// temperaturprogramme.setRampe(null);
-		// temperaturprogramme.setZeit("30");
-		// temperaturprogramme.setSegmenttyp("Isotherme");
-		// modelList.add(temperaturprogramme);
-		//
-		// temperaturprogramme = new AnalyseTemperaturprogramme();
-		// temperaturprogramme.setTabelle("2");
-		// temperaturprogramme.setSchritt("3");
-		// temperaturprogramme.setTemperatur("25");
-		// temperaturprogramme.setRampe("10");
-		// temperaturprogramme.setZeit(null);
-		// temperaturprogramme.setSegmenttyp("Dynamisch");
-		// modelList.add(temperaturprogramme);
+		 // Analysetyp
+		 Analysetyp analysetyp = new Analysetyp();
+		 analysetyp.setPrimaryKey("1");
+		 analysetyp.setTyp("PXRD");
+		 modelList.add(analysetyp);
+		
+		 analysetyp = new Analysetyp();
+		 analysetyp.setPrimaryKey("2");
+		 analysetyp.setTyp("DSC");
+		 modelList.add(analysetyp);
+		
+		 analysetyp = new Analysetyp();
+		 analysetyp.setPrimaryKey("3");
+		 analysetyp.setTyp("TGA");
+		 modelList.add(analysetyp);
+		
+		 analysetyp = new Analysetyp();
+		 analysetyp.setPrimaryKey("4");
+		 analysetyp.setTyp("IR");
+		 modelList.add(analysetyp);
+		
+		 // temperaturprogramme
+		 AnalyseTemperaturprogramme temperaturprogramme = new
+		 AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("1");
+		 temperaturprogramme.setSchritt("1");
+		 temperaturprogramme.setTemperatur("180");
+		 temperaturprogramme.setRampe("10");
+		 temperaturprogramme.setZeit(null);
+		 temperaturprogramme.setSegmenttyp("Dynamisch");
+		 modelList.add(temperaturprogramme);
+		
+		 temperaturprogramme = new AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("1");
+		 temperaturprogramme.setSchritt("2");
+		 temperaturprogramme.setTemperatur("25");
+		 temperaturprogramme.setRampe("10");
+		 temperaturprogramme.setZeit(null);
+		 temperaturprogramme.setSegmenttyp("Dynamisch");
+		 modelList.add(temperaturprogramme);
+		
+		 temperaturprogramme = new AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("1");
+		 temperaturprogramme.setSchritt("3");
+		 temperaturprogramme.setTemperatur("180");
+		 temperaturprogramme.setRampe("10");
+		 temperaturprogramme.setZeit(null);
+		 temperaturprogramme.setSegmenttyp("Dynamisch");
+		 modelList.add(temperaturprogramme);
+		
+		 temperaturprogramme = new AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("1");
+		 temperaturprogramme.setSchritt("4");
+		 temperaturprogramme.setTemperatur("25");
+		 temperaturprogramme.setRampe("10");
+		 temperaturprogramme.setZeit(null);
+		 temperaturprogramme.setSegmenttyp("Dynamisch");
+		 modelList.add(temperaturprogramme);
+		
+		 temperaturprogramme = new AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("2");
+		 temperaturprogramme.setSchritt("1");
+		 temperaturprogramme.setTemperatur("180");
+		 temperaturprogramme.setRampe("10");
+		 temperaturprogramme.setZeit(null);
+		 temperaturprogramme.setSegmenttyp("Dynamisch");
+		 modelList.add(temperaturprogramme);
+		
+		 temperaturprogramme = new AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("2");
+		 temperaturprogramme.setSchritt("2");
+		 temperaturprogramme.setTemperatur("180");
+		 temperaturprogramme.setRampe(null);
+		 temperaturprogramme.setZeit("30");
+		 temperaturprogramme.setSegmenttyp("Isotherme");
+		 modelList.add(temperaturprogramme);
+		
+		 temperaturprogramme = new AnalyseTemperaturprogramme();
+		 temperaturprogramme.setTabelle("2");
+		 temperaturprogramme.setSchritt("3");
+		 temperaturprogramme.setTemperatur("25");
+		 temperaturprogramme.setRampe("10");
+		 temperaturprogramme.setZeit(null);
+		 temperaturprogramme.setSegmenttyp("Dynamisch");
+		 modelList.add(temperaturprogramme);
 
 		// ------------Test-Daten fuer Suche------------//
 

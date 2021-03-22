@@ -28,19 +28,26 @@ public class SaveProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	LOGGER.debug("doPost()");
     	
+    	System.out.println(this.getClass().getName() + "\t Projekt gespeichert");
+    	
+    	
     	Projekt projekt = new Projekt();
 		projekt.setPrimaryKey(request.getParameter(Projekt.COLUMN_PRIMARY_KEY));
 		projekt.setVertragsnummer(request.getParameter(Partner.COLUMN_PRIMARY_KEY));
 		
-		try {
-			projekt.saveToDatabase();
-			response.getWriter().println("<div style=\"color:green\">Erfolgreich gespeichert</div>");
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			response.getWriter().println("<h3 style=\"color:red\">FEHLER!</h3>");
-			response.getWriter().println("<div style=\"color:red\">" + e + "</div>");
-		}
+		//			projekt.saveToDatabase();
+		response.getWriter().println("<div style=\"color:green\">Erfolgreich gespeichert</div>");
+	
+		
+//		try {
+//			projekt.saveToDatabase();
+//			response.getWriter().println("<div style=\"color:green\">Erfolgreich gespeichert</div>");
+//		}
+//		catch (SQLException e) {
+//			e.printStackTrace();
+//			response.getWriter().println("<h3 style=\"color:red\">FEHLER!</h3>");
+//			response.getWriter().println("<div style=\"color:red\">" + e + "</div>");
+//		}
 	}
 
     @Override

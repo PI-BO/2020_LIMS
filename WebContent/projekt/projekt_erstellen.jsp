@@ -53,7 +53,8 @@
 			<tr>
 				<td style="">Vertragsnummer</td>
 
-				<td><select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" required style="float: left">
+<%-- 				<td><select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" required style="float: left"> --%>
+				<td><select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" style="float: left">
 						<option value="" selected disabled></option>
 
 						<%
