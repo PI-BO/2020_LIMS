@@ -39,10 +39,5 @@ function newExperimentDurchfuehrungstext(select) {
 }
 
 function replaceContent(id, text, color){
-    const element = document.getElementById(id);
-    element.style.color = color;
-    while(element.firstChild){
-        element.removeChild(element.firstChild);
-    }
-    element.append(text);
+    $(`#${id}`).empty().append(`<div style="color: ${color}">${text}</div>`)
 }

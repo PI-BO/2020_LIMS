@@ -42,7 +42,11 @@ public class AnalyseDatenmaskePXRD extends AnalyseModel {
         DummyResultSetEntry dummyResultSetEntry = super.getDummyResultsetEntry();
         dummyResultSetEntry.addKeyValuePair(COLUMN_GERAET, geraet);
         dummyResultSetEntry.addKeyValuePair(COLUMN_PRAEPARATION, praeparation);
-        dummyResultSetEntry.addKeyValuePair(COLUMN_POSITION, Integer.toString(position));
+        try {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_POSITION, Integer.toString(position));
+        } catch (NullPointerException e) {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_POSITION, null);
+        }
         dummyResultSetEntry.addKeyValuePair(COLUMN_PROGRAMM, programm);
         dummyResultSetEntry.addKeyValuePair(COLUMN_MESSZEIT, messzeit);
 

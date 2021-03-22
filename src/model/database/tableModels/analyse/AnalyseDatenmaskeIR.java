@@ -39,8 +39,16 @@ public class AnalyseDatenmaskeIR extends AnalyseModel {
     public DummyResultSet returnAsDummyResultSet() {
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry dummyResultSetEntry = super.getDummyResultsetEntry();
-        dummyResultSetEntry.addKeyValuePair(COLUMN_SCANS, scans.toString());
-        dummyResultSetEntry.addKeyValuePair(COLUMN_AUFLOESUNG, aufloesung.toString());
+        try {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_SCANS, scans.toString());
+        } catch (NullPointerException e) {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_SCANS, null);
+        }
+        try {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_AUFLOESUNG, aufloesung.toString());
+        } catch (NullPointerException e) {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_AUFLOESUNG, null);
+        }
         dummyResultSetEntry.addKeyValuePair(COLUMN_GEOMETRIE, geometrie);
         dummyResultSetEntry.addKeyValuePair(COLUMN_PRAEPARATION, praeparation);
         dummyResultSetEntry.addKeyValuePair(COLUMN_BACKGROUND, background);

@@ -20,10 +20,10 @@
                     type: 'post',
                     data: $(this).serialize(),
                     success: function () {
-                        replaceContent("button_analyse_speichern", "Erfolgreich gespeichert", "green");
+                        replaceContent("analyse_erstellen_speichern", "Erfolgreich gespeichert", "green");
                     },
-                    error: function (e) {
-                        replaceContent("button_analyse_speichern", "Fehler: " + e, "red");
+                    error: function (xhr, status, error) {
+                        replaceContent("button_analyse_speichern", "Fehler: " + xhr.responseText, "red");
                     }
                 });
                 return false;
@@ -61,7 +61,7 @@
     <div id="analyse_erstellen_content">
     </div>
 
-    <div class="analyse_erstellen_entry">
+    <div id="analyse_erstellen_speichern" class="analyse_erstellen_entry">
         <button id="button_analyse_speichern" type="submit">Speichern</button>
     </div>
 </form>

@@ -135,6 +135,7 @@
 
     $("#explorer_anzeigen").click(function () {
         hideAllExcept("#main-content-explorer");
+        $('#lazy').jstree(true).refresh();
     });
 
     $("#projekt_erstellen").click(function () {

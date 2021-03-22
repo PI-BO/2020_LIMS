@@ -108,7 +108,11 @@ public class AnalyseServlet extends HttpServlet {
                 model.setPrimaryKey(parameter);
                 break;
             case DATUM:
-                model.setDatum(Date.valueOf(parameter));
+                try {
+                    model.setDatum(Date.valueOf(parameter));
+                } catch (IllegalArgumentException e) {
+                    model.setDatum(null);
+                }
                 break;
             case BEMERKUNG:
                 model.setBemerkung(parameter);

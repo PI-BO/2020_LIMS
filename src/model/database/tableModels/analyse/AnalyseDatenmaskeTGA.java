@@ -35,8 +35,16 @@ public class AnalyseDatenmaskeTGA extends AnalyseModel {
     public DummyResultSet returnAsDummyResultSet() {
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry dummyResultSetEntry = super.getDummyResultsetEntry();
-        dummyResultSetEntry.addKeyValuePair(COLUMN_EINWAAGE, einwaage.toString());
-        dummyResultSetEntry.addKeyValuePair(COLUMN_RAMPE, Integer.toString(rampe));
+        try {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_EINWAAGE, einwaage.toString());
+        } catch (NullPointerException e) {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_EINWAAGE, null);
+        }
+        try {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_RAMPE, Integer.toString(rampe));
+        } catch (NullPointerException e) {
+            dummyResultSetEntry.addKeyValuePair(COLUMN_RAMPE, null);
+        }
         dummyResultSetEntry.addKeyValuePair(COLUMN_TEMPERATURPROGRAMM, temperaturprgramm);
 
         dummyResultSet.addEntry(dummyResultSetEntry);

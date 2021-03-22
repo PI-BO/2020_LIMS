@@ -192,48 +192,132 @@ public abstract class ExperimenteModel extends Model {
         DummyResultSetEntry entry = new DummyResultSetEntry();
         entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
         entry.addKeyValuePair(COLUMN_SCREENING_NO_KEY, screening_no);
-        entry.addKeyValuePair(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, Integer.toString(planung_erfolgt_durch));
+        try {
+            entry.addKeyValuePair(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, Integer.toString(planung_erfolgt_durch));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_EXPERIMENT_SERIE_KEY, experiment_serie);
         entry.addKeyValuePair(COLUMN_EXPERIMENT_NO_KEY, experiment_no);
         entry.addKeyValuePair(COLUMN_DURCHFUEHRUNG_KEY, durchfuehrung);
         entry.addKeyValuePair(COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY, projektleiternotiz_intention);
         entry.addKeyValuePair(COLUMN_VERWEIS_KEY, verweis);
-        entry.addKeyValuePair(COLUMN_STARTFREIGABE_KEY, startfreigabe.toString());
-        entry.addKeyValuePair(COLUMN_ERLEDIGT_BIS_KEY, erledigt_bis.toString());
+        try {
+            entry.addKeyValuePair(COLUMN_STARTFREIGABE_KEY, startfreigabe.toString());
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_STARTFREIGABE_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_ERLEDIGT_BIS_KEY, erledigt_bis.toString());
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_ERLEDIGT_BIS_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_HINWEIS_LABORLEITER_KEY, hinweis_an_laborleiter);
-        entry.addKeyValuePair(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, Boolean.toString(planung_abgeschlossen));
+        try {
+            entry.addKeyValuePair(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, Boolean.toString(planung_abgeschlossen));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_PRIORITAET_EXPERIMENT_KEY, prioritaet_experiment);
         entry.addKeyValuePair(COLUMN_SICHERHEITSHINWEIS_KEY, sicherheitshinweis);
-        entry.addKeyValuePair(COLUMN_VERANTWORTLICHER_OPERATOR, Integer.toString(verantwortlicher_operator));
-        entry.addKeyValuePair(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
-        entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE, Double.toString(api_startmaterial_soll_einwaage));
-        entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG, Double.toString(api_startmaterial_soll_einwaage_mg));
+        try {
+            entry.addKeyValuePair(COLUMN_VERANTWORTLICHER_OPERATOR, Integer.toString(verantwortlicher_operator));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_VERANTWORTLICHER_OPERATOR, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_EXPERIMENT_START_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE, Double.toString(api_startmaterial_soll_einwaage));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG, Double.toString(api_startmaterial_soll_einwaage_mg));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG, null);
+        }
         entry.addKeyValuePair(COLUMN_COF_BEZEICHNUNG_KEY, cof_bezeichnung);
         entry.addKeyValuePair(COLUMN_COF_REF_CODE_KEY, cof_ref_code);
-        entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_KEY, Double.toString(cof_soll_einwaaage));
-        entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_MG_KEY, Double.toString(cof_soll_einwaage_mg));
-        entry.addKeyValuePair(COLUMN_SOLL_TEMPERATUR_KEY, Double.toString(soll_temperatur));
+        try {
+            entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_KEY, Double.toString(cof_soll_einwaaage));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_MG_KEY, Double.toString(cof_soll_einwaage_mg));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_COF_SOLL_EINWAAGE_MG_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_SOLL_TEMPERATUR_KEY, Double.toString(soll_temperatur));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_SOLL_TEMPERATUR_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_LOESUNGSMITTEL_FUER_API_COF_KEY, loesungsmittel_fuer_api_cof);
         entry.addKeyValuePair(COLUMN_VORGABE_INFO_VOLUMEN_KEY, vorgabe_info_volumen);
         entry.addKeyValuePair(COLUMN_LOESUNGSMITTEL_IST_VOLUMEN_KEY, loesungsmittel_ist_volumen);
         entry.addKeyValuePair(COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY, beobachtungen_zum_experimentverlauf);
-        entry.addKeyValuePair(COLUMN_EXPERIMENT_ENDE, experiment_ende.toString());
+        try {
+            entry.addKeyValuePair(COLUMN_EXPERIMENT_ENDE, experiment_ende.toString());
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_EXPERIMENT_ENDE, null);
+        }
         entry.addKeyValuePair(COLUMN_STATUS_EXPERIMENT_KEY, status_experiment);
-        entry.addKeyValuePair(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, aufarbeitung_präsentation_pxrd.toString());
+        try {
+            entry.addKeyValuePair(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, aufarbeitung_präsentation_pxrd.toString());
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY, beobachtung_zum_ende_des_experiments_aufarbeitung);
         entry.addKeyValuePair(COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE, standort_lagerorte_der_finalen_probe);
         entry.addKeyValuePair(COLUMN_PRIORITAET_ANALYTIK_KEY, prioritaet_analytik);
         entry.addKeyValuePair(COLUMN_ERSTANALYTIK_PXRD_KEY, erstanalytik_pxrd);
-        entry.addKeyValuePair(COLUMN_PXRD_MOEGLICH_KEY, Boolean.toString(pxrd_moeglich));
+        try {
+            entry.addKeyValuePair(COLUMN_PXRD_MOEGLICH_KEY, Boolean.toString(pxrd_moeglich));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_PXRD_MOEGLICH_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_MIT_AUSBEUTE_REST_WEITERE_ANALYTIK_MOEGLICH_KEY, mit_ausbeute_rest_weitere_analytik_moeglich);
         entry.addKeyValuePair(COLUMN_ERGEBNIS_PXRD_KEY, ergebnis_pxrd);
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_DSC_KEY, Boolean.toString(folgeanalytik_dsc));
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_TG_KEY, Boolean.toString(folgeanalytik_tg));
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_PXRD_II_KEY, Boolean.toString(folgeanalytik_pxrd_ii));
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_H_NMR_KEY, Boolean.toString(folgeanalytik_h_nmr));
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_IR_KEY, Boolean.toString(folgeanalytik_ir));
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_RAMAN_KEY, Boolean.toString(folgeanalytik_raman));
-        entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_OMI_KEY, Boolean.toString(folgeanalytik_omi));
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_DSC_KEY, Boolean.toString(folgeanalytik_dsc));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_DSC_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_TG_KEY, Boolean.toString(folgeanalytik_tg));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_TG_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_PXRD_II_KEY, Boolean.toString(folgeanalytik_pxrd_ii));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_PXRD_II_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_H_NMR_KEY, Boolean.toString(folgeanalytik_h_nmr));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_H_NMR_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_IR_KEY, Boolean.toString(folgeanalytik_ir));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_IR_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_RAMAN_KEY, Boolean.toString(folgeanalytik_raman));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_RAMAN_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_OMI_KEY, Boolean.toString(folgeanalytik_omi));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_FOLGEANALYTIK_OMI_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_INFORMATIONEN_ZUR_FOLGEANALYTIK_KEY, informationen_zur_folgeanalytik);
         entry.addKeyValuePair(COLUMN_ERGEBNIS_DSC_KEY, ergebnis_dsc);
         entry.addKeyValuePair(COLUMN_ERGEBNIS_TG_KEY, ergebnis_tg);

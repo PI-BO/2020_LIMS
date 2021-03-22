@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -91,7 +92,7 @@ public class ExperimentServlet extends HttpServlet {
     public static final String AUSBEUTE_MG_PRAEP_ANALYTIK = "EXPERIMENT_AUSBEUTE_MG_PRAEP_ANALYTIK";
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(this.getClass() + ": doPost()");
 
         try {
@@ -104,7 +105,9 @@ public class ExperimentServlet extends HttpServlet {
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setContentType("text/plain");
+            response.getWriter().println(throwables);
         }
     }
 

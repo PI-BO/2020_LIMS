@@ -7,10 +7,10 @@ import model.database.relations.OneToMany;
 import model.database.tableModels.*;
 import model.database.tableModels.analyse.AnalyseTemperaturprogramme;
 import model.database.tableModels.analyse.Analysetyp;
-import model.database.tableModels.experimente.Experiment;
-import model.database.tableModels.experimente.ExperimentDurchfuehrungstext;
-import model.database.tableModels.experimente.Experimenttyp;
+import model.database.tableModels.experimente.*;
+import model.database.tableModels.experimente.ExperimenttypSlurry;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -187,16 +187,28 @@ public class DummyDB implements Database {
 
 		// Experimente
 		Experiment experiment1 = new Experiment();
-		experiment1.setPrimaryKey("Experiment1");
+		experiment1.setPrimaryKey("1");
 		experiment1.setTyp("101");
 		experiment1.setProbenNr("ProbeA1");
 		modelList.add(experiment1);
 
 		Experiment experiment2 = new Experiment();
-		experiment2.setPrimaryKey("Experiment2");
+		experiment2.setPrimaryKey("2");
 		experiment2.setTyp("202");
 		experiment2.setProbenNr("ProbeB");
 		modelList.add(experiment2);
+
+		// Experimente Verdampfung
+		ExperimenttypVerdampfung experimenttypVerdampfung = new ExperimenttypVerdampfung();
+		experimenttypVerdampfung.setPrimaryKey("1");
+		experimenttypVerdampfung.setExperiment_no("Experiment1Verdampfung");
+		modelList.add(experimenttypVerdampfung);
+
+		// Experimente Slurry
+		ExperimenttypSlurry experimenttypSlurry = new ExperimenttypSlurry();
+		experimenttypSlurry.setPrimaryKey("2");
+		experimenttypSlurry.setExperiment_no("Experiment2Slurry");
+		modelList.add(experimenttypSlurry);
 
 		// Experiment Typen
 		Experimenttyp experimenttyp1 = new Experimenttyp();
@@ -598,6 +610,9 @@ public class DummyDB implements Database {
 
 	@Override
 	public void saveModel(Model model) throws SQLException {
+		for (Model m : modelList)
+			if (model.getTable().equals(m.getTable()) && model.getPrimaryKey().equals(m.getPrimaryKey()))
+				throw new SQLException("Duplicate primary key");
 		modelList.add(model);
 	}
 

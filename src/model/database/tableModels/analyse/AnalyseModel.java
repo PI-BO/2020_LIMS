@@ -38,7 +38,11 @@ public abstract class AnalyseModel extends Model {
     protected DummyResultSetEntry getDummyResultsetEntry() {
         DummyResultSetEntry entry = new DummyResultSetEntry();
         entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
-        entry.addKeyValuePair(COLUMN_DATUM, datum.toString());
+        try {
+            entry.addKeyValuePair(COLUMN_DATUM, datum.toString());
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_DATUM, null);
+        }
         entry.addKeyValuePair(COLUMN_BEMERKUNG, bemerkung);
         entry.addKeyValuePair(COLUMN_OPERATOR, operator);
 

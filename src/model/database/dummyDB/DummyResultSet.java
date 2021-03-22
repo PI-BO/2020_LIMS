@@ -62,7 +62,11 @@ public class DummyResultSet implements ResultSet{
 	@Override
 	public int getInt(int columnIndex) throws SQLException {
 		String value = getString(columnIndex);
-		return Integer.parseInt(value);
+		try {
+			return Integer.parseInt(value);
+		} catch (NullPointerException | NumberFormatException e) {
+			return 0;
+		}
 	}
 
 	@Override
@@ -74,7 +78,11 @@ public class DummyResultSet implements ResultSet{
 	@Override
 	public int getInt(String columnLabel) throws SQLException {
 		String value = getString(columnLabel);
-		return Integer.parseInt(value);
+		try {
+			return Integer.parseInt(value);
+		} catch (NullPointerException | NumberFormatException e) {
+			return 0;
+		}
 	}
 
 	@Override
@@ -122,6 +130,52 @@ public class DummyResultSet implements ResultSet{
 		return (resultSetIndex == (resultSetEntryList.size() - 1));
 	}
 
+	@Override
+	public boolean getBoolean(int columnIndex) throws SQLException {
+		return Boolean.parseBoolean(getString(columnIndex));
+	}
+
+	@Override
+	public double getDouble(int columnIndex) throws SQLException {
+		try {
+			return Double.parseDouble(getString(columnIndex));
+		} catch (NullPointerException e) {
+			return 0;
+		}
+	}
+
+	@Override
+	public Date getDate(int columnIndex) throws SQLException {
+		try {
+			return Date.valueOf(getString(columnIndex));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean getBoolean(String columnLabel) throws SQLException {
+		return Boolean.parseBoolean(getString(columnLabel));
+	}
+
+	@Override
+	public double getDouble(String columnLabel) throws SQLException {
+		try {
+			return Double.parseDouble(getString(columnLabel));
+		} catch (NullPointerException e) {
+			return 0;
+		}
+	}
+
+	@Override
+	public Date getDate(String columnLabel) throws SQLException {
+		try {
+			return Date.valueOf(getString(columnLabel));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 // -------------------------------------------------------------------------------------------------------------------------------
 	
 	@Override
@@ -145,12 +199,6 @@ public class DummyResultSet implements ResultSet{
 	@Override
 	public boolean wasNull() throws SQLException {
 		System.out.println(this.getClass() + " METHOD wasNull NOT IMPLEMENTED!");
-		return false;
-	}
-
-	@Override
-	public boolean getBoolean(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD getBoolean NOT IMPLEMENTED!");
 		return false;
 	}
 
@@ -179,12 +227,6 @@ public class DummyResultSet implements ResultSet{
 	}
 
 	@Override
-	public double getDouble(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD getDouble NOT IMPLEMENTED!");
-		return 0;
-	}
-
-	@Override
 	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
 		System.out.println(this.getClass() + " METHOD getBigDecimal NOT IMPLEMENTED!");
 		return null;
@@ -193,12 +235,6 @@ public class DummyResultSet implements ResultSet{
 	@Override
 	public byte[] getBytes(int columnIndex) throws SQLException {
 		System.out.println(this.getClass() + " METHOD getBytes NOT IMPLEMENTED!");
-		return null;
-	}
-
-	@Override
-	public Date getDate(int columnIndex) throws SQLException {
-		System.out.println(this.getClass() + " METHOD getDate NOT IMPLEMENTED!");
 		return null;
 	}
 
@@ -233,12 +269,6 @@ public class DummyResultSet implements ResultSet{
 	}
 
 	@Override
-	public boolean getBoolean(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD getBoolean NOT IMPLEMENTED!");
-		return false;
-	}
-
-	@Override
 	public byte getByte(String columnLabel) throws SQLException {
 		System.out.println(this.getClass() + " METHOD getByte NOT IMPLEMENTED!");
 		return 0;
@@ -263,12 +293,6 @@ public class DummyResultSet implements ResultSet{
 	}
 
 	@Override
-	public double getDouble(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD getDouble NOT IMPLEMENTED!");
-		return 0;
-	}
-
-	@Override
 	public BigDecimal getBigDecimal(String columnLabel, int scale) throws SQLException {
 		System.out.println(this.getClass() + " METHOD getBigDecimal NOT IMPLEMENTED!");
 		return null;
@@ -277,12 +301,6 @@ public class DummyResultSet implements ResultSet{
 	@Override
 	public byte[] getBytes(String columnLabel) throws SQLException {
 		System.out.println(this.getClass() + " METHOD getBytes NOT IMPLEMENTED!");
-		return null;
-	}
-
-	@Override
-	public Date getDate(String columnLabel) throws SQLException {
-		System.out.println(this.getClass() + " METHOD  getDate NOT IMPLEMENTED!");
 		return null;
 	}
 

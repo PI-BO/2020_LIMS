@@ -68,7 +68,7 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <input required type="text" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
 </div>
 
 <div class="experiment_erstellen_header">Durchführung</div>
@@ -122,12 +122,12 @@
 
 <div class="experiment_erstellen_header">Startfreigabe (ab)</div>
 <div class="experiment_erstellen_entry">
-    <input required type="date" name=<%=ExperimentServlet.STARTFREIGABE%>>
+    <input type="date" name=<%=ExperimentServlet.STARTFREIGABE%>>
 </div>
 
 <div class="experiment_erstellen_header">Erledigt bis (soll)</div>
 <div class="experiment_erstellen_entry">
-    <input required type="date" name=<%=ExperimentServlet.ERLEDIGT_BIS%>>
+    <input type="date" name=<%=ExperimentServlet.ERLEDIGT_BIS%>>
 </div>
 
 <div class="experiment_erstellen_header">Hinweis an Laborleiter</div>

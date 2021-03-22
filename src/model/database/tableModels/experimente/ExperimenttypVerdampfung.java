@@ -47,10 +47,22 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
     public DummyResultSet returnAsDummyResultSet() {
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry entry = super.getDummyResultsetEntry();
-        entry.addKeyValuePair(COLUMN_VIAL_TARA_KEY, Double.toString(vial_tara));
+        try {
+            entry.addKeyValuePair(COLUMN_VIAL_TARA_KEY, Double.toString(vial_tara));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_VIAL_TARA_KEY, null);
+        }
         entry.addKeyValuePair(COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY, beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments);
-        entry.addKeyValuePair(COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY, Double.toString(auswaage_vial_kristallisat));
-        entry.addKeyValuePair(COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY, Double.toString(ausbeute_von_praep_analystik));
+        try {
+            entry.addKeyValuePair(COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY, Double.toString(auswaage_vial_kristallisat));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY, null);
+        }
+        try {
+            entry.addKeyValuePair(COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY, Double.toString(ausbeute_von_praep_analystik));
+        } catch (NullPointerException e) {
+            entry.addKeyValuePair(COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY, null);
+        }
 
         dummyResultSet.addEntry(entry);
 

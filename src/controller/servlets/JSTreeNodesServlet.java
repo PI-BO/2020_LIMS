@@ -5,6 +5,7 @@ import model.database.relations.*;
 import model.database.tableModels.*;
 import model.database.tableModels.analyse.Analyse;
 import model.database.tableModels.experimente.Experiment;
+import model.database.tableModels.experimente.ExperimenteModel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -120,6 +121,13 @@ public class JSTreeNodesServlet extends HttpServlet {
         return array.toString();
     }
 
+    /**
+     * Get list of Partner Nodes from Database
+     * @param response
+     * @throws IOException
+     * @throws ModelNotFoundException
+     * @throws SQLException
+     */
     private void getPartner(HttpServletResponse response) throws IOException, ModelNotFoundException, SQLException {
 
         ModelTable projektList = new ModelTable(new Partner());
@@ -181,8 +189,10 @@ public class JSTreeNodesServlet extends HttpServlet {
         ProbeExperiment probeExperiment = new ProbeExperiment(probe);
         List<Experiment> experiments = probeExperiment.getExperimente();
         List<String> jsons = new ArrayList<>();
-        for (Experiment experiment : experiments)
-            jsons.add(jsonObject(experiment, probe.getTable() + ':' + probe.getPrimaryKey(), true));
+        for (Experiment experiment : experiments) {
+            ExperimenteModel model = new ExperimentExperimenttyp(experiment).getTypModel();
+            jsons.add(jsonObject(experiment, probe.getTable() + ':' + probe.getPrimaryKey(), model.getExperiment_no(), true));
+        }
 
         response.getWriter().write(
                 jsonArray(jsons)

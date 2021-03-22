@@ -2,6 +2,7 @@ package model.database.relations;
 
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.experimente.Experiment;
+import model.database.tableModels.experimente.ExperimenteModel;
 import model.database.tableModels.experimente.Experimenttyp;
 import model.database.tableModels.Model;
 
@@ -12,16 +13,16 @@ public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp>
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
 
-    protected ExperimentExperimenttyp(Experiment parent) throws ModelNotFoundException, SQLException {
-        super(parent, new Experimenttyp(parent.getPrimaryKey()));
+    public ExperimentExperimenttyp(Experiment parent) throws ModelNotFoundException, SQLException {
+        super(parent, new Experimenttyp(parent.getTyp()));
         switch (getChild().getTyp()) {
-            case "Verdampfung 1Lömi":
+            case "Verdampfung":
                 typ = new ExperimentExperimenttypVerdampfung(parent);
                 break;
-            case "Slurry 1Lömi":
+            case "Slurry":
                 typ = new ExperimentExperimentypSlurry(parent);
                 break;
-            case "grinding":
+            case "Grinding":
                 typ = new ExperimentExperimentypGrinding(parent);
                 break;
             default:
@@ -37,7 +38,7 @@ public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp>
         return getParent().getTyp();
     }
 
-    public Model getTypModel() {
-        return typ.getChild();
+    public ExperimenteModel getTypModel() {
+        return (ExperimenteModel) typ.getChild();
     }
 }
