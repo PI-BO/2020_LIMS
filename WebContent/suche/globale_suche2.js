@@ -23,15 +23,6 @@ var GlobaleSuche = (function () {
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
 
-	// const databaseIndexTable = [	// Reihenfolge ist wichtig! Reihenfolge ist der Index, Index gibt Hierarchie/Relation an
-	// 	"projektpartner",
-	// 	"projekt",
-	// 	"probe",
-	// 	"experiment",
-	// 	"methode",
-	// 	"operator"
-	// ]
-
 	let parameters = {
 		// "projektpartner": ["name", "pk"],
 		// "projekt": ["name", "fk", "pk"],
@@ -105,35 +96,6 @@ var GlobaleSuche = (function () {
 
 		clearParameterRows();
 		clearResultTable();
-
-		// template.forEach(() => addParameterRow());
-
-		// let parameterTable = document.getElementById(parameterTableId);
-		// let parameterRows = parameterTable.getElementsByClassName(parameterRowClass);
-
-		// // console.log({template})
-		// // console.log({parameterRows})
-		
-		// console.log({parameters})
-
-		// for(let i = 0; i < template.length; i++){
-			
-		// 	let categorySelect = parameterRows[i].getElementsByClassName(categorySelectClass)[0];
-		// 	let parameterSelect = parameterRows[i].getElementsByClassName(searchParameterClass)[0];
-			
-		// 	// console.log({categorySelect});
-		// 	// console.log({parameterSelect});
-		// 	// // console.log(categorySelect.options);
-		// 	// console.log(Object.keys(template[i])[0]);
-		// 	// console.log(template[i][Object.keys(template[i])[0]]);
-
-		// 	let category = Object.keys(template[i])[0];
-		// 	let parameter = template[i][category];
-
-		// 	selectOption(categorySelect, category);
-		// 	selectOption(parameterSelect, parameter);
-
-		// }
 
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
@@ -366,14 +328,12 @@ var GlobaleSuche = (function () {
 	}
 
 	function createMainCategory(event) {
-
 		const htmlElement = event.target;
 		let categories = []
 
 		for (let key in parameters) {
 			categories.push(capitalize(key));
 		}
-
 		insertParameters(categories, htmlElement);
 	}
 
@@ -392,7 +352,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function createParameters(event) {
-
 		const htmlElement = event.target;
 		const parameterCategory = htmlElement.value;
 
@@ -407,7 +366,6 @@ var GlobaleSuche = (function () {
 	}
 
 	function insertParameters(parameters, selectElement) {
-
 		parameters.forEach(parameter => {
 			let selectOption = document.createElement("option");
 			selectOption.text = parameter;
@@ -417,13 +375,11 @@ var GlobaleSuche = (function () {
 	}
 
 	function deleteSuchParameter(suchParameterElement) {
-
 		let parent = suchParameterElement.parentElement.parentElement;
 		parent.remove();
 	}
 
 	function resetSelects(element) {
-
 		let allSelects = element.querySelectorAll("select");
 		allSelects.forEach(element => {
 			resetSelect(element);
@@ -455,13 +411,10 @@ var GlobaleSuche = (function () {
 
 		fetchDatabase((database) => {
 
-			// const tupelList = getDatabaseAsTupelList(database);
 			const tupelList = database;
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
-
 			renderResultTable(results, resultTableId);
-			// showResults(results, resultTableId);
 		})
 	}
 
@@ -493,20 +446,20 @@ var GlobaleSuche = (function () {
 		const categories = getSearchCategories();
 
 		// categories und parameter nach Name sortieren: [a,b,a] -> [a,a,b]
-		for(let i = 0; i < categories.length-1; i++){
+		for (let i = 0; i < categories.length - 1; i++) {
 			let categoryPivot = categories[i];
-			
-			for(let j = i+1; j < categories.length; j++){
+
+			for (let j = i + 1; j < categories.length; j++) {
 				let category = categories[j];
 				let parameter = parameters[j];
 
-				if(category === categoryPivot){
-					let switchCategory = categories[i+1];
-					categories[i+1] = category;
+				if (category === categoryPivot) {
+					let switchCategory = categories[i + 1];
+					categories[i + 1] = category;
 					categories[j] = switchCategory;
 
-					let switchParameter = parameters[i+1];
-					parameters[i+1] = parameter;
+					let switchParameter = parameters[i + 1];
+					parameters[i + 1] = parameter;
 					parameters[j] = switchParameter;
 					break;
 				}
@@ -520,10 +473,10 @@ var GlobaleSuche = (function () {
 			let newTupel = [];
 			let found = 0;
 			for (let i = 0; i < categories.length; i++) {
-				
+
 				let category = categories[i];
 
-				for(let j = 0; j < tupel.length; j++){
+				for (let j = 0; j < tupel.length; j++) {
 					let element = tupel[j];
 					if (element["table"].toLowerCase() !== category.toLowerCase()) continue;
 					found++;
@@ -532,10 +485,10 @@ var GlobaleSuche = (function () {
 					newTupel.push(elementAsJson);
 					break;
 				}
-				
+
 				// Platzhalter generieren damit die Spalten des Tupels nicht in eine falsche Reihenfolge verrutschen
-				if(found == i){
-					let elementAsJson = { "table" : category };
+				if (found == i) {
+					let elementAsJson = { "table": category };
 					elementAsJson["display"] = "";
 					newTupel.push(elementAsJson);
 					found++;
@@ -547,20 +500,6 @@ var GlobaleSuche = (function () {
 		addTupelAsTableHeader(categories, resultTableId, firstHeaderClass, true);
 		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, false, true);
 		addResultsToTable(newResults, resultTableId, resultRowClass);
-	}
-
-	function calculateColSpanJson(array) {
-		let colSpanJson = {};
-
-		array.forEach(element => {
-			colSpanJson[element] = 0;
-		})
-
-		array.forEach(element => {
-			colSpanJson[element] += 1;
-
-		})
-		return colSpanJson;
 	}
 
 	function addTupelAsTableHeader(tupel, tableId, className, mergeHeader, addSortFunction) {
@@ -577,21 +516,21 @@ var GlobaleSuche = (function () {
 			if (addSortFunction !== undefined && addSortFunction === true) cell.addEventListener("click", () => sortTable(resultTableId, n));
 			index++;
 		})
-		if(mergeHeader !== undefined && mergeHeader === true) mergeEqualHeaderCells(row);
+		if (mergeHeader !== undefined && mergeHeader === true) mergeEqualHeaderCells(row);
 	}
-	
-	function mergeEqualHeaderCells(row){
-		
+
+	function mergeEqualHeaderCells(row) {
+
 		let childNodes = row.childNodes;
 		let colSpan = 1;
-		for(let i = childNodes.length-1; i > 0; i--){
+		for (let i = childNodes.length - 1; i > 0; i--) {
 			let child = childNodes[i];
-			let nextChild = childNodes[i-1];
-			if(child.innerHTML === nextChild.innerHTML){
+			let nextChild = childNodes[i - 1];
+			if (child.innerHTML === nextChild.innerHTML) {
 				colSpan++;
 				row.removeChild(nextChild);
 				child.colSpan = colSpan;
-			}else{
+			} else {
 				colSpan = 1;
 			}
 		}
@@ -625,7 +564,7 @@ var GlobaleSuche = (function () {
 
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
-						if (showDetails !== undefined && showDetails === true  && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
+						if (showDetails !== undefined && showDetails === true && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
 						break;
 					}
 				}
@@ -658,7 +597,7 @@ var GlobaleSuche = (function () {
 
 					// create header for each column -> addTupelAsTableHeader(); will merge with colSpan later
 					tableNameHeaderArray = [];
-					for(let key in tupelElement){
+					for (let key in tupelElement) {
 						tableNameHeaderArray.push(tableName);
 					}
 
@@ -808,8 +747,6 @@ var GlobaleSuche = (function () {
 
 	function sortTable(tableId, n) {
 
-		console.log("sort")
-		console.log({ n })
 		var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 		table = document.getElementById(tableId);
 		rows = table.rows;
@@ -832,8 +769,6 @@ var GlobaleSuche = (function () {
 			if (td === undefined || td.innerHTML === "") break;
 			maxIndexOfDefinedRows = i;
 		}
-
-		console.log({ maxIndexOfDefinedRows })
 
 		while (switching) {
 			// Start by saying: no switching is done:
