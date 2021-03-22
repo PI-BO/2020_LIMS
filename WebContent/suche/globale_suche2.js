@@ -9,15 +9,16 @@ var GlobaleSuche = (function () {
 	const rowTemplateId = "global_search_parameter_row_template";
 	const categorySelectClass = "global_search_select_main_category";
 	const deleteButtonClass = "global_search_delete_parameter_button";
-	const searchParameterClass = "global_search_parameter";
-	const searchFilterClass = "global_search_parameter_filter";
+	const searchParameterClass = "global_search_select_parameter";
+	const searchFilterClass = "global_search_select_parameter_filter";
 	const searchValueClass = "global_search_parameter_input";
 	const firstHeaderClass = "global_search_result_table_first_header";
 	const secondHeaderClass = "global_search_result_table_second_header";
 	const resultRowClass = "global_search_result_table_result_row";
+	const parameterRowClass = "global_search_parameter_row"
 
 	const resultTableHeaderKey = "table";
-
+	const parameterRowsStartIndex = 1;
 	const sortFunctionSkipRows = 2;
 
 	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
@@ -53,6 +54,17 @@ var GlobaleSuche = (function () {
 			initSearchButton();
 			fetchParameters(tupelArray);
 			addParameterRow();
+
+			const template = [
+				{ "partner": "id" },
+				{ "probe": "id" },
+				{ "experiment": "typ" },
+				{ "experiment": "id" },
+				{ "projekte": "vertragsnummer" },
+				{ "partner": "email" },
+				{ "partner": "name" }
+			];
+			public.initTemplateParameters(template);
 		})
 	}
 
@@ -93,8 +105,42 @@ var GlobaleSuche = (function () {
 
 		clearParameterRows();
 		clearResultTable();
+
+		// template.forEach(() => addParameterRow());
+
+		// let parameterTable = document.getElementById(parameterTableId);
+		// let parameterRows = parameterTable.getElementsByClassName(parameterRowClass);
+
+		// // console.log({template})
+		// // console.log({parameterRows})
+		
+		// console.log({parameters})
+
+		// for(let i = 0; i < template.length; i++){
+			
+		// 	let categorySelect = parameterRows[i].getElementsByClassName(categorySelectClass)[0];
+		// 	let parameterSelect = parameterRows[i].getElementsByClassName(searchParameterClass)[0];
+			
+		// 	// console.log({categorySelect});
+		// 	// console.log({parameterSelect});
+		// 	// // console.log(categorySelect.options);
+		// 	// console.log(Object.keys(template[i])[0]);
+		// 	// console.log(template[i][Object.keys(template[i])[0]]);
+
+		// 	let category = Object.keys(template[i])[0];
+		// 	let parameter = template[i][category];
+
+		// 	selectOption(categorySelect, category);
+		// 	selectOption(parameterSelect, parameter);
+
+		// }
+
 		addRowsForTemplate(template);
 		setTemplateParameters(template);
+
+		function addRowsForTemplate(template) {
+			for (let i = 0; i < template.length; i++) addParameterRow();
+		}
 
 		function setTemplateParameters(template) {
 
@@ -112,24 +158,25 @@ var GlobaleSuche = (function () {
 				let row = rows[rowIndex];
 				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
-				let categoryOptions = categorySelect.options;
 				let parameterOptions = parameterSelect.options;
 				let templateElement = template[templateIndex++];
 				let category = getCategory(templateElement)
 				let parameter = templateElement[category].toLowerCase();
 
-				selectCorrectCategoryOption(categoryOptions, category)
+				selectOption(categorySelect, category)
 				createParametersForSelectedCategory(parameterSelect, category);
 				selectCorrectParameterOption(parameterOptions, parameter);
 			}
 		}
 
-		function selectCorrectCategoryOption(categoryOptions, category) {
+		function selectOption(selectElement, optionToSelect) {
 
-			for (let optionIndex = 0; optionIndex < categoryOptions.length; optionIndex++) {
-				let option = categoryOptions[optionIndex];
+			let selectOptions = selectElement.options;
+
+			for (let optionIndex = 0; optionIndex < selectOptions.length; optionIndex++) {
+				let option = selectOptions[optionIndex];
 				let optionText = option.text.toLowerCase();
-				if (optionText != category) continue;
+				if (optionText != optionToSelect.toLowerCase()) continue;
 				option.selected = "true";
 			}
 		}
@@ -159,11 +206,6 @@ var GlobaleSuche = (function () {
 
 		function getCategory(categoryParameterKeyValuePair) {
 			return Object.keys(categoryParameterKeyValuePair)[0].toLowerCase();
-		}
-
-		function addRowsForTemplate(template) {
-			for (let i = 0; i < template.length; i++) addParameterRow();
-
 		}
 	}
 
@@ -304,6 +346,7 @@ var GlobaleSuche = (function () {
 		let template = document.getElementById(rowTemplateId);
 		let templateChildNodes = template.children;
 		let row = table.insertRow(-1);
+		row.className = parameterRowClass;
 
 		let mainCategorySelect;
 
@@ -417,12 +460,12 @@ var GlobaleSuche = (function () {
 			const results = getSearchMatchesFromTupelList(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
 
-			showResultHeader(results, resultTableId);
+			renderResultTable(results, resultTableId);
 			// showResults(results, resultTableId);
 		})
 	}
 
-	function showResultHeader(results, resultTableId) {
+	function renderResultTable(results, resultTableId) {
 
 		let indexOfLongestTupel = findLongestTupel();
 		const firstTupel = results[indexOfLongestTupel];
@@ -449,50 +492,60 @@ var GlobaleSuche = (function () {
 		const parameters = getSearchParameters();
 		const categories = getSearchCategories();
 
-		// console.log({parameters})
-		// console.log({categories})
+		// categories und parameter nach Name sortieren: [a,b,a] -> [a,a,b]
+		for(let i = 0; i < categories.length-1; i++){
+			let categoryPivot = categories[i];
+			
+			for(let j = i+1; j < categories.length; j++){
+				let category = categories[j];
+				let parameter = parameters[j];
 
-		let colSpanJsonCategories = calculateColSpanJson(categories);
-		let colSpanJsonParameters = calculateColSpanJson(parameters);
+				if(category === categoryPivot){
+					let switchCategory = categories[i+1];
+					categories[i+1] = category;
+					categories[j] = switchCategory;
 
-		let newCategories = [];
-		let newParameters = [];
-
-		for (let key in colSpanJsonCategories) {
-			newCategories.push(key);
+					let switchParameter = parameters[i+1];
+					parameters[i+1] = parameter;
+					parameters[j] = switchParameter;
+					break;
+				}
+			}
 		}
-
-		for (let key in colSpanJsonParameters) {
-			newParameters.push(key);
-		}
-
-
-		console.log({ results })
-		console.log({ categories })
-		console.log({ parameters })
 
 		let newResults = [];
 
+		// Ergebnisse mit Parametern heraussuchen und "display" key-value setzen
 		results.forEach(tupel => {
 			let newTupel = [];
+			let found = 0;
 			for (let i = 0; i < categories.length; i++) {
-				tupel.forEach(element => {
-					if (element["table"].toLowerCase() !== categories[i].toLowerCase()) return;
+				
+				let category = categories[i];
+
+				for(let j = 0; j < tupel.length; j++){
+					let element = tupel[j];
+					if (element["table"].toLowerCase() !== category.toLowerCase()) continue;
+					found++;
 					let elementAsJson = { ...element };
 					elementAsJson["display"] = element[parameters[i]];
 					newTupel.push(elementAsJson);
-				})
-				newResults.push(newTupel);
+					break;
+				}
+				
+				// Platzhalter generieren damit die Spalten des Tupels nicht in eine falsche Reihenfolge verrutschen
+				if(found == i){
+					let elementAsJson = { "table" : category };
+					elementAsJson["display"] = "";
+					newTupel.push(elementAsJson);
+					found++;
+				}
 			}
+			newResults.push(newTupel);
 		})
 
-		console.log({ newResults })
-
-		// console.log({colSpanJson: colSpanJsonCategories})
-		// console.log({newCategories})
-
-		addTupelAsTableHeader(newCategories, resultTableId, colSpanJsonCategories, firstHeaderClass);
-		addTupelAsTableHeader(parameters, resultTableId, undefined, secondHeaderClass, true);
+		addTupelAsTableHeader(categories, resultTableId, firstHeaderClass, true);
+		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, false, true);
 		addResultsToTable(newResults, resultTableId, resultRowClass);
 	}
 
@@ -510,7 +563,7 @@ var GlobaleSuche = (function () {
 		return colSpanJson;
 	}
 
-	function addTupelAsTableHeader(tupel, tableId, colSpanJson, className, addSortFunction) {
+	function addTupelAsTableHeader(tupel, tableId, className, mergeHeader, addSortFunction) {
 
 		let table = document.getElementById(tableId);
 		let row = table.insertRow(-1);
@@ -519,12 +572,29 @@ var GlobaleSuche = (function () {
 		let index = 0;
 		tupel.forEach(tupelElement => {
 			let cell = row.insertCell(-1);
-			if (colSpanJson !== undefined) cell.colSpan = colSpanJson[tupelElement];
 			cell.append(tupelElement);
 			let n = index;	// "n" muss angelegt werden da "index" außerhalb der Schleife definiert ist und somit nur "Pass-By-Reference"
 			if (addSortFunction !== undefined && addSortFunction === true) cell.addEventListener("click", () => sortTable(resultTableId, n));
 			index++;
 		})
+		if(mergeHeader !== undefined && mergeHeader === true) mergeEqualHeaderCells(row);
+	}
+	
+	function mergeEqualHeaderCells(row){
+		
+		let childNodes = row.childNodes;
+		let colSpan = 1;
+		for(let i = childNodes.length-1; i > 0; i--){
+			let child = childNodes[i];
+			let nextChild = childNodes[i-1];
+			if(child.innerHTML === nextChild.innerHTML){
+				colSpan++;
+				row.removeChild(nextChild);
+				child.colSpan = colSpan;
+			}else{
+				colSpan = 1;
+			}
+		}
 	}
 
 	function addResultsToTable(results, resultTableId, className) {
@@ -549,13 +619,13 @@ var GlobaleSuche = (function () {
 
 					if (onlyThisKey === undefined) {
 						let cell = addToNewTableCell(cellContent, row);
-						if (showDetails !== undefined && showDetails === true) addShowDetailsListener(cell, tupelElement);
+						if (showDetails !== undefined && showDetails === true && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
 						addCallbackFunction(cell, cellContent);
 					}
 
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
-						if (showDetails !== undefined && showDetails === true) addShowDetailsListener(cell, tupelElement);
+						if (showDetails !== undefined && showDetails === true  && tupelElement["display"] !== "") addShowDetailsListener(cell, tupelElement);
 						break;
 					}
 				}
@@ -586,13 +656,14 @@ var GlobaleSuche = (function () {
 						tupelElementArray.push(key);
 					}
 
-					let colSpanJson = {};
-					colSpanJson[tableName] = Object.keys(tupelElement).length;
+					// create header for each column -> addTupelAsTableHeader(); will merge with colSpan later
+					tableNameHeaderArray = [];
+					for(let key in tupelElement){
+						tableNameHeaderArray.push(tableName);
+					}
 
-					tableNameHeaderArray = [tableName];
-
-					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, colSpanJson, firstHeaderClass);
-					addTupelAsTableHeader(tupelElementArray, resultTableId, undefined, secondHeaderClass);
+					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, firstHeaderClass, true);
+					addTupelAsTableHeader(tupelElementArray, resultTableId, secondHeaderClass);
 					addTupelArrayToResults([[tupelElement]], resultTableId, resultRowClass, undefined, false);
 				});
 			}
@@ -748,17 +819,17 @@ var GlobaleSuche = (function () {
 		/* Make a loop that will continue until
 		no switching has been done: */
 
-		// rows with undefined cell to bottom
+		// rows with undefined or empty cell to bottom
 		for (i = rows.length - 1; i > 0; i--) {
 			let tableData = rows[i].getElementsByTagName("TD")[n];
-			if (tableData === undefined) rows[i].parentNode.insertBefore(rows[i], null);
+			if (tableData === undefined || tableData.innerHTML === "") rows[i].parentNode.insertBefore(rows[i], null);
 		}
 
-		// index to exclude rows with undefinded fields
+		// index to exclude rows with undefinded or empty fields
 		let maxIndexOfDefinedRows = 0;
 		for (let i = sortFunctionSkipRows - 1; i < (rows.length - 1); i++) {
 			let td = rows[i].getElementsByTagName("TD")[n];
-			if (td === undefined) break;
+			if (td === undefined || td.innerHTML === "") break;
 			maxIndexOfDefinedRows = i;
 		}
 
@@ -834,7 +905,12 @@ var GlobaleSuche = (function () {
 
 GlobaleSuche.init();
 // const template = [
-// 	{ "experiment": "name" },
-// 	{ "operator": "name" }
+// 	{ "Partner": "id" },
+// 	{ "Probe": "id" },
+// 	{ "Experiment": "typ" },
+// 	{ "Experiment": "id" },
+// 	{ "Projekte": "vertragsnummer" },
+// 	{ "Partner": "email" },
+// 	{ "Partner": "name" }
 // ];
 // GlobaleSuche.initTemplateParameters(template);
