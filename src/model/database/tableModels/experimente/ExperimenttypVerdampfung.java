@@ -11,10 +11,10 @@ import java.sql.SQLException;
 
 public class ExperimenttypVerdampfung extends ExperimenteModel {
 
-    private double vial_tara;
+    private Double vial_tara;
     private String beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments;
-    private double auswaage_vial_kristallisat;
-    private double ausbeute_von_praep_analystik;
+    private Double auswaage_vial_kristallisat;
+    private Double ausbeute_von_praep_analystik;
 
     public static final String COLUMN_VIAL_TARA_KEY = "vial_tara";
     public static final String COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY = "beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments";
@@ -61,7 +61,7 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
         return vial_tara;
     }
 
-    public void setVial_tara(double vial_tara) {
+    public void setVial_tara(Double vial_tara) {
         this.vial_tara = vial_tara;
     }
 
@@ -77,7 +77,7 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
         return auswaage_vial_kristallisat;
     }
 
-    public void setAuswaage_vial_kristallisat(double auswaage_vial_kristallisat) {
+    public void setAuswaage_vial_kristallisat(Double auswaage_vial_kristallisat) {
         this.auswaage_vial_kristallisat = auswaage_vial_kristallisat;
     }
 
@@ -85,7 +85,7 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
         return ausbeute_von_praep_analystik;
     }
 
-    public void setAusbeute_von_praep_analystik(double ausbeute_von_praep_analystik) {
+    public void setAusbeute_von_praep_analystik(Double ausbeute_von_praep_analystik) {
         this.ausbeute_von_praep_analystik = ausbeute_von_praep_analystik;
     }
 

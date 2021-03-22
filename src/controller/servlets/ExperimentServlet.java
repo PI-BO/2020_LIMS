@@ -119,12 +119,14 @@ public class ExperimentServlet extends HttpServlet {
     private ExperimenteModel createExperiment(HttpServletRequest request, String typ) throws ModelNotFoundException, SQLException {
         ExperimenteModel experiment = null;
         switch (typ) {
-            case "Slurry 1Lömi":
+            case "Slurry":
                 experiment = new ExperimenttypSlurry();
                 break;
-            case "Verdampfung 1Lömi":
+            case "Verdampfung":
                 experiment = new ExperimenttypVerdampfung();
                 break;
+            default:
+                throw new ModelNotFoundException("No Applyeable Model found for Create Experiment");
         }
 
         Enumeration<String> parameterNames = request.getParameterNames();
@@ -151,7 +153,7 @@ public class ExperimentServlet extends HttpServlet {
                     experiment.setPlanung_erfolgt_durch(Integer.parseInt(parameter));
                     break;
                 case EXPERIMENT_SERIE:
-                    if (parameter.equals("new")) createNewExperimentSerie(parameter);
+                    if (parameter.equals("new")) createNewExperimentSerie(request);
                     experiment.setExperiment_serie(parameter);
                     break;
                 case EXPERIMENT_NO:
@@ -361,9 +363,9 @@ public class ExperimentServlet extends HttpServlet {
         durchfuehrungstext.setText(request.getParameter(DURCHFUEHRUNGSTEXT_TEXT));
     }
 
-    private void createNewExperimentSerie(String parameter) throws SQLException {
+    private void createNewExperimentSerie(HttpServletRequest parameter) throws SQLException {
         ExperimentSerie serie = new ExperimentSerie();
-        serie.setPrimaryKey(parameter);
+        serie.setPrimaryKey(parameter.getParameter(EXPERIMENT_SERIE_TEXT));
         serie.saveToDatabase();
     }
 }
