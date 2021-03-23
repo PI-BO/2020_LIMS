@@ -3,17 +3,21 @@ package model.database.tableModels;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.relations.ProjekteSubstanz;
+import model.database.relations.SubstanzenProbe;
 import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Substanz extends Model {
 
     private String projektID;
     public static final String COLUMN_PRIMARY_KEY = "substanz_id";
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
-    public static final String TABLE = "substanz";
+	public static final String COLUMN_FOREIGN_KEY = COLUMN_PROJEKT_ID;
+	public static final String TABLE = "substanz";
 
     public Substanz(){
 		super();
@@ -92,5 +96,10 @@ public class Substanz extends Model {
 		json.addKeyValue(COLUMN_PROJEKT_ID, projektID);
 		
 		return json;
+	}
+
+	public List<Probe> getProben() throws ModelNotFoundException, SQLException {
+		SubstanzenProbe substanzenProbe = new SubstanzenProbe(this);
+		return substanzenProbe.getProben();
 	}
 }

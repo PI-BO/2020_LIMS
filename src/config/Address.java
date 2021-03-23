@@ -10,8 +10,13 @@ public class Address {
 	private final static String EXPLORER_JSP = "/explorer/explorer.jsp";
 	private final static String EXPLORER_JS = "/explorer/explorerFunctions.js";
 	private final static String EXPLORER_CSS = "/explorer/explorer.css";
+	private final static String PARTNER_JSP = "/partner/partner.jsp";
 	private final static String PROJEKT_JSP = "/projekt/projekt.jsp";
+	private static final String SUBSTANZ_JSP = "/substanz/substanz.jsp";
+	private static final String PROBE_JSP = "/probe/probe.jsp";
+	private static final String EXPERIMENT_JSP = "/experiment/experiment.jsp";
 	private final static String PROJEKTE_LIST_JSP = "/projekt/projekteList.jsp";
+	private static final String PARTNER_LIST_JSP = "/partner/partnerList.jsp";
 	private final static String NAVIGATION_MENU_JSP = "/navigation_menu.jsp";
 	private final static String NAVIGATION_MENU_CSS = "/navigation_menu.css";
 	private final static String EXPLORER_NAVIGATION_MENU_JSP = "/main/explorer_navigation_menu.jsp";
@@ -28,7 +33,6 @@ public class Address {
 	private static final String ANALYSE_ERSTELLEN_CSS = "/analyse/analyse_erstellen.css";
 	private static final String ANALYSE_ERSTELLEN_JS = "/analyse/analyse_erstellen.js";
 	private static final String ANALYSE_ERSTELLEN_SERVLET = "/analyse/erstellen";
-
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -61,13 +65,33 @@ public class Address {
 	public static String getExplorerCSS() {
 		return MAIN_PATH + EXPLORER_CSS;
 	}
+
+	public static String getPartnerJSP() {
+		return MAIN_PATH + PARTNER_JSP;
+	}
 	
 	public static String getProjektJSP() {
 		return MAIN_PATH + PROJEKT_JSP;
 	}
+
+	public static String getSubstanzJSP() {
+		return MAIN_PATH + SUBSTANZ_JSP;
+	}
+
+	public static String getProbeJSP() {
+		return MAIN_PATH + PROBE_JSP;
+	}
+
+	public static String getExperimentJSP() {
+		return MAIN_PATH + EXPERIMENT_JSP;
+	}
 	
 	public static String getProjekteListJSP() {
 		return MAIN_PATH + PROJEKTE_LIST_JSP;
+	}
+
+	public static String getPartnerListJSP() {
+		return MAIN_PATH + PARTNER_LIST_JSP;
 	}
 	
 	public static String getNavigationMenuJSP() {

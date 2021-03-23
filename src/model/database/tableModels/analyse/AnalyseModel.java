@@ -18,6 +18,7 @@ public abstract class AnalyseModel extends Model {
     public static final String COLUMN_DATUM = "datum";
     public static final String COLUMN_BEMERKUNG = "bemerkung";
     public static final String COLUMN_OPERATOR = "operator";
+    public static final String COLUMN_FOREIGN_KEY = COLUMN_PRIMARY_KEY;
 
     protected AnalyseModel() {
         super();

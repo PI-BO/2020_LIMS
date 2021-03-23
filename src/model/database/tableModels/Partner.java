@@ -2,10 +2,12 @@ package model.database.tableModels;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.relations.PartnerProjekt;
 import utility.JSON;
 
 public class Partner extends Model {
@@ -104,5 +106,10 @@ public class Partner extends Model {
 		json.addKeyValue(COLUMN_EMAIL, getEmail());
 		
 		return json;
+	}
+
+	public List<Projekt> getProjekte() throws ModelNotFoundException, SQLException {
+		PartnerProjekt partnerProjekt = new PartnerProjekt(this);
+		return partnerProjekt.getProjekte();
 	}
 }

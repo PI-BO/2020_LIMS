@@ -87,35 +87,81 @@ function sortExplorerTable(n) {
 class ExplorerState {
 	
 	constructor(){
-		this.projekte = null;
+		this.partnerList = null;
+		this.partner = null;
 		this.projekt = null;
 		this.substanz = null;
+		this.probe = null;
+		this.experiment = null;
 //		this.projekteListAddress = null;
 	}
 
-	setProjekteListAddress(address){
-		this.projekteListAddress = address;
+	setPartnerListAddress(address){
+		this.partnerListAddress = address;
 	}
 	
+	setPartnerAddress(address){
+		this.partnerAddress = address;
+	}
+
 	setProjektAddress(address){
 		this.projektAddress = address;
 	}
-	
-	setStateProjekte(projekte){
-		this.projekte = projekte;
+
+	setSubstanzAddress(address){
+		this.substanzAddress = address;
+	}
+
+	setProbeAddress(address){
+		this.probeAddress = address;
+	}
+
+	setExperimentAddress(address){
+		this.experimentAddress = address;
+	}
+
+	setStatePartnerList(partnerList) {
+		this.partnerList = partnerList;
+		this.partner = null;
 		this.projekt = null;
 		this.substanz = null;
+		this.probe = null;
+		this.experiment = null;
+		$("#explorer-header").empty().append(this.getPath());
+	}
+
+	setStatePartner(partner) {
+		this.partner = partner;
+		this.projekt = null;
+		this.substanz = null;
+		this.probe = null;
+		this.experiment = null;
 		$("#explorer-header").empty().append(this.getPath());
 	}
 	
 	setStateProjekt(projekt){
 		this.projekt = projekt;
 		this.substanz = null;
+		this.probe = null;
+		this.experiment = null;
 		$("#explorer-header").empty().append(this.getPath());
 	}
 	
 	setStateSubstanz(substanz){
 		this.substanz = substanz;
+		this.probe = null;
+		this.experiment = null;
+		$("#explorer-header").empty().append(this.getPath());
+	}
+
+	setStateProbe(s) {
+		this.probe = s;
+		this.experiment = null;
+		$("#explorer-header").empty().append(this.getPath());
+	}
+
+	setStateExperiment(s) {
+		this.experiment = s;
 		$("#explorer-header").empty().append(this.getPath());
 	}
 	
@@ -140,18 +186,50 @@ class ExplorerState {
 		
 		let divList = []
 		
-		let projekteDiv = this.createPathElement();
-		projekteDiv.onclick = () => loadPage(this.projekteListAddress, {});
-		projekteDiv.innerHTML = this.projekte;
-		divList.push(projekteDiv);
+		let partnerListDiv = this.createPathElement();
+		partnerListDiv.onclick = () => loadPage(this.partnerListAddress, {});
+		partnerListDiv.innerHTML = this.partnerList;
+		divList.push(partnerListDiv);
 		
+		if(this.partner == null) return divList;
+		
+		let partnerDiv = this.createPathElement();
+		partnerDiv.innerHTML = this.partner;
+		partnerDiv.onclick = () => loadPage(this.partnerAddress, {projekt_id : this.partner});
+		divList.push(this.createPathDivisor());
+		divList.push(partnerDiv);
+
 		if(this.projekt == null) return divList;
-		
+
 		let projektDiv = this.createPathElement();
 		projektDiv.innerHTML = this.projekt;
 		projektDiv.onclick = () => loadPage(this.projektAddress, {projekt_id : this.projekt});
 		divList.push(this.createPathDivisor());
 		divList.push(projektDiv);
+
+		if(this.substanz == null) return divList;
+
+		let substanzDiv = this.createPathElement();
+		substanzDiv.innerHTML = this.substanz;
+		substanzDiv.onclick = () => loadPage(this.substanzAddress, {projekt_id : this.substanz});
+		divList.push(this.createPathDivisor());
+		divList.push(substanzDiv);
+
+		if(this.probe == null) return divList;
+
+		let probeDiv = this.createPathElement();
+		probeDiv.innerHTML = this.probe;
+		probeDiv.onclick = () => loadPage(this.projektAddress, {projekt_id : this.probe});
+		divList.push(this.createPathDivisor());
+		divList.push(probeDiv);
+
+		if(this.experiment == null) return divList;
+
+		let experimentDiv = this.createPathElement();
+		experimentDiv.innerHTML = this.experiment;
+		experimentDiv.onclick = () => loadPage(this.experimentAddress, {projekt_id : this.experiment});
+		divList.push(this.createPathDivisor());
+		divList.push(experimentDiv);
 				
 		return divList; 
 	}

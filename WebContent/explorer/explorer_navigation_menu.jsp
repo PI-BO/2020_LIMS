@@ -230,18 +230,27 @@
     function loadNode(data) {
         let url;
         const nodeCategory = data.node.id.split(":")[0];
+        const nodeId = data.node.id.split(":")[1]
 
         let path = createPath(data);
 
         if (nodeCategory == "j1_1") {	//Projekte Node
-            url = "<%=Address.getProjekteListJSP()%>";
-        } else if (nodeCategory == "projekte") {
+            url = "<%=Address.getPartnerListJSP()%>";
+        } else if (nodeCategory == "<%=Partner.TABLE%>") {
+            url = "<%=Address.getPartnerJSP()%>"
+        } else if (nodeCategory == "<%=Projekt.TABLE%>") {
             url = "<%=Address.getProjektJSP()%>";
+        } else if (nodeCategory == "<%=Substanz.TABLE%>"){
+            url = "<%=Address.getSubstanzJSP()%>"
+        } else if (nodeCategory == "<%=Probe.TABLE%>"){
+            url = "<%=Address.getProbeJSP()%>"
+        } else if (nodeCategory == "<%=Experiment.TABLE%>"){
+            url = "<%=Address.getExperimentJSP()%>"
         } else {
             return;
         }
 
-        var posting = $.post(url, {projekt_id: data.node.text});
+        var posting = $.post(url, {projekt_id: nodeId});
 
         posting.done(function (returnedData) {
             $("#explorer-content").empty().append(returnedData);

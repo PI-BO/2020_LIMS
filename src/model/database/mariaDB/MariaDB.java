@@ -71,7 +71,7 @@ public class MariaDB implements Database {
 
     public <T extends Model, U extends Model> void resolveOneToMany(OneToMany<T, U> reslation) throws SQLException, ModelNotFoundException {
         try {
-            String sqlStatement = "SELECT * FROM " + reslation.getManyTable() + " WHERE " + reslation.getOneKeyColumn() + "=\"" + reslation.getOneKey() + "\";";
+            String sqlStatement = "SELECT * FROM " + reslation.getManyTable() + " WHERE " + reslation.getManyForeignKeyColumn() + "=\"" + reslation.getOneKey() + "\";";
 
             ResultSet resultSet = databaseConnection.executeSQLStatementAndReturnResults(sqlStatement);
 

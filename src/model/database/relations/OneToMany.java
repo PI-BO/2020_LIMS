@@ -43,6 +43,10 @@ public abstract class OneToMany<O extends Model, M extends Model> {
         return (String) many.getDeclaredField("TABLE").get(null);
     }
 
+    public String getManyForeignKeyColumn() throws NoSuchFieldException, IllegalAccessException {
+        return (String) many.getDeclaredField("COLUMN_FOREIGN_KEY").get(null);
+    }
+
     public abstract void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException, NoSuchFieldException, IllegalAccessException;
 
 }
