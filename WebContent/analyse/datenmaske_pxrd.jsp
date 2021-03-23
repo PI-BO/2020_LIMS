@@ -11,7 +11,7 @@
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-    <input required type="number" name=<%=AnalyseServlet.ANALYSE_ID%>>
+    <input required type="number" min="1" name=<%=AnalyseServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
@@ -54,7 +54,7 @@
 
 <div class="analyse_erstellen_header">Position</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.POSITION%>>
+    <input type="number" min="0" name=<%=AnalyseServlet.POSITION%>>
 </div>
 
 <div class="analyse_erstellen_header">Programm</div>
@@ -64,7 +64,7 @@
 
 <div class="analyse_erstellen_header">Messzeit</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.MESSZEIT%>>
+    <input type="number" min="0" name=<%=AnalyseServlet.MESSZEIT%>>
     <i>min</i>
 </div>
 

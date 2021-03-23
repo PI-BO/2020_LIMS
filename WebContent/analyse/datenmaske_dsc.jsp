@@ -28,7 +28,7 @@
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-    <input required type="number" name=<%=AnalyseServlet.ANALYSE_ID%>>
+    <input required type="number" min="1" name=<%=AnalyseServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
@@ -61,17 +61,17 @@
 
 <div class="analyse_erstellen_header">Einwaage [mg]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.EINWAAGE_MG%>>
+    <input type="number" min="0" step="0.001" name=<%=AnalyseServlet.EINWAAGE_MG%>>
 </div>
 
 <div class="analyse_erstellen_header">Auswaage [mg]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.AUSWAAGE_MG%>>
+    <input type="number" min="0" step="0.001" name=<%=AnalyseServlet.AUSWAAGE_MG%>>
 </div>
 
 <div class="analyse_erstellen_header">Rampe [K/min]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.RAMPE_K_MIN%>>
+    <input type="number" min="0" name=<%=AnalyseServlet.RAMPE_K_MIN%>>
 </div>
 
 <div class="analyse_erstellen_header">Temperaturprogramm</div>
@@ -91,7 +91,7 @@
             }
         %>
     </select>
-    <input id="temperaurprogramme_table_title" style="display: none" type="number"
+    <input id="temperaurprogramme_table_title" style="display: none" type="number" min="1"
            name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TITEL%>>
     <div id="temperaturprogramme_table" style="display: none">
         <div class="temperaturprogramme_methode_add_button">
@@ -152,7 +152,7 @@
 <table style="display: none">
     <tr class="temperaturprogramm_tamplate_table_row">
         <td class="eingangsanalyse_entry">
-            <input type="number" name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>">
+            <input type="number" min="1" name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>">
         </td>
 
         <td class="eingangsanalyse_entry">
@@ -160,11 +160,11 @@
         </td>
 
         <td class="eingangsanalyse_entry">
-            <input type="number" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>>
+            <input type="number" min="0" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>>
         </td>
 
         <td class="eingangsanalyse_entry">
-            <input type="number" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_ZEIT%>>
+            <input type="number" min="0" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_ZEIT%>>
         </td>
 
         <td class="eingangsanalyse_entry">

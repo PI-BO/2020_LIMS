@@ -9,7 +9,7 @@
 <%@ page import="model.database.tableModels.experimente.ExperimentSerie" %>
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">
-    <input required type="number" name=<%=ExperimentServlet.NO_ID%>>
+    <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -206,13 +206,13 @@
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage</div>
 <div class="experiment_erstellen_entry">
-    <input type="number" value="0" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE%>">
+    <input type="number" value="0" min="0" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE%>">
     <i>mg</i>
 </div>
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
-    <input type="number" value="0" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
+    <input type="number" value="0" min="0" step="0.001" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">CoF Bezeichnung</div>
@@ -233,7 +233,7 @@
 
 <div class="experiment_erstellen_header">CoF Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
-    <input type="number" value="0" name="<%=ExperimentServlet.COF_SOLL_EINWAAGE_MG%>">
+    <input type="number" value="0" min="0" step="0.001" name="<%=ExperimentServlet.COF_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">Soll Temperatur</div>

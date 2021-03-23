@@ -9,7 +9,7 @@
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-    <input required type="number" name=<%=AnalyseServlet.ANALYSE_ID%>>
+    <input required type="number" min="1" name=<%=AnalyseServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
@@ -42,12 +42,12 @@
 
 <div class="analyse_erstellen_header">Scans</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.SCANS%>>
+    <input type="number" min="0" name=<%=AnalyseServlet.SCANS%>>
 </div>
 
 <div class="analyse_erstellen_header">Auflösung [1/cm]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" name=<%=AnalyseServlet.AUFLOESUNG%>>
+    <input type="number" min="0" name=<%=AnalyseServlet.AUFLOESUNG%>>
 </div>
 
 <div class="analyse_erstellen_header">Geometrie</div>
