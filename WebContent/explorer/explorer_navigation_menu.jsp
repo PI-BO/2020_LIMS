@@ -90,7 +90,7 @@
                                       checked="true">id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}" class="checkbox">Vertragsnummer</label>
+                        <label><input disabled type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}" class="checkbox">Vertragsnummer</label>
                     </td>
                 </tr>
                 <tr>
@@ -100,7 +100,7 @@
                                       checked="true">id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}" class="checkbox">Projekt
+                        <label><input disabled type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}" class="checkbox">Projekt
                             id</label>
                     </td>
                 </tr>
@@ -111,8 +111,37 @@
                                       checked="true">id</label>
                     </td>
                     <td>
-                        <label><input type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}" class="checkbox">Substanz
+                        <label><input disabled type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}" class="checkbox">Substanz
                             id</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Experimente</th>
+                    <td>
+                        <label><input type="checkbox" id="Experiment:${Experiment.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">id</label>
+                    </td>
+                    <td>
+                        <label><input disabled type="checkbox" id="Experiment:${Experiment.COLUMN_PROBEN_NR}" class="checkbox">Proben
+                            Nr</label>
+                    </td>
+                    <td>
+                        <label><input disabled type="checkbox" id="Experiment:${Experiment.COLUMN_TYP}" class="checkbox">Experiment
+                            Typ</label>
+                    </td>
+                <tr>
+                    <th>Analysen</th>
+                    <td>
+                        <label><input type="checkbox" id="Analyse:${Analyse.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                      checked="true">id</label>
+                    </td>
+                    <td>
+                        <label><input disabled type="checkbox" id="Analyse:${Analyse.COLUMN_EXPERIMENT_ID}" class="checkbox">Experiment
+                            ID</label>
+                    </td>
+                    <td>
+                        <label><input disabled type="checkbox" id="Analyse:${Analyse.COLUMN_TYP}" class="checkbox">Analyse
+                            Typ</label>
                     </td>
                 </tr>
             </table>
