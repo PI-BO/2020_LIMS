@@ -12,87 +12,86 @@
 <title>Solid-Chem | LIMS - Insert Projekt</title>
 <link rel="stylesheet" href="projekt/projekt_erstellen.css">
 <style>
+#th_speichern{
+	padding-top: 10px;
+}
+
+input:required {
+	border-style: solid;
+	border-color: red;
+	border-width: 2px;
+}
 
 .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #77bbff;
-  border: 2px solid #77bbff;
-  min-width: 10px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+	display: none;
+	position: absolute;
+	background-color: #77bbff;
+	border: 2px solid #77bbff;
+	min-width: 10px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
 }
 /* Links inside the dropdown */
 .dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd}
+.dropdown-content a:hover {
+	background-color: #ddd
+}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
+.show {
+	display: block;
+}
 </style>
 </head>
 <body>
 	<form id="form_projekt_erstellen">
 		<table id="create_projekt_table">
 			<tr>
-				<th colspan=4><h1>Projekt erstellen</h1></th>
+				<th colspan=4>
+					<h1>Projekt erstellen</h1>
+				</th>
 			</tr>
 			<tr>
-				<th style="">Vertrags Informationen</th>
-				<th></th>
-				<th style="">Projekt Informationen</th>
-				<th></th>
+				<th>Projekt Informationen</th>
 			</tr>
 			<tr>
-				<td style="">Vertragsnummer</td>
-
-<%-- 				<td><select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" required style="float: left"> --%>
-				<td><select name=<%=Partner.COLUMN_PRIMARY_KEY%> id="subject" style="float: left">
-						<option value="" selected disabled></option>
-
-						<%
-					 	ModelTable modelList = new ModelTable(new Partner());
-
-					 	for(Model model : modelList.getModelList()){
-					 		
-					 		%>
-						<option value=<%=model.getPrimaryKey()%>><%= model.getPrimaryKey()%></option>
-						<%
-					 	}
-					 	
-					 	%>
-
-				</select></td>
-
-				<td style="">Partner ID</td>
-				<td><input onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="Partner ID" name=<%=Partner.COLUMN_PRIMARY_KEY %>>
-					  <div id="myDropdown" class="dropdown-content">
-					    <a id="drop_down_suche" href="#">suchen</a>
-					  </div>
+				<td>Projektpartner ID</td>
+				<td>
+					<input required onclick="dropDownFunction()" id="partner_id_input_field" class="drop_down_field" type=text placeholder="*" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
 				</td>
-				<td></td>
+				<td>
+					<div id="myDropdown" class="dropdown-content-projektpartner">
+						<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
+					</div>
+				</td>
 			</tr>
 			<tr>
-				<td style="">Ansprechpartner</td>
-				<td><input type=text placeholder="Ansprechpartner"></td>
-				<td style="">Datum</td>
-				<td><input type=text placeholder="Datum"></td>
-				<td></td>
+				<td>Projekt ID</td>
+				<td>
+					<input required onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
+				</td>
+				<td>
+					<div id="myDropdown" class="dropdown-content-projektpartner">
+						<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
+					</div>
+				</td>
 			</tr>
 			<tr>
-				<td style="">E-Mail</td>
-				<td><input type=text placeholder="E-Mail"></td>
-				<td style="">Substanz</td>
-				<td><input type=text placeholder="Substanz"></td>
+				<td>Vertragsnummer</td>
+				<td>
+					<input type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
+					<div id="myDropdown" class="dropdown-content">
+						<a id="drop_down_suche" href="#">suchen</a>
+					</div>
+				</td>
 			</tr>
-
 			<tr>
 				<th id="th_speichern" colspan=4>
 					<button type="submit">Speichern</button>
@@ -136,15 +135,40 @@
 		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
 		var posting = $.post( url, submitData );
 		posting.done(function( data ) {
-			$("#th_speichern").empty().append(data);
+			
+			if(data["status"] === "error") $("#th_speichern").append("<h3 style=\"color:red\">" + data["message"] +  "</h3>");
+
+			if(data["status"] === "success"){
+				
+				let requiredFields = document.querySelectorAll("input:required");
+				for(let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+				$("#th_speichern").empty().append("<div style=\"color:green\">" + data["message"] +  "</div>");
+			}
 		});
 	})
 	
-	document.getElementById("drop_down_suche").addEventListener("click", () => {
+	// init Partner Suche
+	document.getElementById("suche_projekt_partner_id").addEventListener("click", () => {
 		
 		hideAllExcept("#main-content-global-search");
 		const template = [
+			{ "partner": "id" },
 			{ "partner": "name" }
+		];
+		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.addSearchCallback((callbackContent)=>{
+			hideAllExcept("#main-content-input-masks");
+			let inputField = document.getElementById("partner_id_input_field");
+			inputField.value = callbackContent;
+		})
+	}); 
+	
+	// init Projekt Suche
+	document.getElementById("suche_projekt_id").addEventListener("click", () => {
+		
+		hideAllExcept("#main-content-global-search");
+		const template = [
+			{ "projekte": "id" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{

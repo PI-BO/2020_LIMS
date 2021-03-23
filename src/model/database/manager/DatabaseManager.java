@@ -2,6 +2,7 @@ package model.database.manager;
 
 import java.sql.SQLException;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.dummyDB.DummyDB;
@@ -22,7 +23,7 @@ public class DatabaseManager {
 			try {
 				dummyDB.initModels();
 			}
-			catch (SQLException | ModelNotFoundException e) {
+			catch (SQLException | ModelNotFoundException | DublicateModelException e) {
 				System.out.println("PROBLEM IN DER INIT() METHODE IN DUMMYDB");
 				e.printStackTrace();
 			}

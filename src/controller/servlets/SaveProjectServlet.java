@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import exceptions.DublicateModelException;
+import exceptions.ModelNotFoundException;
 import model.database.tableModels.Partner;
 import model.database.tableModels.Projekt;
+import utility.JSON;
+import utility.JSONArray;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @WebServlet(SaveProjectServlet.ROUTE)
@@ -28,26 +33,45 @@ public class SaveProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	LOGGER.debug("doPost()");
     	
-    	System.out.println(this.getClass().getName() + "\t Projekt gespeichert");
-    	
+    	response.setHeader("Access-Control-Allow-Origin", "*"); // TODO nur fuer Testzwecke! in Produktion rausnehmen!
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
     	
     	Projekt projekt = new Projekt();
-		projekt.setPrimaryKey(request.getParameter(Projekt.COLUMN_PRIMARY_KEY));
-		projekt.setVertragsnummer(request.getParameter(Partner.COLUMN_PRIMARY_KEY));
+    	projekt.setPrimaryKey(request.getParameter(Projekt.COLUMN_PRIMARY_KEY));
+    	projekt.setVertragsnummer(request.getParameter(Projekt.COLUMN_VERTRAGSNUMMER));
+    	
+    	JSON json = new JSON();
+    	
+		try {
+			projekt.setProjektPartnerId(request.getParameter(Projekt.COLUMN_PROJEKTPARTNER));
+			projekt.saveToDatabase();
+		}
+		catch (ModelNotFoundException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Projektpartner ID nicht vorhanden");
+			out.print(json.toString());
+			return;
+		}
+		catch (SQLException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "SQLException");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
+		catch (DublicateModelException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Projekt ID schon vorhanden");
+			out.print(json.toString());
+			return;
+		}
 		
-		//			projekt.saveToDatabase();
-		response.getWriter().println("<div style=\"color:green\">Erfolgreich gespeichert</div>");
-	
+		json.addKeyValue("status", "success");
+		json.addKeyValue("message", "Erfolgreich gespeichert");
+		out.print(json.toString());
 		
-//		try {
-//			projekt.saveToDatabase();
-//			response.getWriter().println("<div style=\"color:green\">Erfolgreich gespeichert</div>");
-//		}
-//		catch (SQLException e) {
-//			e.printStackTrace();
-//			response.getWriter().println("<h3 style=\"color:red\">FEHLER!</h3>");
-//			response.getWriter().println("<div style=\"color:red\">" + e + "</div>");
-//		}
 	}
 
     @Override

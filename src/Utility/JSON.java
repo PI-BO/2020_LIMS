@@ -40,6 +40,9 @@ public class JSON {
 			String key = keyValuePair.getKey();
 			String value = keyValuePair.getValue();
 			
+			if(key == null) key = "";
+			if(value == null) value = "";
+			
 			String quote = "\"";
 			
 			json += (quote);

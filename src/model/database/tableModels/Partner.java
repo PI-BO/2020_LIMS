@@ -3,6 +3,7 @@ package model.database.tableModels;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
@@ -46,7 +47,7 @@ public class Partner extends Model {
 			throw new ModelNotFoundException();
 		}
 	}
-
+	
 	public String getName() {
 		return name;
 	}
