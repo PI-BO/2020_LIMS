@@ -1,5 +1,6 @@
 package model.database.tableModels;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
@@ -29,8 +30,6 @@ public class Substanz extends Model {
 
 	public void setProjektID(String projektID) throws SQLException, ModelNotFoundException {
 		this.projektID = projektID;
-		Projekt projekt = new Projekt(projektID);
-		this.addParent(projekt);
 	}
 
     @Override
@@ -42,6 +41,14 @@ public class Substanz extends Model {
     public String getTable() {
         return TABLE;
     }
+    
+	@Override
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
+		Projekt projekt = new Projekt(projektID);
+		super.saveToDatabase();
+		this.addParent(projekt);
+	}
 
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {

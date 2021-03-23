@@ -28,6 +28,7 @@ public class Address {
 	private final static String EXPERIMENT_ERSTELLEN_JS = "/experiment/experiment_erstellen.js";
 	private final static String SUBSTANZ_ERSTELLEN_JSP = "/substanz_erstellen.html";
 	private final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
+	private final static String PROJEKT_PARTNER_ERSTELLEN_JSP = "/projektpartner/partner_erstellen.jsp";
 	private static final String EXPERIMENT_ERSTELLEN_SERVLET = "/experiment/erstellen";
 	private static final String ANALYSE_ERSTELLEN_JSP = "/analyse/analyse_erstellen.jsp";
 	private static final String ANALYSE_ERSTELLEN_CSS = "/analyse/analyse_erstellen.css";
@@ -140,6 +141,10 @@ public class Address {
 
 	public static String getSubstanzErstellenJsp() {
 		return MAIN_PATH + SUBSTANZ_ERSTELLEN_JSP;
+	}
+	
+	public static String getProjektPartnerErstellenJsp() {
+		return MAIN_PATH + PROJEKT_PARTNER_ERSTELLEN_JSP;
 	}
 
 	public static String getProjektErstellenJsp() {

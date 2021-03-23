@@ -12,7 +12,7 @@
 <title>Solid-Chem | LIMS - Insert Projekt</title>
 <!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
 <style>
-#create_projekt_table {
+#create_partner_table {
 	float: left;
 	border: 1px solid #ddd;
 	padding: 10px;
@@ -22,7 +22,7 @@
 	background-color: white;
 }
 
-#th_speichern {
+#partner_speicher_th {
 	padding-top: 10px;
 }
 
@@ -61,79 +61,54 @@ input:required {
 </style>
 </head>
 <body>
-	<form id="form_projekt_erstellen">
-		<table id="create_projekt_table">
+	<form id="form_partner_erstellen">
+		<table id="create_partner_table">
 			<tr>
 				<th colspan=4>
-					<h1>Projekt erstellen</h1>
+					<h1>Projektpartner erstellen</h1>
 				</th>
 			</tr>
 			<tr>
-				<th>Projekt Informationen</th>
+				<th>Partner Informationen</th>
 			</tr>
 			<tr>
 				<td>Projektpartner ID</td>
 				<td>
-					<input required onclick="dropDownFunction()" id="partner_id_input_field" class="drop_down_field" type=text placeholder="*" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
+					<input required id="partner_id_input_field" type=text placeholder="*" name=<%=Partner.COLUMN_PRIMARY_KEY%>>
 				</td>
 				<td>
-					<div id="myDropdown" class="dropdown-content-projektpartner">
-						<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
-					</div>
+					<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
 				</td>
 			</tr>
 			<tr>
-				<td>Projekt ID</td>
+				<td>Name</td>
 				<td>
-					<input required onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
+					<input id="partner_name_input_field" type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
 				</td>
 				<td>
-					<div id="myDropdown" class="dropdown-content-projektpartner">
-						<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
-					</div>
+					<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
 				</td>
 			</tr>
 			<tr>
-				<td>Vertragsnummer</td>
+				<td>E-Mail</td>
 				<td>
-					<input type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
-					<div id="myDropdown" class="dropdown-content">
-						<a id="drop_down_suche" href="#">suchen</a>
-					</div>
+					<input type=text placeholder="" name=<%=Partner.COLUMN_EMAIL%>>
 				</td>
 			</tr>
 			<tr>
-				<th id="th_speichern" colspan=4>
+				<th id="partner_speicher_th" colspan=4>
 					<button type="submit">Speichern</button>
 				</th>
 			</tr>
 			<tr>
-				<th id="projekt_erstellen_save_message" colspan=4></th>
+				<th id="partner_erstellen_save_message" colspan=4></th>
 			</tr>
 		</table>
 	</form>
 
 	<script>
 	
-	function dropDownFunction() {
-		  document.getElementById("myDropdown").classList.toggle("show");
-		}
-
-		// Close the dropdown menu if the user clicks outside of it
-		window.onclick = function(event) {
-		  if (!event.target.matches('.drop_down_field')) {
-		    var dropdowns = document.getElementsByClassName("dropdown-content");
-		    var i;
-		    for (i = 0; i < dropdowns.length; i++) {
-		      var openDropdown = dropdowns[i];
-		      if (openDropdown.classList.contains('show')) {
-		        openDropdown.classList.remove('show');
-		      }
-		    }
-		  }
-		} 
-	
-	$("#form_projekt_erstellen").submit(function(e){
+	$("#form_partner_erstellen").submit(function(e){
 		e.preventDefault();
 		
 		var submitData = {};
@@ -145,18 +120,20 @@ input:required {
 			
 		}
 		
-		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
+		var url = "http://localhost:8080/2020_LIMS/save_partner_servlet";
 		var posting = $.post( url, submitData );
 		posting.done(function( data ) {
 			
-			if(data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] +  "</h3>");
+			console.log({data})
+			
+			if(data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] +  "</h3>");
 
 			if(data["status"] === "success"){
 				
 				let requiredFields = document.querySelectorAll("input:required");
 				for(let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
-				$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] +  "</div>");
-				$("#th_speichern").empty();
+				$("#partner_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] +  "</div>");
+				$("#partner_speicher_th").empty();
 			}
 		});
 	})
@@ -182,12 +159,12 @@ input:required {
 		
 		hideAllExcept("#main-content-global-search");
 		const template = [
-			{ "projekte": "id" }
+			{ "partner": "name" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
 			hideAllExcept("#main-content-input-masks");
-			let inputField = document.getElementById("projekt_id_input_field");
+			let inputField = document.getElementById("partner_name_input_field");
 			inputField.value = callbackContent;
 		})
 	}); 

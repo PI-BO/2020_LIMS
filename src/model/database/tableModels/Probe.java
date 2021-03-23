@@ -1,5 +1,6 @@
 package model.database.tableModels;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
@@ -56,9 +57,15 @@ public class Probe extends Model{
     
     public void setSubstanzID(String substanzID) throws SQLException, ModelNotFoundException {
     	this.substanzID = substanzID;
-    	Substanz substanz = new Substanz(substanzID);
-    	this.addParent(substanz);
     }
+    
+	@Override
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
+		Substanz substanz = new Substanz(substanzID);
+		super.saveToDatabase();
+		this.addParent(substanz);
+	}
 
 	@Override
 	public String getValuesAsSQLString() {

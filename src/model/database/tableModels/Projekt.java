@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
@@ -19,15 +20,15 @@ public class Projekt extends Model {
 	public static final String TABLE = "projekte";
 	private String vertragsnummer;
 	private String projektPartnerId;
-	
-	public Projekt(){
+
+	public Projekt() {
 		super();
 	}
-    
-    public Projekt(String primaryKey) throws SQLException, ModelNotFoundException {
-    	super(primaryKey);
-    }
-	
+
+	public Projekt(String primaryKey) throws SQLException, ModelNotFoundException {
+		super(primaryKey);
+	}
+
 	public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
 		if (resultSet.next()) {
 			primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
@@ -42,7 +43,7 @@ public class Projekt extends Model {
 		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
 		return projekteSubstanz.getSubstanzen();
 	}
-	
+
 	@Override
 	public String getPrimaryKeyColumn() {
 		return COLUMN_PRIMARY_KEY;
@@ -70,33 +71,39 @@ public class Projekt extends Model {
 	public String getVertragsnummer() {
 		return vertragsnummer;
 	}
-	
-	public void setProjektPartnerId(String projektPartnerId) throws SQLException, ModelNotFoundException {
+
+	public void setProjektPartnerId(String projektPartnerId) {
 		this.projektPartnerId = projektPartnerId;
+	}
+
+	@Override
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
 		Partner partner = new Partner(projektPartnerId);
+		super.saveToDatabase();
 		this.addParent(partner);
 	}
-	
+
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
 
 		DummyResultSet dummyResultSet = new DummyResultSet();
-		
+
 		DummyResultSetEntry entry = new DummyResultSetEntry();
 		entry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
 		entry.addKeyValuePair(COLUMN_VERTRAGSNUMMER, vertragsnummer);
 		entry.addKeyValuePair(COLUMN_PROJEKTPARTNER, projektPartnerId);
 
 		dummyResultSet.addEntry(entry);
-		
+
 		return dummyResultSet;
 	}
-	
+
 	@Override
 	public String getForeignKey() {
 		return vertragsnummer;
 	}
-	
+
 	public JSON toJSON() {
 
 		JSON json = new JSON();
@@ -104,7 +111,7 @@ public class Projekt extends Model {
 		json.addKeyValue("id", primaryKey);
 		json.addKeyValue(COLUMN_VERTRAGSNUMMER, vertragsnummer);
 		json.addKeyValue(COLUMN_PROJEKTPARTNER, projektPartnerId);
-		
+
 		return json;
 	}
 }

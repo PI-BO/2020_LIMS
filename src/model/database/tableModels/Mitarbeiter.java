@@ -3,6 +3,9 @@ package model.database.tableModels;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.sun.xml.internal.ws.api.message.StreamingSOAP;
+
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
 import model.Login;
@@ -57,6 +60,14 @@ public class Mitarbeiter extends Model implements Login {
 
 	public void setRolle(int rolle) {
 		this.rolle = rolle;
+	}
+	
+	@Override
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
+		MitarbeiterRolle mitarbeiterRolle = new MitarbeiterRolle(String.valueOf(rolle));
+		super.saveToDatabase();
+		this.addParent(mitarbeiterRolle);
 	}
 
 	public String getVorname() {

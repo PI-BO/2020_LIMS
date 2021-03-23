@@ -1,9 +1,12 @@
 package model.database.tableModels.analyse;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
+import model.database.tableModels.Probe;
+import model.database.tableModels.experimente.Experiment;
 import utility.JSON;
 
 import java.sql.ResultSet;
@@ -53,7 +56,7 @@ public class Analyse extends Model {
             typ = resultSet.getString(resultSet.findColumn(COLUMN_TYP));
             experimentId = resultSet.getString(resultSet.findColumn(COLUMN_EXPERIMENT_ID));
         } else {
-            throw new ModelNotFoundException("Mitarbeiter nicht gefunden");
+            throw new ModelNotFoundException("Analyse nicht gefunden");
         }
     }
 
@@ -72,6 +75,14 @@ public class Analyse extends Model {
     public void setExperimentId(String experiment_id) {
         this.experimentId = experiment_id;
     }
+    
+	@Override
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
+		Experiment experiment = new Experiment(experimentId);
+		super.saveToDatabase();
+		this.addParent(experiment);
+	}
 
 	@Override
 	public String getValuesAsSQLString() {

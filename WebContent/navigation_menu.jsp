@@ -1,81 +1,66 @@
-<%@page import="config.Address" %>
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
+<%@page import="config.Address"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <link rel="stylesheet" href="<%=Address.getNavigationMenuCSS()%>">
 <div>
-    <table id="navigation_table">
-        <tr>
-            <th class="navigation_table_header">Navigation</th>
-        </tr>
-        <tr class="navigation_table_row">
-            <td class="navigation_table_data">
-                <ul id="navigation_tree">
+	<table id="navigation_table">
+		<tr>
+			<th class="navigation_table_header">Navigation</th>
+		</tr>
+		<tr class="navigation_table_row">
+			<td class="navigation_table_data">
+				<ul id="navigation_tree">
 
-                    <li><span class="navigation_tree_node symbol_user">Account</span>
-                        <ul class="navigation_tree_branches">
-                            <li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
-                            <li><span class="navigation_tree_node symbol_briefcase" id="logout">Logout</span></li>
-                        </ul>
-                    </li>
+					<li><span class="navigation_tree_node symbol_user" style="opacity: 0.3">Account</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_briefcase" id="logout" style="opacity: 0.3">Logout</span></li>
+						</ul></li>
 
-                    <li><span class="navigation_tree_node symbol_user">Projektpartner</span>
-                        <ul class="navigation_tree_branches">
-                            <li><span class="navigation_tree_node symbol_clipboard">erstellen</span></li>
-                            <li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
-                            <li><span class="navigation_tree_node symbol_search">suchen</span></li>
-                        </ul>
-                    </li>
+					<li><span class="navigation_tree_node symbol_user">Projektpartner</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_partner_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+						</ul></li>
 
-                    <li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">Explorer</span></li>
+					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
+						</ul></li>
 
-                    <li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
-                        <ul class="navigation_tree_branches">
-                            <li><span class="navigation_tree_node symbol_clipboard"
-                                      id="projekt_erstellen">erstellen</span></li>
-                        </ul>
-                    </li>
+					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+						</ul></li>
 
-                    <li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
-                        <ul class="navigation_tree_branches">
-                            <li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">erstellen</span>
-                            </li>
-                            <!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li> -->
-                            <li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
-                            <li><span class="navigation_tree_node symbol_search">suchen</span></li>
-                        </ul>
-                    </li>
+					<li><span class="navigation_tree_node symbol_folder_closed">Experiment</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_clipboard" id="experiment_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+						</ul></li>
 
-                    <li><span class="navigation_tree_node symbol_folder_closed">Experiment</span>
-                        <ul class="navigation_tree_branches">
-                            <li><span class="navigation_tree_node symbol_clipboard"
-                                      id="experiment_erstellen">erstellen</span></li>
-                            <!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="substanz_erstellen">erstellen</span></li> -->
-                            <li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
-                            <li><span class="navigation_tree_node symbol_search">suchen</span></li>
-                        </ul>
-                    </li>
+					<li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_clipboard" id="analyse_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_folder_closed">Eingangsanalyse</span>
+								<ul class="navigation_tree_branches">
+									<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen">erstellen</span></li>
+								</ul></li>
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+						</ul></li>
 
-                    <li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
-                        <ul class="navigation_tree_branches">
-                            <li><span class="navigation_tree_node symbol_clipboard"
-                                      id="analyse_erstellen">erstellen</span></li>
-                            <li><span class="navigation_tree_node symbol_folder_closed">Eingangsanalyse</span>
-                                <ul class="navigation_tree_branches">
-                                    <li><span class="navigation_tree_node symbol_clipboard"
-                                              id="eingangsanalytik_erstellen">erstellen</span></li>
-                                </ul>
-                            </li>
-                            <li><span class="navigation_tree_node symbol_pen_paper">bearbeiten</span></li>
-                            <li><span class="navigation_tree_node symbol_search">suchen</span></li>
-                        </ul>
-                    </li>
+					<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">Explorer</span></li>
 
-                    <li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen2">Suche v2</span>
-
-                </ul>
-            </td>
-        </tr>
-    </table>
+					<li><span class="navigation_tree_node symbol_search" id="globale_suche_anzeigen2">Suche</span>
+				</ul>
+			</td>
+		</tr>
+	</table>
 </div>
 
 <script>
@@ -138,6 +123,15 @@
         $('#lazy').jstree(true).refresh();
     });
 
+    $("#projekt_partner_erstellen").click(function () {
+        var url = "<%=Address.getProjektPartnerErstellenJsp()%>";
+        var posting = $.post(url, {});
+        posting.done(function (data) {
+            $("#main-content-input-masks").empty().append(data);
+            hideAllExcept("#main-content-input-masks");
+        });
+    });
+
     $("#projekt_erstellen").click(function () {
         var url = "<%=Address.getProjektErstellenJsp()%>";
         var posting = $.post(url, {});
@@ -194,24 +188,22 @@
         });
     });
 
-    $("#logout").click(function () {
-        var url = "<%=Address.getLoginHtml()%>";
-        $(".navigation_tree_branches").hide(800);
-        hideAllExcept("");
-        setTimeout(function () {
-            $(location).attr("href", url);
-        }, 1000);
-    });
+//     $("#logout").click(function () {
+<%--         var url = "<%=Address.getLoginHtml()%>"; --%>
+//         $(".navigation_tree_branches").hide(800);
+//         hideAllExcept("");
+//         setTimeout(function () {
+//             $(location).attr("href", url);
+//         }, 1000);
+//     });
 
     $("#globale_suche_anzeigen2").click(function () {
     	const template = [
 			{ "partner": "id" },
-			{ "probe": "id" },
-			{ "experiment": "typ" },
-			{ "experiment": "id" },
-			{ "projekte": "vertragsnummer" },
+			{ "partner": "name" },
 			{ "partner": "email" },
-			{ "partner": "name" }
+			{ "projekte": "id" },
+			{ "projekte": "vertragsnummer" }
 		];
     	GlobaleSuche.initTemplateParameters(template);
         hideAllExcept("#main-content-global-search");

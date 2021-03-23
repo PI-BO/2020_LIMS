@@ -1,5 +1,6 @@
 package controller.servlets;
 
+import exceptions.DublicateModelException;
 import exceptions.LoginInputInvalidException;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
@@ -80,6 +81,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	forwardRequest(request, response); // Unterschied forward, redirect:	https://javabeat.net/difference-forward-sendredirect-servlet/
+    	/*
         try {
             validateUserLogin(request);
             keepUserLoggedIn(request, response);
@@ -100,11 +104,20 @@ public class LoginServlet extends HttpServlet {
         	logException(e);
             returnLoginInputInvalidPage(response);
         }
+		catch (DublicateModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.debug("doGet() called");
+        
+        response.sendRedirect(request.getContextPath() + FORWARD_ROUTE);
+        
+        /*
         try {
            Mitarbeiter m = getSessionUser(request);
             if (m != null) {
@@ -119,6 +132,7 @@ public class LoginServlet extends HttpServlet {
             LOGGER.debug("redirect to: " + LOGIN_PAGE);
             response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
         }
+        */
     }
 
     private void validateUserLogin(HttpServletRequest request) throws SQLException, ModelNotFoundException, PasswordIncorrectException, LoginInputInvalidException {
@@ -153,7 +167,7 @@ public class LoginServlet extends HttpServlet {
         return mitarbeiterId;
     }
 
-    private void keepUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws LoginInputInvalidException, ModelNotFoundException, SQLException {
+    private void keepUserLoggedIn(HttpServletRequest request, HttpServletResponse response) throws LoginInputInvalidException, ModelNotFoundException, SQLException, DublicateModelException {
         String mitarbeiterId = getEnteredMitarbeiterId(request);
         Mitarbeiter login = new Mitarbeiter(mitarbeiterId);
         String sessionKey = randomString(20);
