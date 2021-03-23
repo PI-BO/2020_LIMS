@@ -21,6 +21,8 @@ function showAnalysetypFieldsMethode(select) {
     analyseErstellenPosting.done(function (data) {
         $("#analyse_erstellen_content").empty().append(data);
     });
+
+    $('#analyse_erstellen_speichern').empty().append('<button id="button_analyse_speichern" type="submit">Speichern</button>')
 }
 
 function newTemperaturprogrammRow() {

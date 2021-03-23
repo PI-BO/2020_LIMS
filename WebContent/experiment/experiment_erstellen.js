@@ -15,6 +15,8 @@ function showExperimenttypFieldsMethode(select) {
     experimentErstellenPosting.done(function (data) {
         $("#experiment_erstellen_content").empty().append(data);
     });
+
+    $('#experiment_erstellen_speichern').empty().append('<button id="button_experiment_speichern" type="submit">Speichern</button>')
 }
 
 function newExperimentSerie(value) {

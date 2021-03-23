@@ -4,6 +4,8 @@
 <%@ page import="exceptions.ModelNotFoundException" %>
 <%@ page import="model.database.tableModels.*" %>
 <%@ page import="model.database.tableModels.experimente.Experiment" %>
+<%@ page import="model.database.relations.ExperimentExperimenttyp" %>
+<%@ page import="model.database.tableModels.experimente.ExperimenteModel" %>
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
@@ -18,8 +20,9 @@
             try {
                 ModelTable modelList = new ModelTable(new Experiment());
                 for (Model model : modelList.getModelList()) {
+                    ExperimenteModel experimenteModel = new ExperimentExperimenttyp((Experiment) model).getTypModel();
         %>
-        <option value=<%=model.getPrimaryKey()%>><%=((Experiment) model).getPrimaryKey()%>
+        <option value=<%=model.getPrimaryKey()%>><%=experimenteModel.getExperiment_no()%>
         </option>
         <%
                 }
