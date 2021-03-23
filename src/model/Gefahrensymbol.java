@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.Eigenschaften;
 
@@ -33,11 +34,11 @@ public class Gefahrensymbol extends Eigenschaften{
 			int imageIdIndex = resultSet.findColumn(COLUMN_IMAGE);
 			image = resultSet.getBinaryStream(imageIdIndex);
 		} else {
-			throw new ModelNotFoundException("Projekt nicht gefunden");
+			throw new ModelNotFoundException("Gefahrensymbol nicht gefunden");
 		}
 	}
 
-	public void save() throws SQLException{
+	public void save() throws SQLException, DublicateModelException{
 		database.saveModel(this);
 	}
 

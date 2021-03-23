@@ -16,7 +16,16 @@
 			font-weight: bold;
 		}
 
+		.global_search_select_main_category{
+			width: 100%;
+		}
+
 		.global_search_select_parameter {
+			width: 100%;
+		}
+		
+		#global_search_button{
+			float: left;
 			width: 100%;
 		}
 
@@ -24,10 +33,18 @@
 			font-family: Arial, Helvetica, sans-serif;
 			border-collapse: collapse;
 		}
-
+		
 		#global_search_result_table td {
 			border: 1px solid #ddd;
 			padding: 8px;
+			cursor: default;
+		}
+
+		#global_search_result_table tr:nth-child(n+2) td {
+			cursor: cell;
+		}
+		
+		#global_search_result_table tr:nth-child(n+3) td {
 			cursor: pointer;
 		}
 
@@ -62,12 +79,12 @@
 		<div id="global_search_main_header">Suche</div>
 		<table id="global_search_parameter_table">
 			<tr>
-				<th></th>
-				<th></th>
-				<th></th>
-				<th style="font-weight: normal">Filter hinzufuegen</th>
-				<th><input type="button" value="+" id="global_search_add_parameter_button"></th>
+				<th><input type="button" value="Filter hinzufuegen" id="global_search_add_parameter_button"></th>
 				<th><input type="button" value="suchen" id="global_search_button"></th>
+				<th></th>
+				<th style="font-weight: normal; font-size:x-small">*leeres Feld = alles durchsuchen</th>
+				<th></th>
+				<th></th>
 			</tr>
 		</table>
 

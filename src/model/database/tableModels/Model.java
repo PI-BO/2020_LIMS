@@ -43,7 +43,7 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
         database.getModel(this);
 	}
 	
-	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException{
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
 		database.saveModel(this);
 	}
 	

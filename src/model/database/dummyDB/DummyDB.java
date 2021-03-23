@@ -344,16 +344,16 @@ public class DummyDB implements Database {
 	@Override
 	public void getModel(Model requestedModel) throws SQLException, ModelNotFoundException {
 		for (Model model : modelList) {
-			if (tableNotFound(requestedModel, model))
-				continue;
-			if (primaryKeyNotFound(requestedModel, model))
-				continue;
+			if (tableNotFound(requestedModel, model)) continue;
+			if (primaryKeyNotFound(requestedModel, model)) continue;
 
 			DummyResultSet dummyResultSet = model.returnAsDummyResultSet();
 			requestedModel.setAttributes(dummyResultSet);
 
-			break;
+			return;
 		}
+		
+		throw new ModelNotFoundException();
 	}
 
 	@Override
@@ -546,7 +546,8 @@ public class DummyDB implements Database {
 
 	@Override
 	public void saveModel(Model model) throws SQLException, DublicateModelException {
-		try {
+		try
+		{
 			findModel(model);
 		}
 		catch (ModelNotFoundException e) {
@@ -554,9 +555,7 @@ public class DummyDB implements Database {
 			return;
 		}
 		
-		throw new DublicateModelException();
-		
-		
+		throw new DublicateModelException(model);
 	}
 
 	private List<Model> cloneBranch(List<Model> branch) {

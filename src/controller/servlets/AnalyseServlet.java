@@ -1,6 +1,7 @@
 package controller.servlets;
 
 import config.Config;
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.analyse.*;
 import org.apache.logging.log4j.LogManager;
@@ -92,9 +93,13 @@ public class AnalyseServlet extends HttpServlet {
         } catch (IllegalStateException ise) {
             LOGGER.error(ise.getMessage());
         }
+		catch (DublicateModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
-    private void createAnalyse(String primaryKey, String experiment, String typ) throws SQLException {
+    private void createAnalyse(String primaryKey, String experiment, String typ) throws SQLException, DublicateModelException, ModelNotFoundException {
         Analyse analyse = new Analyse();
         analyse.setPrimaryKey(primaryKey);
         analyse.setExperimentId(experiment);

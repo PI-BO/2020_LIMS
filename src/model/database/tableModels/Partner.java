@@ -44,7 +44,7 @@ public class Partner extends Model {
 			name = resultSet.getString(resultSet.findColumn(COLUMN_NAME));
 			email = resultSet.getString(resultSet.findColumn(COLUMN_EMAIL));		
 		}else{
-			throw new ModelNotFoundException();
+			throw new ModelNotFoundException("Partner nicht gefunden");
 		}
 	}
 	

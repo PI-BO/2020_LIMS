@@ -1,10 +1,12 @@
 package model.database.tableModels.experimente;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
 import model.database.tableModels.Probe;
+import model.database.tableModels.Projekt;
 import utility.JSON;
 
 import java.sql.ResultSet;
@@ -20,6 +22,14 @@ public class Experiment extends Model {
     public static final String TABLE = "experiment";
 
     /**
+     * Create Empty Experiment for new Database Entry
+     * Add values over setter
+     */
+    public Experiment() {
+    	
+    }
+    
+    /**
      * Model Class for Database Eigenschaften
      * @param primaryKey
      * Primary key of Database Tabele
@@ -29,14 +39,6 @@ public class Experiment extends Model {
     public Experiment(String primaryKey) throws ModelNotFoundException, SQLException {
         super(primaryKey);
     }
-
-    /**
-     * Create Empty Experiment for new Database Entry
-     * Add values over setter
-     */
-    public Experiment() {
-
-	}
 
     @Override
     public String getPrimaryKeyColumn() {
@@ -69,9 +71,15 @@ public class Experiment extends Model {
 
     public void setProbenNr(String proben_nr) throws SQLException, ModelNotFoundException {
     	this.proben_nr = proben_nr;
-    	Probe probe = new Probe(proben_nr);
-    	this.addParent(probe);
     }
+    
+	@Override
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
+		Probe probe = new Probe(proben_nr);
+		super.saveToDatabase();
+		this.addParent(probe);
+	}
     
     public void setTyp(String typ) {
 		this.typ = typ;

@@ -71,14 +71,15 @@ public class Projekt extends Model {
 		return vertragsnummer;
 	}
 
-	public void setProjektPartnerId(String projektPartnerId) throws SQLException, ModelNotFoundException {
+	public void setProjektPartnerId(String projektPartnerId) {
 		this.projektPartnerId = projektPartnerId;
 	}
-	
+
 	@Override
-	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException{
-		super.saveToDatabase();
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+
 		Partner partner = new Partner(projektPartnerId);
+		super.saveToDatabase();
 		this.addParent(partner);
 	}
 

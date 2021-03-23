@@ -20,14 +20,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-@WebServlet(SaveProjectServlet.ROUTE)
-public class SaveProjectServlet extends HttpServlet {
+@WebServlet(SavePartnerServlet.ROUTE)
+public class SavePartnerServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 651365257358343314L;
+	private static final long serialVersionUID = 8965190467865649574L;
 
-	private static final Logger LOGGER = LogManager.getLogger(SaveProjectServlet.class.getSimpleName());
+	private static final Logger LOGGER = LogManager.getLogger(SavePartnerServlet.class.getSimpleName());
 	
-	public static final String ROUTE = "/save_project_servlet";
+	public static final String ROUTE = "/save_partner_servlet";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,15 +38,15 @@ public class SaveProjectServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
     	
-    	Projekt projekt = new Projekt();
-    	projekt.setPrimaryKey(request.getParameter(Projekt.COLUMN_PRIMARY_KEY));
-    	projekt.setVertragsnummer(request.getParameter(Projekt.COLUMN_VERTRAGSNUMMER));
-    	projekt.setProjektPartnerId(request.getParameter(Projekt.COLUMN_PROJEKTPARTNER));
+    	Partner partner = new Partner();
+    	partner.setPrimaryKey(request.getParameter(Partner.COLUMN_PRIMARY_KEY));
+    	partner.setName(request.getParameter(Partner.COLUMN_NAME));
+    	partner.setEmail(request.getParameter(Partner.COLUMN_EMAIL));
     	
     	JSON json = new JSON();
     	
 		try {
-			projekt.saveToDatabase();
+			partner.saveToDatabase();
 		}
 		catch (ModelNotFoundException e) {
 			json.addKeyValue("status", "error");
@@ -57,7 +57,7 @@ public class SaveProjectServlet extends HttpServlet {
 		}
 		catch (DublicateModelException e) {
 			json.addKeyValue("status", "error");
-			json.addKeyValue("message", "Projekt ID schon vorhanden");
+			json.addKeyValue("message", "Partner ID schon vorhanden");
 			out.print(json.toString());
 			e.printStackTrace();
 			return;
@@ -73,7 +73,6 @@ public class SaveProjectServlet extends HttpServlet {
 		json.addKeyValue("status", "success");
 		json.addKeyValue("message", "Erfolgreich gespeichert");
 		out.print(json.toString());
-		
 	}
 
     @Override
