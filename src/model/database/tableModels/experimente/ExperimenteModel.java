@@ -65,7 +65,7 @@ public abstract class ExperimenteModel extends Model {
     private String gesamt_ergebnis;
     private String einstufung_ergebnis;
 
-    public static final String COLUMN_PRIMARY_KEY = "id";
+    public static final String COLUMN_PRIMARY_KEY = "no_id";
     public static final String COLUMN_SCREENING_NO_KEY = "screening_no";
     public static final String COLUMN_PLANUNG_ERFOLGT_DURCH_KEY = "planung_erfolgt_durch";
     public static final String COLUMN_EXPERIMENT_SERIE_KEY = "experiment_serie";
@@ -772,7 +772,7 @@ public abstract class ExperimenteModel extends Model {
 
     @Override
     public String getPrimaryKeyColumn() {
-        return null;
+        return COLUMN_PRIMARY_KEY;
     }
 
     public static String getColumnScreeningNoKey() {

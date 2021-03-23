@@ -612,7 +612,7 @@ public class DummyDB implements Database {
 	public void saveModel(Model model) throws SQLException {
 		for (Model m : modelList)
 			if (model.getTable().equals(m.getTable()) && model.getPrimaryKey().equals(m.getPrimaryKey()))
-				throw new SQLException("Duplicate primary key");
+				throw new SQLException("Duplicate primary key: " + model.getPrimaryKeyColumn() + " = " + model.getPrimaryKey());
 		modelList.add(model);
 	}
 

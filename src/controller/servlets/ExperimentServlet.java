@@ -156,14 +156,22 @@ public class ExperimentServlet extends HttpServlet {
                     experiment.setPlanung_erfolgt_durch(Integer.parseInt(parameter));
                     break;
                 case EXPERIMENT_SERIE:
-                    if (parameter.equals("new")) createNewExperimentSerie(request);
+                    try {
+                        if (parameter.equals("new")) createNewExperimentSerie(request);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     experiment.setExperiment_serie(parameter);
                     break;
                 case EXPERIMENT_NO:
                     experiment.setExperiment_no(parameter);
                     break;
                 case DURCHFUEHRUNGSTEXT:
-                    if (parameter.equals("new")) createNewDurchfuehrungstext(parameter, request);
+                    try {
+                        if (parameter.equals("new")) createNewDurchfuehrungstext(parameter, request);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     experiment.setScreening_no(parameter);
                     break;
                 case PROJEKTLEITERNOTIZ_INTENTION:
@@ -360,10 +368,11 @@ public class ExperimentServlet extends HttpServlet {
         return experiment;
     }
 
-    private void createNewDurchfuehrungstext(String parameter, HttpServletRequest request) {
+    private void createNewDurchfuehrungstext(String parameter, HttpServletRequest request) throws SQLException {
         ExperimentDurchfuehrungstext durchfuehrungstext = new ExperimentDurchfuehrungstext();
         durchfuehrungstext.setPrimaryKey(parameter);
         durchfuehrungstext.setText(request.getParameter(DURCHFUEHRUNGSTEXT_TEXT));
+        durchfuehrungstext.saveToDatabase();
     }
 
     private void createNewExperimentSerie(HttpServletRequest parameter) throws SQLException {

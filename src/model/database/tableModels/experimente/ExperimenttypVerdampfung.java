@@ -101,6 +101,22 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
         this.ausbeute_von_praep_analystik = ausbeute_von_praep_analystik;
     }
 
+    public static String getColumnVialTaraKey() {
+        return COLUMN_VIAL_TARA_KEY;
+    }
+
+    public static String getColumnBeobachtungenZumLoesevorgangOderAenderungenDesExperimentsKey() {
+        return COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY;
+    }
+
+    public static String getColumnAuswaageVialKristallisatKey() {
+        return COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY;
+    }
+
+    public static String getColumnAusbeuteVonPraepAnalystikKey() {
+        return COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY;
+    }
+
     @Override
     public String getTable() {
         return TABLE;
