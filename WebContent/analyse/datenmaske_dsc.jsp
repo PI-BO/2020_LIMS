@@ -91,7 +91,7 @@
             }
         %>
     </select>
-    <input id="temperaurprogramme_table_title" style="display: none" type="text"
+    <input id="temperaurprogramme_table_title" style="display: none" type="number"
            name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TITEL%>>
     <div id="temperaturprogramme_table" style="display: none">
         <div class="temperaturprogramme_methode_add_button">
