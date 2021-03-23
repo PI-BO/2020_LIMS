@@ -1,5 +1,6 @@
 package model.database.dummyDB;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.relations.ManyToManyA;
@@ -21,25 +22,25 @@ public class DummyDB implements Database {
 
 	private final List<Model> modelList = new LinkedList<>();
 
-	public void initModels() throws ModelNotFoundException, SQLException {
+	public void initModels() throws ModelNotFoundException, SQLException, DublicateModelException {
 		// Rollen
 		MitarbeiterRolle rolle = new MitarbeiterRolle();
 		rolle.setPrimaryKey("1");
 		rolle.setTyp("Projektplanung");
 		rolle.setZugehoerigkeit("Projektmanager");
-		modelList.add(rolle);
+		rolle.saveToDatabase();
 
 		rolle = new MitarbeiterRolle();
 		rolle.setPrimaryKey("2");
 		rolle.setTyp("Laborbetreuung");
 		rolle.setZugehoerigkeit("Laborleiter");
-		modelList.add(rolle);
+		rolle.saveToDatabase();
 
 		rolle = new MitarbeiterRolle();
 		rolle.setPrimaryKey("3");
 		rolle.setTyp("Durchfuehrung");
 		rolle.setZugehoerigkeit("Laborteam");
-		modelList.add(rolle);
+		rolle.saveToDatabase();
 
 		// Mitarbeiter
 		Mitarbeiter mitarbeiter1 = new Mitarbeiter();
@@ -48,7 +49,7 @@ public class DummyDB implements Database {
 		mitarbeiter1.setPassword("abc");
 		mitarbeiter1.setPrimaryKey("123");
 		mitarbeiter1.setRolle(1);
-		modelList.add(mitarbeiter1);
+		mitarbeiter1.saveToDatabase();
 
 		Mitarbeiter mitarbeiter2 = new Mitarbeiter();
 		mitarbeiter2.setVorname("Maxime");
@@ -56,7 +57,7 @@ public class DummyDB implements Database {
 		mitarbeiter2.setPassword("dot");
 		mitarbeiter2.setPrimaryKey("987");
 		mitarbeiter2.setRolle(2);
-		modelList.add(mitarbeiter2);
+		mitarbeiter2.saveToDatabase();
 
 		Mitarbeiter mitarbeiter3 = new Mitarbeiter();
 		mitarbeiter3.setVorname("Harry");
@@ -64,139 +65,138 @@ public class DummyDB implements Database {
 		mitarbeiter3.setPassword("qwe");
 		mitarbeiter3.setPrimaryKey("456");
 		mitarbeiter3.setRolle(3);
-		modelList.add(mitarbeiter3);
+		mitarbeiter3.saveToDatabase();
 
 		// Partner
-		Partner partner1 = new Partner();
-		partner1.setPrimaryKey("1");
-		partner1.setName("Bayer");
-		partner1.setEmail("bayer@Unternehmen.de");
-		modelList.add(partner1);
+		Partner partner = new Partner();
+		partner.setPrimaryKey("1");
+		partner.setName("Bayer");
+		partner.setEmail("bayer@Unternehmen.de");
+		partner.saveToDatabase();
 
-		Partner partner2 = new Partner();
-		partner2.setPrimaryKey("2");
-		partner2.setName("Novartis");
-		partner2.setEmail("novartis@pharma.com");
-		modelList.add(partner2);
+		partner = new Partner();
+		partner.setPrimaryKey("2");
+		partner.setName("Novartis");
+		partner.setEmail("novartis@pharma.com");
+		partner.saveToDatabase();
 
 		// Projekte
-		Projekt projekt1 = new Projekt();
-		projekt1.setPrimaryKey("A");
-		projekt1.setVertragsnummer("1");
-		projekt1.setProjektPartnerId("1");
-		modelList.add(projekt1);
+		Projekt projekt = new Projekt();
+		projekt.setPrimaryKey("A");
+		projekt.setVertragsnummer("1");
+		projekt.setProjektPartnerId("1");
+		projekt.saveToDatabase();
 
-		Projekt projekt2 = new Projekt();
-		projekt2.setPrimaryKey("B");
-		projekt2.setVertragsnummer("1");
-		projekt2.setProjektPartnerId("1");
-		modelList.add(projekt2);
+		projekt = new Projekt();
+		projekt.setPrimaryKey("B");
+		projekt.setVertragsnummer("1");
+		projekt.setProjektPartnerId("1");
+		projekt.saveToDatabase();
 
-		Projekt projekt3 = new Projekt();
-		projekt3.setPrimaryKey("C");
-		projekt3.setVertragsnummer("2");
-		projekt3.setProjektPartnerId("2");
-		modelList.add(projekt3);
+		projekt = new Projekt();
+		projekt.setPrimaryKey("C");
+		projekt.setVertragsnummer("2");
+		projekt.setProjektPartnerId("2");
+		projekt.saveToDatabase();
 
 		// Substanzen
-		Substanz substanz1 = new Substanz();
-		substanz1.setPrimaryKey("SubstanzA1");
-		substanz1.setProjektID("A");
-		modelList.add(substanz1);
+		Substanz substanz = new Substanz();
+		substanz.setPrimaryKey("SubstanzA1");
+		substanz.setProjektID("A");
+		substanz.saveToDatabase();
 
-		Substanz substanz2 = new Substanz();
-		substanz2.setPrimaryKey("SubstanzA2");
-		substanz2.setProjektID("A");
-		modelList.add(substanz2);
+		substanz = new Substanz();
+		substanz.setPrimaryKey("SubstanzA2");
+		substanz.setProjektID("A");
+		substanz.saveToDatabase();
 
-		Substanz substanz3 = new Substanz();
-		substanz3.setPrimaryKey("SubstanzA3");
-		substanz3.setProjektID("A");
-		modelList.add(substanz3);
+		substanz = new Substanz();
+		substanz.setPrimaryKey("SubstanzA3");
+		substanz.setProjektID("A");
+		substanz.saveToDatabase();
 
-		Substanz substanz4 = new Substanz();
-		substanz4.setPrimaryKey("SubstanzB");
-		substanz4.setProjektID("B");
-		modelList.add(substanz4);
+		substanz = new Substanz();
+		substanz.setPrimaryKey("SubstanzB");
+		substanz.setProjektID("B");
+		substanz.saveToDatabase();
 
-		Substanz substanz5 = new Substanz();
-		substanz5.setPrimaryKey("SubstanzC");
-		substanz5.setProjektID("C");
-		modelList.add(substanz5);
+		substanz = new Substanz();
+		substanz.setPrimaryKey("SubstanzC");
+		substanz.setProjektID("C");
+		substanz.saveToDatabase();
 
 		// Proben
-		Probe probe1 = new Probe();
-		probe1.setPrimaryKey("ProbeA1");
-		probe1.setSubstanzID("SubstanzA1");
-		modelList.add(probe1);
+		Probe probe = new Probe();
+		probe.setPrimaryKey("ProbeA1");
+		probe.setSubstanzID("SubstanzA1");
+		probe.saveToDatabase();
 
-		Probe probe2 = new Probe();
-		probe2.setPrimaryKey("ProbeA2");
-		probe2.setSubstanzID("SubstanzA2");
-		modelList.add(probe2);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeA2");
+		probe.setSubstanzID("SubstanzA2");
+		probe.saveToDatabase();
 
-		Probe probe3 = new Probe();
-		probe3.setPrimaryKey("ProbeB1");
-		probe3.setSubstanzID("SubstanzA3");
-		modelList.add(probe3);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeB1");
+		probe.setSubstanzID("SubstanzA3");
+		probe.saveToDatabase();
 
-		Probe probe4 = new Probe();
-		probe4.setPrimaryKey("ProbeB");
-		probe4.setSubstanzID("SubstanzB");
-		modelList.add(probe4);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeB");
+		probe.setSubstanzID("SubstanzB");
+		probe.saveToDatabase();
 
-		Probe probe5 = new Probe();
-		probe5.setPrimaryKey("ProbeC");
-		probe5.setSubstanzID("SubstanzB");
-		modelList.add(probe5);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeC");
+		probe.setSubstanzID("SubstanzB");
+		probe.saveToDatabase();
 
-		Probe probe6 = new Probe();
-		probe6.setPrimaryKey("ProbeC2");
-		probe6.setSubstanzID("SubstanzC");
-		modelList.add(probe6);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeC2");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
-		Probe probe7 = new Probe();
-		probe7.setPrimaryKey("ProbeD");
-		probe7.setSubstanzID("SubstanzC");
-		modelList.add(probe7);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeD");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
-		Probe probe8 = new Probe();
-		probe8.setPrimaryKey("ProbeD2");
-		probe8.setSubstanzID("SubstanzC");
-		modelList.add(probe8);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeD2");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
-		Probe probe9 = new Probe();
-		probe9.setPrimaryKey("ProbeE");
-		probe9.setSubstanzID("SubstanzC");
-		modelList.add(probe9);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeE");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
-		Probe probe10 = new Probe();
-		probe10.setPrimaryKey("ProbeE2");
-		probe10.setSubstanzID("SubstanzC");
-		modelList.add(probe10);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeE2");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
-		Probe probe11 = new Probe();
-		probe11.setPrimaryKey("ProbeF");
-		probe11.setSubstanzID("SubstanzC");
-		modelList.add(probe11);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeF");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
-		Probe probe12 = new Probe();
-		probe12.setPrimaryKey("ProbeF2");
-		probe12.setSubstanzID("SubstanzC");
-		modelList.add(probe12);
+		probe = new Probe();
+		probe.setPrimaryKey("ProbeF2");
+		probe.setSubstanzID("SubstanzC");
+		probe.saveToDatabase();
 
 		// Experimente
-		Experiment experiment1 = new Experiment();
-		experiment1.setPrimaryKey("1");
-		experiment1.setTyp("101");
-		experiment1.setProbenNr("ProbeA1");
-		modelList.add(experiment1);
+		Experiment experiment = new Experiment();
+		experiment.setPrimaryKey("11");
+		experiment.setTyp("101");
+		experiment.setProbenNr("ProbeA1");
 
-		Experiment experiment2 = new Experiment();
-		experiment2.setPrimaryKey("2");
-		experiment2.setTyp("202");
-		experiment2.setProbenNr("ProbeB");
-		modelList.add(experiment2);
+		experiment = new Experiment();
+		experiment.setPrimaryKey("2");
+		experiment.setTyp("202");
+		experiment.setProbenNr("ProbeB");
+		experiment.saveToDatabase();
 
 		// Experimente Verdampfung
 		ExperimenttypVerdampfung experimenttypVerdampfung = new ExperimenttypVerdampfung();
@@ -211,23 +211,23 @@ public class DummyDB implements Database {
 		modelList.add(experimenttypSlurry);
 
 		// Experiment Typen
-		Experimenttyp experimenttyp1 = new Experimenttyp();
-		experimenttyp1.setPrimaryKey("101");
-		experimenttyp1.setTyp("Verdampfung");
-		modelList.add(experimenttyp1);
+		Experimenttyp experimenttyp = new Experimenttyp();
+		experimenttyp.setPrimaryKey("101");
+		experimenttyp.setTyp("Verdampfung");
+		experimenttyp.saveToDatabase();
 
-		Experimenttyp experimenttyp2 = new Experimenttyp();
-		experimenttyp2.setPrimaryKey("202");
-		experimenttyp2.setTyp("Slurry");
-		modelList.add(experimenttyp2);
+		experimenttyp = new Experimenttyp();
+		experimenttyp.setPrimaryKey("202");
+		experimenttyp.setTyp("Slurry");
+		experimenttyp.saveToDatabase();
 
 		// Experiment Durchfuehrungstext
-		ExperimentDurchfuehrungstext experimentDurchfuehrungstext1 = new ExperimentDurchfuehrungstext();
-		experimentDurchfuehrungstext1.setPrimaryKey("Durchfuehrungstext A");
+		ExperimentDurchfuehrungstext experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
+		experimentDurchfuehrungstext.setPrimaryKey("Durchfuehrungstext A");
 
 		// TODO Sonderzeichen machen Probleme
 
-		experimentDurchfuehrungstext1.setText("20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" + "Die genaue Einwaage in den Datensatz eintragen.\n"
+		experimentDurchfuehrungstext.setText("20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" + "Die genaue Einwaage in den Datensatz eintragen.\n"
 				+ "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" + "Zugabe von 3.0 mL Lösungsmittel.\n"
 				+ "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n"
 				+ "Ultraschalldauer 5 min.\n" + "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n"
@@ -242,14 +242,14 @@ public class DummyDB implements Database {
 				+ "Die Proben werden verschlossen der Analytik übergeben.\n"
 				+ "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n"
 				+ "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz).");
-		modelList.add(experimentDurchfuehrungstext1);
+		experimentDurchfuehrungstext.saveToDatabase();
 
-		ExperimentDurchfuehrungstext experimentDurchfuehrungstext2 = new ExperimentDurchfuehrungstext();
-		experimentDurchfuehrungstext2.setPrimaryKey("Durchführungstext B");
+		 experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
+		experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext B");
 
 		// TODO Sonderzeichen machen Probleme
 
-		experimentDurchfuehrungstext2.setText("20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" + "Die genaue Einwaage in den Datensatz eintragen.\n"
+		experimentDurchfuehrungstext.setText("20-30 mg API in 4.0 mL Vial mit PTFE Dichtung einwiegen.\n" + "Die genaue Einwaage in den Datensatz eintragen.\n"
 				+ "Das 4.0 mL Vial lediglich mit einem Edding mit Exp No im oberen Viertel der Gefäßwand beschriften.\n" + "Zugabe von 3.0 mL Lösungsmittel.\n"
 				+ "Das Gefäß dicht (!) verschließen und in ein auf 25°C temperiertes Ultraschallbad stellen oder spannen,- Eintauchtiefe 50% der Vialhöhe.\n"
 				+ "Ultraschalldauer 5 min.\n" + "Die Ultraschallbadtemperatur ist stets zu kontrollieren und ggfs. zu korrigieren.\n"
@@ -264,28 +264,28 @@ public class DummyDB implements Database {
 				+ "Die Proben werden verschlossen der Analytik übergeben.\n"
 				+ "Der Operator der Analytik muss den Inhalt des gesamten Vials, möglichst mit quantitativen Ansprüchen rauskratzen, mörsern und den Rest nach der Analytik wieder zurück in dasselbe oder in ein neues Vial geben.\n"
 				+ "Der leitende Projektmanager entscheidet über die  durchzuführende Analytik (und markiert und Kommentiert dies im Datensatz).");
-		modelList.add(experimentDurchfuehrungstext2);
+		experimentDurchfuehrungstext.saveToDatabase();
 
 		 // Analysetyp
 		 Analysetyp analysetyp = new Analysetyp();
 		 analysetyp.setPrimaryKey("1");
 		 analysetyp.setTyp("PXRD");
-		 modelList.add(analysetyp);
+		 analysetyp.saveToDatabase();
 		
 		 analysetyp = new Analysetyp();
 		 analysetyp.setPrimaryKey("2");
 		 analysetyp.setTyp("DSC");
-		 modelList.add(analysetyp);
+		 analysetyp.saveToDatabase();
 		
 		 analysetyp = new Analysetyp();
 		 analysetyp.setPrimaryKey("3");
 		 analysetyp.setTyp("TGA");
-		 modelList.add(analysetyp);
+		 analysetyp.saveToDatabase();
 		
 		 analysetyp = new Analysetyp();
 		 analysetyp.setPrimaryKey("4");
 		 analysetyp.setTyp("IR");
-		 modelList.add(analysetyp);
+		 analysetyp.saveToDatabase();
 		
 		 // temperaturprogramme
 		 AnalyseTemperaturprogramme temperaturprogramme = new
@@ -296,7 +296,7 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe("10");
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
-		 modelList.add(temperaturprogramme);
+		 temperaturprogramme.saveToDatabase();
 		
 		 temperaturprogramme = new AnalyseTemperaturprogramme();
 		 temperaturprogramme.setTabelle("1");
@@ -305,7 +305,7 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe("10");
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
-		 modelList.add(temperaturprogramme);
+		 temperaturprogramme.saveToDatabase();
 		
 		 temperaturprogramme = new AnalyseTemperaturprogramme();
 		 temperaturprogramme.setTabelle("1");
@@ -314,7 +314,7 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe("10");
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
-		 modelList.add(temperaturprogramme);
+		 temperaturprogramme.saveToDatabase();
 		
 		 temperaturprogramme = new AnalyseTemperaturprogramme();
 		 temperaturprogramme.setTabelle("1");
@@ -323,7 +323,7 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe("10");
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
-		 modelList.add(temperaturprogramme);
+		 temperaturprogramme.saveToDatabase();
 		
 		 temperaturprogramme = new AnalyseTemperaturprogramme();
 		 temperaturprogramme.setTabelle("2");
@@ -332,7 +332,7 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe("10");
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
-		 modelList.add(temperaturprogramme);
+		 temperaturprogramme.saveToDatabase();
 		
 		 temperaturprogramme = new AnalyseTemperaturprogramme();
 		 temperaturprogramme.setTabelle("2");
@@ -341,7 +341,7 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe(null);
 		 temperaturprogramme.setZeit("30");
 		 temperaturprogramme.setSegmenttyp("Isotherme");
-		 modelList.add(temperaturprogramme);
+		 temperaturprogramme.saveToDatabase();
 		
 		 temperaturprogramme = new AnalyseTemperaturprogramme();
 		 temperaturprogramme.setTabelle("2");
@@ -350,76 +350,22 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setRampe("10");
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
-		 modelList.add(temperaturprogramme);
-
-		// ------------Test-Daten fuer Suche------------//
-
-		// Partner partner1 = new Partner();
-		// partner1.setName("Partner A");
-		// partner1.setPrimaryKey("1");
-		// partner1.setEmail("partner-A@gmail.com");
-		// modelList.add(partner1);
-		//
-		// Partner partner2 = new Partner();
-		// partner2.setName("Partner B");
-		// partner2.setPrimaryKey("2");
-		// partner2.setEmail("partner-B@gmx.com");
-		// modelList.add(partner2);
-		//
-		// Projekt projekt1 = new Projekt(partner1);
-		// projekt1.setPrimaryKey("Projekt A");
-		// projekt1.setVertragsnummer("1");
-		// modelList.add(projekt1);
-		//
-		// Projekt projekt2 = new Projekt(partner2);
-		// projekt2.setPrimaryKey("Projekt B");
-		// projekt2.setVertragsnummer("2");
-		// modelList.add(projekt2);
-		//
-		// Probe probe1 = new Probe(projekt1);
-		// probe1.setPrimaryKey("0001A");
-		// probe1.setName("Probe A");
-		// modelList.add(probe1);
-		//
-		// Probe probe2 = new Probe(projekt2);
-		// probe2.setPrimaryKey("0001B");
-		// probe2.setName("Probe B");
-		// modelList.add(probe2);
-		//
-		// Experiment experiment1 = new Experiment(probe1);
-		// experiment1.setPrimaryKey("0001Aexp0");
-		// experiment1.setTyp("Slurry");
-		// modelList.add(experiment1);
-		//
-		// Experiment experiment2 = new Experiment(probe1);
-		// experiment2.setPrimaryKey("0001Aexp1");
-		// experiment2.setTyp("Vedampfung");
-		// modelList.add(experiment2);
-		//
-		// Experiment experiment3 = new Experiment(probe2);
-		// experiment3.setPrimaryKey("0001Bexp0");
-		// experiment3.setTyp("Slurry");
-		// modelList.add(experiment3);
-		//
-		// Experiment experiment4 = new Experiment(probe2);
-		// experiment4.setPrimaryKey("0001Bexp1");
-		// experiment4.setTyp("Vedampfung");
-		// modelList.add(experiment4);
+		 temperaturprogramme.saveToDatabase();
 	}
 
 	@Override
 	public void getModel(Model requestedModel) throws SQLException, ModelNotFoundException {
 		for (Model model : modelList) {
-			if (tableNotFound(requestedModel, model))
-				continue;
-			if (primaryKeyNotFound(requestedModel, model))
-				continue;
+			if (tableNotFound(requestedModel, model)) continue;
+			if (primaryKeyNotFound(requestedModel, model)) continue;
 
 			DummyResultSet dummyResultSet = model.returnAsDummyResultSet();
 			requestedModel.setAttributes(dummyResultSet);
 
-			break;
+			return;
 		}
+		
+		throw new ModelNotFoundException();
 	}
 
 	@Override
@@ -604,16 +550,24 @@ public class DummyDB implements Database {
 			foundModel = model;
 			break;
 		}
-
+		
+		if(foundModel == null) throw new ModelNotFoundException();
+		
 		return foundModel;
 	}
 
 	@Override
-	public void saveModel(Model model) throws SQLException {
-		for (Model m : modelList)
-			if (model.getTable().equals(m.getTable()) && model.getPrimaryKey().equals(m.getPrimaryKey()))
-				throw new SQLException("Duplicate primary key: " + model.getPrimaryKeyColumn() + " = " + model.getPrimaryKey());
-		modelList.add(model);
+	public void saveModel(Model model) throws SQLException, DublicateModelException {
+		try
+		{
+			findModel(model);
+		}
+		catch (ModelNotFoundException e) {
+			modelList.add(model);
+			return;
+		}
+		
+		throw new DublicateModelException(model);
 	}
 
 	private List<Model> cloneBranch(List<Model> branch) {

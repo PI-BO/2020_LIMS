@@ -1,6 +1,7 @@
 package controller.servlets;
 
 import config.Config;
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.experimente.*;
 import org.apache.logging.log4j.LogManager;
@@ -109,9 +110,13 @@ public class ExperimentServlet extends HttpServlet {
             response.setContentType("text/plain");
             response.getWriter().println(throwables);
         }
+		catch (DublicateModelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
-    private void createExperiment(String primaryKey, String api, String typ) throws SQLException, ModelNotFoundException {
+    private void createExperiment(String primaryKey, String api, String typ) throws SQLException, ModelNotFoundException, DublicateModelException {
         Experiment experiment = new Experiment();
         experiment.setPrimaryKey(primaryKey);
         experiment.setProbenNr(api);
@@ -119,7 +124,7 @@ public class ExperimentServlet extends HttpServlet {
         experiment.saveToDatabase();
     }
 
-    private ExperimenteModel createExperiment(HttpServletRequest request, String typ) throws ModelNotFoundException, SQLException {
+    private ExperimenteModel createExperiment(HttpServletRequest request, String typ) throws ModelNotFoundException, SQLException, DublicateModelException {
         ExperimenteModel experiment = null;
         switch (typ) {
             case "Slurry":
@@ -368,14 +373,14 @@ public class ExperimentServlet extends HttpServlet {
         return experiment;
     }
 
-    private void createNewDurchfuehrungstext(String parameter, HttpServletRequest request) throws SQLException {
+    private void createNewDurchfuehrungstext(String parameter, HttpServletRequest request) throws SQLException, DublicateModelException, ModelNotFoundException {
         ExperimentDurchfuehrungstext durchfuehrungstext = new ExperimentDurchfuehrungstext();
         durchfuehrungstext.setPrimaryKey(parameter);
         durchfuehrungstext.setText(request.getParameter(DURCHFUEHRUNGSTEXT_TEXT));
         durchfuehrungstext.saveToDatabase();
     }
 
-    private void createNewExperimentSerie(HttpServletRequest parameter) throws SQLException {
+    private void createNewExperimentSerie(HttpServletRequest parameter) throws SQLException, DublicateModelException, ModelNotFoundException {
         ExperimentSerie serie = new ExperimentSerie();
         serie.setPrimaryKey(parameter.getParameter(EXPERIMENT_SERIE_TEXT));
         serie.saveToDatabase();

@@ -435,17 +435,21 @@ var GlobaleSuche = (function () {
 		for (let i = rows.length - 1; i > sortFunctionSkipRows; i--) {
 
 			let row = rows[i];
-			let nextRow = rows[i - 1];
 
-			if (row.innerText === nextRow.innerText) {
-				table.deleteRow(i);
+			for(let j = i - 1; j > sortFunctionSkipRows - 1; j--){
+
+				let nextRow = rows[j];
+	
+				if (row.innerText === nextRow.innerText) {
+					table.deleteRow(i);
+					break;
+				}
 			}
+
 		}
 	}
 
 	function addTupelAsTableHeader(tupel, tableId, className, mergeHeader, addSortFunction) {
-
-		console.log({ mergeHeader })
 
 		let table = document.getElementById(tableId);
 		let row = table.insertRow(-1);

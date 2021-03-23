@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.Database;
 import model.database.dummyDB.DummyRelation;
@@ -42,7 +43,7 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
         database.getModel(this);
 	}
 	
-	public void saveToDatabase() throws SQLException{
+	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
 		database.saveModel(this);
 	}
 	
@@ -66,8 +67,6 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 		Model realParent = database.findModel(parent);
 		parents.add(realParent);
 		realParent.addChild(this);
-		//database.updateModel(parent);
-		
 	}
 	
 	private void addChild(Model child){

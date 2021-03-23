@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
@@ -19,7 +20,7 @@ public interface Database {
 
     void getModelAnalyseTemperaturprogramme(AnalyseTemperaturprogramme requestModel)  throws ModelNotFoundException, SQLException;
 
-    public void saveModel(Model model) throws SQLException;
+    public void saveModel(Model model) throws SQLException, DublicateModelException;
 
     void replaceModel(Model model) throws SQLException;
 
