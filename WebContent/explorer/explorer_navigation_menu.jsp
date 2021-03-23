@@ -63,94 +63,101 @@
 </head>
 
 <body>
-<div style="display: table; height: 100%; width: 100%">
+<div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%; width: 100%">
     <!--     <button id="evts_button" style="margin:0em auto 1em auto; display:block; padding:4px; border-radius:4px;"> -->
     <!--         select node Projekt A -->
     <!--     </button> -->
 
-    <input type="text" id="search" value="" class="input"
-           style="margin:1em auto 1em auto; padding:4px; border-radius:4px; border:1px solid silver;">
-    <div class="dropdown">
-        <button class="dropbtn">
-            &#9881
-        </button>
-        <div class="dropdown-content">
-            <table>
-                <tr>
-                    <th>Partner</th>
-                    <td>
-                        <label><input type="checkbox" id="Partner:${Partner.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">Vertragsnummer</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Projekte</th>
-                    <td>
-                        <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">id</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}" class="checkbox">Vertragsnummer</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Substanzen</th>
-                    <td>
-                        <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">id</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}" class="checkbox">Projekt
-                            id</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Proben</th>
-                    <td>
-                        <label><input type="checkbox" id="Probe:${Probe.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">id</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}" class="checkbox">Substanz
-                            id</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Experimente</th>
-                    <td>
-                        <label><input type="checkbox" id="Experiment:${Experiment.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">id</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Experiment:${Experiment.COLUMN_PROBEN_NR}" class="checkbox">Proben
-                            Nr</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Experiment:${Experiment.COLUMN_TYP}" class="checkbox">Experiment
-                            Typ</label>
-                    </td>
-                <tr>
-                    <th>Analysen</th>
-                    <td>
-                        <label><input type="checkbox" id="Analyse:${Analyse.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                      checked="true">id</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Analyse:${Analyse.COLUMN_EXPERIMENT_ID}" class="checkbox">Experiment
-                            ID</label>
-                    </td>
-                    <td>
-                        <label><input disabled type="checkbox" id="Analyse:${Analyse.COLUMN_TYP}" class="checkbox">Analyse
-                            Typ</label>
-                    </td>
-                </tr>
-            </table>
+    <div>
+        <input type="text" id="search" value="" class="input"
+               style="margin:1em auto 1em auto; padding:4px; border-radius:4px; border:1px solid silver;">
+        <div class="dropdown">
+            <button class="dropbtn">
+                &#9881
+            </button>
+            <div class="dropdown-content">
+                <table>
+                    <tr>
+                        <th>Partner</th>
+                        <td>
+                            <label><input type="checkbox" id="Partner:${Partner.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                          checked="true">Vertragsnummer</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Projekte</th>
+                        <td>
+                            <label><input type="checkbox" id="Projekt:${Projekt.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                          checked="true">id</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Projekt:${Projekt.COLUMN_VERTRAGSNUMMER}"
+                                          class="checkbox">Vertragsnummer</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Substanzen</th>
+                        <td>
+                            <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                          checked="true">id</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}"
+                                          class="checkbox">Projekt
+                                id</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Proben</th>
+                        <td>
+                            <label><input type="checkbox" id="Probe:${Probe.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                          checked="true">id</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}"
+                                          class="checkbox">Substanz
+                                id</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Experimente</th>
+                        <td>
+                            <label><input type="checkbox" id="Experiment:${Experiment.COLUMN_PRIMARY_KEY}"
+                                          class="checkbox"
+                                          checked="true">id</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Experiment:${Experiment.COLUMN_PROBEN_NR}"
+                                          class="checkbox">Proben
+                                Nr</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Experiment:${Experiment.COLUMN_TYP}"
+                                          class="checkbox">Experiment
+                                Typ</label>
+                        </td>
+                    <tr>
+                        <th>Analysen</th>
+                        <td>
+                            <label><input type="checkbox" id="Analyse:${Analyse.COLUMN_PRIMARY_KEY}" class="checkbox"
+                                          checked="true">id</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Analyse:${Analyse.COLUMN_EXPERIMENT_ID}"
+                                          class="checkbox">Experiment
+                                ID</label>
+                        </td>
+                        <td>
+                            <label><input disabled type="checkbox" id="Analyse:${Analyse.COLUMN_TYP}" class="checkbox">Analyse
+                                Typ</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div style="display: table-row; height: 100%">
-        <div id="lazy" class="demo"></div>
-    </div>
+    <div id="lazy" class="demo"></div>
 </div>
 
 <script>
