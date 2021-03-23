@@ -3,8 +3,6 @@ package model.database.tableModels;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.sun.xml.internal.ws.api.message.StreamingSOAP;
-
 import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
