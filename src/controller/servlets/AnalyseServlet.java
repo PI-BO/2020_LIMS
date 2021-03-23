@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Enumeration;
@@ -59,7 +60,7 @@ public class AnalyseServlet extends HttpServlet {
     public static final String TEMPERATURPROGRAMM_SEGMENTTYP = "ANALYSE_TEMPERATURPROGRAMM_SEGMENTTYP";
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(this.getClass() + ": doPost()");
 
         try {
@@ -88,7 +89,9 @@ public class AnalyseServlet extends HttpServlet {
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setContentType("text/plain");
+            response.getWriter().println(throwables);
         } catch (IllegalStateException ise) {
             LOGGER.error(ise.getMessage());
         }
@@ -168,7 +171,11 @@ public class AnalyseServlet extends HttpServlet {
                     pxrd.setPraeparation(parameter);
                     break;
                 case POSITION:
-                    pxrd.setPosition(Integer.parseInt(parameter));
+                    try {
+                        pxrd.setPosition(Integer.parseInt(parameter));
+                    } catch (NumberFormatException e) {
+                        pxrd.setPosition(null);
+                    }
                     break;
                 case PROGRAMM:
                     pxrd.setProgramm(parameter);
@@ -200,13 +207,25 @@ public class AnalyseServlet extends HttpServlet {
 
             switch (parameterName) {
                 case EINWAAGE_MG:
-                    dsc.setEinwaage(Double.valueOf(parameter));
+                    try {
+                        dsc.setEinwaage(Double.valueOf(parameter));
+                    } catch (NumberFormatException e) {
+                        dsc.setEinwaage(null);
+                    }
                     break;
                 case AUSWAAGE_MG:
-                    dsc.setAuswaage(Double.valueOf(parameter));
+                    try {
+                        dsc.setAuswaage(Double.valueOf(parameter));
+                    } catch (NumberFormatException e) {
+                        dsc.setAuswaage(null);
+                    }
                     break;
                 case RAMPE_K_MIN:
-                    dsc.setRampe(Integer.valueOf(parameter));
+                    try {
+                        dsc.setRampe(Integer.valueOf(parameter));
+                    } catch (NumberFormatException e) {
+                        dsc.setRampe(null);
+                    }
                     break;
                 case TEMPERATURPROGRAMM:
                     dsc.setTemperaturprgramm(createTemperaturprogramm(request, parameter));
@@ -241,7 +260,11 @@ public class AnalyseServlet extends HttpServlet {
 
             switch (parameterName) {
                 case EINWAAGE_MG:
-                    tga.setEinwaage(Double.valueOf(parameter));
+                    try {
+                        tga.setEinwaage(Double.valueOf(parameter));
+                    } catch (NumberFormatException e) {
+                        tga.setEinwaage(null);
+                    }
                     break;
                 case RAMPE_K_MIN:
                     tga.setRampe(Integer.valueOf(parameter));
@@ -273,10 +296,18 @@ public class AnalyseServlet extends HttpServlet {
 
             switch (parameterName) {
                 case SCANS:
-                    ir.setScans(Integer.valueOf(parameter));
+                    try {
+                        ir.setScans(Integer.valueOf(parameter));
+                    } catch (NumberFormatException e) {
+                        ir.setScans(null);
+                    }
                     break;
                 case AUFLOESUNG:
-                    ir.setAufloesung(Integer.valueOf(parameter));
+                    try {
+                        ir.setAufloesung(Integer.valueOf(parameter));
+                    } catch (NumberFormatException e) {
+                        ir.setAufloesung(null);
+                    }
                     break;
                 case GEOMETRIE:
                     ir.setGeometrie(parameter);

@@ -27,6 +27,7 @@ function newTemperaturprogrammRow() {
     const temperaturprogramm = $("#template_temperaturprogramme tr:last")
     const row = $(".temperaturprogramm_tamplate_table_row").clone();
     row.attr("class", "temperaturprogramm_table_row")
+    row.children("td.eingangsanalyse_entry").children(`input[name="ANALYSE_TEMPERATURPROGRAMM_SCHRITT"]`).prop('required', true)
     temperaturprogramm.after(row)
 }
 

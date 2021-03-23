@@ -43,7 +43,6 @@
                 try {
                     ModelTable analyseTypModelList = new ModelTable(new Analysetyp());
                     for (Model model : analyseTypModelList.getModelList()) {
-                        System.out.println(model.getPrimaryKey());
             %>
             <option value="<%=model.getPrimaryKey()%>"><%=((Analysetyp) model).getTyp()%>
             </option>

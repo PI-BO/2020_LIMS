@@ -7,6 +7,8 @@
 <%@ page import="model.database.tableModels.*" %>
 <%@ page import="model.database.tableModels.analyse.AnalyseTemperaturprogramme" %>
 <%@ page import="model.database.tableModels.experimente.Experiment" %>
+<%@ page import="model.database.tableModels.experimente.ExperimenteModel" %>
+<%@ page import="model.database.relations.ExperimentExperimenttyp" %>
 
 <%!
     private ModelTable modelList;
@@ -35,8 +37,9 @@
             try {
                 ModelTable modelList = new ModelTable(new Experiment());
                 for (Model model : modelList.getModelList()) {
+                    ExperimenteModel experimenteModel = new ExperimentExperimenttyp((Experiment) model).getTypModel();
         %>
-        <option value=<%=model.getPrimaryKey()%>><%=((Experiment) model).getPrimaryKey()%>
+        <option value=<%=model.getPrimaryKey()%>><%=experimenteModel.getExperiment_no()%>
         </option>
         <%
                 }
@@ -74,14 +77,14 @@
                 Set<String> tabellen = modelList.getModelList().stream().map(model -> ((AnalyseTemperaturprogramme) model).getTabelle()).collect(Collectors.toSet());
                 for (String tabelle : tabellen) {
         %>
-        <option value="<%=tabelle%>"><%=tabelle%>
+        <option value="<%=tabelle%>">Tabelle <%=tabelle%>
         </option>
         <%
                 }
             }
         %>
     </select>
-    <input id="temperaurprogramme_table_title" style="display: none" type="text"
+    <input id="temperaurprogramme_table_title" style="display: none" type="number"
            name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TITEL%>>
     <div id="temperaturprogramme_table" style="display: none">
         <div class="temperaturprogramme_methode_add_button">
@@ -155,7 +158,9 @@
 
 <script type="text/javascript">
     function showTemperaturprogramm(param) {
+        console.log(param)
         $(".temperaturprogramm_table_row").remove()
+        $("#temperaurprogramme_table_title").prop('required', (param.value === "new"))
         if (param.value === "new") {
             $("#temperaurprogramme_table_title").show()
         } else {
@@ -169,6 +174,7 @@
             if (param.value == <%=row.getTabelle()%>) {
                 const row = $(".temperaturprogramm_tamplate_table_row").clone();
                 row.attr("class", "temperaturprogramm_table_row")
+                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').prop('required', true)
                 row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').val(<%=row.getSchritt()%>)
                 row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_TEMPERATUR%>"]').val(<%=row.getTemperatur()%>)
                 row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>"]').val(<%=row.getRampe()%>)

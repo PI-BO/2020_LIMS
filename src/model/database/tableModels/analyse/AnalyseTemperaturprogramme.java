@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AnalyseTemperaturprogramme extends Model {
-    private String tabelle;
+    private String primaryKey;
     private String schritt;
     private String temperatur;
     private String rampe;
@@ -29,7 +29,7 @@ public class AnalyseTemperaturprogramme extends Model {
     }
     
     public AnalyseTemperaturprogramme(String tabelle, String schritt) throws ModelNotFoundException, SQLException {
-        this.tabelle = tabelle;
+        this.primaryKey = tabelle;
         this.schritt = schritt;
         database.getModelAnalyseTemperaturprogramme(this);
     }
@@ -44,7 +44,7 @@ public class AnalyseTemperaturprogramme extends Model {
     public DummyResultSet returnAsDummyResultSet() {
         DummyResultSet dummyResultSet = new DummyResultSet();
         DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
-        dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, tabelle);
+        dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
         dummyResultSetEntry.addKeyValuePair(COLUMN_SCHRITT, schritt);
         dummyResultSetEntry.addKeyValuePair(COLUMN_TEMPERATUR, temperatur);
         dummyResultSetEntry.addKeyValuePair(COLUMN_RAMPE, rampe);
@@ -56,7 +56,7 @@ public class AnalyseTemperaturprogramme extends Model {
     }
 
     public String[] getPrimaryKeys() {
-        return new String[]{tabelle, schritt};
+        return new String[]{primaryKey, schritt};
     }
 
     @Override
@@ -74,11 +74,11 @@ public class AnalyseTemperaturprogramme extends Model {
     }
 
     public String getTabelle() {
-        return tabelle;
+        return primaryKey;
     }
 
     public void setTabelle(String tabelle) {
-        this.tabelle = tabelle;
+        this.primaryKey = tabelle;
     }
 
     public String getSchritt() {
@@ -144,7 +144,7 @@ public class AnalyseTemperaturprogramme extends Model {
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         if (resultSet.next()) {
-            tabelle = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
+            primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             schritt = resultSet.getString(resultSet.findColumn(COLUMN_SCHRITT));
             temperatur = resultSet.getString(resultSet.findColumn(COLUMN_TEMPERATUR));
             rampe = resultSet.getString(resultSet.findColumn(COLUMN_RAMPE));
@@ -176,14 +176,27 @@ public class AnalyseTemperaturprogramme extends Model {
 	public JSON toJSON() {
 		
 		JSON json = new JSON();
-		json.addKeyValue("table", getTable());
-		json.addKeyValue("id", getPrimaryKey());
+		json.addKeyValue("table", getPrimaryKey());
 		json.addKeyValue(COLUMN_RAMPE, rampe);
 		json.addKeyValue(COLUMN_SCHRITT, schritt);
 		json.addKeyValue(COLUMN_SEGENTTYP, segmenttyp);
 		json.addKeyValue(COLUMN_TEMPERATUR, temperatur);
 		json.addKeyValue(COLUMN_ZEIT, zeit);
-		
+
 		return json;
 	}
+
+    private AnalyseTemperaturprogramme(String primaryKey) throws SQLException, ModelNotFoundException {
+        super(primaryKey);
+    }
+
+    @Override
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    @Override
+    public void setPrimaryKey(String primaryKey) {
+        setTabelle(primaryKey);
+    }
 }
