@@ -54,9 +54,9 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard" id="analyse_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_folder_closed">Eingangsanalyse</span>
+							<li><span class="navigation_tree_node symbol_folder_closed" style="opacity: 0.3">Eingangsanalyse</span>
 								<ul class="navigation_tree_branches">
-									<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen">erstellen</span></li>
+									<li><span class="navigation_tree_node symbol_clipboard" id="eingangsanalytik_erstellen" style="opacity: 0.3">erstellen</span></li>
 								</ul></li>
 							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
