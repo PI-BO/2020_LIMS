@@ -4,11 +4,11 @@ input:invalid, select:invalid, textarea:invalid {
 	border-width: 3px;
 }
 
-input:valid, select:valid, textarea:valid {
-	border-style: solid;
-	border-color: green;
-	border-width: 3px;
-}
+/* input:valid, select:valid, textarea:valid { */
+/* 	border-style: solid; */
+/* 	border-color: green; */
+/* 	border-width: 3px; */
+/* } */
 
 #form_analyse_erstellen {
 	min-width: 500px;
