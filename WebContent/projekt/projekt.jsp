@@ -31,7 +31,17 @@
 			%>
 
 		<tr>
-			<td class="explorer_table_data symbol_folder_closed"><%=substanz.getPrimaryKey()%></td>
+			<td class="explorer_table_data symbol_folder_closed" onclick="(
+					function() {
+					let data = {projekt_id: '<%=substanz.getPrimaryKey()%>'};
+					loadPage('<%=Address.getSubstanzJSP()%>', data);
+					explorerState.pushToState({
+					table: '<%=substanz.getTable()%>',
+					id: '<%=substanz.getPrimaryKey()%>',
+					text: '<%=substanz.getPrimaryKey()%>'
+					});
+					}
+					)()"><%=substanz.getPrimaryKey()%></td>
 			<td class="explorer_table_data"></td>
 			<td class="explorer_table_data"></td>
 		</tr>
@@ -44,8 +54,7 @@
 	<script>
 			
 			addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
-			explorerState.setStateProjekt("<%= projekt_id %>");
-			
+
 		</script>
 
 </body>

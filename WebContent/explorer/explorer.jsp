@@ -21,7 +21,7 @@
 <script type="text/javascript">
 
 	// init ExplorerState
-	let explorerState = new ExplorerState();	
+	const explorerState = new ExplorerState();
 	explorerState.setPartnerListAddress("<%=Address.getPartnerListJSP()%>");
 	explorerState.setPartnerAddress("<%=Address.getPartnerJSP()%>");
 	explorerState.setProjektAddress("<%=Address.getProjektJSP()%>");
