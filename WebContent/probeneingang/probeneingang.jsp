@@ -1,3 +1,4 @@
+<%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Model"%>
 <%@page import="model.database.tableModels.Partner"%>
 <%@page import="model.database.tableModels.ModelTable"%>
@@ -454,7 +455,8 @@ input:required {
 			e.preventDefault();
 			var formData = new FormData(form);
 			
-			let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#probeneingang_url").value;
+// 			let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#probeneingang_url").value;
+			let url = "<%=Address.getMainPath()%>" + document.querySelector("#probeneingang_url").value;
 			
 			json = fetch(url, {
 				method: "post",

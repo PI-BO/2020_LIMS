@@ -1,3 +1,5 @@
+<%@page import="controller.servlets.SavePartnerServlet"%>
+<%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="model.database.tableModels.Model"%>
 <%@page import="model.database.tableModels.Partner"%>
@@ -120,7 +122,8 @@ input:required {
 			
 		}
 		
-		var url = "http://localhost:8080/2020_LIMS/save_partner_servlet";
+// 		var url = "http://localhost:8080/2020_LIMS/save_partner_servlet";
+		var url = "<%=Address.getMainPath()%>" + "<%=SavePartnerServlet.ROUTE%>";
 		var posting = $.post( url, submitData );
 		posting.done(function( data ) {
 			

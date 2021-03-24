@@ -2,7 +2,8 @@ package config;
 
 public class Address {
 	
-	private final static String MAIN_PATH = "http://localhost:8080/2020_LIMS";
+//	private final static String MAIN_PATH = "http://localhost:8080/2020_LIMS";
+	private final static String MAIN_PATH = "https://hbolims.herokuapp.com";
 	private final static String EINGANGSANALYTIK_JSP = "/eingangsanalytik/eingangsanalytik.jsp";
 	private final static String EINGANGSANALYTIK_JS = "/eingangsanalytik/eingangsanalytik.js";
 	private final static String EINGANGSANALYTIK_CSS = "/eingangsanalytik/eingangsanalytik.css";
@@ -34,6 +35,8 @@ public class Address {
 	private static final String ANALYSE_ERSTELLEN_CSS = "/analyse/analyse_erstellen.css";
 	private static final String ANALYSE_ERSTELLEN_JS = "/analyse/analyse_erstellen.js";
 	private static final String ANALYSE_ERSTELLEN_SERVLET = "/analyse/erstellen";
+	private static final String GLOBALE_SUCHE_JSP = "/suche/globale_suche2.jsp";
+	private static final String GLOBALE_SUCHE_JS = "/suche/globale_suche2.js";
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -173,5 +176,13 @@ public class Address {
 
 	public static String getAnalyseErstellenJS() {
 		return MAIN_PATH + ANALYSE_ERSTELLEN_JS;
+	}
+	
+	public static String getGlobaleSucheJs() {
+		return MAIN_PATH + GLOBALE_SUCHE_JS;
+	}
+	
+	public static String getGlobaleSucheJsp() {
+		return MAIN_PATH + GLOBALE_SUCHE_JSP;
 	}
 }
