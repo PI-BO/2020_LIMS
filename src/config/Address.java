@@ -2,8 +2,8 @@ package config;
 
 public class Address {
 	
-//	private final static String MAIN_PATH = "http://localhost:8080/2020_LIMS";
-	private final static String MAIN_PATH = "https://hbolims.herokuapp.com";
+	private final static String MAIN_PATH = "http://localhost:8080/2020_LIMS";
+//	private final static String MAIN_PATH = "https://hbolims.herokuapp.com";
 	private final static String EINGANGSANALYTIK_JSP = "/eingangsanalytik/eingangsanalytik.jsp";
 	private final static String EINGANGSANALYTIK_JS = "/eingangsanalytik/eingangsanalytik.js";
 	private final static String EINGANGSANALYTIK_CSS = "/eingangsanalytik/eingangsanalytik.css";
