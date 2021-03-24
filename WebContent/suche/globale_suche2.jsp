@@ -1,3 +1,4 @@
+<%@page import="controller.servlets.SucheServlet"%>
 <%@page import="config.Address" %>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
 
@@ -108,6 +109,9 @@
 	<!-- <script src="globale_suche2.js"></script> -->
 <!-- 	<script src="http://localhost:8080/2020_LIMS/suche/globale_suche2.js"></script> -->
 	<script src="<%=Address.getGlobaleSucheJs()%>"></script>
+	<script type="text/javascript">
+		GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
+	</script>
 </body>
 
 </html>

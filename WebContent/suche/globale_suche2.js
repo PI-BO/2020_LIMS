@@ -22,7 +22,8 @@ var GlobaleSuche = (function () {
 	const sortFunctionSkipRows = 2;
 
 //	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
-	const servletURL = "https://hbolims.herokuapp.com/Suche";
+//	const servletURL = "https://hbolims.herokuapp.com/Suche";
+	let servletURL = "";
 
 	let parameters = {}
 
@@ -31,7 +32,9 @@ var GlobaleSuche = (function () {
 		contains: "beinhaltet"
 	};
 
-	public.init = function init() {
+	public.init = function init(servletAddress) {
+		
+		servletURL = servletAddress;
 
 		fetchDatabase((tupelArray) => {
 
@@ -783,7 +786,7 @@ var GlobaleSuche = (function () {
 
 })();
 
-GlobaleSuche.init();
+//GlobaleSuche.init();
 // const template = [
 // 	{ "Partner": "id" },
 // 	{ "Probe": "id" },
