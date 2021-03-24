@@ -20,9 +20,9 @@ public class Substanz extends Model {
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
     public static final String COLUMN_WIRKSTOFF = "wirkstoff";
     public static final String TABLE = "substanz";
-/*
-    ======= Merge
 	public static final String COLUMN_FOREIGN_KEY = COLUMN_PROJEKT_ID;
+
+/*    ======= Merge
 	public static final String TABLE = "substanz";
 >>>>>>> ab3ff8b321241cf020fda102529349caa158714b
 */
