@@ -21,7 +21,7 @@ public class Address {
 	private final static String EXPERIMENT_ERSTELLEN_JSP = "/experiment/experiment_erstellen.jsp";
 	private final static String EXPERIMENT_ERSTELLEN_CSS = "/experiment/experiment_erstellen.css";
 	private final static String EXPERIMENT_ERSTELLEN_JS = "/experiment/experiment_erstellen.js";
-	private final static String SUBSTANZ_ERSTELLEN_JSP = "/substanz_erstellen.html";
+	private final static String SUBSTANZ_ERSTELLEN_JSP = "/substanz/substanz_erstellen.jsp";
 	private final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
 	private final static String PROJEKT_PARTNER_ERSTELLEN_JSP = "/projektpartner/partner_erstellen.jsp";
 	private static final String EXPERIMENT_ERSTELLEN_SERVLET = "/experiment/erstellen";

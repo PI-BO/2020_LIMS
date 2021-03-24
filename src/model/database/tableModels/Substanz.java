@@ -12,8 +12,10 @@ import java.sql.SQLException;
 public class Substanz extends Model {
 
     private String projektID;
+    private String wirkstoff;
     public static final String COLUMN_PRIMARY_KEY = "substanz_id";
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
+    public static final String COLUMN_WIRKSTOFF = "wirkstoff";
     public static final String TABLE = "substanz";
 
     public Substanz(){
@@ -50,6 +52,7 @@ public class Substanz extends Model {
         if (resultSet.next()) {
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             projektID = resultSet.getString(resultSet.findColumn(COLUMN_PROJEKT_ID));
+            wirkstoff = resultSet.getString(resultSet.findColumn(COLUMN_WIRKSTOFF));
         } else {
             throw new ModelNotFoundException("Substanz nicht gefunden");
         }
@@ -65,12 +68,20 @@ public class Substanz extends Model {
 
 	@Override
 	public String getValuesAsSQLString() {
-		return primaryKey + "," + projektID;
+		return primaryKey + "," + projektID + "," + wirkstoff;
 	}
 
 	@Override
 	public String getRelationSchema() {
-		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROJEKT_ID;
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROJEKT_ID + "," + COLUMN_WIRKSTOFF;
+	}
+	
+	public void setWirkstoff(String name) {
+		this.wirkstoff = name;
+	}
+	
+	public String getName() {
+		return wirkstoff;
 	}
 
 	@Override
@@ -80,6 +91,7 @@ public class Substanz extends Model {
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PROJEKT_ID, projektID);
+		dummyResultSetEntry.addKeyValuePair(COLUMN_WIRKSTOFF, wirkstoff);
 		dummyResultSet.addEntry(dummyResultSetEntry);
 		
 		return dummyResultSet;
@@ -97,6 +109,7 @@ public class Substanz extends Model {
 		json.addKeyValue("table", TABLE);
 		json.addKeyValue("id", primaryKey);
 		json.addKeyValue(COLUMN_PROJEKT_ID, projektID);
+		json.addKeyValue(COLUMN_WIRKSTOFF, wirkstoff);
 		
 		return json;
 	}

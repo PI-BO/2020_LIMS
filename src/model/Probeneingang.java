@@ -6,11 +6,17 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import controller.servlets.ProbeneingangServlet;
+
 public class Probeneingang {
 												// GEHÖRT ZU:
 	
 	private String interneVergabenummer;		// ??? Projekt-Id, Substanz-Vergabenummer, Substanz-Id / Probe-Id ???
 	private String wirkstoff;					// Substanz
+	private String wirkstoffId;					// Substanz
 	private String auftraggeber;				// Partner
 	private String probenNr;					// Substanz-Id
 	private String projektvertragnummer;		// Projekt-Id
@@ -44,6 +50,41 @@ public class Probeneingang {
 	private List<Bild> bilder = new LinkedList<>();	// Substanz
 	private List<Gefahrensymbol> gefahrensymbole = new LinkedList<>();	// Substanz
 	
+	private static final Logger LOGGER = LogManager.getLogger(Probeneingang.class.getSimpleName());
+	
+	public static final String INTERNE_VERGABENUMMER = "INTERNE_VERGABENUMMER";
+	public static final String WIRKSTOFF = "WIRKSTOFF";
+	public static final String WIRKSTOFF_ID = "WIRKSTOFF_ID123";
+	public static final String AUFTRAGGEBER = "AUFTRAGGEBER_ID";
+	public static final String PROBEN_NR = "PROBEN_NR";
+	public static final String PROJEKTVERTRAGNUMMER= "PROJEKTVERTRAGNUMMER";
+	public static final String ANLAGENNUMMER = "ANLAGENNUMMER";
+	public static final String SUMMENFORMEL = "SUMMENFORMEL";
+	public static final String BEZEICHNUNG = "BEZEICHNUNG";
+	public static final String ORIGINATOR = "ORIGINATOR";
+	public static final String PROBENEINGANG = "PROBENEINGANG_DATUM";
+	public static final String PROBENMASSE = "PROBENMASSE";
+	public static final String BESONDERHEITEN = "BESONDERHEITEN";
+	public static final String INFOS = "INFOS";
+	public static final String STANDORT = "STANDORT";
+	public static final String MESSUNG_DSC = "MESSUNG_DSC";
+	public static final String MESSUNG_PULVER = "MESSUNG_PULVER";
+	public static final String MESSUNG_IR = "MESSUNG_IR";
+	public static final String BEMERKUNGEN_ZUR_MESSUNG = "BEMERKUNGEN_ZUR_MESSUNG";
+	public static final String VERTRAG_VORHANDEN = "VERTRAG_VORHANDEN";
+	public static final String VERTRAG_VORHANDEN_DATUM = "VERTRAG_VORHANDEN_DATUM";
+	public static final String VERTRAG_UNTERZEICHNET = "VERTRAG_UNTERZEICHNET";
+	public static final String VERTRAG_UNTERZEICHNET_DATUM = "VERTRAG_UNTERZEICHNET_DATUM";
+	public static final String VERTRAG_VERSCHICKT = "VERTRAG_VERSCHICKT";
+	public static final String VERTRAG_VERSCHICKT_DATUM = "VERTRAG_VERSCHICKT_DATUM";
+	public static final String VERTRAG_ABGERECHNET = "VERTRAG_ABGERECHNET";
+	public static final String VERTRAG_ABGERECHNET_DATUM = "VERTRAG_ABGERECHNET_DATUM";
+	public static final String VERTRAG_BEZAHLT = "VERTRAG_BEZAHLT";
+	public static final String VERTRAG_BEZAHLT_DATUM = "VERTRAG_BEZAHLT_DATUM";
+	public static final String BEMERKUNGEN = "BEMERKUNGEN";
+	public static final String LITERATUR = "LITERATUR";
+	
+	
 	public String getInterneVergabenummer() {
 		return interneVergabenummer;
 	}
@@ -55,6 +96,12 @@ public class Probeneingang {
 	}
 	public void setWirkstoff(String wirkstoff) {
 		this.wirkstoff = wirkstoff;
+	}
+	public String getWirkstoffId() {
+		return wirkstoffId;
+	}
+	public void setWirkstoffId(String wirkstoffId) {
+		this.wirkstoffId = wirkstoffId;
 	}
 	public String getAuftraggeber() {
 		return auftraggeber;
@@ -263,5 +310,42 @@ public class Probeneingang {
 	}
 	public void saveToDatabasePlaceholderMethod() {
 		// TODO Auto-generated method stub
+	}
+	
+	public void setParameters(String parameterName, String parameter){
+		
+//		LOGGER.debug(parameterName + ": " + parameter);
+		
+		if(parameterName.equals(ANLAGENNUMMER))                     		{ setAnlagennummer(parameter); 			   return; }
+		if(parameterName.equals(AUFTRAGGEBER))                          	{ setAuftraggeber(parameter);              return; }
+		if(parameterName.equals(BEMERKUNGEN))                           	{ setBemerkungen(parameter);               return; }
+		if(parameterName.equals(BEMERKUNGEN_ZUR_MESSUNG))               	{ setBemerkungenZurMessung(parameter);     return; }
+		if(parameterName.equals(BESONDERHEITEN))                        	{ setBesonderheiten(parameter);            return; }
+		if(parameterName.equals(BEZEICHNUNG))                           	{ setBezeichnung(parameter);               return; }
+		if(parameterName.equals(INFOS))                                 	{ setInfos(parameter);                     return; }
+		if(parameterName.equals(INTERNE_VERGABENUMMER))                 	{ setInterneVergabenummer(parameter);      return; }
+		if(parameterName.equals(LITERATUR))                             	{ setLiteratur(parameter);                 return; }
+		if(parameterName.equals(MESSUNG_DSC))                           	{ setMessungDSC(parameter);                return; }
+		if(parameterName.equals(MESSUNG_IR))                            	{ setMessungIR(parameter);                 return; }
+		if(parameterName.equals(MESSUNG_PULVER))                        	{ setMessungPulver(parameter);             return; }
+		if(parameterName.equals(ORIGINATOR))                            	{ setOriginator(parameter);                return; }
+		if(parameterName.equals(PROBEN_NR))                             	{ setProbenNr(parameter);                  return; }
+		if(parameterName.equals(PROBENEINGANG))                         	{ setProbeneingangDatum(parameter);        return; }
+		if(parameterName.equals(PROBENMASSE))                           	{ setProbenmasse(parameter);               return; }
+		if(parameterName.equals(PROJEKTVERTRAGNUMMER))                  	{ setProjektvertragnummer(parameter);      return; }
+		if(parameterName.equals(STANDORT))                              	{ setStandort(parameter);                  return; }
+		if(parameterName.equals(SUMMENFORMEL))                          	{ setSummenformel(parameter);              return; }
+		if(parameterName.equals(VERTRAG_ABGERECHNET))                   	{ setVertragAbgerechnet(true);             return; }
+		if(parameterName.equals(VERTRAG_ABGERECHNET_DATUM))             	{ setVertragAbgerechnetDatum(parameter);   return; }
+		if(parameterName.equals(VERTRAG_BEZAHLT))                       	{ setVertragBezahlt(true);                 return; }
+		if(parameterName.equals(VERTRAG_BEZAHLT_DATUM))                 	{ setVertragBezahltDatum(parameter);       return; }
+		if(parameterName.equals(VERTRAG_UNTERZEICHNET))                 	{ setVertragUnterzeichnet(true);           return; }
+		if(parameterName.equals(VERTRAG_UNTERZEICHNET_DATUM))           	{ setVertragUnterzeichnetDatum(parameter); return; }
+		if(parameterName.equals(VERTRAG_VERSCHICKT))                    	{ setVertragVerschickt(true);              return; }
+		if(parameterName.equals(VERTRAG_VERSCHICKT_DATUM))              	{ setVertragVerschicktDatum(parameter);    return; }
+		if(parameterName.equals(VERTRAG_VORHANDEN))                     	{ setVertragVorhanden(true);               return; }
+		if(parameterName.equals(VERTRAG_VORHANDEN_DATUM))               	{ setVertragVorhandenDatum(parameter);     return; }
+		if(parameterName.equals(WIRKSTOFF))                             	{ setWirkstoff(parameter);                 return; }
+		if(parameterName.equals(WIRKSTOFF_ID))                              { setWirkstoffId(parameter);               return; }
 	}
 }

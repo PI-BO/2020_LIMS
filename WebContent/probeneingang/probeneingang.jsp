@@ -1,9 +1,10 @@
 <%@page import="model.database.tableModels.Model"%>
 <%@page import="model.database.tableModels.Partner"%>
 <%@page import="model.database.tableModels.ModelTable"%>
+<%@page import="model.Probeneingang"%>
 <%@page import="controller.testServlets.FileuploadTestServlet"%>
-<%@page import="controller.servlets.ProbeneingangServlet"%>
 <%@page import="controller.testServlets.PostGetTestServlet"%>
+<%@page import="controller.servlets.ProbeneingangServlet"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -13,6 +14,12 @@
 <title>Probeneingang</title>
 <!-- <link rel="stylesheet" href="projekt_erstellen.css"> -->
 <style>
+input:required {
+	border-style: solid;
+	border-color: red;
+	border-width: 2px;
+}
+
 #table_probeneingang {
 	border-spacing: 0;
 	background-color: white;
@@ -62,120 +69,205 @@
 	width: 25%;
 	margin: 5px;
 }
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	/*   color: #0000EE; */
+	/*   border-bottom: 1px solid #0000EE; */
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	/*   height: 1em; */
+	min-width: 20em;
+	width: auto;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	left: 110%;
+}
+
+.tooltip:hover {
+	cursor: help;
+}
+
+.tooltip a:hover {
+	cursor: help;
+}
+
+.tooltip .tooltiptext::after {
+	content: " ";
+	position: absolute;
+	top: 50%;
+	right: 100%; /* To the left of the tooltip */
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent black transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
 </style>
 </head>
 <body>
 	<form id="form_probeneingang">
 		<input type="hidden" id="probeneingang_url" value=<%=ProbeneingangServlet.ROUTE%>>
 		<table id="table_probeneingang">
-			<tr>
-				<th style="background-color: #77bbff; padding: 16px;">Probeneingang</th>
+			<tr style="background-color: #77bbff;">
+				<th class="tooltip" style="background-color: #77bbff; padding: 16px;">
+					Probeneingang <a href="javascript:void(0);">?</a>
+					<div class="tooltiptext">Die erst Probe ist die Hauptprobe von der spaeter Unterproben fuer Experimente genommen werden koennen?</div>
+				</th>
 			</tr>
 
 			<tr>
 				<th>Interne Vergabenummer</th>
 			</tr>
 			<tr>
-				<td><input type="number" name=<%=ProbeneingangServlet.INTERNE_VERGABENUMMER%>></td>
+				<td>
+					<input type="number" name=<%=Probeneingang.INTERNE_VERGABENUMMER%>>
+				</td>
 			</tr>
 
 			<tr>
-				<th>Wirkstoff</th>
+				<th class="tooltip">
+					Wirkstoff-Name <a href="javascript:void(0);">?</a>
+					<div class="tooltiptext">Wirkstoff ist Substanz?</div>
+				</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.WIRKSTOFF%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+				</td>
+			</tr>
+
+			<tr>
+				<th class="tooltip">
+					Wirkstoff-ID <a href="javascript:void(0);">?</a>
+					<div class="tooltiptext">Wirkstoff ist Substanz?</div>
+				</th>
+			</tr>
+			<tr>
+				<td>
+					<input required type="text" id="wirkstoff_id_input_field" name=<%=Probeneingang.WIRKSTOFF_ID%> placeholder="*Substanz ID">
+					<a id="suche_wirkstoff_id" href="#suche_proben_id">suchen</a>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Auftraggeber</th>
 			</tr>
 			<tr>
-				<td><select required name=<%=ProbeneingangServlet.AUFTRAGGEBER%>>
-						<option value="" selected disabled>bitte auswaehlen</option>
-
-						<%
-					 	ModelTable modelList = new ModelTable(new Partner());
-
-					 	for(Model model : modelList.getModelList()){
-					 		
-					 		%>
-						<option value=<%=model.getPrimaryKey()%>><%= ((Partner)model).getName()%></option>
-						<%
-					 	}
-					 	
-					 	%>
-
-				</select></td>
+				<td>
+					<input type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%> placeholder="">
+					<a id="suche_partner_name" href="#suche_partner_name">suchen</a>
+				</td>
 			</tr>
 
 			<tr>
-				<th>Proben-Nr</th>
+				<th class="tooltip">
+					Proben-Nr <a href="javascript:void(0);">?</a>
+					<div class="tooltiptext">Proben-Nr und Proben ID sind dasselbe?</div>
+				</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.PROBEN_NR%>></td>
+				<td>
+					<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_NR%> placeholder="* neue Proben ID">
+					<a id="suche_proben_id" href="#suche_proben_id">suchen</a>
+				</td>
 			</tr>
 
 			<tr>
-				<th>Projektvertragnummer</th>
+				<th class="tooltip">
+					Projektvertragnummer <a href="javascript:void(0);">?</a>
+					<div class="tooltiptext">sind Projektvertragnummer und Projekt ID dasselbe?</div>
+				</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.PROJEKTVERTRAGNUMMER%>></td>
+				<td>
+					<input type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKTVERTRAGNUMMER%> placeholder="*Projekt ID">
+					<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Anlagennummer</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.ANLAGENNUMMER%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.ANLAGENNUMMER%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Summenformel</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.SUMMENFORMEL%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.SUMMENFORMEL%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Bezeichung</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.BEZEICHNUNG%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.BEZEICHNUNG%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Originator</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.ORIGINATOR%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.ORIGINATOR%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Probeneingang</th>
 			</tr>
 			<tr>
-				<td><input type="date" name=<%=ProbeneingangServlet.PROBENEINGANG%>></td>
+				<td>
+					<input type="date" name=<%=Probeneingang.PROBENEINGANG%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Probenmasse</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.PROBENMASSE%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.PROBENMASSE%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Besonderheiten</th>
 			</tr>
 			<tr>
-				<td><input type="text" name=<%=ProbeneingangServlet.BESONDERHEITEN%>></td>
+				<td>
+					<input type="text" name=<%=Probeneingang.BESONDERHEITEN%>>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Infos</th>
 			</tr>
 			<tr>
-				<td><textarea rows="4" cols="50" name=<%=ProbeneingangServlet.INFOS%>></textarea></td>
+				<td>
+					<textarea rows="4" cols="50" name=<%=Probeneingang.INFOS%>></textarea>
+				</td>
 			</tr>
 
 			<tr>
@@ -188,10 +280,18 @@
 							<th>Messung IR</th>
 						</tr>
 						<tr style="background-color: white; widht: 100%">
-							<td><input style="min-width: auto" type="text" name=<%=ProbeneingangServlet.STANDORT%>></td>
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" value="DSC" name=<%=ProbeneingangServlet.MESSUNG_DSC%>></td>
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" value="Pulver" name=<%=ProbeneingangServlet.MESSUNG_PULVER%>></td>
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" value="IR" name=<%=ProbeneingangServlet.MESSUNG_IR%>></td>
+							<td>
+								<input style="min-width: auto" type="text" name=<%=Probeneingang.STANDORT%>>
+							</td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" value="DSC" name=<%=Probeneingang.MESSUNG_DSC%>>
+							</td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" value="Pulver" name=<%=Probeneingang.MESSUNG_PULVER%>>
+							</td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" value="IR" name=<%=Probeneingang.MESSUNG_IR%>>
+							</td>
 						</tr>
 					</table>
 				</td>
@@ -203,7 +303,9 @@
 				<th>Bemerkungen zur Messung</th>
 			</tr>
 			<tr>
-				<td><textarea rows="4" cols="50" name=<%=ProbeneingangServlet.BEMERKUNGEN_ZUR_MESSUNG%>></textarea></td>
+				<td>
+					<textarea rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
+				</td>
 			</tr>
 
 			<tr></tr>
@@ -218,10 +320,18 @@
 							<th>Vertrag unterzeichnet Datum</th>
 						</tr>
 						<tr style="background-color: white">
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" name=<%=ProbeneingangServlet.VERTRAG_VORHANDEN%>></td>
-							<td><input style="min-width: auto" type="date" name=<%=ProbeneingangServlet.VERTRAG_VORHANDEN_DATUM%>></td>
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" name=<%=ProbeneingangServlet.VERTRAG_UNTERZEICHNET%>></td>
-							<td><input style="min-width: auto" type="date" name=<%=ProbeneingangServlet.VERTRAG_UNTERZEICHNET_DATUM%>></td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" name=<%=Probeneingang.VERTRAG_VORHANDEN%>>
+							</td>
+							<td>
+								<input style="min-width: auto" type="date" name=<%=Probeneingang.VERTRAG_VORHANDEN_DATUM%>>
+							</td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" name=<%=Probeneingang.VERTRAG_UNTERZEICHNET%>>
+							</td>
+							<td>
+								<input style="min-width: auto" type="date" name=<%=Probeneingang.VERTRAG_UNTERZEICHNET_DATUM%>>
+							</td>
 						</tr>
 						<tr style="background-color: #dddddd">
 							<th class="table_in_table_header">Vertrag verschickt</th>
@@ -230,18 +340,30 @@
 							<th>Vertrag abgerechnet Datum</th>
 						</tr>
 						<tr style="background-color: white">
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" name=<%=ProbeneingangServlet.VERTRAG_VERSCHICKT%>></td>
-							<td><input style="min-width: auto" type="date" name=<%=ProbeneingangServlet.VERTRAG_VERSCHICKT_DATUM%>></td>
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" name=<%=ProbeneingangServlet.VERTRAG_ABGERECHNET%>></td>
-							<td><input style="min-width: auto" type="date" name=<%=ProbeneingangServlet.VERTRAG_ABGERECHNET_DATUM%>></td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" name=<%=Probeneingang.VERTRAG_VERSCHICKT%>>
+							</td>
+							<td>
+								<input style="min-width: auto" type="date" name=<%=Probeneingang.VERTRAG_VERSCHICKT_DATUM%>>
+							</td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" name=<%=Probeneingang.VERTRAG_ABGERECHNET%>>
+							</td>
+							<td>
+								<input style="min-width: auto" type="date" name=<%=Probeneingang.VERTRAG_ABGERECHNET_DATUM%>>
+							</td>
 						</tr>
 						<tr style="background-color: #dddddd">
 							<th class="table_in_table_header">Vertrag bezahlt</th>
 							<th>Vertrag bezahlt Datum</th>
 						</tr>
 						<tr style="background-color: white">
-							<td style="text-align: center"><input style="min-width: auto" type="checkbox" value="vertrag_bezahlt" name=<%=ProbeneingangServlet.VERTRAG_BEZAHLT%>></td>
-							<td><input style="min-width: auto" type="date" name=<%=ProbeneingangServlet.VERTRAG_BEZAHLT_DATUM%>></td>
+							<td style="text-align: center">
+								<input style="min-width: auto" type="checkbox" value="vertrag_bezahlt" name=<%=Probeneingang.VERTRAG_BEZAHLT%>>
+							</td>
+							<td>
+								<input style="min-width: auto" type="date" name=<%=Probeneingang.VERTRAG_BEZAHLT_DATUM%>>
+							</td>
 						</tr>
 					</table>
 				</td>
@@ -249,14 +371,18 @@
 				<th>Bemerkungen</th>
 			</tr>
 			<tr>
-				<td><textarea rows="4" cols="50" name=<%=ProbeneingangServlet.BEMERKUNGEN%>></textarea></td>
+				<td>
+					<textarea rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
+				</td>
 			</tr>
 
 			<tr>
 				<th>Literatur</th>
 			</tr>
 			<tr>
-				<td><textarea rows="4" cols="50" name=<%=ProbeneingangServlet.LITERATUR%>></textarea></td>
+				<td>
+					<textarea rows="4" cols="50" name=<%=Probeneingang.LITERATUR%>></textarea>
+				</td>
 			</tr>
 
 			<tr>
@@ -266,8 +392,11 @@
 				<td>
 					<table class="table_in_table" id="table_image_upload">
 						<tr>
-							<td>(mehrere Bilder auswaehlen: STRG + Linksklick) <br>
-								<button type="button" id="input_image_reset_button">Bilderauswahl leeren</button> <input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple>
+							<td>
+								(mehrere Bilder auswaehlen: STRG + Linksklick)
+								<br>
+								<button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
+								<input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*" onchange="loadFile(event)" multiple>
 							</td>
 							<td>
 								<div id="preview-container" style="max-width: 300px"></div>
@@ -278,7 +407,13 @@
 			</tr>
 
 			<tr>
-				<th style="text-align: center" id="button_probeneingang_speichern"><button type="submit">Speichern</button></th>
+				<th style="text-align: center" id="button_probeneingang_speichern">
+					<button type="submit">Speichern</button>
+				</th>
+			</tr>
+
+			<tr>
+				<th style="text-align: center" id="probeneingang_erstellen_save_message"></th>
 			</tr>
 
 		</table>
@@ -321,16 +456,32 @@
 			
 			let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#probeneingang_url").value;
 			
-			fetch(url, {
+			json = fetch(url, {
 				method: "post",
 				body: formData
 			})
 			.then( response => {
-				replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
+// 				replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
+
+				let json = response.json().then(data => {
+					
+					console.log({data});
+
+					if(data["status"] === "error") $("#probeneingang_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] +  "</h3>");
+	
+					if(data["status"] === "success"){
+						
+						let requiredFields = document.querySelectorAll("input:required");
+						for(let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+						$("#probeneingang_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] +  "</div>");
+						$("#button_probeneingang_speichern").empty();
+					}
+				})
 			})
 			.catch(error => {
 				replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
 			});
+			
 	
 		}, false);
 	}
@@ -345,6 +496,74 @@
 			}
 			element.append(text);
 	}
+	
+	// init Proben Suche
+	document.getElementById("suche_proben_id").addEventListener("click", () => {
+		
+		hideAllExcept("#main-content-global-search");
+		const template = [
+			{ "probe": "id" },
+			{ "substanz": "id" },
+			{ "partner": "id" },			
+			{ "partner": "name" }
+		];
+		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.addSearchCallback((callbackContent)=>{
+			hideAllExcept("#main-content-input-masks");
+			let inputField = document.getElementById("proben_id_input_field");
+			inputField.value = callbackContent;
+		})
+	}); 
+	
+	// init Projekt Suche
+	document.getElementById("suche_projekt_id").addEventListener("click", () => {
+		
+		hideAllExcept("#main-content-global-search");
+		const template = [
+			{ "projekte": "id" },
+			{ "projekte": "projektpartner" }
+		];
+		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.addSearchCallback((callbackContent)=>{
+			hideAllExcept("#main-content-input-masks");
+			let inputField = document.getElementById("projekt_id_input_field");
+			inputField.value = callbackContent;
+		})
+	}); 
+	
+	// init Partnername Suche
+	document.getElementById("suche_partner_name").addEventListener("click", () => {
+		
+		hideAllExcept("#main-content-global-search");
+		const template = [
+			{ "partner": "id" },
+			{ "partner": "name" },
+			{ "partner": "email" }
+		];
+		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.addSearchCallback((callbackContent)=>{
+			hideAllExcept("#main-content-input-masks");
+			let inputField = document.getElementById("partner_name_input_field");
+			inputField.value = callbackContent;
+		})
+	}); 
+	
+	// init Wirkstoff ID Suche
+	document.getElementById("suche_wirkstoff_id").addEventListener("click", () => {
+		
+		hideAllExcept("#main-content-global-search");
+		const template = [
+			{ "substanz": "id" },
+			{ "projekte": "id" },
+			{ "partner": "name" }
+		];
+		GlobaleSuche.initTemplateParameters(template);
+		GlobaleSuche.addSearchCallback((callbackContent)=>{
+			hideAllExcept("#main-content-input-masks");
+			let inputField = document.getElementById("wirkstoff_id_input_field");
+			inputField.value = callbackContent;
+		})
+	}); 
 	
 	</script>
 
