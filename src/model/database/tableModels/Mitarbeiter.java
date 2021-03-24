@@ -3,8 +3,6 @@ package model.database.tableModels;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.sun.xml.internal.ws.api.message.StreamingSOAP;
-
 import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import exceptions.PasswordIncorrectException;
@@ -26,6 +24,7 @@ public class Mitarbeiter extends Model implements Login {
 	public static final String COLUMN_NACHNAME = "nachname";
 	public static final String COLUMN_PASSWORD= "passwort";
 	public static final String COLUMN_ROLLE = "rolle";
+	public static final String COLUMN_FOREIGN_KEY = COLUMN_ROLLE;
 
 	public Mitarbeiter(){
 		super();

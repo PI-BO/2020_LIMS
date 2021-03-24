@@ -18,6 +18,7 @@ public class Analyse extends Model {
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
     public static final String COLUMN_EXPERIMENT_ID = "experiment";
+    public static final String COLUMN_FOREIGN_KEY = COLUMN_EXPERIMENT_ID;
     public static final String TABLE = "analysen";
 
     /**

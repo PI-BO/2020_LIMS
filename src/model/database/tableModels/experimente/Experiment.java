@@ -4,13 +4,16 @@ import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.relations.ExperimentAnalyse;
 import model.database.tableModels.Model;
 import model.database.tableModels.Probe;
+import model.database.tableModels.analyse.Analyse;
 import model.database.tableModels.Projekt;
 import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Experiment extends Model {
 	
@@ -19,6 +22,7 @@ public class Experiment extends Model {
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
     public static final String COLUMN_PROBEN_NR = "proben_nr";
+    public static final String COLUMN_FOREIGN_KEY = COLUMN_PROBEN_NR;
     public static final String TABLE = "experiment";
 
     /**
@@ -123,4 +127,9 @@ public class Experiment extends Model {
 		
 		return json;
 	}
+
+    public List<Analyse> getAnalysen() throws ModelNotFoundException, SQLException {
+        ExperimentAnalyse experimentAnalyse = new ExperimentAnalyse(this);
+        return experimentAnalyse.getAnalysen();
+    }
 }

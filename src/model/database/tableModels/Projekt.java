@@ -16,6 +16,7 @@ public class Projekt extends Model {
 	public static final String COLUMN_PRIMARY_KEY = "projekt_id";
 	public static final String COLUMN_VERTRAGSNUMMER = "vertragsnummer";
 	public static final String COLUMN_PROJEKTPARTNER = "projektpartner";
+	public static final String COLUMN_FOREIGN_KEY = COLUMN_PROJEKTPARTNER;
 	public static final String TABLE = "projekte";
 	private String vertragsnummer;
 	private String projektPartnerId;

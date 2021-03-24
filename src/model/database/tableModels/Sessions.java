@@ -22,6 +22,7 @@ public class Sessions extends Model{
     public static final String COLUMN_PRIMARY_KEY = "session_key";
     public static final String COLUMN_DATE = "creation_date";
     public static final String COLUMN_MITARBEITER_ID = "mitarbeiterID";
+    public static final String COLUMN_FOREIGN_KEY = COLUMN_MITARBEITER_ID;
     public static final String TABLE = "sessions";
 
     public Sessions(Cookie session, Mitarbeiter mitarbeiter) {

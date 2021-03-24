@@ -4,10 +4,13 @@ import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.relations.ProjekteSubstanz;
+import model.database.relations.SubstanzenProbe;
 import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Substanz extends Model {
 
@@ -17,6 +20,12 @@ public class Substanz extends Model {
     public static final String COLUMN_PROJEKT_ID = "projekt_id";
     public static final String COLUMN_WIRKSTOFF = "wirkstoff";
     public static final String TABLE = "substanz";
+/*
+    ======= Merge
+	public static final String COLUMN_FOREIGN_KEY = COLUMN_PROJEKT_ID;
+	public static final String TABLE = "substanz";
+>>>>>>> ab3ff8b321241cf020fda102529349caa158714b
+*/
 
     public Substanz(){
 		super();
@@ -112,5 +121,10 @@ public class Substanz extends Model {
 		json.addKeyValue(COLUMN_WIRKSTOFF, wirkstoff);
 		
 		return json;
+	}
+
+	public List<Probe> getProben() throws ModelNotFoundException, SQLException {
+		SubstanzenProbe substanzenProbe = new SubstanzenProbe(this);
+		return substanzenProbe.getProben();
 	}
 }

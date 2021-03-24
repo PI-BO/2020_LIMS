@@ -120,6 +120,7 @@ public abstract class ExperimenteModel extends Model {
     public static final String COLUMN_STATUS_ANALYTIK_KEY = "status_analytik";
     public static final String COLUMN_GESAMT_ERGEBNIS_KEY = "gesamt_ergebnis";
     public static final String COLUMN_EINSTUFUNG_ERGEBNIS_KEY = "einstufung_ergebnis";
+    public static final String COLUMN_FOREIGN_KEY = COLUMN_PRIMARY_KEY;
 
     protected ExperimenteModel() {
         super();

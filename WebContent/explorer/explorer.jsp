@@ -22,8 +22,12 @@
 
 	// init ExplorerState
 	let explorerState = new ExplorerState();	
-	explorerState.setProjekteListAddress("<%=Address.getProjekteListJSP()%>");
+	explorerState.setPartnerListAddress("<%=Address.getPartnerListJSP()%>");
+	explorerState.setPartnerAddress("<%=Address.getPartnerJSP()%>");
 	explorerState.setProjektAddress("<%=Address.getProjektJSP()%>");
+	explorerState.setSubstanzAddress("<%=Address.getSubstanzJSP()%>");
+	explorerState.setProbeAddress("<%=Address.getProbeJSP()%>");
+	explorerState.setExperimentAddress("<%=Address.getExperimentJSP()%>")
 	
 </script>
 </html>

@@ -1,19 +1,20 @@
-<%@page import="model.database.tableModels.Substanz"%>
 <%@page import="model.database.tableModels.Projekt"%>
+<%@page import="model.database.tableModels.Model"%>
+<%@page import="model.database.tableModels.ModelTable"%>
 <%@page import="config.Address"%>
+<%@ page import="model.database.tableModels.Partner" %>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
 <title>LIMS | Projekt</title>
+<link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
 </head>
 
 <%
-	String projekt_id = request.getParameter("projekt_id");
-	Projekt projekt = new Projekt(projekt_id);
+	ModelTable partnerList = new ModelTable(new Partner());
 %>
 
 <body>
@@ -25,13 +26,12 @@
 			<td class="explorer_sortfunction symbol_triangle_up" onclick="">etc</td>
 		</tr>
 
-
 		<%
-				for (Substanz substanz : projekt.getSubstanzen()) {
+				for (Model partner : partnerList.getModelList()) {
 			%>
 
 		<tr>
-			<td class="explorer_table_data symbol_folder_closed"><%=substanz.getPrimaryKey()%></td>
+			<td class="explorer_table_data symbol_folder_closed"><%=((Partner) partner).getName()%></td>
 			<td class="explorer_table_data"></td>
 			<td class="explorer_table_data"></td>
 		</tr>
@@ -39,12 +39,19 @@
 		<%
 				}
 			%>
+
 	</table>
 
 	<script>
-			
+
 			addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
-			explorerState.setStateProjekt("<%= projekt_id %>");
+			
+			$(".explorer_table_data").click(function(){
+				let data = {projekt_id : $(this).text()};
+				loadPage("<%=Address.getProjektJSP()%>", data);
+			});
+			
+			explorerState.setStatePartnerList("Partner");
 			
 		</script>
 

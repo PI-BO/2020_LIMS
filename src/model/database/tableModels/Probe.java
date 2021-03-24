@@ -4,10 +4,13 @@ import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import model.database.relations.ProbeExperiment;
+import model.database.tableModels.experimente.Experiment;
 import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Probe extends Model{
 
@@ -15,7 +18,8 @@ public class Probe extends Model{
 	
     public static final String COLUMN_PRIMARY_KEY = "probennummer";
     public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
-    public static final String TABLE = "probe";
+	public static final String COLUMN_FOREIGN_KEY = COLUMN_SUBSTANZ_ID;
+	public static final String TABLE = "probe";
 
     public Probe(){
 		super();
@@ -104,5 +108,10 @@ public class Probe extends Model{
 		json.addKeyValue(COLUMN_SUBSTANZ_ID, substanzID);
 		
 		return json;
+	}
+
+	public List<Experiment> getExperimente() throws ModelNotFoundException, SQLException {
+		ProbeExperiment probeExperiment = new ProbeExperiment(this);
+		return probeExperiment.getExperimente();
 	}
 }
