@@ -20,7 +20,7 @@
 
 <div class="experiment_erstellen_header">Planung erfolgt durch</div>
 <div class="experiment_erstellen_entry">
-    <select required name=<%=ExperimentServlet.PLANUNG_ERFOLGT_DURCH%>>
+    <select name=<%=ExperimentServlet.PLANUNG_ERFOLGT_DURCH%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -43,7 +43,7 @@
 
 <div class="experiment_erstellen_header">Experiment Serie</div>
 <div class="experiment_erstellen_entry">
-    <select required onchange="newExperimentSerie(this.value)" name=<%=ExperimentServlet.EXPERIMENT_SERIE%>>
+    <select onchange="newExperimentSerie(this.value)" name=<%=ExperimentServlet.EXPERIMENT_SERIE%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">neue Serie</option>
         <%
@@ -284,7 +284,7 @@
 
 <div class="experiment_erstellen_header">Status Experiment</div>
 <div class="experiment_erstellen_entry">
-    <select required name=<%=ExperimentServlet.STATUS_EXPERIMENT%>>
+    <select name=<%=ExperimentServlet.STATUS_EXPERIMENT%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="angesetzt">angesetzt</option>
         <option value="abgebrochen">abgebrochen</option>
