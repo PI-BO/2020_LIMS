@@ -77,7 +77,7 @@
     $(document).ready(function () {
     	console.log("init globale suche")
 //         var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
-        var url = "<%=Address.getMainPath()%>" + "<%=Address.getGlobaleSucheJsp()%>";
+        var url = "<%=Address.getGlobaleSucheJsp()%>";
         var posting = $.post(url, {});
         posting.done(function (data) {
             $("#main-content-global-search").empty().append(data);

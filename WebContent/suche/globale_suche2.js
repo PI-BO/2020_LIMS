@@ -21,7 +21,8 @@ var GlobaleSuche = (function () {
 	const displayKey = "display";
 	const sortFunctionSkipRows = 2;
 
-	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
+//	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
+	const servletURL = "https://hbolims.herokuapp.com/Suche";
 
 	let parameters = {}
 
