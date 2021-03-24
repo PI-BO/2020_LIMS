@@ -39,7 +39,7 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Proben</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard" id="probeneingang_erstellen">Probeneingang</span></li>
-<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="probe_erstellen">erstellen</span></li> -->
+							<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="probe_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
 						</ul></li>
@@ -76,7 +76,8 @@
     // 		init Globale Suche
     $(document).ready(function () {
     	console.log("init globale suche")
-        var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
+//         var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
+        var url = "<%=Address.getGlobaleSucheJsp()%>";
         var posting = $.post(url, {});
         posting.done(function (data) {
             $("#main-content-global-search").empty().append(data);

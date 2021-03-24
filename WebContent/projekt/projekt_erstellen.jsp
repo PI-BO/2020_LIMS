@@ -1,3 +1,4 @@
+<%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="model.database.tableModels.Model"%>
 <%@page import="model.database.tableModels.Partner"%>
@@ -58,6 +59,52 @@ input:required {
 .show {
 	display: block;
 }
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	/*   color: #0000EE; */
+	/*   border-bottom: 1px solid #0000EE; */
+}
+
+.tooltip .tooltiptext {
+	visibility: hidden;
+	/*   height: 1em; */
+	min-width: 20em;
+	width: auto;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 10px;
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	left: 110%;
+}
+
+.tooltip:hover {
+	cursor: help;
+}
+
+.tooltip a:hover {
+	cursor: help;
+}
+
+.tooltip .tooltiptext::after {
+	content: " ";
+	position: absolute;
+	top: 50%;
+	right: 100%; /* To the left of the tooltip */
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent black transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
 </style>
 </head>
 <body>
@@ -94,7 +141,10 @@ input:required {
 				</td>
 			</tr>
 			<tr>
-				<td>Vertragsnummer</td>
+				<td class="tooltip">
+				Vertragsnummer <a href="javascript:void(0);">?</a>
+				<div class="tooltiptext">Ist die Vertragsnummer gleich der Projekt ID?</div>
+				</td>
 				<td>
 					<input type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
 					<div id="myDropdown" class="dropdown-content">
@@ -145,7 +195,8 @@ input:required {
 			
 		}
 		
-		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
+// 		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
+		var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
 		var posting = $.post( url, submitData );
 		posting.done(function( data ) {
 			

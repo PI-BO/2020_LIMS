@@ -1,9 +1,13 @@
+<%@page import="controller.servlets.SucheServlet"%>
+<%@page import="config.Address" %>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
+
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Suche</title>
 	<style>
 		#global_search_main_container {
 			background-color: #f2f2f2;
@@ -103,7 +107,11 @@
 		<!-- END TEMPLATE -->
 	</div>
 	<!-- <script src="globale_suche2.js"></script> -->
-	<script src="http://localhost:8080/2020_LIMS/suche/globale_suche2.js"></script>
+<!-- 	<script src="http://localhost:8080/2020_LIMS/suche/globale_suche2.js"></script> -->
+	<script src="<%=Address.getGlobaleSucheJs()%>"></script>
+	<script type="text/javascript">
+		GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
+	</script>
 </body>
 
 </html>
