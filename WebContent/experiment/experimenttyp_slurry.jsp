@@ -13,7 +13,7 @@
 
 <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
 
-    <input required type="text" id="proben_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
+    <input required type="number" min="1" id="proben_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
     <a id="suche_proben_id" href="#suche_proben_id">suchen</a>
 </div>
 
