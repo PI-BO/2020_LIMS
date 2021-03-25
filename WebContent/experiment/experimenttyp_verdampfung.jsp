@@ -511,7 +511,7 @@ document.getElementById("suche_experiment_id2").addEventListener("click", () => 
 				block: 'center',
 	            inline: 'center'
 			});
-		}, 1000);
+		}, 600);
 	})
 });
 
@@ -532,7 +532,7 @@ document.getElementById("suche_api_id").addEventListener("click", () => {
 				block: 'center',
 	            inline: 'center'
 			});
-		}, 1000);
+		}, 600);
 	})
 });  
 

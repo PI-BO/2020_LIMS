@@ -83,8 +83,8 @@
 		<div id="global_search_main_header">Suche</div>
 		<table id="global_search_parameter_table">
 			<tr>
-				<th><input type="button" value="Filter hinzufuegen" id="global_search_add_parameter_button"></th>
 				<th><input type="button" value="suchen" id="global_search_button"></th>
+				<th><input type="button" value="Filter hinzufuegen" id="global_search_add_parameter_button"></th>
 				<th></th>
 				<th style="font-weight: normal; font-size:x-small">*leeres Feld = alles durchsuchen</th>
 				<th></th>
