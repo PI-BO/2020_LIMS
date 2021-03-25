@@ -1,7 +1,14 @@
 html, body {
 	height: 100vh;
 	margin: 0;
-	font-family: Lato,Roboto;
+	font-family: Lato, Roboto;
+}
+
+html {
+	background-image: url("https://solid-chem.de/wp-content/uploads/2016/12/sc_011.jpg");
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
 }
 
 /* GRID */
@@ -16,7 +23,6 @@ html, body {
 	grid-template-columns: 20% auto;
 	grid-gap: 10px;
 /* 	background-color: #2196F3; */
-	background-image: url("https://solid-chem.de/wp-content/uploads/2016/12/sc_011.jpg");	
 }
 
 #main-header {
