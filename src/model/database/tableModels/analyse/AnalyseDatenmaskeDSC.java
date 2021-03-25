@@ -3,6 +3,7 @@ package model.database.tableModels.analyse;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -170,5 +171,19 @@ public class AnalyseDatenmaskeDSC extends AnalyseModel {
     @Override
     public String getRelationSchema() {
         return null;
+    }
+
+    @Override
+    public JSON toJSON() {
+        JSON json = super.toJSON();
+        json.addKeyValue("table", TABLE);
+        json.addKeyValue(COLUMN_EINWAAGE, einwaage.toString());
+        json.addKeyValue(COLUMN_AUSWAAGE, auswaage.toString());
+        json.addKeyValue(COLUMN_RAMPE, rampe.toString());
+        json.addKeyValue(COLUMN_TEMPERATURPROGRAMM, temperaturprgramm);
+        json.addKeyValue(COLUMN_TIEGEL, tiegel);
+        json.addKeyValue(COLUMN_TIEGELPRAEPARATION, tiegelpaeparation);
+
+        return json;
     }
 }

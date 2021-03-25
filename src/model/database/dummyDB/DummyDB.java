@@ -245,7 +245,7 @@ public class DummyDB implements Database {
 		experimentDurchfuehrungstext.saveToDatabase();
 
 		 experimentDurchfuehrungstext = new ExperimentDurchfuehrungstext();
-		experimentDurchfuehrungstext.setPrimaryKey("Durchführungstext B");
+		experimentDurchfuehrungstext.setPrimaryKey("Durchfuehrungstext B");
 
 		// TODO Sonderzeichen machen Probleme
 
