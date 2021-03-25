@@ -7,9 +7,14 @@
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="model.database.tableModels.experimente.ExperimentDurchfuehrungstext" %>
 <%@ page import="model.database.tableModels.experimente.ExperimentSerie" %>
+
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">
-    <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>>
+
+<%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
+
+    <input required type="text" id="proben_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
+    <a id="suche_proben_id" href="#suche_proben_id">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -67,7 +72,8 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input required type="text" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <input required type="text" id="experiment_id_input_field" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <a id="suche_experiment_id" href="#suche_experiment_id">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Durchführung</div>
@@ -136,7 +142,8 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input required type="text" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <input required type="text" id="experiment_id_input_field2" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <a id="suche_experiment_id2" href="#suche_experiment_id2">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Planung Abgeschlossen</div>
@@ -184,24 +191,42 @@
 
 <div class="experiment_erstellen_header">API/Startmaterial</div>
 <div class="experiment_erstellen_entry">
-    <select required name=<%=ExperimentServlet.API_STARTMATERIAL%>>
-        <option value="" selected disabled>bitte auswaehlen</option>
-        <%
-            try {
-                ModelTable apiModelList = new ModelTable(new Probe());
-                for (Model model : apiModelList.getModelList()) {
-        %>
-        <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%>
-        </option>
-        <%
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ModelNotFoundException e) {
-                e.printStackTrace();
-            }
-        %>
-    </select>
+
+
+<%--     <select required name=<%=ExperimentServlet.API_STARTMATERIAL%>> --%>
+<!--         <option value="" selected disabled>bitte auswaehlen</option> -->
+<%--         <% --%>
+
+
+<%--
+//             try {
+//                 ModelTable apiModelList = new ModelTable(new Probe());
+//                 for (Model model : apiModelList.getModelList()) {
+--%>
+
+
+
+<%--         %> --%>
+<%--         <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%> --%>
+<!--         </option> -->
+<%--         <% --%>
+
+<%--
+//                 }
+//             } catch (SQLException throwables) {
+//                 throwables.printStackTrace();
+//             } catch (ModelNotFoundException e) {
+//                 e.printStackTrace();
+//             }
+--%>
+
+<%--         %> --%>
+<!--     </select> -->
+    
+    <input required type="text" id="api_id_input_field" name=<%=ExperimentServlet.API_STARTMATERIAL%>>
+    <a id="suche_api_id" href="#suche_api_id">suchen</a>
+    
+    
 </div>
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage</div>
@@ -417,3 +442,87 @@
 <div class="experiment_erstellen_entry">
     <input type="text" name=<%=ExperimentServlet.EINSTUFUNG_ERGEBNIS%>>
 </div>
+
+
+<script>
+
+//init Proben Suche
+document.getElementById("suche_proben_id").addEventListener("click", () => {
+	
+	hideAllExcept("#main-content-global-search");
+	const template = [
+		{ "probe": "id" },
+		{ "substanz": "id" },
+		{ "partner": "id" },			
+		{ "partner": "name" }
+	];
+	GlobaleSuche.initTemplateParameters(template);
+	GlobaleSuche.addSearchCallback((callbackContent)=>{
+		hideAllExcept("#main-content-input-masks");
+		let inputField = document.getElementById("proben_id_input_field");
+		inputField.value = callbackContent;
+	})
+}); 
+
+// init Experiment Suche 1
+document.getElementById("suche_experiment_id").addEventListener("click", () => {
+	experiment_id_input_field
+	hideAllExcept("#main-content-global-search");
+	const template = [
+		{ "experiment": "id" },
+		{ "experiment": "typ" }
+	];
+	GlobaleSuche.initTemplateParameters(template);
+	GlobaleSuche.addSearchCallback((callbackContent)=>{
+		hideAllExcept("#main-content-input-masks");
+		let inputField = document.getElementById("experiment_id_input_field");
+		inputField.value = callbackContent;
+	})
+}); 
+
+// init Experiment Suche 2
+document.getElementById("suche_experiment_id2").addEventListener("click", () => {
+	experiment_id_input_field
+	hideAllExcept("#main-content-global-search");
+	const template = [
+		{ "experiment": "id" },
+		{ "experiment": "typ" }
+	];
+	GlobaleSuche.initTemplateParameters(template);
+	GlobaleSuche.addSearchCallback((callbackContent)=>{
+		hideAllExcept("#main-content-input-masks");
+		let inputField = document.getElementById("experiment_id_input_field2");
+		inputField.value = callbackContent;
+		
+		setTimeout(function() {
+			document.getElementById('experiment_id_input_field2').scrollIntoView({
+				block: 'center',
+	            inline: 'center'
+			});
+		}, 1000);
+	})
+}); 
+
+// init API Suche 
+document.getElementById("suche_api_id").addEventListener("click", () => {
+	hideAllExcept("#main-content-global-search");
+	const template = [
+		{ "probe": "id" }
+	];
+	GlobaleSuche.initTemplateParameters(template);
+	GlobaleSuche.addSearchCallback((callbackContent)=>{
+		hideAllExcept("#main-content-input-masks");
+		let inputField = document.getElementById("api_id_input_field");
+		inputField.value = callbackContent;
+		
+		setTimeout(function() {
+			document.getElementById('api_id_input_field').scrollIntoView({
+				block: 'center',
+	            inline: 'center'
+			});
+		}, 1000);
+	})
+}); 
+
+
+</script>

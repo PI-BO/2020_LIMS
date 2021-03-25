@@ -159,7 +159,7 @@ input:required {
 			<tr>
 				<td>
 					<input required type="text" id="wirkstoff_id_input_field" name=<%=Probeneingang.WIRKSTOFF_ID%> placeholder="*Substanz ID">
-					<a id="suche_wirkstoff_id" href="#suche_proben_id">suchen</a>
+					<a id="suche_wirkstoff_id" href="#suche_wirkstoff_id">suchen</a>
 				</td>
 			</tr>
 
