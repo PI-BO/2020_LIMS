@@ -172,7 +172,6 @@
         core: {
             data: {
                 url: function (node) {
-                    console.log("call: " + node.id)
                     return 'jstree/nodes?id=' + node.id;
                 }
             }
@@ -228,12 +227,11 @@
     });
 
     function loadNode(data) {
-        let url;
         const nodeCategory = data.node.id.split(":")[0];
         const nodeId = data.node.id.split(":")[1]
+        const path = createPath(data);
 
-        let path = createPath(data);
-
+        let url;
         if (nodeCategory == "j1_1") {	//Projekte Node
             url = "<%=Address.getPartnerListJSP()%>";
         } else if (nodeCategory == "<%=Partner.TABLE%>") {
@@ -250,25 +248,32 @@
             return;
         }
 
-        var posting = $.post(url, {projekt_id: nodeId});
+        const posting = $.post(url, {projekt_id: nodeId});
 
         posting.done(function (returnedData) {
             $("#explorer-content").empty().append(returnedData);
         });
+        explorerState.setState(path)
     }
 
     function createPath(data) {
+        const path = [];
 
-        let i = 0;
-        let path = data.node.text;
+        // actual node
+        path.push({
+            table: data.node.id.split(":")[0],
+            id: data.node.id.split(":")[1],
+            text: data.node.text
+        })
 
-        for (i = 0; i < data.node.parents.length; i++) {
-
-            id = data.node.parents[i];
-            anchorElement = document.getElementById(id + "_anchor");
-            if (anchorElement == null) break;
-            path = anchorElement.textContent + " / " + path;
-
+        // parent nodes
+        for (let i = 0; i < data.node.parents.length - 1; i++) {
+            let parent_n = data.instance.get_node(data.node.parents[i]);
+            path.unshift({
+                table: parent_n.id.split(":")[0],
+                id: parent_n.id.split(":")[1],
+                text: parent_n.text
+            })
         }
 
         return path;
