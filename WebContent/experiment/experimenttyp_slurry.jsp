@@ -13,7 +13,7 @@
 
 <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
 
-    <input required type="text" id="proben_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
+    <input required type="number" min="1" id="proben_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
     <a id="suche_proben_id" href="#suche_proben_id">suchen</a>
 </div>
 
@@ -72,7 +72,7 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input required type="text" id="experiment_id_input_field" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <input type="text" id="experiment_id_input_field" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
     <a id="suche_experiment_id" href="#suche_experiment_id">suchen</a>
 </div>
 
@@ -142,7 +142,7 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input required type="text" id="experiment_id_input_field2" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
+    <input type="text" id="experiment_id_input_field2" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
     <a id="suche_experiment_id2" href="#suche_experiment_id2">suchen</a>
 </div>
 

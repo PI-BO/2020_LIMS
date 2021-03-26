@@ -3,6 +3,7 @@ package model.database.tableModels.analyse;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
+import utility.JSON;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -150,5 +151,18 @@ public class AnalyseDatenmaskeIR extends AnalyseModel {
     @Override
     public String getRelationSchema() {
         return null;
+    }
+
+    @Override
+    public JSON toJSON() {
+        JSON json = super.toJSON();
+        json.addKeyValue("table", TABLE);
+        json.addKeyValue(COLUMN_SCANS, scans.toString());
+        json.addKeyValue(COLUMN_AUFLOESUNG, aufloesung.toString());
+        json.addKeyValue(COLUMN_GEOMETRIE, geometrie);
+        json.addKeyValue(COLUMN_PRAEPARATION, praeparation);
+        json.addKeyValue(COLUMN_BACKGROUND, background);
+
+        return json;
     }
 }
