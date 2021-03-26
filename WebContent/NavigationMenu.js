@@ -23,45 +23,40 @@ var NavigationMenu = (function () {
     }
 
     public.initInputMasks = function initInputMasks(containerId, buttonIdAndUrl) {
-        $(document).ready(function () {
 
-            for (let key in buttonIdAndUrl) {
+        for (let key in buttonIdAndUrl) {
 
-                const id = key;
-                const url = buttonIdAndUrl[key];
+            const id = key;
+            const url = buttonIdAndUrl[key];
 
-                $(id).click(function () {
-                    var posting = $.post(url, {});
-                    posting.done(function (data) {
-                        $(containerId).empty().append(data);
-                        NavigationMenu.hideAllExcept(containerId);
-                    });
+            $(id).click(function () {
+                var posting = $.post(url, {});
+                posting.done(function (data) {
+                    $(containerId).empty().append(data);
+                    NavigationMenu.hideAllExcept(containerId);
                 });
-            }
-        })
+            });
+        }
     }
 
     public.initSubpages = function initSubpages(subpages) {
 
-        $(document).ready(function () {
+        for (let key in subpages) {
 
-            for (let key in subpages) {
+            const url = key;
+            const id = subpages[key];
 
-                const url = key;
-                const id = subpages[key];
-
-                $(document).ready(function () {
-                    var posting = $.post(url, {});
-                    posting.done(function (data) {
-                        $(id).empty().append(data);
-                    });
+            $(document).ready(function () {
+                var posting = $.post(url, {});
+                posting.done(function (data) {
+                    $(id).empty().append(data);
                 });
-            }
-        });
+            });
+        }
     }
 
-    public.initSuche = function initSuche(buttonId, containerId){
-    
+    public.initSuche = function initSuche(buttonId, containerId) {
+
         $(buttonId).click(function () {
             const template = [
                 { "partner": "id" },
@@ -75,7 +70,7 @@ var NavigationMenu = (function () {
         });
     }
 
-    public.initExplorer = function initExplorer(buttonId, containerId){
+    public.initExplorer = function initExplorer(buttonId, containerId) {
         $(buttonId).click(function () {
             NavigationMenu.hideAllExcept(containerId);
             $('#lazy').jstree(true).refresh();
@@ -99,7 +94,6 @@ var NavigationMenu = (function () {
             $(this).toggleClass("symbol_folder_open");
         });
     }
-
 
     return public;
 

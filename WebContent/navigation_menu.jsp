@@ -75,6 +75,8 @@
 
 <script>
 
+$(document).ready(function () {
+
 	NavigationMenu.initOpenNavigationNodeListener(".navigation_tree_node");
 	
 	NavigationMenu.initOpenCompleteNavigationMenuListener(".navigation_table_header", ".navigation_tree_branches");
@@ -102,4 +104,6 @@
 	
 	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
 
+}
+	
 </script>
