@@ -1,10 +1,10 @@
-var NavigationMenu = (function () {
+const NavigationMenu = (function () {
 
     const mainContentId = "main-content";
 
-    public = {};
+    pub = {};
 
-    public.hideAllExcept = function hideAllExcept(id) {
+    pub.hideAllExcept = function hideAllExcept(id) {
         let toggleList = [];
         const mainContentElement = document.getElementById(mainContentId);
 
@@ -22,7 +22,7 @@ var NavigationMenu = (function () {
         })
     }
 
-    public.initInputMasks = function initInputMasks(containerId, buttonIdAndUrl) {
+    pub.initInputMasks = function initInputMasks(containerId, buttonIdAndUrl) {
 
         for (let key in buttonIdAndUrl) {
 
@@ -39,7 +39,7 @@ var NavigationMenu = (function () {
         }
     }
 
-    public.initSubpages = function initSubpages(subpages) {
+    pub.initSubpages = function initSubpages(subpages) {
 
         for (let key in subpages) {
 
@@ -55,7 +55,7 @@ var NavigationMenu = (function () {
         }
     }
 
-    public.initSuche = function initSuche(buttonId, containerId) {
+    pub.initSuche = function initSuche(buttonId, containerId) {
 
         $(buttonId).click(function () {
             const template = [
@@ -70,14 +70,14 @@ var NavigationMenu = (function () {
         });
     }
 
-    public.initExplorer = function initExplorer(buttonId, containerId) {
+    pub.initExplorer = function initExplorer(buttonId, containerId) {
         $(buttonId).click(function () {
             NavigationMenu.hideAllExcept(containerId);
             $('#lazy').jstree(true).refresh();
         });
     }
 
-    public.initOpenCompleteNavigationMenuListener = function initOpenCompleteNavigationMenuListener(headerClass, branchesClass) {
+    pub.initOpenCompleteNavigationMenuListener = function initOpenCompleteNavigationMenuListener(headerClass, branchesClass) {
         $(headerClass).click(function () {
             if ($(branchesClass).is(":hidden")) {
                 $(branchesClass).show(400);
@@ -88,13 +88,13 @@ var NavigationMenu = (function () {
         });
     }
 
-    public.initOpenNavigationNodeListener = function initOpenNavigationNodeListener(treeNodeClass) {
+    pub.initOpenNavigationNodeListener = function initOpenNavigationNodeListener(treeNodeClass) {
         $(treeNodeClass).click(function () {
             $(this).next().toggle(400);
             $(this).toggleClass("symbol_folder_open");
         });
     }
 
-    return public;
+    return pub;
 
 })();
