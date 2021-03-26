@@ -101,7 +101,7 @@
 			<select class="global_search_select_parameter"></select> 
 			<select class="global_search_select_parameter_filter"></select>
 			<input class="global_search_parameter_input" type="text" />
-			<input type="button" value="-" class="global_search_delete_parameter_button" />
+			<input type="button" value="X" class="global_search_delete_parameter_button" />
 		</div>
 
 		<!-- END TEMPLATE -->

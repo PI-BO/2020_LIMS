@@ -71,151 +71,35 @@
 	</table>
 </div>
 
+<script src="NavigationMenu.js" ></script>
+
 <script>
 
-    // 		init Globale Suche
-    $(document).ready(function () {
-    	console.log("init globale suche")
-//         var url = "http://localhost:8080/2020_LIMS/suche/globale_suche2.html";
-        var url = "<%=Address.getGlobaleSucheJsp()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-global-search").empty().append(data);
-        });
-    });
+	NavigationMenu.initOpenNavigationNodeListener(".navigation_tree_node");
+	
+	NavigationMenu.initOpenCompleteNavigationMenuListener(".navigation_table_header", ".navigation_tree_branches");
+	
+	NavigationMenu.initSubpages(
+		{		
+			"<%=Address.getGlobaleSucheJsp()%>" : "#main-content-global-search",
+			"<%=Address.getExplorerJSP()%>" : "#main-content-explorer"
+		}
+	);
+	
+	NavigationMenu.initInputMasks("#main-content-input-masks",
+		{
+			"#projekt_partner_erstellen" : 	"<%=Address.getProjektPartnerErstellenJsp()%>",
+			"#projekt_erstellen" : 			"<%=Address.getProjektErstellenJsp()%>",
+			"#substanz_erstellen" : 		"<%=Address.getSubstanzErstellenJsp()%>",
+			"#experiment_erstellen" : 		"<%=Address.getExperimentErstellenJsp()%>",
+		    "#analyse_erstellen" : 			"<%=Address.getAnalyseErstellenJsp()%>",
+		    "#probeneingang_erstellen" : 	"<%=Address.getProbeneingangJSP()%>",
+		    "#eingangsanalytik_erstellen" : "<%=Address.getEingangsAnalytikJSP()%>"
+		}
+	);
+	
+	NavigationMenu.initSuche("#globale_suche_anzeigen2", "#main-content-global-search");
+	
+	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
 
-    function hideAllExcept(id) {
-        let toggleList = [];
-        const mainContentElement = document.getElementById("main-content");
-
-        for (let i = 0; i < mainContentElement.children.length; i++) {
-            toggleList.push(mainContentElement.children[i].id);
-        }
-
-        toggleList.forEach(element => {
-            if ("#" + element == id) {
-                $("#" + element).hide();
-                $("#" + element).show(500);
-            } else {
-                $("#" + element).hide();
-            }
-        })
-    }
-
-    // 		Navigation komplett oeffnen
-    $(".navigation_table_header").click(function () {
-        if ($(".navigation_tree_branches").is(":hidden")) {
-            $(".navigation_tree_branches").show(400);
-            $(".symbol_folder_closed").show(400);
-        } else {
-            $(".navigation_tree_branches").hide(400);
-        }
-    });
-
-    // 		init listener, zum oeffnen der einzelnen nodes
-    $(".navigation_tree_node").click(function () {
-        $(this).next().toggle(400);
-        $(this).toggleClass("symbol_folder_open");
-    });
-
-    // 		init explorer
-    $(document).ready(function () {
-        var url = "<%=Address.getExplorerJSP()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-explorer").empty().append(data);
-        });
-    });
-
-    $("#explorer_anzeigen").click(function () {
-        hideAllExcept("#main-content-explorer");
-        $('#lazy').jstree(true).refresh();
-    });
-
-    $("#projekt_partner_erstellen").click(function () {
-        var url = "<%=Address.getProjektPartnerErstellenJsp()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-input-masks").empty().append(data);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-    $("#projekt_erstellen").click(function () {
-        var url = "<%=Address.getProjektErstellenJsp()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-input-masks").empty().append(data);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-    $("#substanz_erstellen").click(function () {
-        var url = "<%=Address.getSubstanzErstellenJsp()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-input-masks").empty().append(data);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-    $("#experiment_erstellen").click(function () {
-        const url = "<%=Address.getExperimentErstellenJsp()%>";
-        const posting = $.post(url, {});
-        posting.done(function (data) {
-//             $("#main-content-explorer").hide();
-//             $("#main-content-input-masks").hide();
-            $("#main-content-input-masks").empty().append(data);
-//             $("#main-content-input-masks").show(500);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-    $("#analyse_erstellen").click(function () {
-        const url = "<%=Address.getAnalyseErstellenJsp()%>";
-        const posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-input-masks").empty().append(data);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-    $("#probeneingang_erstellen").click(function () {
-        var url = "<%=Address.getProbeneingangJSP()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-input-masks").empty().append(data);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-    $("#eingangsanalytik_erstellen").click(function () {
-        var url = "<%=Address.getEingangsAnalytikJSP()%>";
-        var posting = $.post(url, {});
-        posting.done(function (data) {
-            $("#main-content-input-masks").empty().append(data);
-            hideAllExcept("#main-content-input-masks");
-        });
-    });
-
-//     $("#logout").click(function () {
-<%--         var url = "<%=Address.getLoginHtml()%>"; --%>
-//         $(".navigation_tree_branches").hide(800);
-//         hideAllExcept("");
-//         setTimeout(function () {
-//             $(location).attr("href", url);
-//         }, 1000);
-//     });
-
-    $("#globale_suche_anzeigen2").click(function () {
-    	const template = [
-			{ "partner": "id" },
-			{ "partner": "name" },
-			{ "partner": "email" },
-			{ "projekte": "id" },
-			{ "projekte": "vertragsnummer" }
-		];
-    	GlobaleSuche.initTemplateParameters(template);
-        hideAllExcept("#main-content-global-search");
-    });
 </script>
