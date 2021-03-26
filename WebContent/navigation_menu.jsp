@@ -104,6 +104,6 @@ $(document).ready(function () {
 	
 	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
 
-}
+})
 	
 </script>

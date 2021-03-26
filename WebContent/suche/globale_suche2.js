@@ -1,6 +1,6 @@
-var GlobaleSuche = (function () {
+const GlobaleSuche = (function () {
 
-	public = {};
+	const pub = {};
 
 	const addButtonId = "global_search_add_parameter_button";
 	const searchButtonId = "global_search_button";
@@ -32,7 +32,7 @@ var GlobaleSuche = (function () {
 		contains: "beinhaltet"
 	};
 
-	public.init = function init(servletAddress) {
+	pub.init = function init(servletAddress) {
 		
 		servletURL = servletAddress;
 
@@ -85,11 +85,11 @@ var GlobaleSuche = (function () {
 
 	let globalCallbackInputMask = undefined;
 
-	public.addSearchCallback = function addSearchCallback(callback) {
+	pub.addSearchCallback = function addSearchCallback(callback) {
 		globalCallbackInputMask = callback;
 	}
 
-	public.initTemplateParameters = function initTemplateParameters(template) {
+	pub.initTemplateParameters = function initTemplateParameters(template) {
 
 		clearParameterRows();
 		clearResultTable();
@@ -782,6 +782,6 @@ var GlobaleSuche = (function () {
 		}
 	}
 
-	return public;
+	return pub;
 
 })();
