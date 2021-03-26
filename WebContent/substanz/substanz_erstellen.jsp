@@ -142,14 +142,14 @@ input:required {
 	// init Projekt Suche
 	document.getElementById("suche_projekt_id").addEventListener("click", () => {
 		
-		hideAllExcept("#main-content-global-search");
+		NavigationMenu.hideAllExcept("#main-content-global-search");
 		const template = [
 			{ "projekte": "id" },
 			{ "projekte": "projektpartner" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hideAllExcept("#main-content-input-masks");
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
 		})
@@ -158,14 +158,14 @@ input:required {
 	// init Substanz Suche
 	document.getElementById("suche_substanz_id").addEventListener("click", () => {
 		
-		hideAllExcept("#main-content-global-search");
+		NavigationMenu.hideAllExcept("#main-content-global-search");
 		const template = [
 			{ "substanz": "id" },
 			{ "substanz": "projekt_id" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hideAllExcept("#main-content-input-masks");
 			let inputField = document.getElementById("substanz_id_input_field");
 			inputField.value = callbackContent;
 		})

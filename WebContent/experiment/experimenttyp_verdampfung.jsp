@@ -461,7 +461,7 @@
 // init Proben Suche
 document.getElementById("suche_proben_id").addEventListener("click", () => {
 	
-	hideAllExcept("#main-content-global-search");
+	NavigationMenu.hideAllExcept("#main-content-global-search");
 	const template = [
 		{ "probe": "id" },
 		{ "substanz": "id" },
@@ -470,7 +470,7 @@ document.getElementById("suche_proben_id").addEventListener("click", () => {
 	];
 	GlobaleSuche.initTemplateParameters(template);
 	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		hideAllExcept("#main-content-input-masks");
+		NavigationMenu.hideAllExcept("#main-content-input-masks");
 		let inputField = document.getElementById("proben_id_input_field");
 		inputField.value = callbackContent;
 	})
@@ -479,14 +479,14 @@ document.getElementById("suche_proben_id").addEventListener("click", () => {
 // init Experiment Suche 1
 document.getElementById("suche_experiment_id").addEventListener("click", () => {
 	experiment_id_input_field
-	hideAllExcept("#main-content-global-search");
+	NavigationMenu.hideAllExcept("#main-content-global-search");
 	const template = [
 		{ "experiment": "id" },
 		{ "experiment": "typ" }
 	];
 	GlobaleSuche.initTemplateParameters(template);
 	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		hideAllExcept("#main-content-input-masks");
+		NavigationMenu.hideAllExcept("#main-content-input-masks");
 		let inputField = document.getElementById("experiment_id_input_field");
 		inputField.value = callbackContent;
 	})
@@ -495,14 +495,14 @@ document.getElementById("suche_experiment_id").addEventListener("click", () => {
 // init Experiment Suche 2
 document.getElementById("suche_experiment_id2").addEventListener("click", () => {
 	experiment_id_input_field
-	hideAllExcept("#main-content-global-search");
+	NavigationMenu.hideAllExcept("#main-content-global-search");
 	const template = [
 		{ "experiment": "id" },
 		{ "experiment": "typ" }
 	];
 	GlobaleSuche.initTemplateParameters(template);
 	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		hideAllExcept("#main-content-input-masks");
+		NavigationMenu.hideAllExcept("#main-content-input-masks");
 		let inputField = document.getElementById("experiment_id_input_field2");
 		inputField.value = callbackContent;
 		
@@ -517,13 +517,13 @@ document.getElementById("suche_experiment_id2").addEventListener("click", () => 
 
 //init API Suche 
 document.getElementById("suche_api_id").addEventListener("click", () => {
-	hideAllExcept("#main-content-global-search");
+	NavigationMenu.hideAllExcept("#main-content-global-search");
 	const template = [
 		{ "probe": "id" }
 	];
 	GlobaleSuche.initTemplateParameters(template);
 	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		hideAllExcept("#main-content-input-masks");
+		NavigationMenu.hideAllExcept("#main-content-input-masks");
 		let inputField = document.getElementById("api_id_input_field");
 		inputField.value = callbackContent;
 

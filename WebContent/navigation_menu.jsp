@@ -103,7 +103,6 @@ $(document).ready(function () {
 	NavigationMenu.initSuche("#globale_suche_anzeigen2", "#main-content-global-search");
 	
 	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
-
-}
+});
 	
 </script>
