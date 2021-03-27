@@ -215,14 +215,16 @@ input:required {
 	// init Partner Suche
 	document.getElementById("suche_projekt_partner_id").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "partner": "id" },
 			{ "partner": "name" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("partner_id_input_field");
 			inputField.value = callbackContent;
 		})
@@ -231,13 +233,15 @@ input:required {
 	// init Projekt Suche
 	document.getElementById("suche_projekt_id").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "projekte": "id" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
 		})

@@ -1,6 +1,6 @@
 const GlobaleSuche = (function () {
 
-	const pub = {};
+	const public = {};
 
 	const addButtonId = "global_search_add_parameter_button";
 	const searchButtonId = "global_search_button";
@@ -32,7 +32,7 @@ const GlobaleSuche = (function () {
 		contains: "beinhaltet"
 	};
 
-	pub.init = function init(servletAddress) {
+	public.init = function init(servletAddress) {
 		
 		servletURL = servletAddress;
 
@@ -85,11 +85,12 @@ const GlobaleSuche = (function () {
 
 	let globalCallbackInputMask = undefined;
 
-	pub.addSearchCallback = function addSearchCallback(callback) {
+	public.addSearchCallback = function addSearchCallback(callback, startSearch) {
 		globalCallbackInputMask = callback;
+		if(startSearch !== undefined && startSearch === "true") search();
 	}
 
-	pub.initTemplateParameters = function initTemplateParameters(template) {
+	public.initTemplateParameters = function initTemplateParameters(template) {
 
 		clearParameterRows();
 		clearResultTable();
@@ -782,6 +783,6 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	return pub;
+	return public;
 
 })();

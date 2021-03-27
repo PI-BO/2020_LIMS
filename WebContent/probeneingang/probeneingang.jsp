@@ -159,7 +159,7 @@ input:required {
 			<tr>
 				<td>
 					<input required type="text" id="wirkstoff_id_input_field" name=<%=Probeneingang.WIRKSTOFF_ID%> placeholder="*Substanz ID">
-					<a id="suche_wirkstoff_id" href="#suche_wirkstoff_id">suchen</a>
+					<a id="suche_wirkstoff_id" href="#">suchen</a>
 				</td>
 			</tr>
 
@@ -169,7 +169,7 @@ input:required {
 			<tr>
 				<td>
 					<input type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%> placeholder="">
-					<a id="suche_partner_name" href="#suche_partner_name">suchen</a>
+					<a id="suche_partner_name" href="#">suchen</a>
 				</td>
 			</tr>
 
@@ -182,7 +182,7 @@ input:required {
 			<tr>
 				<td>
 					<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_NR%> placeholder="* neue Proben ID">
-					<a id="suche_proben_id" href="#suche_proben_id">suchen</a>
+					<a id="suche_proben_id" href="#">suchen</a>
 				</td>
 			</tr>
 
@@ -195,7 +195,7 @@ input:required {
 			<tr>
 				<td>
 					<input type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKTVERTRAGNUMMER%> placeholder="*Projekt ID">
-					<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
+					<a id="suche_projekt_id" href="#">suchen</a>
 				</td>
 			</tr>
 
@@ -502,7 +502,8 @@ input:required {
 	// init Proben Suche
 	document.getElementById("suche_proben_id").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "probe": "id" },
 			{ "substanz": "id" },
@@ -511,7 +512,8 @@ input:required {
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("proben_id_input_field");
 			inputField.value = callbackContent;
 		})
@@ -520,14 +522,16 @@ input:required {
 	// init Projekt Suche
 	document.getElementById("suche_projekt_id").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "projekte": "id" },
 			{ "projekte": "projektpartner" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
 		})
@@ -536,7 +540,8 @@ input:required {
 	// init Partnername Suche
 	document.getElementById("suche_partner_name").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "partner": "id" },
 			{ "partner": "name" },
@@ -544,7 +549,8 @@ input:required {
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("partner_name_input_field");
 			inputField.value = callbackContent;
 		})
@@ -553,7 +559,8 @@ input:required {
 	// init Wirkstoff ID Suche
 	document.getElementById("suche_wirkstoff_id").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "substanz": "id" },
 			{ "projekte": "id" },
@@ -561,7 +568,8 @@ input:required {
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("wirkstoff_id_input_field");
 			inputField.value = callbackContent;
 		})

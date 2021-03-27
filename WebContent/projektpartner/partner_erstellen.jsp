@@ -79,16 +79,13 @@ input:required {
 					<input required id="partner_id_input_field" type=text placeholder="*" name=<%=Partner.COLUMN_PRIMARY_KEY%>>
 				</td>
 				<td>
-					<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
+					<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">auflisten</a>
 				</td>
 			</tr>
 			<tr>
 				<td>Name</td>
 				<td>
 					<input id="partner_name_input_field" type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
-				</td>
-				<td>
-					<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
 				</td>
 			</tr>
 			<tr>
@@ -144,32 +141,19 @@ input:required {
 	// init Partner Suche
 	document.getElementById("suche_projekt_partner_id").addEventListener("click", () => {
 		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
+// 		NavigationMenu.hideAllExcept("#main-content-global-search");
+		NavigationMenu.show("#main-content-global-search");
 		const template = [
 			{ "partner": "id" },
 			{ "partner": "name" }
 		];
 		GlobaleSuche.initTemplateParameters(template);
 		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
+// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
+			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("partner_id_input_field");
 			inputField.value = callbackContent;
-		})
-	}); 
-	
-	// init Projekt Suche
-	document.getElementById("suche_projekt_id").addEventListener("click", () => {
-		
-		NavigationMenu.hideAllExcept("#main-content-global-search");
-		const template = [
-			{ "partner": "name" }
-		];
-		GlobaleSuche.initTemplateParameters(template);
-		GlobaleSuche.addSearchCallback((callbackContent)=>{
-			NavigationMenu.hideAllExcept("#main-content-input-masks");
-			let inputField = document.getElementById("partner_name_input_field");
-			inputField.value = callbackContent;
-		})
+		}, "true")
 	}); 
 	
 	</script>

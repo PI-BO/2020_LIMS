@@ -1,10 +1,12 @@
 const NavigationMenu = (function () {
 
     const mainContentId = "main-content";
+    const subPagesShowDelay = 500;
+    const navigationNodeShowDelay = 400;
 
-    pub = {};
+    public = {};
 
-    pub.hideAllExcept = function hideAllExcept(id) {
+    public.hideAllExcept = function hideAllExcept(id) {
         let toggleList = [];
         const mainContentElement = document.getElementById(mainContentId);
 
@@ -15,14 +17,22 @@ const NavigationMenu = (function () {
         toggleList.forEach(element => {
             if ("#" + element == id) {
                 $("#" + element).hide();
-                $("#" + element).show(500);
+                $("#" + element).show(subPagesShowDelay);
             } else {
                 $("#" + element).hide();
             }
         })
     }
 
-    pub.initInputMasks = function initInputMasks(containerId, buttonIdAndUrl) {
+    public.show = function show(id){
+        $(id).show(subPagesShowDelay);
+    }
+
+    public.hide = function hide(id){
+        $(id).hide();
+    }
+
+    public.initInputMasks = function initInputMasks(containerId, buttonIdAndUrl) {
 
         for (let key in buttonIdAndUrl) {
 
@@ -33,13 +43,13 @@ const NavigationMenu = (function () {
                 var posting = $.post(url, {});
                 posting.done(function (data) {
                     $(containerId).empty().append(data);
-                    NavigationMenu.hideAllExcept(containerId);
+                    public.hideAllExcept(containerId);
                 });
             });
         }
     }
 
-    pub.initSubpages = function initSubpages(subpages) {
+    public.initSubpages = function initSubpages(subpages) {
 
         for (let key in subpages) {
 
@@ -55,7 +65,7 @@ const NavigationMenu = (function () {
         }
     }
 
-    pub.initSuche = function initSuche(buttonId, containerId) {
+    public.initSuche = function initSuche(buttonId, containerId) {
 
         $(buttonId).click(function () {
             const template = [
@@ -66,35 +76,35 @@ const NavigationMenu = (function () {
                 { "projekte": "vertragsnummer" }
             ];
             GlobaleSuche.initTemplateParameters(template);
-            NavigationMenu.hideAllExcept(containerId);
+            public.hideAllExcept(containerId);
         });
     }
 
-    pub.initExplorer = function initExplorer(buttonId, containerId) {
+    public.initExplorer = function initExplorer(buttonId, containerId) {
         $(buttonId).click(function () {
-            NavigationMenu.hideAllExcept(containerId);
+            public.hideAllExcept(containerId);
             $('#lazy').jstree(true).refresh();
         });
     }
 
-    pub.initOpenCompleteNavigationMenuListener = function initOpenCompleteNavigationMenuListener(headerClass, branchesClass) {
+    public.initOpenCompleteNavigationMenuListener = function initOpenCompleteNavigationMenuListener(headerClass, branchesClass) {
         $(headerClass).click(function () {
             if ($(branchesClass).is(":hidden")) {
-                $(branchesClass).show(400);
-                $(".symbol_folder_closed").show(400);
+                $(branchesClass).show(navigationNodeShowDelay);
+                $(".symbol_folder_closed").show(navigationNodeShowDelay);
             } else {
-                $(branchesClass).hide(400);
+                $(branchesClass).hide(navigationNodeShowDelay);
             }
         });
     }
 
-    pub.initOpenNavigationNodeListener = function initOpenNavigationNodeListener(treeNodeClass) {
+    public.initOpenNavigationNodeListener = function initOpenNavigationNodeListener(treeNodeClass) {
         $(treeNodeClass).click(function () {
-            $(this).next().toggle(400);
+            $(this).next().toggle(navigationNodeShowDelay);
             $(this).toggleClass("symbol_folder_open");
         });
     }
 
-    return pub;
+    return public;
 
 })();
