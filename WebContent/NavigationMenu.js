@@ -24,11 +24,15 @@ const NavigationMenu = (function () {
         })
     }
 
-    public.show = function show(id){
+    public.show = function show(id) {
         $(id).show(subPagesShowDelay);
     }
 
-    public.hide = function hide(id){
+    public.open = function open(buttonId) {
+        $(buttonId).click();
+    }
+
+    public.hide = function hide(id) {
         $(id).hide();
     }
 
@@ -75,8 +79,9 @@ const NavigationMenu = (function () {
                 { "projekte": "id" },
                 { "projekte": "vertragsnummer" }
             ];
-            GlobaleSuche.initTemplateParameters(template);
-            public.hideAllExcept(containerId);
+            // GlobaleSuche.initTemplateParameters(template);
+            // public.hideAllExcept(containerId);
+            public.show(containerId);
         });
     }
 
@@ -87,7 +92,7 @@ const NavigationMenu = (function () {
         });
     }
 
-    public.initOpenCompleteNavigationMenuListener = function initOpenCompleteNavigationMenuListener(headerClass, branchesClass) {
+    public.initOpenAllNavigationNodesListener = function initOpenAllNavigationNodesListener(headerClass, branchesClass) {
         $(headerClass).click(function () {
             if ($(branchesClass).is(":hidden")) {
                 $(branchesClass).show(navigationNodeShowDelay);
@@ -98,7 +103,7 @@ const NavigationMenu = (function () {
         });
     }
 
-    public.initOpenNavigationNodeListener = function initOpenNavigationNodeListener(treeNodeClass) {
+    public.initNavigationNodeListener = function initNavigationNodeListener(treeNodeClass) {
         $(treeNodeClass).click(function () {
             $(this).next().toggle(navigationNodeShowDelay);
             $(this).toggleClass("symbol_folder_open");

@@ -77,9 +77,9 @@
 
 $(document).ready(function () {
 
-	NavigationMenu.initOpenNavigationNodeListener(".navigation_tree_node");
+	NavigationMenu.initNavigationNodeListener(".navigation_tree_node");
 	
-	NavigationMenu.initOpenCompleteNavigationMenuListener(".navigation_table_header", ".navigation_tree_branches");
+	NavigationMenu.initOpenAllNavigationNodesListener(".navigation_table_header", ".navigation_tree_branches");
 	
 	NavigationMenu.initSubpages(
 		{		
@@ -103,6 +103,16 @@ $(document).ready(function () {
 	NavigationMenu.initSuche("#globale_suche_anzeigen2", "#main-content-global-search");
 	
 	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
+	
+	
+	NavigationMenu.open("#projekt_partner_erstellen");
+// 	NavigationMenu.open("#projekt_erstellen");
+// 	NavigationMenu.open("#substanz_erstellen");
+// 	NavigationMenu.open("#experiment_erstellen");
+// 	NavigationMenu.open("#analyse_erstellen");
+// 	NavigationMenu.open("#probeneingang_erstellen");
+// 	NavigationMenu.open("#eingangsanalytik_erstellen");
+	
 });
 	
 </script>

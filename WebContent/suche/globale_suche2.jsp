@@ -94,7 +94,10 @@
 	<div id="global_search_main_container">
 		<div id="global_search_main_header">
 			<div id="global_search_main_header_drag_area">Suche</div>
-			<div><input type="button" value="schliessen" id="close_search_button"></div>
+			<div>
+				<input type="button" value="_" id="minimize_search_button">
+				<input type="button" value="x" id="close_search_button">
+			</div>
 		</div>
 		<table id="global_search_parameter_table">
 			<tr>
@@ -116,7 +119,7 @@
 			<select class="global_search_select_parameter"></select>
 			<select class="global_search_select_parameter_filter"></select>
 			<input class="global_search_parameter_input" type="text" />
-			<input type="button" value="X" class="global_search_delete_parameter_button" />
+			<input type="button" value="x" class="global_search_delete_parameter_button" />
 		</div>
 
 		<!-- END TEMPLATE -->
@@ -128,28 +131,29 @@
 		GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
 
 
-		let closeButton = document.getElementById("close_search_button");
-		closeButton.addEventListener("click", () => {
-			NavigationMenu.hide("#main-content-global-search");
-		})
+		// let closeButton = document.getElementById("close_search_button");
+		// closeButton.addEventListener("click", () => {
+		// 	NavigationMenu.hide("#main-content-global-search");
+		// })
 
 
 
 
-		dragElement(document.getElementById("global_search_main_container"));
+		// dragElement(document.getElementById("global_search_main_container"));
 
 		function dragElement(elmnt) {
+
 			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-			if (document.getElementById("global_search_main_header_drag_area")) {
-				/* if present, the header is where you move the DIV from:*/
-				document.getElementById("global_search_main_header").onmousedown = dragMouseDown;
-			} else {
-				/* otherwise, move the DIV from anywhere inside the DIV:*/
-				elmnt.onmousedown = dragMouseDown;
-			}
+
+			document.getElementById("global_search_main_header").onmousedown = dragMouseDown;
+
 
 			function dragMouseDown(e) {
 				e = e || window.event;
+				console.log({ e })
+
+				if (e.target === document.getElementById("close_search_button")) return;
+
 				// e.preventDefault();
 				// get the mouse cursor position at startup:
 				pos3 = e.clientX;

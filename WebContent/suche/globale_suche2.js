@@ -4,6 +4,8 @@ const GlobaleSuche = (function () {
 
 	const addButtonId = "global_search_add_parameter_button";
 	const searchButtonId = "global_search_button";
+	const closeSearchButtonId = "close_search_button";
+	const minimizeSearchButtonId = "minimize_search_button";
 	const parameterTableId = "global_search_parameter_table";
 	const resultTableId = "global_search_result_table";
 	const rowTemplateId = "global_search_parameter_row_template";
@@ -16,13 +18,16 @@ const GlobaleSuche = (function () {
 	const secondHeaderClass = "global_search_result_table_second_header";
 	const resultRowClass = "global_search_result_table_result_row";
 	const parameterRowClass = "global_search_parameter_row"
+	const globalSearchMainContentContainerId = "main-content-global-search";
+	const globalSearchMainContainerId = "global_search_main_container";
+	const globalSearchMainHeaderId = "global_search_main_header";
 
 	const categoryKey = "table";
 	const displayKey = "display";
 	const sortFunctionSkipRows = 2;
 
-//	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
-//	const servletURL = "https://hbolims.herokuapp.com/Suche";
+	//	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
+	//	const servletURL = "https://hbolims.herokuapp.com/Suche";
 	let servletURL = "";
 
 	let parameters = {}
@@ -33,7 +38,7 @@ const GlobaleSuche = (function () {
 	};
 
 	public.init = function init(servletAddress) {
-		
+
 		servletURL = servletAddress;
 
 		fetchDatabase((tupelArray) => {
@@ -42,6 +47,9 @@ const GlobaleSuche = (function () {
 			initSearchButton();
 			fetchParameters(tupelArray);
 			addParameterRow();
+			initCloseButton();
+			initMinimizeButton();
+			initMouseDrag();
 
 			const template = [
 				{ "partner": "id" },
@@ -55,6 +63,83 @@ const GlobaleSuche = (function () {
 			// public.initTemplateParameters(template);
 		})
 	}
+
+	function initCloseButton(){
+		let closeButton = document.getElementById(closeSearchButtonId);
+		closeButton.addEventListener("click", () => {
+			NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+			public.resetPosition();
+			clearParameterRows();
+			clearResultTable();
+			addParameterRow();
+		})
+	}
+	
+	function initMinimizeButton(){
+		let minimizeButton = document.getElementById(minimizeSearchButtonId);
+		minimizeButton.addEventListener("click", () => {
+			NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+		})
+	}
+
+	function initMouseDrag() {
+		
+		var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+		const parentContainer = document.getElementById(globalSearchMainContainerId);
+		document.getElementById(globalSearchMainHeaderId).onmousedown = dragMouseDown;
+		
+		function dragMouseDown(e) {
+			
+			e = e || window.event;
+			
+			if (e.target === document.getElementById(closeSearchButtonId)) return;
+			
+			e.preventDefault();
+			// get the mouse cursor position at startup:
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+			
+			document.onmouseup = closeDragElement;
+			// call a function whenever the cursor moves:
+			document.onmousemove = elementDrag;
+		}
+
+		function elementDrag(e) {
+			e = e || window.event;
+			e.preventDefault();
+			// calculate the new cursor position:
+			pos1 = pos3 - e.clientX;
+			pos2 = pos4 - e.clientY;
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+
+			// set the element's new position:
+			parentContainer.style.top = (parentContainer.offsetTop - pos2) + "px";
+			parentContainer.style.left = (parentContainer.offsetLeft - pos1) + "px";
+
+			parentContainer.style.border = "solid";
+			parentContainer.style.borderColor = "rgb(53, 149, 245)";
+
+
+			// limit to left and top screenborders
+			if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
+			if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
+		}
+
+		function closeDragElement() {
+			/* stop moving when mouse button is released:*/
+			document.onmouseup = null;
+			document.onmousemove = null;
+		}
+	}
+	
+	public.resetPosition = function resetPosition()	{
+		const parentContainer = document.getElementById(globalSearchMainContainerId);
+		parentContainer.style.removeProperty('top');
+		parentContainer.style.removeProperty('left');
+		parentContainer.style.removeProperty('border');
+	}
+
 
 	function fetchParameters(tupelArray) {
 
@@ -87,7 +172,7 @@ const GlobaleSuche = (function () {
 
 	public.addSearchCallback = function addSearchCallback(callback, startSearch) {
 		globalCallbackInputMask = callback;
-		if(startSearch !== undefined && startSearch === "true") search();
+		if (startSearch !== undefined && startSearch === "true") search();
 	}
 
 	public.initTemplateParameters = function initTemplateParameters(template) {
@@ -441,10 +526,10 @@ const GlobaleSuche = (function () {
 
 			let row = rows[i];
 
-			for(let j = i - 1; j > sortFunctionSkipRows - 1; j--){
+			for (let j = i - 1; j > sortFunctionSkipRows - 1; j--) {
 
 				let nextRow = rows[j];
-	
+
 				if (row.innerText === nextRow.innerText) {
 					table.deleteRow(i);
 					break;
