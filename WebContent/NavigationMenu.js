@@ -15,11 +15,11 @@ const NavigationMenu = (function () {
         }
 
         toggleList.forEach(element => {
-            if ("#" + element == id) {
+            if ("#" + element === id) {
                 $("#" + element).hide();
                 $("#" + element).show(subPagesShowDelay);
             } else {
-                $("#" + element).hide();
+                 $("#" + element).hide();
             }
         })
     }

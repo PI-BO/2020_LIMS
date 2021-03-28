@@ -154,7 +154,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Projekt ID", "true")
 	}); 
 	
 	// init Substanz Suche
@@ -172,7 +172,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("substanz_id_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Substanz ID", "true")
 	}); 
 	
 	</script>

@@ -516,7 +516,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("proben_id_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Proben ID", "true")
 	}); 
 	
 	// init Projekt Suche
@@ -534,7 +534,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
-		})
+		},"Projekt ID" , "true")
 	}); 
 	
 	// init Partnername Suche
@@ -553,7 +553,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("partner_name_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Partner Name", "true")
 	}); 
 	
 	// init Wirkstoff ID Suche
@@ -572,7 +572,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("wirkstoff_id_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Wirkstoff ID", "true")
 	}); 
 	
 	</script>

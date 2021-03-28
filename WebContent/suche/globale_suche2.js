@@ -2,6 +2,7 @@ const GlobaleSuche = (function () {
 
 	const public = {};
 
+	// IDs
 	const addButtonId = "global_search_add_parameter_button";
 	const searchButtonId = "global_search_button";
 	const closeSearchButtonId = "close_search_button";
@@ -9,6 +10,12 @@ const GlobaleSuche = (function () {
 	const parameterTableId = "global_search_parameter_table";
 	const resultTableId = "global_search_result_table";
 	const rowTemplateId = "global_search_parameter_row_template";
+	const globalSearchMainContentContainerId = "main-content-global-search";
+	const globalSearchMainContainerId = "global_search_main_container";
+	const globalSearchMainHeaderId = "global_search_main_header";
+	const globalSearchMainHeaderTextId = "global_search_main_header_text";
+	
+	// Classes
 	const categorySelectClass = "global_search_select_main_category";
 	const deleteButtonClass = "global_search_delete_parameter_button";
 	const searchParameterClass = "global_search_select_parameter";
@@ -18,24 +25,36 @@ const GlobaleSuche = (function () {
 	const secondHeaderClass = "global_search_result_table_second_header";
 	const resultRowClass = "global_search_result_table_result_row";
 	const parameterRowClass = "global_search_parameter_row"
-	const globalSearchMainContentContainerId = "main-content-global-search";
-	const globalSearchMainContainerId = "global_search_main_container";
-	const globalSearchMainHeaderId = "global_search_main_header";
 
+	// Close Button
+	const closeButtonInputModeValue = "beenden";
+	const closeButtonDefaultValue = "x";
+	
+	// Minimize Button
+	const minimizeButtonInputModeColor = "red";
+	const minimizeButtonInputModeValue = "Formular-Modus";
+	const minimizeButtonDefaultValue = "_";
+
+	// Table Header
+	const mainHeaderdefaultText = "Suche";
+
+	// Table Parameters
 	const categoryKey = "table";
 	const displayKey = "display";
 	const sortFunctionSkipRows = 2;
-
-	//	const servletURL = "http://localhost:8080/2020_LIMS/Suche";
-	//	const servletURL = "https://hbolims.herokuapp.com/Suche";
-	let servletURL = "";
-
+	
 	let parameters = {}
 
 	const filterTypes = {
 		matches: "entspricht",
 		contains: "beinhaltet"
 	};
+
+	// InputMask-Callback
+	let searchCallbackForInputMasks = undefined;
+
+	// URL
+	let servletURL = "";
 
 	public.init = function init(servletAddress) {
 
@@ -67,11 +86,12 @@ const GlobaleSuche = (function () {
 	function initCloseButton(){
 		let closeButton = document.getElementById(closeSearchButtonId);
 		closeButton.addEventListener("click", () => {
-			NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-			public.resetPosition();
-			clearParameterRows();
-			clearResultTable();
-			addParameterRow();
+			// NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+			// public.resetPosition();
+			// clearParameterRows();
+			// clearResultTable();
+			// addParameterRow();		
+			public.disableCallbackMode();
 		})
 	}
 	
@@ -168,15 +188,72 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	let globalCallbackInputMask = undefined;
-
-	public.addSearchCallback = function addSearchCallback(callback, startSearch) {
-		globalCallbackInputMask = callback;
+	public.addSearchCallback = function addSearchCallback(callback, searchTargetString , startSearch) {
+		searchCallbackForInputMasks = callback;
+		enableCallbackMode(searchTargetString);
 		if (startSearch !== undefined && startSearch === "true") search();
 	}
+	
+	function enableCallbackMode(searchTargetString){
+		setMinimizeButtonInputMode();
+		setCloseButtonInputMode();
+		setMainHeaderTextInputMode(searchTargetString);
+	}
+	
+	public.disableCallbackMode = function disableCallbackMode(){
+		searchCallbackForInputMasks === undefined;
+		resetMinimizeButtonInputMode();
+		resetCloseButtonInputMode();
+		resetMainHeaderText();
+	}
+	
+	function setMinimizeButtonInputMode(){
+		
+		let minimizeButton = document.getElementById(minimizeSearchButtonId);
+		minimizeButton.style.color = minimizeButtonInputModeColor;
+		minimizeButton.value = minimizeButtonInputModeValue;
+		minimizeButton.disabled = true;
+	}
+	
+	function resetMinimizeButtonInputMode(){
+		
+		let minimizeButton = document.getElementById(minimizeSearchButtonId);
+		minimizeButton.style.removeProperty('color');
+		minimizeButton.value = minimizeButtonDefaultValue;
+		minimizeButton.disabled = false;
+	}
+	
+	function setCloseButtonInputMode(){
+		
+		let minimizeButton = document.getElementById(closeSearchButtonId);
+		minimizeButton.value = closeButtonInputModeValue;
+	}
+	
+	function resetCloseButtonInputMode(){
+		
+		let minimizeButton = document.getElementById(closeSearchButtonId);
+		minimizeButton.value = closeButtonDefaultValue;
+	}
+	
+	function setMainHeaderTextInputMode(searchTargetString){
+		let mainHeaderText = document.getElementById(globalSearchMainHeaderTextId);
+		if(searchTargetString === undefined) searchTargetString = "";
+		mainHeaderText.innerText = mainHeaderdefaultText + " " + searchTargetString;
+		mainHeaderText.style.backgroundColor = "red";
+	}
+	
+	function resetMainHeaderText() {
+		let mainHeaderText = document.getElementById(globalSearchMainHeaderTextId);
+		mainHeaderText.innerText = mainHeaderdefaultText;
+		mainHeaderText.style.removeProperty("background-color");
+	}
 
+	public.hasCallbackMethod = function hasCallbackMethod (){
+		return (searchCallbackForInputMasks !== undefined)
+	}
+	
 	public.initTemplateParameters = function initTemplateParameters(template) {
-
+		
 		clearParameterRows();
 		clearResultTable();
 
@@ -590,15 +667,18 @@ const GlobaleSuche = (function () {
 
 					let cellContent = tupelElement[key];
 
+					if(onlyThisKey !== undefined && onlyThisKey !== key) continue;
+
 					if (onlyThisKey === undefined) {
 						let cell = addToNewTableCell(cellContent, row);
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
 						addCallbackFunction(cell, cellContent);
 					}
-
+					
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
+						addCallbackFunction(cell, cellContent);
 						break;
 					}
 				}
@@ -612,14 +692,18 @@ const GlobaleSuche = (function () {
 
 			function addCallbackFunction(cell, cellContent) {
 				cell.addEventListener("click", () => {
-					if (globalCallbackInputMask === undefined) return;
-					globalCallbackInputMask(cellContent);
-					globalCallbackInputMask = undefined;
+					if (searchCallbackForInputMasks === undefined) return;
+					searchCallbackForInputMasks(cellContent);
+					searchCallbackForInputMasks = undefined;
+					public.disableCallbackMode();
 				})
 			}
-
+			
 			function addShowDetailsListener(cell, tupelElement) {
 				cell.addEventListener("click", () => {
+					console.log(GlobaleSuche.hasCallbackMethod())
+					if(GlobaleSuche.hasCallbackMethod()) return;
+					if (searchCallbackForInputMasks !== undefined) return;
 					clearResultTable();
 					let tupelElementArray = [];
 					let tableName = tupelElement[categoryKey];
@@ -871,3 +955,5 @@ const GlobaleSuche = (function () {
 	return public;
 
 })();
+
+

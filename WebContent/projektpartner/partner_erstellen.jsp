@@ -79,7 +79,7 @@ input:required {
 					<input required id="partner_id_input_field" type=text placeholder="*" name=<%=Partner.COLUMN_PRIMARY_KEY%>>
 				</td>
 				<td>
-					<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">auflisten</a>
+					<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
 				</td>
 			</tr>
 			<tr>
@@ -153,7 +153,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("partner_id_input_field");
 			inputField.value = callbackContent;
-		}, "true")
+		},"Partner ID" , "true")
 	}); 
 	
 	</script>

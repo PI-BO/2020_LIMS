@@ -77,6 +77,7 @@
 
 $(document).ready(function () {
 
+	
 	NavigationMenu.initNavigationNodeListener(".navigation_tree_node");
 	
 	NavigationMenu.initOpenAllNavigationNodesListener(".navigation_table_header", ".navigation_tree_branches");
@@ -105,8 +106,8 @@ $(document).ready(function () {
 	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
 	
 	
-	NavigationMenu.open("#projekt_partner_erstellen");
-// 	NavigationMenu.open("#projekt_erstellen");
+// 	NavigationMenu.open("#projekt_partner_erstellen");
+	NavigationMenu.open("#projekt_erstellen");
 // 	NavigationMenu.open("#substanz_erstellen");
 // 	NavigationMenu.open("#experiment_erstellen");
 // 	NavigationMenu.open("#analyse_erstellen");

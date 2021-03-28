@@ -93,7 +93,7 @@
 
 	<div id="global_search_main_container">
 		<div id="global_search_main_header">
-			<div id="global_search_main_header_drag_area">Suche</div>
+			<div id="global_search_main_header_text">Suche</div>
 			<div>
 				<input type="button" value="_" id="minimize_search_button">
 				<input type="button" value="x" id="close_search_button">
@@ -128,67 +128,8 @@
 	<!-- 	<script src="http://localhost:8080/2020_LIMS/suche/globale_suche2.js"></script> -->
 	<script src="<%=Address.getGlobaleSucheJs()%>"></script>
 	<script type="text/javascript">
+	
 		GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
-
-
-		// let closeButton = document.getElementById("close_search_button");
-		// closeButton.addEventListener("click", () => {
-		// 	NavigationMenu.hide("#main-content-global-search");
-		// })
-
-
-
-
-		// dragElement(document.getElementById("global_search_main_container"));
-
-		function dragElement(elmnt) {
-
-			var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-			document.getElementById("global_search_main_header").onmousedown = dragMouseDown;
-
-
-			function dragMouseDown(e) {
-				e = e || window.event;
-				console.log({ e })
-
-				if (e.target === document.getElementById("close_search_button")) return;
-
-				// e.preventDefault();
-				// get the mouse cursor position at startup:
-				pos3 = e.clientX;
-				pos4 = e.clientY;
-				document.onmouseup = closeDragElement;
-				// call a function whenever the cursor moves:
-				document.onmousemove = elementDrag;
-			}
-
-			function elementDrag(e) {
-				e = e || window.event;
-				e.preventDefault();
-				// calculate the new cursor position:
-				pos1 = pos3 - e.clientX;
-				pos2 = pos4 - e.clientY;
-				pos3 = e.clientX;
-				pos4 = e.clientY;
-
-				// set the element's new position:
-				elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-				elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-
-				// limit to left and top screenborders
-				if (elmnt.offsetTop < 0) elmnt.style.top = 0 + "px";
-				if (elmnt.offsetLeft < 0) elmnt.style.left = 0 + "px";
-			}
-
-			function closeDragElement() {
-				/* stop moving when mouse button is released:*/
-				document.onmouseup = null;
-				document.onmousemove = null;
-			}
-		}
-
-
 
 	</script>
 </body>

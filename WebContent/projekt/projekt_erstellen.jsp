@@ -227,7 +227,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("partner_id_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Projektpartner ID", "true")
 	}); 
 	
 	// init Projekt Suche
@@ -244,7 +244,7 @@ input:required {
 			NavigationMenu.hide("#main-content-global-search");
 			let inputField = document.getElementById("projekt_id_input_field");
 			inputField.value = callbackContent;
-		})
+		}, "Projekt ID", "true")
 	}); 
 	
 	</script>
