@@ -125,7 +125,7 @@ input:required {
 				</td>
 				<td>
 					<div id="myDropdown" class="dropdown-content-projektpartner">
-						<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
+						<a id="suche_projekt_partner_id" href="javascript:void(0);">suchen</a>
 					</div>
 				</td>
 			</tr>
@@ -136,7 +136,7 @@ input:required {
 				</td>
 				<td>
 					<div id="myDropdown" class="dropdown-content-projektpartner">
-						<a id="suche_projekt_id" href="#suche_projekt_id">suchen</a>
+						<a id="suche_projekt_id" href="javascript:void(0);">suchen</a>
 					</div>
 				</td>
 			</tr>
@@ -148,7 +148,7 @@ input:required {
 				<td>
 					<input type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
 					<div id="myDropdown" class="dropdown-content">
-						<a id="drop_down_suche" href="#">suchen</a>
+						<a id="drop_down_suche" href="javascript:void(0);">suchen</a>
 					</div>
 				</td>
 			</tr>

@@ -86,12 +86,15 @@ const GlobaleSuche = (function () {
 	function initCloseButton(){
 		let closeButton = document.getElementById(closeSearchButtonId);
 		closeButton.addEventListener("click", () => {
-			// NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-			// public.resetPosition();
-			// clearParameterRows();
-			// clearResultTable();
-			// addParameterRow();		
-			public.disableCallbackMode();
+			if(searchCallbackForInputMasks === undefined){
+				NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+				public.resetPosition();
+				clearParameterRows();
+				clearResultTable();
+				addParameterRow();		
+			}else{
+				public.disableCallbackMode();
+			}
 		})
 	}
 	
@@ -160,7 +163,6 @@ const GlobaleSuche = (function () {
 		parentContainer.style.removeProperty('border');
 	}
 
-
 	function fetchParameters(tupelArray) {
 
 		tupelArray.forEach((tupel) => {
@@ -197,14 +199,14 @@ const GlobaleSuche = (function () {
 	function enableCallbackMode(searchTargetString){
 		setMinimizeButtonInputMode();
 		setCloseButtonInputMode();
-		setMainHeaderTextInputMode(searchTargetString);
+		// setMainHeaderTextInputMode(searchTargetString);
 	}
 	
 	public.disableCallbackMode = function disableCallbackMode(){
-		searchCallbackForInputMasks === undefined;
+		searchCallbackForInputMasks = undefined;
 		resetMinimizeButtonInputMode();
 		resetCloseButtonInputMode();
-		resetMainHeaderText();
+		// resetMainHeaderText();
 	}
 	
 	function setMinimizeButtonInputMode(){
@@ -701,7 +703,7 @@ const GlobaleSuche = (function () {
 			
 			function addShowDetailsListener(cell, tupelElement) {
 				cell.addEventListener("click", () => {
-					console.log(GlobaleSuche.hasCallbackMethod())
+
 					if(GlobaleSuche.hasCallbackMethod()) return;
 					if (searchCallbackForInputMasks !== undefined) return;
 					clearResultTable();

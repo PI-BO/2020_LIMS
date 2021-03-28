@@ -34,4 +34,15 @@
 		</div>
 	</div>
 </body>
+<script src="Main.js"></script>
+<script type="text/javascript">
+
+Main.initSubpages(
+		{		
+			"<%=Address.getGlobaleSucheJsp()%>" : "#main-content-global-search",
+			"<%=Address.getExplorerJSP()%>" : "#main-content-explorer"
+		}
+	);
+
+</script>
 </html>

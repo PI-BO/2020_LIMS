@@ -13,8 +13,8 @@
 
 <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
 
-    <input required type="number" min="1" id="proben_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
-    <a id="suche_proben_id" href="#suche_proben_id">suchen</a>
+    <input required type="number" min="1" id="experiment_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
+    <a id="suche_experiment_id" href="javascript:void(0);">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -72,13 +72,12 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input required type="text" id="experiment_id_input_field" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
-    <a id="suche_experiment_id" href="#suche_experiment_id">suchen</a>
+    <input type="text" id="experiment_no_input_field" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
 </div>
 
 <div class="experiment_erstellen_header">Durchführung</div>
 <div class="experiment_erstellen_entry">
-    <select onchange="newExperimentDurchfuehrungstext(this)" required name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT%>>
+    <select id="durchfuehrung_select" onchange="newExperimentDurchfuehrungstext(this)" required name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">neuer Durchführungstext</option>
         <%
@@ -142,8 +141,7 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input required type="text" id="experiment_id_input_field2" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
-    <a id="suche_experiment_id2" href="#suche_experiment_id2">suchen</a>
+    <input type="text" id="experiment_id_input_field2" name=<%=ExperimentServlet.EXPERIMENT_NO%>>
 </div>
 
 <div class="experiment_erstellen_header">Planung Abgeschlossen</div>
@@ -227,7 +225,7 @@
     
     
     <input required type="text" id="api_id_input_field" name=<%=ExperimentServlet.API_STARTMATERIAL%>>
-    <a id="suche_api_id" href="#suche_api_id">suchen</a>
+    <a id="suche_api_id" href="javascript:void(0);">suchen</a>
     
     
 </div>
@@ -458,72 +456,37 @@
 
 <script>
 
-// init Proben Suche
-document.getElementById("suche_proben_id").addEventListener("click", () => {
-	
-	NavigationMenu.hideAllExcept("#main-content-global-search");
-	const template = [
-		{ "probe": "id" },
-		{ "substanz": "id" },
-		{ "partner": "id" },			
-		{ "partner": "name" }
-	];
-	GlobaleSuche.initTemplateParameters(template);
-	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		NavigationMenu.hideAllExcept("#main-content-input-masks");
-		let inputField = document.getElementById("proben_id_input_field");
-		inputField.value = callbackContent;
-	})
-}); 
-
-// init Experiment Suche 1
+// init Experiment Suche
 document.getElementById("suche_experiment_id").addEventListener("click", () => {
-	experiment_id_input_field
-	NavigationMenu.hideAllExcept("#main-content-global-search");
+	NavigationMenu.show("#main-content-global-search");
 	const template = [
-		{ "experiment": "id" },
+        { "experiment": "id" },
 		{ "experiment": "typ" }
 	];
 	GlobaleSuche.initTemplateParameters(template);
 	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		NavigationMenu.hideAllExcept("#main-content-input-masks");
+        // NavigationMenu.hideAllExcept("#main-content-input-masks");
+        NavigationMenu.hide("#main-content-global-search");
 		let inputField = document.getElementById("experiment_id_input_field");
 		inputField.value = callbackContent;
-	})
+	}, "", "true")
 }); 
-
-// init Experiment Suche 2
-document.getElementById("suche_experiment_id2").addEventListener("click", () => {
-	experiment_id_input_field
-	NavigationMenu.hideAllExcept("#main-content-global-search");
-	const template = [
-		{ "experiment": "id" },
-		{ "experiment": "typ" }
-	];
-	GlobaleSuche.initTemplateParameters(template);
-	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		NavigationMenu.hideAllExcept("#main-content-input-masks");
-		let inputField = document.getElementById("experiment_id_input_field2");
-		inputField.value = callbackContent;
-		
-		setTimeout(function() {
-			document.getElementById('experiment_id_input_field2').scrollIntoView({
-				block: 'center',
-	            inline: 'center'
-			});
-		}, 600);
-	})
-});
 
 //init API Suche 
 document.getElementById("suche_api_id").addEventListener("click", () => {
-	NavigationMenu.hideAllExcept("#main-content-global-search");
+	NavigationMenu.show("#main-content-global-search");
+    
+    document.getElementById('main-content-global-search').scrollIntoView({
+        block: 'center',
+        inline: 'center'
+    });
+
 	const template = [
-		{ "probe": "id" }
+        { "probe": "id" }
 	];
 	GlobaleSuche.initTemplateParameters(template);
 	GlobaleSuche.addSearchCallback((callbackContent)=>{
-		NavigationMenu.hideAllExcept("#main-content-input-masks");
+        NavigationMenu.hide("#main-content-global-search");
 		let inputField = document.getElementById("api_id_input_field");
 		inputField.value = callbackContent;
 
@@ -532,8 +495,8 @@ document.getElementById("suche_api_id").addEventListener("click", () => {
 				block: 'center',
 	            inline: 'center'
 			});
-		}, 600);
-	})
+		}, 100);
+	}, "", "true")
 });  
 
 

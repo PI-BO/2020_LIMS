@@ -21,7 +21,7 @@
 		}
 
 		.global_search_select_main_category {
-			width: 100%;
+			min-width: 100%;
 		}
 
 		.global_search_select_parameter {
@@ -124,13 +124,9 @@
 
 		<!-- END TEMPLATE -->
 	</div>
-	<!-- <script src="globale_suche2.js"></script> -->
-	<!-- 	<script src="http://localhost:8080/2020_LIMS/suche/globale_suche2.js"></script> -->
 	<script src="<%=Address.getGlobaleSucheJs()%>"></script>
 	<script type="text/javascript">
-	
 		GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
-
 	</script>
 </body>
 

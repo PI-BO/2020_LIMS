@@ -82,14 +82,7 @@ $(document).ready(function () {
 	
 	NavigationMenu.initOpenAllNavigationNodesListener(".navigation_table_header", ".navigation_tree_branches");
 	
-	NavigationMenu.initSubpages(
-		{		
-			"<%=Address.getGlobaleSucheJsp()%>" : "#main-content-global-search",
-			"<%=Address.getExplorerJSP()%>" : "#main-content-explorer"
-		}
-	);
-	
-	NavigationMenu.initInputMasks("#main-content-input-masks",
+	NavigationMenu.initInputMaskListener("#main-content-input-masks",
 		{
 			"#projekt_partner_erstellen" : 	"<%=Address.getProjektPartnerErstellenJsp()%>",
 			"#projekt_erstellen" : 			"<%=Address.getProjektErstellenJsp()%>",
@@ -101,9 +94,9 @@ $(document).ready(function () {
 		}
 	);
 	
-	NavigationMenu.initSuche("#globale_suche_anzeigen2", "#main-content-global-search");
+	NavigationMenu.initSucheListener("#globale_suche_anzeigen2", "#main-content-global-search");
 	
-	NavigationMenu.initExplorer("#explorer_anzeigen", "#main-content-explorer");
+	NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
 	
 	
 // 	NavigationMenu.open("#projekt_partner_erstellen");

@@ -191,6 +191,7 @@ public class DummyDB implements Database {
 		experiment.setPrimaryKey("11");
 		experiment.setTyp("101");
 		experiment.setProbenNr("ProbeA1");
+		experiment.saveToDatabase();
 
 		experiment = new Experiment();
 		experiment.setPrimaryKey("2");

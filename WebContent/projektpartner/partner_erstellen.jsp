@@ -79,7 +79,7 @@ input:required {
 					<input required id="partner_id_input_field" type=text placeholder="*" name=<%=Partner.COLUMN_PRIMARY_KEY%>>
 				</td>
 				<td>
-					<a id="suche_projekt_partner_id" href="#suche_projekt_partner_id">suchen</a>
+					<a id="suche_projekt_partner_id" href="javascript:void(0);">suchen</a>
 				</td>
 			</tr>
 			<tr>

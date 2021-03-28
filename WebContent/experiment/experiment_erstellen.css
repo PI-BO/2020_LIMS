@@ -65,3 +65,7 @@ input:invalid, select:invalid, textarea:invalid {
 	margin-bottom: auto;
 	margin-right: 10px;
 }
+
+#durchfuehrung_select{
+	max-width: 300px;
+}
