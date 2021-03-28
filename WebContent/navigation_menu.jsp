@@ -107,7 +107,7 @@ $(document).ready(function () {
 	
 	
 // 	NavigationMenu.open("#projekt_partner_erstellen");
-	NavigationMenu.open("#projekt_erstellen");
+// 	NavigationMenu.open("#projekt_erstellen");
 // 	NavigationMenu.open("#substanz_erstellen");
 // 	NavigationMenu.open("#experiment_erstellen");
 // 	NavigationMenu.open("#analyse_erstellen");
