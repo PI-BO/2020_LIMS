@@ -37,6 +37,11 @@ public class Address {
 	private static final String ANALYSE_ERSTELLEN_SERVLET = "/analyse/erstellen";
 	private static final String GLOBALE_SUCHE_JSP = "/suche/globale_suche2.jsp";
 	private static final String GLOBALE_SUCHE_JS = "/suche/globale_suche2.js";
+	private static final String EXPERIMENT_BEARBEITEN_SERVLET = "/experiment/bearbeiten";
+	private static final String EXPERIMENT_BEARBEITEN_JSP = "/experiment/experiment_bearbeiten.jsp";
+	private static final String EXPERIMENTTYP_SLURRY_JSP = "/experiment/experimenttyp_slurry.jsp";
+	private static final String EXPERIMENTTYP_VERDAMPFUNG_JSP = "/experiment/experimenttyp_verdampfung.jsp";
+	private static final String EXPERIMENT_BEARBEITEN_CSS = "/experiment/experiment_bearbeiten.css";
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -184,5 +189,25 @@ public class Address {
 	
 	public static String getGlobaleSucheJsp() {
 		return MAIN_PATH + GLOBALE_SUCHE_JSP;
+	}
+
+	public static String getExperimentBearbeitenServlet() {
+		return MAIN_PATH + EXPERIMENT_BEARBEITEN_SERVLET;
+	}
+
+	public static String getExperimentBearbeitenJsp() {
+		return MAIN_PATH + EXPERIMENT_BEARBEITEN_JSP;
+	}
+
+    public static String getExperimentTypSlurryJsp() {
+		return MAIN_PATH + EXPERIMENTTYP_SLURRY_JSP;
+    }
+
+	public static String getExperimentTypVerdampfungJsp() {
+		return MAIN_PATH + EXPERIMENTTYP_VERDAMPFUNG_JSP;
+	}
+
+	public static String getExperimentBearbeitenCss() {
+		return MAIN_PATH + EXPERIMENT_BEARBEITEN_CSS;
 	}
 }

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="controller.servlets.ExperimentServlet" %>
+<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet" %>
 <%@ page import="model.database.tableModels.*" %>
 <%@ page import="config.Address" %>
 <%@ page import="java.sql.SQLException" %>
@@ -37,7 +37,7 @@
 
     <div class="experiment_erstellen_header">Experiment Typ:</div>
     <div class="experiment_erstellen_entry">
-        <select required onchange="showExperimenttypFieldsMethode(this.value)" name=<%=ExperimentServlet.TYP%>>
+        <select required onchange="showExperimenttypFieldsMethode(this.value)" name=<%=ExperimentErstellenServlet.TYP%>>
             <option value="" selected disabled>bitte auswaehlen</option>
             <%
                 try {

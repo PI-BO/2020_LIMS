@@ -65,11 +65,11 @@ public abstract class ExperimenteModel extends Model {
     private String gesamt_ergebnis;
     private String einstufung_ergebnis;
 
-    public static final String COLUMN_PRIMARY_KEY = "no_id";
+    public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_SCREENING_NO_KEY = "screening_no";
     public static final String COLUMN_PLANUNG_ERFOLGT_DURCH_KEY = "planung_erfolgt_durch";
     public static final String COLUMN_EXPERIMENT_SERIE_KEY = "experiment_serie";
-    public static final String COLUMN_EXPERIMENT_NO_KEY = "experimnt_no";
+    public static final String COLUMN_EXPERIMENT_NO_KEY = "experiment_no";
     public static final String COLUMN_DURCHFUEHRUNG_KEY = "durchfuehrung";
     public static final String COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY = "projektleiternotiz_intention";
     public static final String COLUMN_VERWEIS_KEY = "verweis";
@@ -85,7 +85,7 @@ public abstract class ExperimenteModel extends Model {
     public static final String COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG = "api_startmaterial_soll_einwaage_mg";
     public static final String COLUMN_COF_BEZEICHNUNG_KEY = "cof_bezeichnung";
     public static final String COLUMN_COF_REF_CODE_KEY = "cof_ref_code";
-    public static final String COLUMN_COF_SOLL_EINWAAGE_KEY = "cof_soll_einwaaage";
+    public static final String COLUMN_COF_SOLL_EINWAAGE_KEY = "cof_soll_einwaage";
     public static final String COLUMN_COF_SOLL_EINWAAGE_MG_KEY = "cof_soll_einwaage_mg";
     public static final String COLUMN_SOLL_TEMPERATUR_KEY = "soll_temperatur";
     public static final String COLUMN_LOESUNGSMITTEL_FUER_API_COF_KEY = "loesungsmittel_fuer_api_cof";
@@ -94,8 +94,8 @@ public abstract class ExperimenteModel extends Model {
     public static final String COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY = "beobachtungen_zum_experimentverlauf";
     public static final String COLUMN_EXPERIMENT_ENDE = "experiment_ende";
     public static final String COLUMN_STATUS_EXPERIMENT_KEY = "status_experiment";
-    public static final String COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY = "aufarbeitung_präsentation_pxrd";
-    public static final String COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY = "beobachtung_zum_ende_des_experiments_aufarbeitung";
+    public static final String COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY = "aufarbeitung_praesentation_pxrd";
+    public static final String COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY = "beobachtungen_zum_ende_des_experiments_aufarbeitung";
     public static final String COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE = "standort_lagerorte_der_finalen_probe";
     public static final String COLUMN_PRIORITAET_ANALYTIK_KEY = "prioritaet_analytik";
     public static final String COLUMN_ERSTANALYTIK_PXRD_KEY = "erstanalytik_pxrd";
@@ -1016,14 +1016,26 @@ public abstract class ExperimenteModel extends Model {
         json.addKeyValue(COLUMN_DURCHFUEHRUNG_KEY, durchfuehrung);
         json.addKeyValue(COLUMN_PROJEKTLEITERNOTIZ_INTENTION_KEY, projektleiternotiz_intention);
         json.addKeyValue(COLUMN_VERWEIS_KEY, verweis);
-        json.addKeyValue(COLUMN_STARTFREIGABE_KEY, startfreigabe.toString());
-        json.addKeyValue(COLUMN_ERLEDIGT_BIS_KEY, erledigt_bis.toString());
+        try {
+            json.addKeyValue(COLUMN_STARTFREIGABE_KEY, startfreigabe.toString());
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_STARTFREIGABE_KEY, null);
+        }
+        try {
+            json.addKeyValue(COLUMN_ERLEDIGT_BIS_KEY, erledigt_bis.toString());
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_ERLEDIGT_BIS_KEY, null);
+        }
         json.addKeyValue(COLUMN_HINWEIS_LABORLEITER_KEY, hinweis_an_laborleiter);
         json.addKeyValue(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, Boolean.toString(planung_abgeschlossen));
         json.addKeyValue(COLUMN_PRIORITAET_EXPERIMENT_KEY, prioritaet_experiment);
         json.addKeyValue(COLUMN_SICHERHEITSHINWEIS_KEY, sicherheitshinweis);
         json.addKeyValue(COLUMN_VERANTWORTLICHER_OPERATOR, Integer.toString(verantwortlicher_operator));
-        json.addKeyValue(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
+        try {
+            json.addKeyValue(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_EXPERIMENT_START_KEY, null);
+        }
         json.addKeyValue(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE, Double.toString(api_startmaterial_soll_einwaage));
         json.addKeyValue(COLUMN_API_STARTMATERIAL_SOLL_EINWAAGE_MG, Double.toString(api_startmaterial_soll_einwaage_mg));
         json.addKeyValue(COLUMN_COF_BEZEICHNUNG_KEY, cof_bezeichnung);
@@ -1035,9 +1047,17 @@ public abstract class ExperimenteModel extends Model {
         json.addKeyValue(COLUMN_VORGABE_INFO_VOLUMEN_KEY, vorgabe_info_volumen);
         json.addKeyValue(COLUMN_LOESUNGSMITTEL_IST_VOLUMEN_KEY, loesungsmittel_ist_volumen);
         json.addKeyValue(COLUMN_BEOBACHTUNGEN_ZUM_EXPERIMENTVERLAUF_KEY, beobachtungen_zum_experimentverlauf);
-        json.addKeyValue(COLUMN_EXPERIMENT_ENDE, experiment_ende.toString());
+        try {
+            json.addKeyValue(COLUMN_EXPERIMENT_ENDE, experiment_ende.toString());
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_EXPERIMENT_ENDE, null);
+        }
         json.addKeyValue(COLUMN_STATUS_EXPERIMENT_KEY, status_experiment);
-        json.addKeyValue(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, aufarbeitung_präsentation_pxrd.toString());
+        try {
+            json.addKeyValue(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, aufarbeitung_präsentation_pxrd.toString());
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_AUFBEREITUNG_PRAESENTATION_PXRD_KEY, null);
+        }
         json.addKeyValue(COLUMN_BEOBACHTUNG_ZUM_ENDE_DES_EXPERIMENTS_AUFBEREITUNG_KEY, beobachtung_zum_ende_des_experiments_aufarbeitung);
         json.addKeyValue(COLUMN_STANDORT_LAGERORTE_DER_FINALEN_PROBE, standort_lagerorte_der_finalen_probe);
         json.addKeyValue(COLUMN_PRIORITAET_ANALYTIK_KEY, prioritaet_analytik);

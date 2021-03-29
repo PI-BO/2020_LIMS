@@ -46,6 +46,10 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
 		database.saveModel(this);
 	}
+
+	public void updateModel() throws SQLException, ModelNotFoundException {
+		database.updateModel(this);
+	}
 	
 	public String getPrimaryKey(){
 		return primaryKey;

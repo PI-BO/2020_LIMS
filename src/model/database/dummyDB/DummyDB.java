@@ -1,5 +1,6 @@
 package model.database.dummyDB;
 
+import config.Const;
 import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.Database;
@@ -201,25 +202,27 @@ public class DummyDB implements Database {
 
 		// Experimente Verdampfung
 		ExperimenttypVerdampfung experimenttypVerdampfung = new ExperimenttypVerdampfung();
-		experimenttypVerdampfung.setPrimaryKey("1");
+		experimenttypVerdampfung.setPrimaryKey("11");
 		experimenttypVerdampfung.setExperiment_no("Experiment1Verdampfung");
+		experimenttypVerdampfung.setDurchfuehrung("Durchfuehrungstext A");
 		modelList.add(experimenttypVerdampfung);
 
 		// Experimente Slurry
 		ExperimenttypSlurry experimenttypSlurry = new ExperimenttypSlurry();
 		experimenttypSlurry.setPrimaryKey("2");
 		experimenttypSlurry.setExperiment_no("Experiment2Slurry");
+		experimenttypSlurry.setDurchfuehrung("Durchfuehrungstext B");
 		modelList.add(experimenttypSlurry);
 
 		// Experiment Typen
 		Experimenttyp experimenttyp = new Experimenttyp();
 		experimenttyp.setPrimaryKey("101");
-		experimenttyp.setTyp("Verdampfung");
+		experimenttyp.setTyp(Const.EXPERIMENT_TYP_VERDAMPFUNG);
 		experimenttyp.saveToDatabase();
 
 		experimenttyp = new Experimenttyp();
 		experimenttyp.setPrimaryKey("202");
-		experimenttyp.setTyp("Slurry");
+		experimenttyp.setTyp(Const.EXPERIMENT_TYP_SLURRY);
 		experimenttyp.saveToDatabase();
 
 		// Experiment Durchfuehrungstext
@@ -440,7 +443,8 @@ public class DummyDB implements Database {
 			System.out.println("---------------" + updatedModel.toJSON());
 			if (updatedModel.getParents().size() > 0)
 				System.out.println("parent = " + updatedModel.getParents().get(0).toJSON());
-			System.out.println("child = " + updatedModel.getChildren().get(0).toJSON());
+			if (updatedModel.getChildren().size() > 0)
+				System.out.println("child = " + updatedModel.getChildren().get(0).toJSON());
 
 			updatedModel.getParents().addAll(oldModel.getParents());
 			updatedModel.getChildren().addAll(oldModel.getChildren());
@@ -448,7 +452,8 @@ public class DummyDB implements Database {
 			System.out.println("---------------");
 			if (updatedModel.getParents().size() > 0)
 				System.out.println("parent = " + updatedModel.getParents().get(0).toJSON());
-			System.out.println("child = " + updatedModel.getChildren().get(0).toJSON());
+			if (updatedModel.getChildren().size() > 0)
+				System.out.println("child = " + updatedModel.getChildren().get(0).toJSON());
 
 			modelList.remove(i);
 			modelList.add(updatedModel);

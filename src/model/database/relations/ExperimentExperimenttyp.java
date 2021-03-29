@@ -1,5 +1,6 @@
 package model.database.relations;
 
+import config.Const;
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.experimente.Experiment;
 import model.database.tableModels.experimente.ExperimenteModel;
@@ -16,10 +17,10 @@ public class ExperimentExperimenttyp extends OneToOne<Experiment, Experimenttyp>
     public ExperimentExperimenttyp(Experiment parent) throws ModelNotFoundException, SQLException {
         super(parent, new Experimenttyp(parent.getTyp()));
         switch (getChild().getTyp()) {
-            case "Verdampfung":
+            case Const.EXPERIMENT_TYP_VERDAMPFUNG:
                 typ = new ExperimentExperimenttypVerdampfung(parent);
                 break;
-            case "Slurry":
+            case Const.EXPERIMENT_TYP_SLURRY:
                 typ = new ExperimentExperimentypSlurry(parent);
                 break;
             case "Grinding":
