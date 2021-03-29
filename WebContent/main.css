@@ -42,6 +42,7 @@ html {
 	grid-area: tree-navi;
 	align-self: start;
 	padding-left: 10px;
+	max-width: 300px;
 }
 
 #main-content-explorer {
