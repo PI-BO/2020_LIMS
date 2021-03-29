@@ -31,7 +31,10 @@
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
-    <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+
+    <input type="text" required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+
+    <!-- <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -49,7 +52,7 @@
                 e.printStackTrace();
             }
         %>
-    </select>
+    </select> -->
 </div>
 
 <div class="analyse_erstellen_header">Datum</div>
@@ -85,20 +88,20 @@
         %>
     </select>
     <input id="temperaurprogramme_table_title" style="display: none" type="number" min="1"
-           name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TITEL%>>
+        name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TITEL%>>
     <div id="temperaturprogramme_table" style="display: none">
         <div class="temperaturprogramme_methode_add_button">
             <input type="button" value=" neue Zeile " onclick="newTemperaturprogrammRow(this)">
         </div>
         <table id="template_temperaturprogramme">
             <tbody>
-            <tr>
-                <th>Schritt</th>
-                <th>Temperatur [°C]</th>
-                <th>Rampe [k/min]</th>
-                <th>Zeit [min]</th>
-                <th>Segmenttyp</th>
-            </tr>
+                <tr>
+                    <th>Schritt</th>
+                    <th>Temperatur [°C]</th>
+                    <th>Rampe [k/min]</th>
+                    <th>Zeit [min]</th>
+                    <th>Segmenttyp</th>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -165,28 +168,36 @@
             $("#temperaurprogramme_table_title").show()
         } else {
             $("#temperaurprogramme_table_title").hide()
-            <%
-                if (modelList != null){
-                    for (Model model : modelList.getModelList()) {
-                        AnalyseTemperaturprogramme row = (AnalyseTemperaturprogramme) model;
+                <%
+                if (modelList != null) {
+                for (Model model : modelList.getModelList()) {
+                    AnalyseTemperaturprogramme row = (AnalyseTemperaturprogramme) model;
 
             %>
-            if (param.value == <%=row.getTabelle()%>) {
-                const row = $(".temperaturprogramm_tamplate_table_row").clone();
-                row.attr("class", "temperaturprogramm_table_row")
-                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').prop('required', true)
-                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').val(<%=row.getSchritt()%>)
-                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_TEMPERATUR%>"]').val(<%=row.getTemperatur()%>)
-                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>"]').val(<%=row.getRampe()%>)
-                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_ZEIT%>"]').val(<%=row.getZeit()%>)
-                row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>"]').val("<%=row.getSegmenttyp()%>")
-                $("#template_temperaturprogramme tr:last").after(row)
-            }
+            if (param.value == <%= row.getTabelle() %>) {
+                        const row = $(".temperaturprogramm_tamplate_table_row").clone();
+                        row.attr("class", "temperaturprogramm_table_row")
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').prop('required', true)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').val(<%=row.getSchritt() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_TEMPERATUR%>"]').val(<%=row.getTemperatur() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>"]').val(<%=row.getRampe() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_ZEIT%>"]').val(<%=row.getZeit() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>"]').val("<%=row.getSegmenttyp()%>")
+                        $("#template_temperaturprogramme tr:last").after(row)
+                    }
             <%
                     }
-                }
+            }
             %>
         }
         $("#temperaturprogramme_table").show()
     }
+
+    // Such-Links
+    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseServlet.EXPERIMENT_ID%>", 
+    [
+        { "experiment": "id" },
+        { "experiment": "typ" }
+    ]);
+
 </script>

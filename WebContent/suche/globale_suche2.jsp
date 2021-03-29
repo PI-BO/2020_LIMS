@@ -11,7 +11,7 @@
 	<style>
 		#global_search_main_container {
 			background-color: #f2f2f2;
-			/* font-family: Arial, Helvetica, sans-serif; */
+ 			position: fixed;
 		}
 
 		#global_search_main_header {
@@ -74,10 +74,6 @@
 
 		.global_search_result_table_result_row td:hover {
 			background-color: #ddd;
-		}
-
-		#global_search_main_container {
-			position: absolute;
 		}
 
 		#global_search_main_header {

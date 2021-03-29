@@ -14,7 +14,7 @@ const GlobaleSuche = (function () {
 	const globalSearchMainContainerId = "global_search_main_container";
 	const globalSearchMainHeaderId = "global_search_main_header";
 	const globalSearchMainHeaderTextId = "global_search_main_header_text";
-	
+
 	// Classes
 	const categorySelectClass = "global_search_select_main_category";
 	const deleteButtonClass = "global_search_delete_parameter_button";
@@ -29,11 +29,15 @@ const GlobaleSuche = (function () {
 	// Close Button
 	const closeButtonInputModeValue = "beenden";
 	const closeButtonDefaultValue = "x";
-	
+
 	// Minimize Button
 	const minimizeButtonInputModeColor = "red";
 	const minimizeButtonInputModeValue = "Formular-Modus";
 	const minimizeButtonDefaultValue = "_";
+
+	// Drag-Threshold
+	const widthThresholdRightSide = 100;
+	const heightThresholdBottomSide = 100;
 
 	// Table Header
 	const mainHeaderdefaultText = "Suche";
@@ -42,7 +46,7 @@ const GlobaleSuche = (function () {
 	const categoryKey = "table";
 	const displayKey = "display";
 	const sortFunctionSkipRows = 2;
-	
+
 	let parameters = {}
 
 	const filterTypes = {
@@ -83,22 +87,22 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	function initCloseButton(){
+	function initCloseButton() {
 		let closeButton = document.getElementById(closeSearchButtonId);
 		closeButton.addEventListener("click", () => {
-			if(searchCallbackForInputMasks === undefined){
+			if (searchCallbackForInputMasks === undefined) {
 				NavigationMenu.hide("#" + globalSearchMainContentContainerId);
 				public.resetPosition();
 				clearParameterRows();
 				clearResultTable();
-				addParameterRow();		
-			}else{
+				addParameterRow();
+			} else {
 				public.disableCallbackMode();
 			}
 		})
 	}
-	
-	function initMinimizeButton(){
+
+	function initMinimizeButton() {
 		let minimizeButton = document.getElementById(minimizeSearchButtonId);
 		minimizeButton.addEventListener("click", () => {
 			NavigationMenu.hide("#" + globalSearchMainContentContainerId);
@@ -106,22 +110,22 @@ const GlobaleSuche = (function () {
 	}
 
 	function initMouseDrag() {
-		
+
 		var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 		const parentContainer = document.getElementById(globalSearchMainContainerId);
 		document.getElementById(globalSearchMainHeaderId).onmousedown = dragMouseDown;
-		
+
 		function dragMouseDown(e) {
-			
+
 			e = e || window.event;
-			
+
 			if (e.target === document.getElementById(closeSearchButtonId)) return;
-			
+
 			e.preventDefault();
 			// get the mouse cursor position at startup:
 			pos3 = e.clientX;
 			pos4 = e.clientY;
-			
+
 			document.onmouseup = closeDragElement;
 			// call a function whenever the cursor moves:
 			document.onmousemove = elementDrag;
@@ -147,6 +151,18 @@ const GlobaleSuche = (function () {
 			// limit to left and top screenborders
 			if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
 			if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
+
+			const searchContainer = document.getElementById(globalSearchMainContainerId)
+			let containerHeight = searchContainer.offsetHeight;
+			let containerWidth = searchContainer.offsetWidth;
+			const documentWidth = document.body.clientWidth;
+			const documentHeight = document.body.clientHeight;
+
+			containerHeight = containerHeight + (heightThresholdBottomSide - containerHeight);
+			containerWidth = containerWidth + (widthThresholdRightSide - containerWidth);
+
+			if (parentContainer.offsetTop > documentHeight - containerHeight) parentContainer.style.top = documentHeight - containerHeight + "px";
+			if (parentContainer.offsetLeft > documentWidth - containerWidth) parentContainer.style.left = documentWidth - containerWidth + "px";
 		}
 
 		function closeDragElement() {
@@ -155,8 +171,27 @@ const GlobaleSuche = (function () {
 			document.onmousemove = null;
 		}
 	}
-	
-	public.resetPosition = function resetPosition()	{
+
+	public.resetPositionIfOutOfBounds = function resetPositionIfOutOfBounds() {
+
+		const parentContainer = document.getElementById(globalSearchMainContainerId);
+
+		let containerHeight = parentContainer.offsetHeight;
+		let containerWidth = parentContainer.offsetWidth;
+		const documentWidth = document.body.clientWidth;
+		const documentHeight = document.body.clientHeight;
+
+		// containerHeight = containerHeight + (heightThresholdBottomSide - containerHeight);
+		// containerWidth = containerWidth + (widthThresholdRightSide - containerWidth);
+
+		if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
+		if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
+
+		if (parentContainer.offsetTop > documentHeight - containerHeight) parentContainer.style.top = documentHeight - containerHeight + "px";
+		if (parentContainer.offsetLeft > documentWidth - containerWidth) parentContainer.style.left = documentWidth - containerWidth + "px";
+	}
+
+	public.resetPosition = function resetPosition() {
 		const parentContainer = document.getElementById(globalSearchMainContainerId);
 		parentContainer.style.removeProperty('top');
 		parentContainer.style.removeProperty('left');
@@ -190,72 +225,114 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.addSearchCallback = function addSearchCallback(callback, searchTargetString , startSearch) {
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters) {
+
+		let inputElements = document.getElementsByName(inputElementName);
+
+		inputElements.forEach(inputElement => {
+
+			let searchLink = document.createElement("a")
+			searchLink.text = "suchen"
+			searchLink.href = "javascript:void(0);"
+			searchLink.style.paddingLeft = "0.3em"
+			inputElement.insertAdjacentElement("afterend", searchLink);
+
+			searchLink.addEventListener("click", () => {
+
+				NavigationMenu.show("#" + globalSearchMainContentContainerId);
+				GlobaleSuche.initTemplateParameters(templateParameters);
+				GlobaleSuche.resetPositionIfOutOfBounds();
+				GlobaleSuche.addSearchCallback((callbackContent) => {
+					NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+					inputElement.value = callbackContent;
+					setTimeout(function () {
+						inputElement.scrollIntoView({
+							block: 'center',
+							inline: 'center'
+						});
+					}, 100);
+				}, "", "true")
+				// document.getElementById(globalSearchMainContentContainerId).scrollIntoView({
+				// 	block: 'center',
+				// 	inline: 'center'
+				// });
+			});
+
+		})
+
+
+
+
+
+		// document.getElementById(searchLinkId).addEventListener("click", () => {
+	}
+
+	public.addSearchCallback = function addSearchCallback(callback, searchTargetString, startSearch) {
 		searchCallbackForInputMasks = callback;
 		enableCallbackMode(searchTargetString);
 		if (startSearch !== undefined && startSearch === "true") search();
 	}
-	
-	function enableCallbackMode(searchTargetString){
+
+	function enableCallbackMode(searchTargetString) {
 		setMinimizeButtonInputMode();
 		setCloseButtonInputMode();
 		// setMainHeaderTextInputMode(searchTargetString);
 	}
-	
-	public.disableCallbackMode = function disableCallbackMode(){
+
+	public.disableCallbackMode = function disableCallbackMode() {
 		searchCallbackForInputMasks = undefined;
 		resetMinimizeButtonInputMode();
 		resetCloseButtonInputMode();
 		// resetMainHeaderText();
 	}
-	
-	function setMinimizeButtonInputMode(){
-		
+
+	function setMinimizeButtonInputMode() {
+
 		let minimizeButton = document.getElementById(minimizeSearchButtonId);
 		minimizeButton.style.color = minimizeButtonInputModeColor;
 		minimizeButton.value = minimizeButtonInputModeValue;
 		minimizeButton.disabled = true;
 	}
-	
-	function resetMinimizeButtonInputMode(){
-		
+
+	function resetMinimizeButtonInputMode() {
+
 		let minimizeButton = document.getElementById(minimizeSearchButtonId);
 		minimizeButton.style.removeProperty('color');
 		minimizeButton.value = minimizeButtonDefaultValue;
 		minimizeButton.disabled = false;
 	}
-	
-	function setCloseButtonInputMode(){
-		
+
+	function setCloseButtonInputMode() {
+
 		let minimizeButton = document.getElementById(closeSearchButtonId);
 		minimizeButton.value = closeButtonInputModeValue;
 	}
-	
-	function resetCloseButtonInputMode(){
-		
+
+	function resetCloseButtonInputMode() {
+
 		let minimizeButton = document.getElementById(closeSearchButtonId);
 		minimizeButton.value = closeButtonDefaultValue;
 	}
-	
-	function setMainHeaderTextInputMode(searchTargetString){
+
+	function setMainHeaderTextInputMode(searchTargetString) {
 		let mainHeaderText = document.getElementById(globalSearchMainHeaderTextId);
-		if(searchTargetString === undefined) searchTargetString = "";
+		if (searchTargetString === undefined) searchTargetString = "";
 		mainHeaderText.innerText = mainHeaderdefaultText + " " + searchTargetString;
 		mainHeaderText.style.backgroundColor = "red";
 	}
-	
+
 	function resetMainHeaderText() {
 		let mainHeaderText = document.getElementById(globalSearchMainHeaderTextId);
 		mainHeaderText.innerText = mainHeaderdefaultText;
 		mainHeaderText.style.removeProperty("background-color");
 	}
 
-	public.hasCallbackMethod = function hasCallbackMethod (){
+	public.hasCallbackMethod = function hasCallbackMethod() {
 		return (searchCallbackForInputMasks !== undefined)
 	}
-	
+
 	public.initTemplateParameters = function initTemplateParameters(template) {
-		
+
 		clearParameterRows();
 		clearResultTable();
 
@@ -669,14 +746,14 @@ const GlobaleSuche = (function () {
 
 					let cellContent = tupelElement[key];
 
-					if(onlyThisKey !== undefined && onlyThisKey !== key) continue;
+					if (onlyThisKey !== undefined && onlyThisKey !== key) continue;
 
 					if (onlyThisKey === undefined) {
 						let cell = addToNewTableCell(cellContent, row);
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
 						addCallbackFunction(cell, cellContent);
 					}
-					
+
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
@@ -700,11 +777,11 @@ const GlobaleSuche = (function () {
 					public.disableCallbackMode();
 				})
 			}
-			
+
 			function addShowDetailsListener(cell, tupelElement) {
 				cell.addEventListener("click", () => {
 
-					if(GlobaleSuche.hasCallbackMethod()) return;
+					if (GlobaleSuche.hasCallbackMethod()) return;
 					if (searchCallbackForInputMasks !== undefined) return;
 					clearResultTable();
 					let tupelElementArray = [];

@@ -11,10 +11,9 @@
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">
 
-<%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
+    <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
 
     <input required type="number" min="1" id="experiment_id_input_field" name=<%=ExperimentServlet.NO_ID%>>
-    <a id="suche_experiment_id" href="javascript:void(0);">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -67,7 +66,7 @@
         %>
     </select>
     <input id="experiment_serie_text" style="display: none" type="text"
-           name=<%=ExperimentServlet.EXPERIMENT_SERIE_TEXT%>>
+        name=<%=ExperimentServlet.EXPERIMENT_SERIE_TEXT%>>
 </div>
 
 <div class="experiment_erstellen_header">Experiment No.</div>
@@ -77,7 +76,8 @@
 
 <div class="experiment_erstellen_header">Durchführung</div>
 <div class="experiment_erstellen_entry">
-    <select id="durchfuehrung_select" required onchange="newExperimentDurchfuehrungstext(this)" name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT%>>
+    <select id="durchfuehrung_select" required onchange="newExperimentDurchfuehrungstext(this)"
+        name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">neuer Durchführungstext</option>
         <%
@@ -101,14 +101,13 @@
         <tr>
             <th>
                 <input id="experiment_durchfuehrungstext_titel" style="display: none" type="text"
-                       placeholder="neuer Titel"
-                       name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
+                    placeholder="neuer Titel" name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
             </th>
         </tr>
         <tr>
             <th>
                 <textarea required id="experiment_durchführungstext_text" rows="4" cols="50"
-                          name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
+                    name=<%=ExperimentServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
             </th>
         </tr>
     </table>
@@ -191,12 +190,12 @@
 <div class="experiment_erstellen_entry">
 
 
-<%--     <select required name=<%=ExperimentServlet.API_STARTMATERIAL%>> --%>
-<!--         <option value="" selected disabled>bitte auswaehlen</option> -->
-<%--         <% --%>
+    <%--     <select required name=<%=ExperimentServlet.API_STARTMATERIAL%>> --%>
+    <!--         <option value="" selected disabled>bitte auswaehlen</option> -->
+    <%--         <% --%>
 
 
-<%--
+    <%--
 //             try {
 //                 ModelTable apiModelList = new ModelTable(new Probe());
 //                 for (Model model : apiModelList.getModelList()) {
@@ -204,12 +203,12 @@
 
 
 
-<%--         %> --%>
-<%--         <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%> --%>
-<!--         </option> -->
-<%--         <% --%>
+    <%--         %> --%>
+    <%--         <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%> --%>
+    <!--         </option> -->
+    <%--         <% --%>
 
-<%--
+    <%--
 //                 }
 //             } catch (SQLException throwables) {
 //                 throwables.printStackTrace();
@@ -218,13 +217,12 @@
 //             }
 --%>
 
-<%--         %> --%>
-<!--     </select> -->
-    
+    <%--         %> --%>
+    <!--     </select> -->
+
     <input required type="text" id="api_id_input_field" name=<%=ExperimentServlet.API_STARTMATERIAL%>>
-    <a id="suche_api_id" href="javascript:void(0);">suchen</a>
-    
-    
+
+
 </div>
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage</div>
@@ -235,7 +233,8 @@
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
-    <input type="number" value="0" min="0" step="0.001" name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
+    <input type="number" value="0" min="0" step="0.001"
+        name="<%=ExperimentServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">CoF Bezeichnung</div>
@@ -444,48 +443,17 @@
 
 <script>
 
-//init Proben Suche
-document.getElementById("suche_experiment_id").addEventListener("click", () => {
-	
-	NavigationMenu.show("#main-content-global-search");
-	const template = [
-        { "experiment": "id" },
-		{ "experiment": "typ" }
-	];
-	GlobaleSuche.initTemplateParameters(template);
-	GlobaleSuche.addSearchCallback((callbackContent)=>{
-        NavigationMenu.hide("#main-content-global-search");
-		let inputField = document.getElementById("experiment_id_input_field");
-		inputField.value = callbackContent;
-	}, "", "true")
-}); 
+    // Such-Links
+    GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentServlet.NO_ID%>",
+        [
+            { "experiment": "id" },
+            { "experiment": "typ" }
+        ]);
 
-// init API Suche 
-document.getElementById("suche_api_id").addEventListener("click", () => {
-    NavigationMenu.show("#main-content-global-search");
-    
-    document.getElementById('main-content-global-search').scrollIntoView({
-        block: 'center',
-        inline: 'center'
-    });
-
-	const template = [
-        { "probe": "id" }
-	];
-	GlobaleSuche.initTemplateParameters(template);
-	GlobaleSuche.addSearchCallback((callbackContent)=>{
-        NavigationMenu.hide("#main-content-global-search");
-		let inputField = document.getElementById("api_id_input_field");
-		inputField.value = callbackContent;
-		
-		setTimeout(function() {
-			document.getElementById('api_id_input_field').scrollIntoView({
-				block: 'center',
-	            inline: 'center'
-			});
-		}, 100);
-	}, "", "true")
-}); 
-
+    // Such-Links
+    GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentServlet.API_STARTMATERIAL%>",
+        [
+            { "probe": "id" }
+        ]);
 
 </script>

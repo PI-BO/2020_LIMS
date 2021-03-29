@@ -78,9 +78,6 @@ input:required {
 				<td>
 					<input required id="partner_id_input_field" type=text placeholder="*" name=<%=Partner.COLUMN_PRIMARY_KEY%>>
 				</td>
-				<td>
-					<a id="suche_projekt_partner_id" href="javascript:void(0);">suchen</a>
-				</td>
 			</tr>
 			<tr>
 				<td>Name</td>
@@ -138,23 +135,14 @@ input:required {
 		});
 	})
 	
-	// init Partner Suche
-	document.getElementById("suche_projekt_partner_id").addEventListener("click", () => {
-		
-// 		NavigationMenu.hideAllExcept("#main-content-global-search");
-		NavigationMenu.show("#main-content-global-search");
-		const template = [
-			{ "partner": "id" },
+
+
+	// Such-Links
+    GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>", 
+    [
+	{ "partner": "id" },
 			{ "partner": "name" }
-		];
-		GlobaleSuche.initTemplateParameters(template);
-		GlobaleSuche.addSearchCallback((callbackContent)=>{
-// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
-			NavigationMenu.hide("#main-content-global-search");
-			let inputField = document.getElementById("partner_id_input_field");
-			inputField.value = callbackContent;
-		},"Partner ID" , "true")
-	}); 
+    ]);
 	
 	</script>
 </html>

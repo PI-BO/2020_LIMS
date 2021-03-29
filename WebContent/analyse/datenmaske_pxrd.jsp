@@ -16,25 +16,28 @@
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
-    <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+    <input type="text" required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+
+    <!-- <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
-            try {
-                ModelTable modelList = new ModelTable(new Experiment());
-                for (Model model : modelList.getModelList()) {
-                    ExperimenteModel experimenteModel = new ExperimentExperimenttyp((Experiment) model).getTypModel();
-        %>
-        <option value=<%=model.getPrimaryKey()%>><%=experimenteModel.getExperiment_no()%>
-        </option>
-        <%
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } catch (ModelNotFoundException e) {
-                e.printStackTrace();
+        try {
+            ModelTable modelList = new ModelTable(new Experiment());
+            for (Model model : modelList.getModelList()) {
+                ExperimenteModel experimenteModel = new ExperimentExperimenttyp((Experiment) model).getTypModel();
+                %>
+                <option value=<%=model.getPrimaryKey()%>><%=experimenteModel.getExperiment_no()%>
+                </option>
+                <%
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ModelNotFoundException e) {
+            e.printStackTrace();
+        }
         %>
-    </select>
+    </select> -->
+
 </div>
 
 <div class="analyse_erstellen_header">Datum</div>
@@ -94,3 +97,14 @@
         %>
     </select>
 </div>
+
+<script>
+
+    // Such-Links
+    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseServlet.EXPERIMENT_ID%>", 
+    [
+        { "experiment": "id" },
+        { "experiment": "typ" }
+    ]);
+
+</script>

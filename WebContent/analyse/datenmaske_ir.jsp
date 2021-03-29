@@ -14,7 +14,10 @@
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
-    <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+
+    <input type="text" required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+
+    <!-- <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -32,7 +35,7 @@
                 e.printStackTrace();
             }
         %>
-    </select>
+    </select> -->
 </div>
 
 <div class="analyse_erstellen_header">Datum</div>
@@ -91,3 +94,14 @@
         %>
     </select>
 </div>
+
+<script>
+
+    // Such-Links
+    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseServlet.EXPERIMENT_ID%>",
+        [
+            { "experiment": "id" },
+            { "experiment": "typ" }
+        ]);
+
+</script>

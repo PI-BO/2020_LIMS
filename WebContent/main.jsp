@@ -24,7 +24,7 @@
 			<img src="https://solid-chem.de/wp-content/uploads/2017/11/solid_chem_logo_head-kopie.png">
 		</div>
 		<div id="main-menu">
-			<%-- 				<%@ include file = "/navigation_menu.jsp" %> --%>
+			<!-- <%-- 				<%@ include file = "/navigation_menu.jsp" %> --%> -->
 			<jsp:include page="<%=Address.getNavigationMenuRelativeJSP()%>" />
 		</div>
 		<div id="main-content">
@@ -41,6 +41,7 @@ Main.initSubpages(
 		{		
 			"<%=Address.getGlobaleSucheJsp()%>" : "#main-content-global-search",
 			"<%=Address.getExplorerJSP()%>" : "#main-content-explorer"
+			// "navigation_menu.jsp" : "#main-menu"
 		}
 	);
 

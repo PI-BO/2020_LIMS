@@ -64,9 +64,9 @@ const NavigationMenu = (function () {
                 { "projekte": "vertragsnummer" }
             ];
             // GlobaleSuche.initTemplateParameters(template);
-            // public.hideAllExcept(containerId);
             GlobaleSuche.disableCallbackMode();
             public.show(containerId);
+            GlobaleSuche.resetPositionIfOutOfBounds();
         });
     }
 
