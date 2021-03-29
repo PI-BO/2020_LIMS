@@ -41,9 +41,7 @@ Main.initSubpages(
 		{		
 			"<%=Address.getGlobaleSucheJsp()%>" : "#main-content-global-search",
 			"<%=Address.getExplorerJSP()%>" : "#main-content-explorer"
-			// "navigation_menu.jsp" : "#main-menu"
 		}
 	);
-
 </script>
 </html>

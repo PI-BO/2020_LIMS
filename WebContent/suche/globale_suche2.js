@@ -225,7 +225,7 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters) {
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, templateValues) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -240,7 +240,7 @@ const GlobaleSuche = (function () {
 			searchLink.addEventListener("click", () => {
 
 				NavigationMenu.show("#" + globalSearchMainContentContainerId);
-				GlobaleSuche.initTemplateParameters(templateParameters);
+				GlobaleSuche.initTemplateParameters(templateParameters, templateValues);
 				GlobaleSuche.resetPositionIfOutOfBounds();
 				GlobaleSuche.addSearchCallback((callbackContent) => {
 					NavigationMenu.hide("#" + globalSearchMainContentContainerId);
@@ -252,10 +252,6 @@ const GlobaleSuche = (function () {
 						});
 					}, 100);
 				}, "", "true")
-				// document.getElementById(globalSearchMainContentContainerId).scrollIntoView({
-				// 	block: 'center',
-				// 	inline: 'center'
-				// });
 			});
 
 		})
@@ -331,7 +327,20 @@ const GlobaleSuche = (function () {
 		return (searchCallbackForInputMasks !== undefined)
 	}
 
-	public.initTemplateParameters = function initTemplateParameters(template) {
+	public.initTemplateParameters = function initTemplateParameters(template, templateParameters) {
+
+		if(templateParameters !== undefined){
+			
+			console.log({templateParameters})
+			
+			let inputField = document.getElementsByName(templateParameters[0]["partner"])
+			
+			console.log(inputField.value)
+
+		} 
+			
+
+
 
 		clearParameterRows();
 		clearResultTable();

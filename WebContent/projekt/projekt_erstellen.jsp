@@ -8,105 +8,108 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8" />
-<title>Solid-Chem | LIMS - Insert Projekt</title>
-<!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
-<style>
-#create_projekt_table {
-	float: left;
-	border: 1px solid #ddd;
-	padding: 10px;
-	padding-left: 30px;
-	padding-right: 30px;
-	display: inline-block;
-	background-color: white;
-}
+	<meta charset="UTF-8" />
+	<title>Solid-Chem | LIMS - Insert Projekt</title>
+	<!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
+	<style>
+		#create_projekt_table {
+			border: 1px solid #ddd;
+			padding: 10px;
+			padding-left: 30px;
+			padding-right: 30px;
+			display: inline-block;
+			background-color: white;
+		}
 
-#th_speichern {
-	padding-top: 10px;
-}
+		#th_speichern {
+			padding-top: 10px;
+		}
 
-input:required {
-	border-style: solid;
-	border-color: red;
-	border-width: 2px;
-}
+		input:required {
+			border-style: solid;
+			border-color: red;
+			border-width: 2px;
+		}
 
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #77bbff;
-	border: 2px solid #77bbff;
-	min-width: 10px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-/* Links inside the dropdown */
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #77bbff;
+			border: 2px solid #77bbff;
+			min-width: 10px;
+			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+			z-index: 1;
+		}
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-	background-color: #ddd
-}
+		/* Links inside the dropdown */
+		.dropdown-content a {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+		}
 
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {
-	display: block;
-}
+		/* Change color of dropdown links on hover */
+		.dropdown-content a:hover {
+			background-color: #ddd
+		}
 
-.tooltip {
-	position: relative;
-	display: inline-block;
-	/*   color: #0000EE; */
-	/*   border-bottom: 1px solid #0000EE; */
-}
+		/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+		.show {
+			display: block;
+		}
 
-.tooltip .tooltiptext {
-	visibility: hidden;
-	/*   height: 1em; */
-	min-width: 20em;
-	width: auto;
-	background-color: black;
-	color: #fff;
-	text-align: center;
-	border-radius: 6px;
-	padding: 10px;
-	position: absolute;
-	z-index: 1;
-	top: -5px;
-	left: 110%;
-}
+		.tooltip {
+			position: relative;
+			display: inline-block;
+			/*   color: #0000EE; */
+			/*   border-bottom: 1px solid #0000EE; */
+		}
 
-.tooltip:hover {
-	cursor: help;
-}
+		.tooltip .tooltiptext {
+			visibility: hidden;
+			/*   height: 1em; */
+			min-width: 20em;
+			width: auto;
+			background-color: black;
+			color: #fff;
+			text-align: center;
+			border-radius: 6px;
+			padding: 10px;
+			position: absolute;
+			z-index: 1;
+			top: -5px;
+			left: 110%;
+		}
 
-.tooltip a:hover {
-	cursor: help;
-}
+		.tooltip:hover {
+			cursor: help;
+		}
 
-.tooltip .tooltiptext::after {
-	content: " ";
-	position: absolute;
-	top: 50%;
-	right: 100%; /* To the left of the tooltip */
-	margin-top: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: transparent black transparent transparent;
-}
+		.tooltip a:hover {
+			cursor: help;
+		}
 
-.tooltip:hover .tooltiptext {
-	visibility: visible;
-}
-</style>
+		.tooltip .tooltiptext::after {
+			content: " ";
+			position: absolute;
+			top: 50%;
+			right: 100%;
+			/* To the left of the tooltip */
+			margin-top: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: transparent black transparent transparent;
+		}
+
+		.tooltip:hover .tooltiptext {
+			visibility: visible;
+		}
+	</style>
 </head>
+
 <body>
 	<form id="form_projekt_erstellen">
 		<table id="create_projekt_table">
@@ -121,35 +124,24 @@ input:required {
 			<tr>
 				<td>Projektpartner ID</td>
 				<td>
-					<input required onclick="dropDownFunction()" id="partner_id_input_field" class="drop_down_field" type=text placeholder="*" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
-				</td>
-				<td>
-					<div id="myDropdown" class="dropdown-content-projektpartner">
-						<a id="suche_projekt_partner_id" href="javascript:void(0);">suchen</a>
-					</div>
+					<input required onclick="dropDownFunction()" id="partner_id_input_field" class="drop_down_field"
+						type=text placeholder="*" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
 				</td>
 			</tr>
 			<tr>
 				<td>Projekt ID</td>
 				<td>
-					<input required onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
-				</td>
-				<td>
-					<div id="myDropdown" class="dropdown-content-projektpartner">
-						<a id="suche_projekt_id" href="javascript:void(0);">suchen</a>
-					</div>
+					<input required onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field"
+						type=text placeholder="*" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
 			<tr>
 				<td class="tooltip">
-				Vertragsnummer <a href="javascript:void(0);">?</a>
-				<div class="tooltiptext">Ist die Vertragsnummer gleich der Projekt ID?</div>
+					Vertragsnummer <a href="javascript:void(0);">?</a>
+					<div class="tooltiptext">Ist die Vertragsnummer gleich der Projekt ID?</div>
 				</td>
 				<td>
 					<input type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
-					<div id="myDropdown" class="dropdown-content">
-						<a id="drop_down_suche" href="javascript:void(0);">suchen</a>
-					</div>
 				</td>
 			</tr>
 			<tr>
@@ -164,88 +156,51 @@ input:required {
 	</form>
 
 	<script>
-	
-	function dropDownFunction() {
-		  document.getElementById("myDropdown").classList.toggle("show");
-		}
 
-		// Close the dropdown menu if the user clicks outside of it
-		window.onclick = function(event) {
-		  if (!event.target.matches('.drop_down_field')) {
-		    var dropdowns = document.getElementsByClassName("dropdown-content");
-		    var i;
-		    for (i = 0; i < dropdowns.length; i++) {
-		      var openDropdown = dropdowns[i];
-		      if (openDropdown.classList.contains('show')) {
-		        openDropdown.classList.remove('show');
-		      }
-		    }
-		  }
-		} 
-	
-	$("#form_projekt_erstellen").submit(function(e){
-		e.preventDefault();
-		
-		var submitData = {};
-		
-		for(var i = 0; i < e.target.length; i++){
-			
-			console.log(e.target[i].name, e.target[i].value);
-			submitData[e.target[i].name] = e.target[i].value;
-			
-		}
-		
-// 		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
-		var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
-		var posting = $.post( url, submitData );
-		posting.done(function( data ) {
-			
-			if(data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] +  "</h3>");
+		$("#form_projekt_erstellen").submit(function (e) {
+			e.preventDefault();
 
-			if(data["status"] === "success"){
-				
-				let requiredFields = document.querySelectorAll("input:required");
-				for(let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
-				$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] +  "</div>");
-				$("#th_speichern").empty();
+			var submitData = {};
+
+			for (var i = 0; i < e.target.length; i++) {
+
+				console.log(e.target[i].name, e.target[i].value);
+				submitData[e.target[i].name] = e.target[i].value;
+
 			}
-		});
-	})
-	
-	// init Partner Suche
-	document.getElementById("suche_projekt_partner_id").addEventListener("click", () => {
-		
-// 		NavigationMenu.hideAllExcept("#main-content-global-search");
-		NavigationMenu.show("#main-content-global-search");
-		const template = [
-			{ "partner": "id" },
-			{ "partner": "name" }
-		];
-		GlobaleSuche.initTemplateParameters(template);
-		GlobaleSuche.addSearchCallback((callbackContent)=>{
-// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
-			NavigationMenu.hide("#main-content-global-search");
-			let inputField = document.getElementById("partner_id_input_field");
-			inputField.value = callbackContent;
-		}, "Projektpartner ID", "true")
-	}); 
-	
-	// init Projekt Suche
-	document.getElementById("suche_projekt_id").addEventListener("click", () => {
-		
-// 		NavigationMenu.hideAllExcept("#main-content-global-search");
-		NavigationMenu.show("#main-content-global-search");
-		const template = [
-			{ "projekte": "id" }
-		];
-		GlobaleSuche.initTemplateParameters(template);
-		GlobaleSuche.addSearchCallback((callbackContent)=>{
-// 			NavigationMenu.hideAllExcept("#main-content-input-masks");
-			NavigationMenu.hide("#main-content-global-search");
-			let inputField = document.getElementById("projekt_id_input_field");
-			inputField.value = callbackContent;
-		}, "Projekt ID", "true")
-	}); 
-	
+
+			// 		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
+			var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
+			var posting = $.post(url, submitData);
+			posting.done(function (data) {
+
+				if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+
+				if (data["status"] === "success") {
+
+					let requiredFields = document.querySelectorAll("input:required");
+					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+					$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+					$("#th_speichern").empty();
+				}
+			});
+		})
+
+		// Such-Links
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
+			[
+				{ "partner": "id" },
+				{ "partner": "name" }
+			]);
+
+		// Such-Links
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
+			[
+				{ "projekte": "id" }
+			],
+			[
+				{ "partner": "<%=Projekt.COLUMN_PROJEKTPARTNER%>" }
+			]);
 	</script>
+
 </html>
