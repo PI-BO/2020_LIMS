@@ -1,6 +1,8 @@
 <%@ page import="config.Address" %>
 <%@ page import="model.database.tableModels.experimente.ExperimenttypVerdampfung" %>
 <%@ page import="model.database.tableModels.experimente.ExperimenttypSlurry" %>
+<%@ page import="model.database.tableModels.experimente.ExperimenteModel" %>
+<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="de">
 <head>
@@ -67,23 +69,26 @@
                     content.empty()
                     return;
                 }
-                experimentBearbeitenPosting.done(function (data) {
-                    content.empty().append(data)
-                });
-
-                content.bind("DOMSubtreeModified", () => {
-                    for (let key in data) {
-                        const modifiedkey = "EXPERIMENT_" + key
-                        const nodeList = document.getElementsByName(modifiedkey)
-                        const val = data[key]
-                        for (let i = 0; i < nodeList.length; i++) {
-                            if (nodeList[i].type === 'checkbox')
-                                nodeList[i].checked = $.parseJSON(val)
-                            else
-                                nodeList[i].value = val
+                experimentBearbeitenPosting.done(function (post) {
+                    content.empty().append(post).ready(function () {
+                        for (let key in data) {
+                            const modifiedkey = "EXPERIMENT_" + key
+                            const nodeList = document.getElementsByName(modifiedkey)
+                            const val = data[key]
+                            for (let i = 0; i < nodeList.length; i++) {
+                                if (nodeList[i].type === 'checkbox')
+                                    nodeList[i].checked = $.parseJSON(val)
+                                else {
+                                    nodeList[i].value = val
+                                    if (key === '<%=ExperimenteModel.COLUMN_DURCHFUEHRUNG_KEY%>') {
+                                        const t = $('select[name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT%>]')[0]
+                                        t.onchange(t);
+                                    }
+                                }
+                            }
                         }
-                    }
-                })
+                    });
+                });
             },
             error: function (xhr, status, error) {
                 alert("Fehler: " + xhr.responseText);

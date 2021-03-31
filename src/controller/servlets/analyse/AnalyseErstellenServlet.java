@@ -1,4 +1,4 @@
-package controller.servlets;
+package controller.servlets.analyse;
 
 import config.Config;
 import exceptions.DublicateModelException;
@@ -18,47 +18,47 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 
 @WebServlet("/analyse/erstellen")
-public class AnalyseServlet extends HttpServlet {
+public class AnalyseErstellenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Config.class.getName());
 
-    public static final String TYP = "ANALYSE_TYP";
-    public static final String ANALYSE_ID = "ANALYSE_ANALYSE_ID";
-    public static final String EXPERIMENT_ID = "ANALYSE_EXPERIMENT_ID";
-    public static final String DATUM = "ANALYSE_DATUM";
-    public static final String BEMERKUNG = "ANALYSE_BEMERKUNG";
-    public static final String OPERATOR = "ANALYSE_OPERATOR";
+    public static final String TYP = "ANALYSE_" + Analyse.COLUMN_TYP;
+    public static final String ANALYSE_ID = "ANALYSE_" + AnalyseModel.COLUMN_PRIMARY_KEY;
+    public static final String EXPERIMENT_ID = "ANALYSE_" + Analyse.COLUMN_EXPERIMENT_ID;
+    public static final String DATUM = "ANALYSE_" + AnalyseModel.COLUMN_DATUM;
+    public static final String BEMERKUNG = "ANALYSE_" + AnalyseModel.COLUMN_BEMERKUNG;
+    public static final String OPERATOR = "ANALYSE_" + AnalyseModel.COLUMN_OPERATOR;
 
     // Datenmaske PXRD
-    public static final String GERAET = "ANALYS_GERAET";
-    public static final String PROBENPRAEPARATION = "ANALYSE_PROBENPRAEPARATION";
-    public static final String POSITION = "ANALYSE_POSIOTION";
-    public static final String PROGRAMM = "ANALYSE_PROGRAMM";
-    public static final String MESSZEIT = "ANALYSE_MESSZEIT";
+    public static final String GERAET = "ANALYSE_" + AnalyseDatenmaskePXRD.COLUMN_GERAET;
+    public static final String PROBENPRAEPARATION = "ANALYSE_" + AnalyseDatenmaskePXRD.COLUMN_PRAEPARATION;
+    public static final String POSITION = "ANALYSE_" + AnalyseDatenmaskePXRD.COLUMN_POSITION;
+    public static final String PROGRAMM = "ANALYSE_" + AnalyseDatenmaskePXRD.COLUMN_PROGRAMM;
+    public static final String MESSZEIT = "ANALYSE_" + AnalyseDatenmaskePXRD.COLUMN_MESSZEIT;
 
     // Datenmaske DSC
-    public static final String AUSWAAGE_MG = "ANALYSE_AUSWAAGE_MG";
-    public static final String TIEGEL = "ANALYSE_TIEGEL";
-    public static final String TIEGELPRAESENTATION = "ANALYSE_TIEGELPRAESENTATION";
+    public static final String AUSWAAGE_MG = "ANALYSE_" + AnalyseDatenmaskeDSC.COLUMN_AUSWAAGE;
+    public static final String TIEGEL = "ANALYSE_" + AnalyseDatenmaskeDSC.COLUMN_TIEGEL;
+    public static final String TIEGELPRAESENTATION = "ANALYSE_" + AnalyseDatenmaskeDSC.COLUMN_TIEGELPRAEPARATION;
 
     // Datenmaske DSC & TGA
-    public static final String EINWAAGE_MG = "ANALYSE_EINWAAGE_MG";
-    public static final String RAMPE_K_MIN = "ANALYSE_RAMPE_K_MIN";
-    public static final String TEMPERATURPROGRAMM = "ANALYSE_TEMPERATURPROGRAMM";
+    public static final String EINWAAGE_MG = "ANALYSE_" + AnalyseDatenmaskeDscTgaConst.COLUMN_EINWAAGE;
+    public static final String RAMPE_K_MIN = "ANALYSE_" + AnalyseDatenmaskeDscTgaConst.COLUMN_RAMPE;
+    public static final String TEMPERATURPROGRAMM = "ANALYSE_" + AnalyseDatenmaskeDscTgaConst.COLUMN_TEMPERATURPROGRAMM;
 
     // Datenmaske IR
-    public static final String SCANS = "ANALYSE_SCANS";
-    public static final String AUFLOESUNG = "ANALYSE_AUFLOESUNG";
-    public static final String GEOMETRIE = "ANALYSE_GEOMETRIE";
-    public static final String PRAEPARATION = "ANALYSE_PREAPARATION";
-    public static final String BACKGROUND = "ANALYSE_BACKGROUND";
+    public static final String SCANS = "ANALYSE_" + AnalyseDatenmaskeIR.COLUMN_SCANS;
+    public static final String AUFLOESUNG = "ANALYSE_" + AnalyseDatenmaskeIR.COLUMN_AUFLOESUNG;
+    public static final String GEOMETRIE = "ANALYSE_" + AnalyseDatenmaskeIR.COLUMN_GEOMETRIE;
+    public static final String PRAEPARATION = "ANALYSE_" + AnalyseDatenmaskeIR.COLUMN_PRAEPARATION;
+    public static final String BACKGROUND = "ANALYSE_" + AnalyseDatenmaskeIR.COLUMN_BACKGROUND;
 
     // Temperaturprogramm
-    public static final String TEMPERATURPROGRAMM_TITEL = "ANALYSE_TEMPERATURPROGRAMM_TITEL";
-    public static final String TEMPERATURPROGRAMM_SCHRITT = "ANALYSE_TEMPERATURPROGRAMM_SCHRITT";
-    public static final String TEMPERATURPROGRAMM_TEMPERATUR = "ANALYSE_TEMPERATURPROGRAMM_TEMPERATUR";
-    public static final String TEMPERATURPROGRAMM_RAMPE = "ANALYSE_TEMPERATURPROGRAMM_RAMPE";
-    public static final String TEMPERATURPROGRAMM_ZEIT = "ANALYSE_TEMPERATURPROGRAMM_ZEIT";
-    public static final String TEMPERATURPROGRAMM_SEGMENTTYP = "ANALYSE_TEMPERATURPROGRAMM_SEGMENTTYP";
+    public static final String TEMPERATURPROGRAMM_TITEL = "ANALYSE_TEMPERATURPROGRAMM_" + AnalyseTemperaturprogramme.COLUMN_PRIMARY_KEY;
+    public static final String TEMPERATURPROGRAMM_SCHRITT = "ANALYSE_TEMPERATURPROGRAMM_" + AnalyseTemperaturprogramme.COLUMN_SCHRITT;
+    public static final String TEMPERATURPROGRAMM_TEMPERATUR = "ANALYSE_TEMPERATURPROGRAMM_" + AnalyseTemperaturprogramme.COLUMN_TEMPERATUR;
+    public static final String TEMPERATURPROGRAMM_RAMPE = "ANALYSE_TEMPERATURPROGRAMM_" + AnalyseTemperaturprogramme.COLUMN_RAMPE;
+    public static final String TEMPERATURPROGRAMM_ZEIT = "ANALYSE_TEMPERATURPROGRAMM_" + AnalyseTemperaturprogramme.COLUMN_ZEIT;
+    public static final String TEMPERATURPROGRAMM_SEGMENTTYP = "ANALYSE_TEMPERATURPROGRAMM_" + AnalyseTemperaturprogramme.COLUMN_SEGENTTYP;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

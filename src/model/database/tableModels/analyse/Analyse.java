@@ -5,7 +5,6 @@ import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
 import model.database.tableModels.Model;
-import model.database.tableModels.Probe;
 import model.database.tableModels.experimente.Experiment;
 import utility.JSON;
 

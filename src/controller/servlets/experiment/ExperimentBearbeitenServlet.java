@@ -45,8 +45,6 @@ public class ExperimentBearbeitenServlet extends HttpServlet {
                 }
 
                 json.addKeyValue(Experiment.COLUMN_PROBEN_NR, experiment.getProbenNr());
-                String durchfuehrungstext = new ExperimentDurchfuehrungstext(experimenttyp.getDurchfuehrung()).getText().replace("\n", "\\n");
-                json.addKeyValue(ExperimenteModel.COLUMN_DURCHFUEHRUNG_KEY + "_TEXT", durchfuehrungstext);
 
                 resp.setCharacterEncoding("utf-8");
                 resp.setContentType("application/json;charset=utf-8");

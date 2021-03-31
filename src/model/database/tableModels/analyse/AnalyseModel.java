@@ -100,7 +100,11 @@ public abstract class AnalyseModel extends Model {
     public JSON toJSON() {
         JSON json = new JSON();
         json.addKeyValue(COLUMN_PRIMARY_KEY, primaryKey);
-        json.addKeyValue(COLUMN_DATUM, datum.toString());
+        try {
+            json.addKeyValue(COLUMN_DATUM, datum.toString());
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_DATUM, null);
+        }
         json.addKeyValue(COLUMN_BEMERKUNG, bemerkung);
         json.addKeyValue(COLUMN_OPERATOR, operator);
 

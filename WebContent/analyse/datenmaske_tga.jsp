@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="controller.servlets.AnalyseServlet" %>
+<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="exceptions.ModelNotFoundException" %>
 <%@ page import="java.util.Set" %>
@@ -26,15 +26,15 @@
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-    <input required type="number" min="1" name=<%=AnalyseServlet.ANALYSE_ID%>>
+    <input required type="number" min="1" name=<%=AnalyseErstellenServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
 
-    <input type="text" required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+    <input type="text" required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
 
-    <!-- <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+    <!-- <select required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -57,22 +57,22 @@
 
 <div class="analyse_erstellen_header">Datum</div>
 <div class="analyse_erstellen_entry">
-    <input type="date" name=<%=AnalyseServlet.DATUM%>>
+    <input type="date" name=<%=AnalyseErstellenServlet.DATUM%>>
 </div>
 
 <div class="analyse_erstellen_header">Einwaage [mg]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" min="0" step="0.001" name=<%=AnalyseServlet.EINWAAGE_MG%>>
+    <input type="number" min="0" step="0.001" name=<%=AnalyseErstellenServlet.EINWAAGE_MG%>>
 </div>
 
 <div class="analyse_erstellen_header">Rampe [K/min]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" min="0" name=<%=AnalyseServlet.RAMPE_K_MIN%>>
+    <input type="number" min="0" name=<%=AnalyseErstellenServlet.RAMPE_K_MIN%>>
 </div>
 
 <div class="analyse_erstellen_header">Temperaturprogramm</div>
 <div class="analyse_erstellen_entry">
-    <select required onchange="showTemperaturprogramm(this)" name=<%=AnalyseServlet.TEMPERATURPROGRAMM%>>
+    <select required onchange="showTemperaturprogramm(this)" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">Neues Temperaturprogramm</option>
         <%
@@ -88,7 +88,7 @@
         %>
     </select>
     <input id="temperaurprogramme_table_title" style="display: none" type="number" min="1"
-        name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TITEL%>>
+        name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TITEL%>>
     <div id="temperaturprogramme_table" style="display: none">
         <div class="temperaturprogramme_methode_add_button">
             <input type="button" value=" neue Zeile " onclick="newTemperaturprogrammRow(this)">
@@ -109,12 +109,12 @@
 
 <div class="analyse_erstellen_header">Bemerkung</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.BEMERKUNG%>>
+    <input type="text" name=<%=AnalyseErstellenServlet.BEMERKUNG%>>
 </div>
 
 <div class="analyse_erstellen_header">Operator</div>
 <div class="analyse_erstellen_entry">
-    <select required name=<%=AnalyseServlet.OPERATOR%>>
+    <select required name=<%=AnalyseErstellenServlet.OPERATOR%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -138,23 +138,23 @@
 <table style="display: none">
     <tr class="temperaturprogramm_tamplate_table_row">
         <td class="eingangsanalyse_entry">
-            <input type="number" min="1" name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>">
+            <input type="number" min="1" name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SCHRITT%>">
         </td>
 
         <td class="eingangsanalyse_entry">
-            <input type="number" min="0" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_TEMPERATUR%>>
+            <input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TEMPERATUR%>>
         </td>
 
         <td class="eingangsanalyse_entry">
-            <input type="number" min="0" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>>
+            <input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_RAMPE%>>
         </td>
 
         <td class="eingangsanalyse_entry">
-            <input type="number" min="0" name=<%=AnalyseServlet.TEMPERATURPROGRAMM_ZEIT%>>
+            <input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_ZEIT%>>
         </td>
 
         <td class="eingangsanalyse_entry">
-            <input type="text" name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>">
+            <input type="text" name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>">
         </td>
     </tr>
 </table>
@@ -177,12 +177,12 @@
             if (param.value == <%= row.getTabelle() %>) {
                         const row = $(".temperaturprogramm_tamplate_table_row").clone();
                         row.attr("class", "temperaturprogramm_table_row")
-                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').prop('required', true)
-                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').val(<%=row.getSchritt() %>)
-                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_TEMPERATUR%>"]').val(<%=row.getTemperatur() %>)
-                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_RAMPE%>"]').val(<%=row.getRampe() %>)
-                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_ZEIT%>"]').val(<%=row.getZeit() %>)
-                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>"]').val("<%=row.getSegmenttyp()%>")
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').prop('required', true)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SCHRITT%>"]').val(<%=row.getSchritt() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TEMPERATUR%>"]').val(<%=row.getTemperatur() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_RAMPE%>"]').val(<%=row.getRampe() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_ZEIT%>"]').val(<%=row.getZeit() %>)
+                        row.children("td.eingangsanalyse_entry").children('input[name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>"]').val("<%=row.getSegmenttyp()%>")
                         $("#template_temperaturprogramme tr:last").after(row)
                     }
             <%
@@ -194,7 +194,7 @@
     }
 
     // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseServlet.EXPERIMENT_ID%>", 
+    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>",
     [
         { "experiment": "id" },
         { "experiment": "typ" }
