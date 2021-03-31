@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="controller.servlets.AnalyseServlet" %>
+<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="exceptions.ModelNotFoundException" %>
 <%@ page import="model.database.tableModels.*" %>
@@ -9,15 +9,15 @@
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-    <input required type="number" min="1" name=<%=AnalyseServlet.ANALYSE_ID%>>
+    <input required type="number" min="1" name=<%=AnalyseErstellenServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
 
-    <input type="text" required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+    <input type="text" required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
 
-    <!-- <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
+    <!-- <select required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -40,42 +40,42 @@
 
 <div class="analyse_erstellen_header">Datum</div>
 <div class="analyse_erstellen_entry">
-    <input type="date" name=<%=AnalyseServlet.DATUM%>>
+    <input type="date" name=<%=AnalyseErstellenServlet.DATUM%>>
 </div>
 
 <div class="analyse_erstellen_header">Scans</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" min="0" name=<%=AnalyseServlet.SCANS%>>
+    <input type="number" min="0" name=<%=AnalyseErstellenServlet.SCANS%>>
 </div>
 
 <div class="analyse_erstellen_header">Auflösung [1/cm]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" min="0" name=<%=AnalyseServlet.AUFLOESUNG%>>
+    <input type="number" min="0" name=<%=AnalyseErstellenServlet.AUFLOESUNG%>>
 </div>
 
 <div class="analyse_erstellen_header">Geometrie</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.GEOMETRIE%>>
+    <input type="text" name=<%=AnalyseErstellenServlet.GEOMETRIE%>>
 </div>
 
 <div class="analyse_erstellen_header">Präparation</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.PRAEPARATION%>>
+    <input type="text" name=<%=AnalyseErstellenServlet.PRAEPARATION%>>
 </div>
 
 <div class="analyse_erstellen_header">Background</div>
 <div class="analyse_erstellen_entry">
-    <input type="date" name=<%=AnalyseServlet.BACKGROUND%>>
+    <input type="date" name=<%=AnalyseErstellenServlet.BACKGROUND%>>
 </div>
 
 <div class="analyse_erstellen_header">Bemerkung</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseServlet.BEMERKUNG%>>
+    <input type="text" name=<%=AnalyseErstellenServlet.BEMERKUNG%>>
 </div>
 
 <div class="analyse_erstellen_header">Operator</div>
 <div class="analyse_erstellen_entry">
-    <select required name=<%=AnalyseServlet.OPERATOR%>>
+    <select required name=<%=AnalyseErstellenServlet.OPERATOR%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -98,7 +98,7 @@
 <script>
 
     // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseServlet.EXPERIMENT_ID%>",
+    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>",
         [
             { "experiment": "id" },
             { "experiment": "typ" }

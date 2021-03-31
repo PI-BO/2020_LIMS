@@ -3,7 +3,6 @@ package model.database.tableModels.experimente;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
-import model.database.tableModels.experimente.ExperimenteModel;
 import utility.JSON;
 
 import java.sql.ResultSet;
@@ -16,10 +15,10 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
     private Double auswaage_vial_kristallisat;
     private Double ausbeute_von_praep_analystik;
 
-    public static final String COLUMN_VIAL_TARA_KEY = "vial_tara";
+    public static final String COLUMN_VIAL_TARA_KEY = "vial_tara_g";
     public static final String COLUMN_BEOBACHTUNGEN_ZUM_LOESEVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY = "beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments";
-    public static final String COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY = "ausbeute_vial_kristallisat";
-    public static final String COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY = "ausbeute_von_praep_analystik";
+    public static final String COLUMN_AUSWAAGE_VIAL_KRISTALLISAT_KEY = "auswaagee_vial_kristallisat_g";
+    public static final String COLUMN_AUSBEUTE_VON_PRAEP_ANALYSTIK_KEY = "ausbeute_mg_von_praep_analytik";
 
     public static final String TABLE = "experimenttyp_verdampfung";
 
@@ -97,7 +96,7 @@ public class ExperimenttypVerdampfung extends ExperimenteModel {
         return ausbeute_von_praep_analystik;
     }
 
-    public void setAusbeute_von_praep_analystik(Double ausbeute_von_praep_analystik) {
+    public void setAusbeute_von_praep_analytik(Double ausbeute_von_praep_analystik) {
         this.ausbeute_von_praep_analystik = ausbeute_von_praep_analystik;
     }
 

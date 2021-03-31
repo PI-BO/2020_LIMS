@@ -12,9 +12,9 @@ public class ExperimenttypSlurry extends ExperimenteModel {
 
     private String beobachtungen_zur_slurryerstellung_oder_aenderungen_des_Experiments;
 
-    public static final String COLUMN_BEOBACHTUNGEN_ZUR_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY = "beobachtungen_zum_loesungsvorgang_oder_aenderungen_des_Experiments";
+    public static final String COLUMN_BEOBACHTUNGEN_ZUR_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS_KEY = "beobachtungen_zur_slurryerstellung_oder_abaenderung_des_Experiments";
 
-    public static final String TABLE = "experimenttyp_verdampfung";
+    public static final String TABLE = "experimenttyp_slurry";
 
     public ExperimenttypSlurry(String primaryKey) throws ModelNotFoundException, SQLException {
         super(primaryKey);

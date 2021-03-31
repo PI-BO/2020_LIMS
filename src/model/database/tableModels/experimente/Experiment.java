@@ -21,7 +21,7 @@ public class Experiment extends Model {
     private String proben_nr;
     public static final String COLUMN_PRIMARY_KEY = "id";
     public static final String COLUMN_TYP = "typ";
-    public static final String COLUMN_PROBEN_NR = "proben_nr";
+    public static final String COLUMN_PROBEN_NR = "api_startmaterial";
     public static final String COLUMN_FOREIGN_KEY = COLUMN_PROBEN_NR;
     public static final String TABLE = "experiment";
 

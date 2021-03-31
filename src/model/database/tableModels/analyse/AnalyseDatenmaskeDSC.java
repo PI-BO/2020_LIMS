@@ -8,7 +8,7 @@ import utility.JSON;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AnalyseDatenmaskeDSC extends AnalyseModel {
+public class AnalyseDatenmaskeDSC extends AnalyseDatenmaskeDscTgaConst {
     private Double einwaage;
     private Double auswaage;
     private Integer rampe;
@@ -16,10 +16,7 @@ public class AnalyseDatenmaskeDSC extends AnalyseModel {
     private String tiegel;
     private String tiegelpaeparation;
 
-    public static final String COLUMN_EINWAAGE = "einwaage";
     public static final String COLUMN_AUSWAAGE = "auswaage";
-    public static final String COLUMN_RAMPE = "rammpe";
-    public static final String COLUMN_TEMPERATURPROGRAMM = "temperaturprogramm";
     public static final String COLUMN_TIEGEL = "tiegel";
     public static final String COLUMN_TIEGELPRAEPARATION = "tiegelpraeparation";
 

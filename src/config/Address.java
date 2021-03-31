@@ -37,6 +37,18 @@ public class Address {
 	private static final String ANALYSE_ERSTELLEN_SERVLET = "/analyse/erstellen";
 	private static final String GLOBALE_SUCHE_JSP = "/suche/globale_suche2.jsp";
 	private static final String GLOBALE_SUCHE_JS = "/suche/globale_suche2.js";
+	private static final String EXPERIMENT_BEARBEITEN_SERVLET = "/experiment/bearbeiten";
+	private static final String EXPERIMENT_BEARBEITEN_JSP = "/experiment/experiment_bearbeiten.jsp";
+	private static final String EXPERIMENTTYP_SLURRY_JSP = "/experiment/experimenttyp_slurry.jsp";
+	private static final String EXPERIMENTTYP_VERDAMPFUNG_JSP = "/experiment/experimenttyp_verdampfung.jsp";
+	private static final String EXPERIMENT_BEARBEITEN_CSS = "/experiment/experiment_bearbeiten.css";
+	private static final String ANALYSE_DATENMASKE_PXRD_JSP = "/analyse/datenmaske_pxrd.jsp";
+	private static final String ANALYSE_DATENMASKE_IR_JSP = "/analyse/datenmaske_ir.jsp";
+	private static final String ANALYSE_DATENMASKE_DSC_JSP = "/analyse/datenmaske_dsc.jsp";
+	private static final String ANALYSE_DATENMASKE_TGA_JSP = "/analyse/datenmaske_tga.jsp";
+	private static final String ANALYSE_BEARBEITEN_SERVLET = "/analyse/bearbeiten";
+	private static final String ANALYSE_BEARBEITEN_CSS = "/analyse/analyse_bearbeiten.css";
+	private static final String ANALYSE_BEARBEITEN_JSP = "/analyse/analyse_bearbeiten.jsp";
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -184,5 +196,53 @@ public class Address {
 	
 	public static String getGlobaleSucheJsp() {
 		return MAIN_PATH + GLOBALE_SUCHE_JSP;
+	}
+
+	public static String getExperimentBearbeitenServlet() {
+		return MAIN_PATH + EXPERIMENT_BEARBEITEN_SERVLET;
+	}
+
+	public static String getExperimentBearbeitenJsp() {
+		return MAIN_PATH + EXPERIMENT_BEARBEITEN_JSP;
+	}
+
+    public static String getExperimentTypSlurryJsp() {
+		return MAIN_PATH + EXPERIMENTTYP_SLURRY_JSP;
+    }
+
+	public static String getExperimentTypVerdampfungJsp() {
+		return MAIN_PATH + EXPERIMENTTYP_VERDAMPFUNG_JSP;
+	}
+
+	public static String getExperimentBearbeitenCss() {
+		return MAIN_PATH + EXPERIMENT_BEARBEITEN_CSS;
+	}
+
+    public static String getAnalyseDatenmaskePxrdJsp() {
+		return MAIN_PATH + ANALYSE_DATENMASKE_PXRD_JSP;
+    }
+
+	public static String getAnalyseDatenmaskeIrJsp() {
+		return MAIN_PATH + ANALYSE_DATENMASKE_IR_JSP;
+	}
+
+	public static String getAnalyseDatenmaskeDscJsp() {
+		return MAIN_PATH + ANALYSE_DATENMASKE_DSC_JSP;
+	}
+
+	public static String getAnalyseDatenmaskeTgaJsp() {
+		return MAIN_PATH + ANALYSE_DATENMASKE_TGA_JSP;
+	}
+
+	public static String getAnalyseBearbeitenServlet() {
+		return MAIN_PATH + ANALYSE_BEARBEITEN_SERVLET;
+	}
+
+	public static String getAnalyseBearbeitenCss() {
+		return MAIN_PATH + ANALYSE_BEARBEITEN_CSS;
+	}
+
+	public static String getAnalyseBearbeitenJsp() {
+		return MAIN_PATH + ANALYSE_BEARBEITEN_JSP;
 	}
 }

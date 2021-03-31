@@ -2,7 +2,6 @@ package model.database.relations;
 
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.experimente.Experiment;
-import model.database.tableModels.experimente.ExperimenttypSlurry;
 import model.database.tableModels.experimente.ExperimenttypVerdampfung;
 
 import java.sql.SQLException;

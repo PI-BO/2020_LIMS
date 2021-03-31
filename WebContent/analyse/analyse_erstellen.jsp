@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="config.Address" %>
-<%@ page import="controller.servlets.AnalyseServlet" %>
+<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet" %>
 <%@ page import="model.database.tableModels.analyse.Analysetyp" %>
 <%@ page import="model.database.tableModels.ModelTable" %>
 <%@ page import="model.database.tableModels.Model" %>
@@ -37,7 +37,7 @@
 
     <div class="analyse_erstellen_header">Datenmaske:</div>
     <div class="analyse_erstellen_entry">
-        <select required onchange="showAnalysetypFieldsMethode(this.value)" name=<%=AnalyseServlet.TYP%>>
+        <select required onchange="showAnalysetypFieldsMethode(this.value)" name=<%=AnalyseErstellenServlet.TYP%>>
             <option value="" selected disabled>bitte auswaehlen</option>
             <%
                 try {
