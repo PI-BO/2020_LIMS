@@ -124,15 +124,15 @@
 			<tr>
 				<td>Projektpartner ID</td>
 				<td>
-					<input required onclick="dropDownFunction()" id="partner_id_input_field" class="drop_down_field"
-						type=text placeholder="*" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
+					<input required id="partner_id_input_field" class="drop_down_field" type=text placeholder="*"
+						name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
 				</td>
 			</tr>
 			<tr>
 				<td>Projekt ID</td>
 				<td>
-					<input required onclick="dropDownFunction()" id="projekt_id_input_field" class="drop_down_field"
-						type=text placeholder="*" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
+					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*"
+						name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
 			<tr>
@@ -189,17 +189,31 @@
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
 			[
-				{ "partner": "id" },
-				{ "partner": "name" }
+				{
+					"category": GlobaleSuche.parameter.PARTNER.CATEGORY,
+					"parameter": GlobaleSuche.parameter.PARTNER.PK,
+					"value": "",
+				},
+				{
+					"category": "partner",
+					"parameter": "name",
+					"value": ""
+				}
 			]);
 
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
 			[
-				{ "projekte": "id" }
-			],
-			[
-				{ "partner": "<%=Projekt.COLUMN_PROJEKTPARTNER%>" }
+				{
+					"category": "projekte",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": GlobaleSuche.parameter.PARTNER.CATEGORY,
+					"parameter": GlobaleSuche.parameter.PROJEKT.PK,
+					"value": () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value
+				},
 			]);
 	</script>
 

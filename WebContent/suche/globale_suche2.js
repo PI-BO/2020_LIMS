@@ -49,6 +49,41 @@ const GlobaleSuche = (function () {
 
 	let parameters = {}
 
+	
+	public.parameter = {
+		PARTNER: {
+			CATEGORY: "partner",
+			PK: "id",
+			NAME: "name",
+			EMAIL: "email"
+		},
+		PROJEKT: {
+			CATEGORY: "projekte",
+			PK: "id",
+			VERTRAGSNUMMER: "vertragsnummer",
+			FK: "projektpartner"
+		},
+		SUBSTANZ: {
+			CATEGORY: "substanz",
+			PK: "id",
+			FK: "projekt_id",
+			WIRKSTOFF: "wirkstoff"
+		},
+		PROBE: {
+			CATEGORY: "probe",
+			PK: "id",
+			FK: "substanz_id"
+		},
+		EXPERIMENT: {
+			CATEGORY: "experiment",
+			PK: "id",
+			FK: "proben_nr",
+			TYP: "typ"
+		}
+	}
+	
+	
+	
 	const filterTypes = {
 		matches: "entspricht",
 		contains: "beinhaltet"
@@ -225,7 +260,7 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, templateValues) {
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -236,11 +271,16 @@ const GlobaleSuche = (function () {
 			searchLink.href = "javascript:void(0);"
 			searchLink.style.paddingLeft = "0.3em"
 			inputElement.insertAdjacentElement("afterend", searchLink);
+			addListener(searchLink, templateParameters, inputElement);
+
+		})
+
+		function addListener(searchLink, templateParameters, inputElement) {
 
 			searchLink.addEventListener("click", () => {
 
 				NavigationMenu.show("#" + globalSearchMainContentContainerId);
-				GlobaleSuche.initTemplateParameters(templateParameters, templateValues);
+				GlobaleSuche.initTemplateParameters(templateParameters);
 				GlobaleSuche.resetPositionIfOutOfBounds();
 				GlobaleSuche.addSearchCallback((callbackContent) => {
 					NavigationMenu.hide("#" + globalSearchMainContentContainerId);
@@ -253,12 +293,7 @@ const GlobaleSuche = (function () {
 					}, 100);
 				}, "", "true")
 			});
-
-		})
-
-
-
-
+		}
 
 		// document.getElementById(searchLinkId).addEventListener("click", () => {
 	}
@@ -327,26 +362,13 @@ const GlobaleSuche = (function () {
 		return (searchCallbackForInputMasks !== undefined)
 	}
 
-	public.initTemplateParameters = function initTemplateParameters(template, templateParameters) {
-
-		if(templateParameters !== undefined){
-			
-			console.log({templateParameters})
-			
-			let inputField = document.getElementsByName(templateParameters[0]["partner"])
-			
-			console.log(inputField.value)
-
-		} 
-			
-
-
+	public.initTemplateParameters = function initTemplateParameters(templateParameters) {
 
 		clearParameterRows();
 		clearResultTable();
 
-		addRowsForTemplate(template);
-		setTemplateParameters(template);
+		addRowsForTemplate(templateParameters);
+		setTemplateParameters(templateParameters);
 
 		function addRowsForTemplate(template) {
 			for (let i = 0; i < template.length; i++) addParameterRow();
@@ -368,14 +390,19 @@ const GlobaleSuche = (function () {
 				let row = rows[rowIndex];
 				let categorySelect = row.getElementsByClassName(categorySelectClass)[0];
 				let parameterSelect = row.getElementsByClassName(searchParameterClass)[0];
-				let parameterOptions = parameterSelect.options;
-				let templateElement = template[templateIndex++];
-				let category = getCategory(templateElement)
-				let parameter = templateElement[category].toLowerCase();
+				let valueInputField = row.getElementsByClassName(searchValueClass)[0];
 
-				selectOption(categorySelect, category)
-				createParametersForSelectedCategory(parameterSelect, category);
-				selectCorrectParameterOption(parameterOptions, parameter);
+				let templateElement = template[templateIndex++];
+				let category = templateElement["category"].toLowerCase();
+				let parameter = templateElement["parameter"].toLowerCase();
+				let value = templateElement["value"];
+
+				if (typeof (value) === "function") value = value();
+
+				selectOption(categorySelect, category);
+				addOptions(parameterSelect, category);
+				selectOption(parameterSelect, parameter);
+				setTextInputField(valueInputField, value);
 			}
 		}
 
@@ -391,14 +418,14 @@ const GlobaleSuche = (function () {
 			}
 		}
 
-		function createParametersForSelectedCategory(selectElement, category) {
+		function addOptions(selectElement, category) {
 
-			removeOptions(selectElement);
-			addCategoryOptions(category, selectElement);
+			removeSelectOptions(selectElement);
+			addSelectOptions(category, selectElement);
 
 		}
 
-		function addCategoryOptions(category, selectElement) {
+		function addSelectOptions(category, selectElement) {
 			let searchParameters = parameters[category];
 			searchParameters.forEach(searchParameter => {
 				let option = document.createElement("option");
@@ -407,16 +434,10 @@ const GlobaleSuche = (function () {
 			})
 		}
 
-		function selectCorrectParameterOption(parameterOptions, parameter) {
-			for (let parameterOptionIndex = 0; parameterOptionIndex < parameterOptions.length; parameterOptionIndex++) {
-				let parameterOption = parameterOptions[parameterOptionIndex];
-				if (parameterOption.text.toLowerCase() == parameter) parameterOption.selected = "true";
-			}
+		function setTextInputField(valueInputField, value) {
+			valueInputField.value = value;
 		}
 
-		function getCategory(categoryParameterKeyValuePair) {
-			return Object.keys(categoryParameterKeyValuePair)[0].toLowerCase();
-		}
 	}
 
 	function clearParameterRows() {
@@ -538,7 +559,7 @@ const GlobaleSuche = (function () {
 		while (row.nodeName != "TR") row = row.parentNode;
 		selectElement = row.getElementsByClassName(searchParameterClass)[0];
 
-		removeOptions(selectElement);
+		removeSelectOptions(selectElement);
 
 		let parameters = getParameters(parameterCategory);
 		insertParameters(parameters, selectElement);
@@ -569,7 +590,7 @@ const GlobaleSuche = (function () {
 		element.options[0].selected = "true";
 	}
 
-	function removeOptions(selectElement) {
+	function removeSelectOptions(selectElement) {
 
 		let selectOptions = selectElement.querySelectorAll("option");
 		selectOptions.forEach(option => option.remove());
@@ -1043,5 +1064,3 @@ const GlobaleSuche = (function () {
 	return public;
 
 })();
-
-
