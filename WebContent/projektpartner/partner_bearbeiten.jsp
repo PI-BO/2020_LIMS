@@ -65,10 +65,10 @@
                     type: 'post',
                     data: $(this).serialize(),
                     success: function () {
-                        replaceContent("button_analyse_update", "Erfolgreich gespeichert", "green");
+                        replaceContent("button_partner_update", "Erfolgreich gespeichert", "green");
                     },
                     error: function (xhr, status, error) {
-                        replaceContent("button_analyse_update", "Fehler: " + xhr.responseText, "red");
+                        replaceContent("button_partner_update", "Fehler: " + xhr.responseText, "red");
                     }
                 });
                 return false;

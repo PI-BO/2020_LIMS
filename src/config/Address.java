@@ -51,6 +51,8 @@ public class Address {
 	private static final String ANALYSE_BEARBEITEN_JSP = "/analyse/analyse_bearbeiten.jsp";
 	private static final String PARTNER_BEARBEITEN_SERVLET = "/partner/bearbeiten";
 	private static final String PARTNER_BEARBEITEN_JSP = "/projektpartner/partner_bearbeiten.jsp";
+	private static final String PROJEKT_BEARBEITEN_SERVLET = "/projekt/bearbeiten";
+	private static final String PROJEKT_BEARBEITEN_JSP = "/projekt/projekt_bearbeiten.jsp";
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -252,7 +254,15 @@ public class Address {
 		return MAIN_PATH + PARTNER_BEARBEITEN_SERVLET;
     }
 
-	public static Object getPartnerBearbeitenJsp() {
+	public static String getPartnerBearbeitenJsp() {
 		return MAIN_PATH + PARTNER_BEARBEITEN_JSP;
+	}
+
+	public static String getProjektBearbeitenServlet() {
+		return MAIN_PATH + PROJEKT_BEARBEITEN_SERVLET;
+	}
+
+	public static Object getProjektBearbeitenJsp() {
+		return MAIN_PATH + PROJEKT_BEARBEITEN_JSP;
 	}
 }
