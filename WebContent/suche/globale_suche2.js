@@ -285,6 +285,7 @@ const GlobaleSuche = (function () {
 				GlobaleSuche.addSearchCallback((callbackContent) => {
 					NavigationMenu.hide("#" + globalSearchMainContentContainerId);
 					inputElement.value = callbackContent;
+					inputElement.dispatchEvent(new Event("change"))
 					setTimeout(function () {
 						inputElement.scrollIntoView({
 							block: 'center',

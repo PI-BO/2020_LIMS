@@ -11,6 +11,7 @@
 <div class="experiment_erstellen_header">No/ID</div>
 <div class="experiment_erstellen_entry">
 
+    <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
     <input required type="number" min="1" name=<%=ExperimentErstellenServlet.NO_ID%>>
 </div>
 
