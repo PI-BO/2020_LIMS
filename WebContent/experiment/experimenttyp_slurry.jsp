@@ -13,7 +13,6 @@
 
     <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
     <input required type="number" min="1" id="experiment_id_input_field" name=<%=ExperimentErstellenServlet.NO_ID%>>
-    <a id="suche_proben_id" href="#suche_proben_id">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Screening No</div>
@@ -71,7 +70,6 @@
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
     <input type="text" id="experiment_no_input_field" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
-    <a id="suche_experiment_id" href="#suche_experiment_id">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Durchführung</div>
@@ -138,7 +136,6 @@
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
     <input type="text" id="experiment_no_input_field2" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
-    <a id="suche_experiment_id2" href="#suche_experiment_id2">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">Planung Abgeschlossen</div>
@@ -219,7 +216,6 @@
 <!--     </select> -->
     
     <input required type="text" id="api_id_input_field" name=<%=ExperimentErstellenServlet.API_STARTMATERIAL%>>
-    <a id="suche_api_id" href="#suche_api_id">suchen</a>
 </div>
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage</div>

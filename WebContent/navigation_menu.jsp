@@ -25,7 +25,7 @@
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_partner_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
-									style="opacity: 0.3">bearbeiten</span></li>
+									id="projekt_partner_bearbeiten">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
 						</ul>
 					</li>
@@ -112,7 +112,8 @@
 				"#probeneingang_erstellen": 	"<%=Address.getProbeneingangJSP()%>",
 				"#eingangsanalytik_erstellen":	"<%=Address.getEingangsAnalytikJSP()%>",
 				"#experiment_bearbeiten":		"<%=Address.getExperimentBearbeitenJsp()%>",
-				"#analyse_bearbeiten":			"<%=Address.getAnalyseBearbeitenJsp()%>"
+				"#analyse_bearbeiten":			"<%=Address.getAnalyseBearbeitenJsp()%>",
+				"#projekt_partner_bearbeiten":	"<%=Address.getPartnerBearbeitenJsp()%>"
 			}
 		);
 
