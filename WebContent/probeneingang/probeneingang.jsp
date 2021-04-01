@@ -190,18 +190,19 @@
 				</td>
 			</tr>
 
-			<tr>
+			<!-- Relikt laut Haferkamp -->
+			<!-- <tr>
 				<th class="tooltip">
 					Projektvertragnummer <a href="javascript:void(0);">?</a>
 					<div class="tooltiptext">sind Projektvertragnummer und Projekt ID dasselbe?</div>
 				</th>
-			</tr>
-			<tr>
+			</tr> -->
+			<!-- <tr>
 				<td>
 					<input type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKTVERTRAGNUMMER%>
 						placeholder="*Projekt ID">
 				</td>
-			</tr>
+			</tr> -->
 
 			<tr>
 				<th>Anlagennummer</th>
@@ -284,7 +285,7 @@
 							<th>Messung Pulver</th>
 							<th>Messung IR</th>
 						</tr>
-						<tr style="background-color: white; widht: 100%">
+						<tr style="background-color: white; width: 100%">
 							<td>
 								<input style="min-width: auto" type="text" name=<%=Probeneingang.STANDORT%>>
 							</td>
@@ -517,32 +518,93 @@
 			element.append(text);
 		}
 
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_NR%>",
-			[
-				{ "probe": "id" },
-				{ "projekte": "id" },
-				{ "partner": "name" }
-			]);
-
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.WIRKSTOFF_ID%>",
 			[
-				{ "substanz": "id" },
-				{ "projekte": "id" },
-				{ "partner": "name" }
-			]);
+				{
+					"category": "substanz",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "projekte",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "partner",
+					"parameter": "name",
+					"value": ""
+				}
+			]
+		);
 
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.AUFTRAGGEBER%>",
 			[
-				{ "partner": "id" },
-				{ "partner": "name" },
-				{ "partner": "email" }
-			]);
+				{
+					"category": "partner",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "partner",
+					"parameter": "name",
+					"value": ""
+				},
+				{
+					"category": "partner",
+					"parameter": "email",
+					"value": ""
+				},
+				{
+					"category": "substanz",
+					"parameter": "id",
+					"value": () => document.getElementsByName("<%=Probeneingang.WIRKSTOFF_ID%>")[0].value
+				}
 
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKTVERTRAGNUMMER%>",
+			]
+		);
+
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_NR%>",
 			[
-				{ "projekte": "id" },
-				{ "partner": "name" }
-			]);
+				{
+					"category": "probe",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "projekte",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "partner",
+					"parameter": "name",
+					"value": () => document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0].value
+				},
+				{
+					"category": "substanz",
+					"parameter": "id",
+					"value": () => document.getElementsByName("<%=Probeneingang.WIRKSTOFF_ID%>")[0].value
+				}
+
+			]
+		);
+
+		// Relikt laut Haferkamp
+		// GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKTVERTRAGNUMMER%>",
+		// 	[
+		// 		{
+		// 			"category": "projekte",
+		// 			"parameter": "id",
+		// 			"value": ""
+		// 		},
+		// 		{
+		// 			"category": "partner",
+		// 			"parameter": "name",
+		// 			"value": ""
+		// 		}
+		// 	]
+		// );
 
 
 

@@ -100,8 +100,17 @@
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>",
         [
-            { "experiment": "id" },
-            { "experiment": "typ" }
-        ]);
+            {
+                "category": "experiment",
+                "parameter": "id",
+                "value": ""
+            },
+            {
+                "category": "experiment",
+                "parameter": "typ",
+                "value": ""
+            }
+        ]
+    );
 
 </script>
