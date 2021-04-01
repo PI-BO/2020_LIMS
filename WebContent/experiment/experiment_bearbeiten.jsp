@@ -36,7 +36,7 @@
 
     <div class="experiment_bearbeiten_header">Experiment ID:</div>
     <div class="experiment_bearbeiten_entry">
-        <input required type="number" min="1" id="experiment_id_input_field" name="id">
+        <input required type="number" min="1" id="experiment_id_input_field" name="<%=ExperimentErstellenServlet.NO_ID%>">
     </div>
 
     <div id="experiment_bearbeiten_content">
@@ -71,6 +71,7 @@
                 }
                 experimentBearbeitenPosting.done(function (post) {
                     content.empty().append(post).ready(function () {
+                        content.children().slice(0,2).remove();// remove first 2 elements
                         for (let key in data) {
                             const modifiedkey = "EXPERIMENT_" + key
                             const nodeList = document.getElementsByName(modifiedkey)

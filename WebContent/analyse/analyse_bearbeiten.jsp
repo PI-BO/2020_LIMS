@@ -1,6 +1,7 @@
 <%@ page import="config.Address" %>
 <%@ page import="model.database.tableModels.analyse.*" %>
 <%@ page import="controller.servlets.analyse.AnalyseErstellenServlet" %>
+<%@ page import="controller.servlets.analyse.AnalyseBearbeitenServlet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="de">
 <head>
@@ -34,7 +35,7 @@
 
     <div class="analyse_bearbeiten_header">Analyse ID:</div>
     <div class="analyse_bearbeiten_entry">
-        <input required type="number" min="1" id="analyse_id_input_field" name="id">
+        <input required type="number" min="1" id="analyse_id_input_field" name="<%=AnalyseErstellenServlet.ANALYSE_ID%>">
     </div>
 
     <div id="analyse_bearbeiten_content">
@@ -73,6 +74,7 @@
                 }
                 analyseBearbeitenPosting.done(function (post) {
                     content.empty().append(post).ready(function () {
+                        content.children().slice(0,2).remove();// remove first 2 elements
                         for (let key in data) {
                             const modifiedkey = "ANALYSE_" + key
                             const nodeList = document.getElementsByName(modifiedkey)
