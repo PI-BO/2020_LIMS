@@ -139,14 +139,35 @@
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Substanz.COLUMN_PROJEKT_ID%>",
 			[
-				{ "projekte": "id" },
-				{ "projekte": "projektpartner" }
+				{
+					"category": "projekte",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "partner",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "partner",
+					"parameter": "name",
+					"value": ""
+				}
 			]);
 
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Substanz.COLUMN_PRIMARY_KEY%>",
 			[
-				{ "substanz": "id" },
-				{ "substanz": "projekt_id" }
+				{
+					"category": "substanz",
+					"parameter": "id",
+					"value": ""
+				},
+				{
+					"category": "substanz",
+					"parameter": "projekt_id",
+					"value": () => document.getElementsByName("<%=Substanz.COLUMN_PROJEKT_ID%>")[0].value
+				}
 			]);
 
 	</script>

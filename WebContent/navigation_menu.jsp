@@ -60,8 +60,10 @@
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Experiment</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_clipboard" id="experiment_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper" id="experiment_bearbeiten">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_clipboard"
+									id="experiment_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_pen_paper"
+									id="experiment_bearbeiten">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
 						</ul>
 					</li>
@@ -124,7 +126,7 @@
 		setTimeout(() => {
 
 			// 	NavigationMenu.open("#projekt_partner_erstellen");
-				NavigationMenu.open("#projekt_erstellen");
+			// NavigationMenu.open("#projekt_erstellen");
 			// NavigationMenu.open("#substanz_erstellen");
 			// 	NavigationMenu.open("#experiment_erstellen");
 			// 	NavigationMenu.open("#analyse_erstellen");
