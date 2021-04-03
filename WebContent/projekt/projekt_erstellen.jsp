@@ -153,8 +153,8 @@
 	</form>
 
 	<script>
-
-		$("#form_projekt_erstellen").submit(function (e) {
+	
+	$("#form_projekt_erstellen").submit(function (e) {
 			e.preventDefault();
 
 			var submitData = {};
@@ -187,12 +187,12 @@
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
 			[
 				{
-					"category": GlobaleSuche.parameter.PARTNER.CATEGORY,
-					"parameter": GlobaleSuche.parameter.PARTNER.PK,
+					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
+					"parameter": GlobaleSuche.MODEL.PARTNER.PK,
 					"value": "",
 				},
 				{
-					"category": "partner",
+					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
 					"parameter": "name",
 					"value": ""
 				}
@@ -207,11 +207,30 @@
 					"value": ""
 				},
 				{
-					"category": GlobaleSuche.parameter.PARTNER.CATEGORY,
-					"parameter": GlobaleSuche.parameter.PROJEKT.PK,
+					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
+					"parameter": GlobaleSuche.MODEL.PROJEKT.PK,
 					"value": () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value
 				},
 			]);
+
+		const bla = GlobaleSuche.backgroundSearch(
+			[
+				{
+					"category": "partner",
+					"parameter": "id",
+					"value": "1"
+				},
+				{
+					"category": "projekte",
+					"parameter": "id",
+					"value": "A"
+				}
+			],
+			(requestedData)=>{
+				console.log({requestedData})
+			}
+		);
+
 	</script>
 
 </html>
