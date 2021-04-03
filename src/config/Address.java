@@ -35,8 +35,8 @@ public class Address {
 	private static final String ANALYSE_ERSTELLEN_CSS = "/analyse/analyse_erstellen.css";
 	private static final String ANALYSE_ERSTELLEN_JS = "/analyse/analyse_erstellen.js";
 	private static final String ANALYSE_ERSTELLEN_SERVLET = "/analyse/erstellen";
-	private static final String GLOBALE_SUCHE_JSP = "/suche/globale_suche2.jsp";
-	private static final String GLOBALE_SUCHE_JS = "/suche/globale_suche2.js";
+	private static final String GLOBALE_SUCHE_JSP = "/suche/globale_suche.jsp";
+	private static final String GLOBALE_SUCHE_JS = "/suche/GlobaleSuche.js";
 	private static final String EXPERIMENT_BEARBEITEN_SERVLET = "/experiment/bearbeiten";
 	private static final String EXPERIMENT_BEARBEITEN_JSP = "/experiment/experiment_bearbeiten.jsp";
 	private static final String EXPERIMENTTYP_SLURRY_JSP = "/experiment/experimenttyp_slurry.jsp";

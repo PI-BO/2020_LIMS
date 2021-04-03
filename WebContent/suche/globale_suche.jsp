@@ -117,12 +117,11 @@
 			<input class="global_search_parameter_input" type="text" />
 			<input type="button" value="x" class="global_search_delete_parameter_button" />
 		</div>
-
 		<!-- END TEMPLATE -->
 	</div>
 	<script src="<%=Address.getGlobaleSucheJs()%>"></script>
-	<script type="text/javascript">
-		GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
+	<script>
+			GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
 	</script>
 </body>
 

@@ -1,7 +1,4 @@
-import Parameter from "../JavaScript/Parameter.js";
-import * as Parameters from "../JavaScript/Parameter.js";
-
-export default class MainState {
+class MainState {
     constructor(){
         this.currentProjekt;
         this.currentProbe;
@@ -21,6 +18,4 @@ export default class MainState {
             this.stateData = searchResults;
         })
     }
-
-
 }

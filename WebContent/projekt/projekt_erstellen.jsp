@@ -132,15 +132,12 @@
 						name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
-			<tr>
+			<!-- <tr>
 				<td class="tooltip">
 					Vertragsnummer <a href="javascript:void(0);">?</a>
 					<div class="tooltiptext">Ist die Vertragsnummer gleich der Projekt ID?</div>
 				</td>
-				<td>
-					<input type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
-				</td>
-			</tr>
+			</tr> -->
 			<tr>
 				<th id="th_speichern" colspan=4>
 					<button type="submit">Speichern</button>
@@ -166,7 +163,6 @@
 
 			}
 
-			// 		var url = "http://localhost:8080/2020_LIMS/save_project_servlet";
 			var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
 			var posting = $.post(url, submitData);
 			posting.done(function (data) {
