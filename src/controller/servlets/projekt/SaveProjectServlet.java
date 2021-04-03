@@ -1,4 +1,4 @@
-package controller.servlets;
+package controller.servlets.projekt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -6,15 +6,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.servlets.LoginServlet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
-import model.database.tableModels.Partner;
 import model.database.tableModels.Projekt;
 import utility.JSON;
-import utility.JSONArray;
 
 import java.io.IOException;
 import java.io.PrintWriter;
