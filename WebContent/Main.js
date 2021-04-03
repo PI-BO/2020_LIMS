@@ -1,6 +1,8 @@
-const Main = (function () {
+import MainState from "./JavaScript/MainState.js";
 
-    public.initSubpages = function initSubpages(subpages) {
+export default class Main {
+
+    initSubpages (subpages) {
 
         for (let key in subpages) {
 
@@ -15,7 +17,7 @@ const Main = (function () {
             });
         }
     }
+}
 
-    return public;
-
-})();
+const mainState = new MainState();
+mainState.setCurrentProjekt("1");

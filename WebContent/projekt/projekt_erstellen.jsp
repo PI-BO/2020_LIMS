@@ -151,9 +151,9 @@
 			</tr>
 		</table>
 	</form>
-
+	<script type="module" src="projekt/projekt_erstellen.js"></script>
 	<script>
-	
+
 	$("#form_projekt_erstellen").submit(function (e) {
 			e.preventDefault();
 
@@ -212,25 +212,5 @@
 					"value": () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value
 				},
 			]);
-
-		const bla = GlobaleSuche.backgroundSearch(
-			[
-				{
-					"category": "partner",
-					"parameter": "id",
-					"value": "1"
-				},
-				{
-					"category": "projekte",
-					"parameter": "id",
-					"value": "A"
-				}
-			],
-			(requestedData)=>{
-				console.log({requestedData})
-			}
-		);
-
 	</script>
-
 </html>

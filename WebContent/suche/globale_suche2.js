@@ -618,6 +618,8 @@ const GlobaleSuche = (function () {
 
 	public.backgroundSearch = function backgroundSearch(parameters, callbackFunction) {
 
+		console.log("backgroundSearch", {parameters})
+
 		let searchCategories = [];
 		let searchParameters = [];
 		let searchInputFields = [];
@@ -658,7 +660,7 @@ const GlobaleSuche = (function () {
 		const categories = getSearchCategories();
 		// categories und parameters sortieren und gruppieren: [a,b,a] -> [a,a,b]
 		sortAndGroup(parameters, categories);
-		
+
 		// Ergebnisse mit Parametern heraussuchen und "display" key-value setzen 
 		// (damit nicht der gesamte Ergebnis-Tupel angezeigt wird, sonder nur die Parameter nach denen gesucht wurde)
 		const filteredResults = filterResultsAndReturnOnlyRequestedParameters(results, categories, parameters);
@@ -667,23 +669,23 @@ const GlobaleSuche = (function () {
 		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, mergeEqualCells = false, addSortFunction = true);
 		addResultsToTable(filteredResults, resultTableId, resultRowClass);
 		mergeRedundantRows(resultTableId);
-		
+
 		// ------ functions ------
-		
-		function sortAndGroup(parameters, categories){
+
+		function sortAndGroup(parameters, categories) {
 
 			for (let i = 0; i < categories.length - 1; i++) {
 				let categoryPivot = categories[i];
-	
+
 				for (let j = i + 1; j < categories.length; j++) {
 					let category = categories[j];
 					let parameter = parameters[j];
-	
+
 					if (category === categoryPivot) {
 						let switchCategory = categories[i + 1];
 						categories[i + 1] = category;
 						categories[j] = switchCategory;
-	
+
 						let switchParameter = parameters[i + 1];
 						parameters[i + 1] = parameter;
 						parameters[j] = switchParameter;
@@ -694,7 +696,7 @@ const GlobaleSuche = (function () {
 		}
 
 		function filterResultsAndReturnOnlyRequestedParameters(results, categories, parameters) {
-			
+
 			let newResults = [];
 			results.forEach(tupel => {
 				let newTupel = [];

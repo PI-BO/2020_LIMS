@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Solid-Chem | LIMS</title>
 
-    <script src="jquery-3.5.1.js"></script>
+	<script src="jquery-3.5.1.js"></script>
 
     <link rel="stylesheet" href="<%=Address.getMainCSS()%>">
     <link rel="stylesheet" id="google-font-api-special-1-css"
@@ -34,10 +34,15 @@
 		</div>
 	</div>
 </body>
-<script src="Main.js"></script>
-<script type="text/javascript">
+<!-- <script type="module" src="JavaScript/MainState.js"></script> -->
+<!-- <script type="module" src="Main.js"></script> -->
+<script type="module">
 
-Main.initSubpages(
+import Main from "./Main.js";
+
+let main = new Main();
+
+main.initSubpages(
 		{		
 			"<%=Address.getGlobaleSucheJsp()%>" : "#main-content-global-search",
 			"<%=Address.getExplorerJSP()%>" : "#main-content-explorer"
