@@ -21,9 +21,10 @@ import java.util.List;
 /**
  * Servlet implementation class Services
  */
-@WebServlet("/jstree/nodes")
+@WebServlet(JSTreeNodesServlet.ROUTE)
 public class JSTreeNodesServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    public static final String ROUTE = "/jstree/nodes";
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

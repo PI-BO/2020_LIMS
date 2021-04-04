@@ -17,9 +17,10 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Enumeration;
 
-@WebServlet("/analyse/erstellen")
+@WebServlet(AnalyseErstellenServlet.ROUTE)
 public class AnalyseErstellenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Config.class.getName());
+    public static final String ROUTE = "/analyse/erstellen";
 
     public static final String TYP = "ANALYSE_" + Analyse.COLUMN_TYP;
     public static final String ANALYSE_ID = "ANALYSE_" + AnalyseModel.COLUMN_PRIMARY_KEY;
