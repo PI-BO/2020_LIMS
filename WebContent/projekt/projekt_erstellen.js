@@ -1,6 +1,3 @@
-import Parameter from "../JavaScript/Parameter.js";
-import * as Parameters from "../JavaScript/Parameter.js";
-
 GlobaleSuche.backgroundSearch(
     [
         new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "1")
@@ -16,6 +13,6 @@ GlobaleSuche.backgroundSearch(
         // }
     ],
     (requestedData) => {
-        console.log({ requestedData })
+        // console.log({ requestedData })
     }
 );

@@ -119,9 +119,9 @@
 		</div>
 		<!-- END TEMPLATE -->
 	</div>
-	<script src="<%=Address.getGlobaleSucheJs()%>"></script>
+	<!-- <script src="<%=Address.getGlobaleSucheJs()%>"></script> -->
 	<script>
-			GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
+			// GlobaleSuche.init("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
 	</script>
 </body>
 

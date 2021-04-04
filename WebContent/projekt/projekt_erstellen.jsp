@@ -29,81 +29,6 @@
 			border-color: red;
 			border-width: 2px;
 		}
-
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #77bbff;
-			border: 2px solid #77bbff;
-			min-width: 10px;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			z-index: 1;
-		}
-
-		/* Links inside the dropdown */
-		.dropdown-content a {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-		}
-
-		/* Change color of dropdown links on hover */
-		.dropdown-content a:hover {
-			background-color: #ddd
-		}
-
-		/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-		.show {
-			display: block;
-		}
-
-		.tooltip {
-			position: relative;
-			display: inline-block;
-			/*   color: #0000EE; */
-			/*   border-bottom: 1px solid #0000EE; */
-		}
-
-		.tooltip .tooltiptext {
-			visibility: hidden;
-			/*   height: 1em; */
-			min-width: 20em;
-			width: auto;
-			background-color: black;
-			color: #fff;
-			text-align: center;
-			border-radius: 6px;
-			padding: 10px;
-			position: absolute;
-			z-index: 1;
-			top: -5px;
-			left: 110%;
-		}
-
-		.tooltip:hover {
-			cursor: help;
-		}
-
-		.tooltip a:hover {
-			cursor: help;
-		}
-
-		.tooltip .tooltiptext::after {
-			content: " ";
-			position: absolute;
-			top: 50%;
-			right: 100%;
-			/* To the left of the tooltip */
-			margin-top: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: transparent black transparent transparent;
-		}
-
-		.tooltip:hover .tooltiptext {
-			visibility: visible;
-		}
 	</style>
 </head>
 
@@ -148,10 +73,10 @@
 			</tr>
 		</table>
 	</form>
-	<script type="module" src="projekt/projekt_erstellen.js"></script>
+	<script src="projekt/projekt_erstellen.js"></script>
 	<script>
 
-	$("#form_projekt_erstellen").submit(function (e) {
+		$("#form_projekt_erstellen").submit(function (e) {
 			e.preventDefault();
 
 			var submitData = {};
@@ -182,31 +107,18 @@
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
 			[
-				{
-					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
-					"parameter": GlobaleSuche.MODEL.PARTNER.PK,
-					"value": "",
-				},
-				{
-					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
-					"parameter": "name",
-					"value": ""
-				}
-			]);
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+			]
+		);
 
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
 			[
-				{
-					"category": "projekte",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
-					"parameter": GlobaleSuche.MODEL.PROJEKT.PK,
-					"value": () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value
-				},
-			]);
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value)
+			]
+		);
 	</script>
+
 </html>

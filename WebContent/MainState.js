@@ -10,8 +10,8 @@ class MainState {
     setCurrentProjekt(projektId){
         GlobaleSuche.backgroundSearch([
             {
-                "category" : GlobaleSuche.MODEL.PROJEKT.CATEGORY,
-                "parameter" : GlobaleSuche.MODEL.PROJEKT.PK,
+                "category" : Parameters.PROJEKT.CATEGORY,
+                "parameter" : Parameters.PROJEKT.PK,
                 value : projektId
             }
         ], (searchResults) => {

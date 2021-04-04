@@ -49,38 +49,6 @@ const GlobaleSuche = (function () {
 
 	let parameters = {}
 
-	public.MODEL = {
-		PARTNER: {
-			CATEGORY: "partner",
-			PK: "id",
-			NAME: "name",
-			EMAIL: "email"
-		},
-		PROJEKT: {
-			CATEGORY: "projekte",
-			PK: "id",
-			VERTRAGSNUMMER: "vertragsnummer",
-			FK: "projektpartner"
-		},
-		SUBSTANZ: {
-			CATEGORY: "substanz",
-			PK: "id",
-			FK: "projekt_id",
-			WIRKSTOFF: "wirkstoff"
-		},
-		PROBE: {
-			CATEGORY: "probe",
-			PK: "id",
-			FK: "substanz_id"
-		},
-		EXPERIMENT: {
-			CATEGORY: "experiment",
-			PK: "id",
-			FK: "proben_nr",
-			TYP: "typ"
-		}
-	}
-
 	const filterTypes = {
 		matches: "entspricht",
 		contains: "beinhaltet"
@@ -117,6 +85,17 @@ const GlobaleSuche = (function () {
 			];
 			// public.initTemplateParameters(template);
 		})
+	}
+
+	function fetchDatabase(callback) {
+
+		fetch(servletURL, {
+			method: "post",
+		})
+			.then(response => response.json())
+			.then(data => {
+				callback(data)
+			});
 	}
 
 	function initCloseButton() {
@@ -474,17 +453,6 @@ const GlobaleSuche = (function () {
 
 	function getSearchTable() {
 		return document.getElementById(parameterTableId);
-	}
-
-	function fetchDatabase(callback) {
-
-		fetch(servletURL, {
-			method: "post",
-		})
-			.then(response => response.json())
-			.then(data => {
-				callback(data)
-			});
 	}
 
 	function clearResultTable() {
