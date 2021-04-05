@@ -85,7 +85,7 @@
 
 			for (var i = 0; i < e.target.length; i++) {
 
-				console.log(e.target[i].name, e.target[i].value);
+				// console.log(e.target[i].name, e.target[i].value);
 				submitData[e.target[i].name] = e.target[i].value;
 
 			}
@@ -98,40 +98,46 @@
 					new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, partnerName)
 				],
 				requestedData => {
-					
+
 					let partnerId;
-					
-					for(let j = 0; j < requestedData.length; j++){
+
+					for (let j = 0; j < requestedData.length; j++) {
 						let tupel = requestedData[j];
-						for(let i = 0; i < tupel.length; i++){
+						for (let i = 0; i < tupel.length; i++) {
 							let element = tupel[i];
-							if(element["table"] !== Parameters.PARTNER.CATEGORY) continue;
-							if(element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
+							if (element["table"] !== Parameters.PARTNER.CATEGORY) continue;
+							if (element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
 							partnerId = element[Parameters.PARTNER.PK];
 							break;
 						}
-						if(partnerId !== undefined) break;
+						if (partnerId !== undefined) break;
 					}
-					
-					console.log({submitData})
 
 					submitData[Parameters.PROJEKT.FK] = partnerId;
 
+					GlobaleSuche.backgroundSearch(
+						[
+							new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, partnerId)
+						],
+						(backgroundData) => {
+							console.log({backgroundData})
+						}
+					)
 
 					var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
 					var posting = $.post(url, submitData);
 					posting.done(function (data) {
-		
+
 						if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
-		
+
 						if (data["status"] === "success") {
-		
+
 							let requiredFields = document.querySelectorAll("input:required");
 							for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
 							$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
 							$("#th_speichern").empty();
 
-							MainState.setCurrentProjekt(submitData[Parameters.PROJEKT.PK])
+							// MainState.setCurrentProjekt(submitData[Parameters.PROJEKT.PK]);
 						}
 					});
 				}

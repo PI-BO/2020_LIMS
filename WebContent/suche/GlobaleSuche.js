@@ -586,8 +586,6 @@ const GlobaleSuche = (function () {
 
 	public.backgroundSearch = function backgroundSearch(parameters, callbackFunction) {
 
-		console.log("backgroundSearch", {parameters})
-
 		let searchCategories = [];
 		let searchParameters = [];
 		let searchInputFields = [];
@@ -609,8 +607,49 @@ const GlobaleSuche = (function () {
 			const tupelList = database;
 			const results = getMatchingTupels(tupelList, searchCategories, searchParameters, searchInputFields, searchFilterTypes);
 
-			callbackFunction(results);
+			const filteredResults = filterResultsAndReturnOnlyRequestedParameters(results, searchCategories, searchParameters)
+
+			const mergedResults = mergeRedundantTupel(filteredResults);
+
+			callbackFunction(mergedResults);
 		})
+	}
+
+	function mergeRedundantTupel(tupelList){
+
+		let mergedTupelList = [].concat(tupelList);
+
+		for(let i = mergedTupelList.length-1; i > 0; i--){
+			
+			let tupel = mergedTupelList[i];
+
+			for(let j = i-1; j >= 0; j--){
+
+				let nextTupel = mergedTupelList[j];
+				
+				if(!areEqual(tupel, nextTupel)) continue;
+
+				mergedTupelList.splice(j, 1);
+				i--;
+			}
+		}
+
+		return mergedTupelList;
+		
+		function areEqual(tupel, nextTupel){
+			
+			if(tupel.length !== nextTupel.length) return false;
+			
+			for(let i = 0; i < tupel.length; i++){
+
+				let elementA = JSON.stringify(tupel[i]);
+				let elementB = JSON.stringify(nextTupel[i]);
+
+				if( elementA !== elementB) return false;
+			}
+
+			return true;
+		}
 	}
 
 	function renderResultTable(results, resultTableId) {
@@ -663,39 +702,6 @@ const GlobaleSuche = (function () {
 			}
 		}
 
-		function filterResultsAndReturnOnlyRequestedParameters(results, categories, parameters) {
-
-			let newResults = [];
-			results.forEach(tupel => {
-				let newTupel = [];
-				let found = 0;
-				for (let i = 0; i < categories.length; i++) {
-
-					let category = categories[i];
-
-					for (let j = 0; j < tupel.length; j++) {
-						let element = tupel[j];
-						if (element[categoryKey].toLowerCase() !== category.toLowerCase()) continue;
-						found++;
-						let elementAsJson = { ...element };
-						elementAsJson[displayKey] = element[parameters[i]];
-						newTupel.push(elementAsJson);
-						break;
-					}
-
-					// Platzhalter generieren damit die Spalten des Tupels nicht in eine falsche Reihenfolge verrutschen
-					if (found == i) {
-						let elementAsJson = { categoryKey: category };
-						elementAsJson[displayKey] = "";
-						newTupel.push(elementAsJson);
-						found++;
-					}
-				}
-				newResults.push(newTupel);
-			})
-			return newResults;
-		}
-
 		function findLongestTupel() {
 
 			let indexOfBiggestResultTupel = 0;
@@ -708,6 +714,39 @@ const GlobaleSuche = (function () {
 			}
 			return indexOfBiggestResultTupel
 		}
+	}
+
+	function filterResultsAndReturnOnlyRequestedParameters(results, categories, parameters) {
+
+		let newResults = [];
+		results.forEach(tupel => {
+			let newTupel = [];
+			let found = 0;
+			for (let i = 0; i < categories.length; i++) {
+
+				let category = categories[i];
+
+				for (let j = 0; j < tupel.length; j++) {
+					let element = tupel[j];
+					if (element[categoryKey].toLowerCase() !== category.toLowerCase()) continue;
+					found++;
+					let elementAsJson = { ...element };
+					elementAsJson[displayKey] = element[parameters[i]];
+					newTupel.push(elementAsJson);
+					break;
+				}
+
+				// Platzhalter generieren damit die Spalten des Tupels nicht in eine falsche Reihenfolge verrutschen
+				if (found == i) {
+					let elementAsJson = { categoryKey: category };
+					elementAsJson[displayKey] = "";
+					newTupel.push(elementAsJson);
+					found++;
+				}
+			}
+			newResults.push(newTupel);
+		})
+		return newResults;
 	}
 
 	function mergeRedundantRows(resultTableId) {

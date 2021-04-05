@@ -17,6 +17,7 @@ const MainState = (function () {
                 new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, currentProjekt)
             ], (searchResults) => {
                 stateData = searchResults;
+                console.log({stateData})
             }
         )
     }
