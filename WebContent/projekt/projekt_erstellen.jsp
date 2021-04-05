@@ -1,3 +1,4 @@
+<%@page import="model.database.tableModels.Partner"%>
 <%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="controller.servlets.projekt.SaveProjectServlet"%>
@@ -44,16 +45,17 @@
 				<th>Projekt Informationen</th>
 			</tr>
 			<tr>
-				<td>Projektpartner ID</td>
+				<td>Projektpartner Name</td>
 				<td>
-					<input required id="partner_id_input_field" class="drop_down_field" type=text placeholder="*"
-						name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
+					<input required type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
 				</td>
 			</tr>
 			<tr>
-				<td>Projekt ID</td>
+				<td id="projektIdTooltip">
+					Projekt ID
+				</td>
 				<td>
-					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*"
+					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder=""
 						name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
@@ -88,27 +90,59 @@
 
 			}
 
-			var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
-			var posting = $.post(url, submitData);
-			posting.done(function (data) {
 
-				if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+			let partnerName = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value;
 
-				if (data["status"] === "success") {
+			GlobaleSuche.backgroundSearch(
+				[
+					new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, partnerName)
+				],
+				requestedData => {
+					
+					let partnerId;
+					
+					for(let j = 0; j < requestedData.length; j++){
+						let tupel = requestedData[j];
+						for(let i = 0; i < tupel.length; i++){
+							let element = tupel[i];
+							if(element["table"] !== Parameters.PARTNER.CATEGORY) continue;
+							if(element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
+							partnerId = element[Parameters.PARTNER.PK];
+							break;
+						}
+						if(partnerId !== undefined) break;
+					}
+					
+					console.log({submitData})
 
-					let requiredFields = document.querySelectorAll("input:required");
-					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
-					$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
-					$("#th_speichern").empty();
+					submitData[Parameters.PROJEKT.FK] = partnerId;
+
+
+					var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
+					var posting = $.post(url, submitData);
+					posting.done(function (data) {
+		
+						if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+		
+						if (data["status"] === "success") {
+		
+							let requiredFields = document.querySelectorAll("input:required");
+							for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+							$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+							$("#th_speichern").empty();
+
+							MainState.setCurrentProjekt(submitData[Parameters.PROJEKT.PK])
+						}
+					});
 				}
-			});
+			)
 		})
 
 		// Such-Links
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
 			[
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
 			]
 		);
 
@@ -116,9 +150,11 @@
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
 			[
 				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value)
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
 			]
 		);
+
+		Tooltip.setTooltip("projektIdTooltip", "Projekt ID automatisch generieren lassen?");
 	</script>
 
 </html>

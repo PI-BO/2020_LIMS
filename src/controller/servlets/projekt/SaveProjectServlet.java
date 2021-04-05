@@ -49,7 +49,7 @@ public class SaveProjectServlet extends HttpServlet {
 		}
 		catch (ModelNotFoundException e) {
 			json.addKeyValue("status", "error");
-			json.addKeyValue("message", "Projektpartner ID nicht vorhanden");
+			json.addKeyValue("message", "Projektpartner nicht vorhanden");
 			out.print(json.toString());
 			e.printStackTrace();
 			return;
