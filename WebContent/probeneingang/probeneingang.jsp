@@ -71,53 +71,6 @@
 			width: 25%;
 			margin: 5px;
 		}
-
-		.tooltip {
-			position: relative;
-			display: inline-block;
-			/*   color: #0000EE; */
-			/*   border-bottom: 1px solid #0000EE; */
-		}
-
-		.tooltip .tooltiptext {
-			visibility: hidden;
-			/*   height: 1em; */
-			min-width: 20em;
-			width: auto;
-			background-color: black;
-			color: #fff;
-			text-align: center;
-			border-radius: 6px;
-			padding: 10px;
-			position: absolute;
-			z-index: 1;
-			top: -5px;
-			left: 110%;
-		}
-
-		.tooltip:hover {
-			cursor: help;
-		}
-
-		.tooltip a:hover {
-			cursor: help;
-		}
-
-		.tooltip .tooltiptext::after {
-			content: " ";
-			position: absolute;
-			top: 50%;
-			right: 100%;
-			/* To the left of the tooltip */
-			margin-top: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: transparent black transparent transparent;
-		}
-
-		.tooltip:hover .tooltiptext {
-			visibility: visible;
-		}
 	</style>
 </head>
 
@@ -126,45 +79,9 @@
 		<input type="hidden" id="probeneingang_url" value=<%=ProbeneingangServlet.ROUTE%>>
 		<table id="table_probeneingang">
 			<tr style="background-color: #77bbff;">
-				<th class="tooltip" style="background-color: #77bbff; padding: 16px;">
-					Probeneingang <a href="javascript:void(0);">?</a>
-					<div class="tooltiptext">Die erst Probe ist die Hauptprobe von der spaeter Unterproben fuer
-						Experimente genommen werden koennen?</div>
+				<th id="probeneingangTooltip" style="background-color: #77bbff; padding: 16px;">
+					Probeneingang 
 				</th>
-			</tr>
-
-			<tr>
-				<th>Interne Vergabenummer</th>
-			</tr>
-			<tr>
-				<td>
-					<input type="number" name=<%=Probeneingang.INTERNE_VERGABENUMMER%>>
-				</td>
-			</tr>
-
-			<tr>
-				<th class="tooltip">
-					Wirkstoff-Name <a href="javascript:void(0);">?</a>
-					<div class="tooltiptext">Wirkstoff ist Substanz?</div>
-				</th>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
-				</td>
-			</tr>
-
-			<tr>
-				<th class="tooltip">
-					Wirkstoff-ID <a href="javascript:void(0);">?</a>
-					<div class="tooltiptext">Wirkstoff ist Substanz?</div>
-				</th>
-			</tr>
-			<tr>
-				<td>
-					<input required type="text" id="wirkstoff_id_input_field" name=<%=Probeneingang.WIRKSTOFF_ID%>
-						placeholder="*Substanz ID">
-				</td>
 			</tr>
 
 			<tr>
@@ -172,21 +89,36 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>
-						placeholder="">
+					<input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
 				</td>
 			</tr>
 
 			<tr>
-				<th class="tooltip">
-					Proben-Nr <a href="javascript:void(0);">?</a>
-					<div class="tooltiptext">Proben-Nr und Proben ID sind dasselbe?</div>
+				<th>Projekt ID</th>
+			</tr>
+			<tr>
+				<td>
+					<input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT%>>
+				</td>
+			</tr>
+			<tr>
+				<th id="wirkstoffTooltip">
+					Wirkstoff
 				</th>
 			</tr>
 			<tr>
 				<td>
-					<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_NR%>
-						placeholder="* neue Proben ID">
+					<input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+				</td>
+			</tr>
+			<tr>
+				<th id="probenIdTooltip">
+					Proben ID
+				</th>
+			</tr>
+			<tr>
+				<td>
+					<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
 				</td>
 			</tr>
 
@@ -203,15 +135,6 @@
 						placeholder="*Projekt ID">
 				</td>
 			</tr> -->
-
-			<tr>
-				<th>Anlagennummer</th>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" name=<%=Probeneingang.ANLAGENNUMMER%>>
-				</td>
-			</tr>
 
 			<tr>
 				<th>Summenformel</th>
@@ -281,25 +204,10 @@
 					<table class="table_in_table">
 						<tr>
 							<th>Standort</th>
-							<th>Messung DSC</th>
-							<th>Messung Pulver</th>
-							<th>Messung IR</th>
 						</tr>
 						<tr style="background-color: white; width: 100%">
 							<td>
 								<input style="min-width: auto" type="text" name=<%=Probeneingang.STANDORT%>>
-							</td>
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox" value="DSC"
-									name=<%=Probeneingang.MESSUNG_DSC%>>
-							</td>
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox" value="Pulver"
-									name=<%=Probeneingang.MESSUNG_PULVER%>>
-							</td>
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox" value="IR"
-									name=<%=Probeneingang.MESSUNG_IR%>>
 							</td>
 						</tr>
 					</table>
@@ -309,83 +217,13 @@
 			<tr></tr>
 
 			<tr>
-				<th>Bemerkungen zur Messung</th>
+				<th>Bemerkungen zu Messungen</th>
 			</tr>
 			<tr>
 				<td>
 					<textarea rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
 				</td>
 			</tr>
-
-			<tr></tr>
-
-			<tr>
-				<td style="padding: 0px">
-					<table class="table_in_table">
-						<tr style="background-color: #dddddd">
-							<th class="table_in_table_header">Vertrag vorhanden</th>
-							<th class="table_in_table_header">Vertrag vorhanden Datum</th>
-							<th class="table_in_table_header">Vertrag unterzeichnet</th>
-							<th>Vertrag unterzeichnet Datum</th>
-						</tr>
-						<tr style="background-color: white">
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox"
-									name=<%=Probeneingang.VERTRAG_VORHANDEN%>>
-							</td>
-							<td>
-								<input style="min-width: auto" type="date"
-									name=<%=Probeneingang.VERTRAG_VORHANDEN_DATUM%>>
-							</td>
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox"
-									name=<%=Probeneingang.VERTRAG_UNTERZEICHNET%>>
-							</td>
-							<td>
-								<input style="min-width: auto" type="date"
-									name=<%=Probeneingang.VERTRAG_UNTERZEICHNET_DATUM%>>
-							</td>
-						</tr>
-						<tr style="background-color: #dddddd">
-							<th class="table_in_table_header">Vertrag verschickt</th>
-							<th class="table_in_table_header">Vertrag verschickt Datum</th>
-							<th class="table_in_table_header">Vertrag abgerechnet</th>
-							<th>Vertrag abgerechnet Datum</th>
-						</tr>
-						<tr style="background-color: white">
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox"
-									name=<%=Probeneingang.VERTRAG_VERSCHICKT%>>
-							</td>
-							<td>
-								<input style="min-width: auto" type="date"
-									name=<%=Probeneingang.VERTRAG_VERSCHICKT_DATUM%>>
-							</td>
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox"
-									name=<%=Probeneingang.VERTRAG_ABGERECHNET%>>
-							</td>
-							<td>
-								<input style="min-width: auto" type="date"
-									name=<%=Probeneingang.VERTRAG_ABGERECHNET_DATUM%>>
-							</td>
-						</tr>
-						<tr style="background-color: #dddddd">
-							<th class="table_in_table_header">Vertrag bezahlt</th>
-							<th>Vertrag bezahlt Datum</th>
-						</tr>
-						<tr style="background-color: white">
-							<td style="text-align: center">
-								<input style="min-width: auto" type="checkbox" value="vertrag_bezahlt"
-									name=<%=Probeneingang.VERTRAG_BEZAHLT%>>
-							</td>
-							<td>
-								<input style="min-width: auto" type="date"
-									name=<%=Probeneingang.VERTRAG_BEZAHLT_DATUM%>>
-							</td>
-						</tr>
-					</table>
-				</td>
 			<tr>
 				<th>Bemerkungen</th>
 			</tr>
@@ -486,8 +324,6 @@
 
 						let json = response.json().then(data => {
 
-							console.log({ data });
-
 							if (data["status"] === "error") $("#probeneingang_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
 
 							if (data["status"] === "success") {
@@ -518,77 +354,21 @@
 			element.append(text);
 		}
 
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.WIRKSTOFF_ID%>",
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
 			[
-				{
-					"category": "substanz",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": "projekte",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": "partner",
-					"parameter": "name",
-					"value": ""
-				}
+				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0].value)
 			]
 		);
+		Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
+		Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
+		Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");
 
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.AUFTRAGGEBER%>",
-			[
-				{
-					"category": "partner",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": "partner",
-					"parameter": "name",
-					"value": ""
-				},
-				{
-					"category": "partner",
-					"parameter": "email",
-					"value": ""
-				},
-				{
-					"category": "substanz",
-					"parameter": "id",
-					"value": () => document.getElementsByName("<%=Probeneingang.WIRKSTOFF_ID%>")[0].value
-				}
+		let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
+		auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
 
-			]
-		);
-
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_NR%>",
-			[
-				{
-					"category": "probe",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": "projekte",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": "partner",
-					"parameter": "name",
-					"value": () => document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0].value
-				},
-				{
-					"category": "substanz",
-					"parameter": "id",
-					"value": () => document.getElementsByName("<%=Probeneingang.WIRKSTOFF_ID%>")[0].value
-				}
-
-			]
-		);
+		let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0];
+		projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
 
 		// Relikt laut Haferkamp
 		// GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKTVERTRAGNUMMER%>",

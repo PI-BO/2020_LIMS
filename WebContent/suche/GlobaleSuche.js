@@ -62,28 +62,22 @@ const GlobaleSuche = (function () {
 
 	public.init = function init(servletAddress) {
 
-		servletURL = servletAddress;
+		return new Promise(resolve => {
 
-		fetchDatabase((tupelArray) => {
+			servletURL = servletAddress;
+	
+			fetchDatabase((tupelArray) => {
+	
+				initAddParameterButton();
+				initSearchButton();
+				fetchParameters(tupelArray);
+				addParameterRow();
+				initCloseButton();
+				initMinimizeButton();
+				initMouseDrag();
 
-			initAddParameterButton();
-			initSearchButton();
-			fetchParameters(tupelArray);
-			addParameterRow();
-			initCloseButton();
-			initMinimizeButton();
-			initMouseDrag();
-
-			const template = [
-				{ "partner": "id" },
-				{ "probe": "id" },
-				{ "experiment": "typ" },
-				{ "experiment": "id" },
-				{ "projekte": "vertragsnummer" },
-				{ "partner": "email" },
-				{ "partner": "name" }
-			];
-			// public.initTemplateParameters(template);
+				resolve();
+			})
 		})
 	}
 

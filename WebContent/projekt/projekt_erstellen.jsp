@@ -86,10 +86,10 @@
 			for (var i = 0; i < e.target.length; i++) {
 
 				// console.log(e.target[i].name, e.target[i].value);
+				if (e.target[i].name === "") continue;
+
 				submitData[e.target[i].name] = e.target[i].value;
-
 			}
-
 
 			let partnerName = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value;
 
@@ -99,34 +99,25 @@
 				],
 				requestedData => {
 
-					let partnerId;
+					let partnerId = requestedData[0][0][Parameters.PARTNER.PK];
 
-					for (let j = 0; j < requestedData.length; j++) {
-						let tupel = requestedData[j];
-						for (let i = 0; i < tupel.length; i++) {
-							let element = tupel[i];
-							if (element["table"] !== Parameters.PARTNER.CATEGORY) continue;
-							if (element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
-							partnerId = element[Parameters.PARTNER.PK];
-							break;
-						}
-						if (partnerId !== undefined) break;
-					}
+					// for (let j = 0; j < requestedData.length; j++) {
+					// 	let tupel = requestedData[j];
+					// 	for (let i = 0; i < tupel.length; i++) {
+					// 		let element = tupel[i];
+					// 		if (element["table"] !== Parameters.PARTNER.CATEGORY) continue;
+					// 		if (element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
+					// 		partnerId = element[Parameters.PARTNER.PK];
+					// 		break;
+					// 	}
+					// 	if (partnerId !== undefined) break;
+					// }
 
 					submitData[Parameters.PROJEKT.FK] = partnerId;
 
-					GlobaleSuche.backgroundSearch(
-						[
-							new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, partnerId)
-						],
-						(backgroundData) => {
-							console.log({backgroundData})
-						}
-					)
-
 					var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
 					var posting = $.post(url, submitData);
-					posting.done(function (data) {
+					posting.done(async function (data) {
 
 						if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
 
@@ -137,7 +128,7 @@
 							$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
 							$("#th_speichern").empty();
 
-							// MainState.setCurrentProjekt(submitData[Parameters.PROJEKT.PK]);
+							MainState.setProjekt(submitData["<%=Projekt.COLUMN_PRIMARY_KEY%>"])
 						}
 					});
 				}
@@ -145,12 +136,12 @@
 		})
 
 		// Such-Links
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
-			[
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-			]
-		);
+		// GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
+		// 	[
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
+		// 	]
+		// );
 
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
@@ -161,6 +152,11 @@
 		);
 
 		Tooltip.setTooltip("projektIdTooltip", "Projekt ID automatisch generieren lassen?");
+
+		let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
+
+		projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+
 	</script>
 
 </html>

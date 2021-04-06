@@ -1,64 +1,59 @@
 const MainState = (function () {
 
-    let currentProjekt;
-    let currentProbe;
-    let currentExperiment;
-    let currentAnalyse;
-    let stateData;
-
-    public.getState = function getState(){
-        return stateData;
+    public.state = {};
+    
+    resetState();
+    
+    function resetState(){
+        public.state = {
+            [Parameters.PARTNER.CATEGORY]: new Model(Parameters.PARTNER),
+            [Parameters.PROJEKT.CATEGORY]: new Model(Parameters.PROJEKT),
+            [Parameters.PROBE.CATEGORY]: new Model(Parameters.PROBE)
+        }
     }
 
-    public.setCurrentProjekt = function setCurrentProjekt(id) {
-        currentProjekt = id;
-        GlobaleSuche.backgroundSearch(
-            [
-                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, currentProjekt)
-            ], (searchResults) => {
-                stateData = searchResults;
-                console.log({stateData})
-            }
-        )
+    public.setProjektPartner = function setProjektPartner(id) {
+        return new Promise(resolve => {
+            GlobaleSuche.backgroundSearch(
+                [
+                    new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, id)
+                ], (searchResults) => {
+                    resetState();
+                    public.state[Parameters.PARTNER.CATEGORY] = searchResults[0][0];
+                    resolve();
+                }
+            )
+        });
     }
 
-    public.setCurrentProbe = function setCurrentProbe(id) {
-        currentProbe = id;
-        GlobaleSuche.backgroundSearch(
-            [
-                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, currentProjekt),
-                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, currentProbe)
-            ], (searchResults) => {
-                stateData = searchResults;
-            }
-        )
+    public.setProjekt = function setProjekt(id) {
+        return new Promise(resolve => {
+            GlobaleSuche.backgroundSearch(
+                [
+                    new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, id)
+                ], async (searchResults) => {
+                    const projekt = searchResults[0][0];
+                    await public.setProjektPartner(projekt[Parameters.PROJEKT.FK])
+                    public.state[Parameters.PROJEKT.CATEGORY] = projekt;
+                    resolve();
+                }
+            )
+        })
     }
 
-    public.setCurrentExperiment = function setCurrentExperiment(id) {
-        currentExperiment = id;
-        GlobaleSuche.backgroundSearch(
-            [
-                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, currentProjekt),
-                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, currentProbe),
-                new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, currentExperiment)
-            ], (searchResults) => {
-                stateData = searchResults;
-            }
-        )
-    }
-
-    public.setCurrentAnalyse = function setCurrentAnalyse(id) {
-        currentAnalyse = id;
-        GlobaleSuche.backgroundSearch(
-            [
-                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, currentProjekt),
-                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, currentProbe),
-                new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, currentExperiment),
-                new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK, currentAnalyse)
-            ], (searchResults) => {
-                stateData = searchResults;
-            }
-        )
+    public.setProbe = function setProbe(id) {
+        return new Promise(resolve => {
+            GlobaleSuche.backgroundSearch(
+                [
+                    new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, id)
+                ], async (searchResults) => {
+                    const probe = searchResults[0][0];
+                    await public.setProjekt(probe[Parameters.PROBE.FK]);
+                    public.state[Parameters.PROBE.CATEGORY] = probe;
+                    resolve();
+                }
+            )
+        })
     }
 
     return public;

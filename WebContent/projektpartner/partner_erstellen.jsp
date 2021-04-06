@@ -97,8 +97,6 @@
 			var posting = $.post(url, submitData);
 			posting.done(function (data) {
 
-				console.log({ data })
-
 				if (data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
 
 				if (data["status"] === "success") {
@@ -107,6 +105,8 @@
 					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
 					$("#partner_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
 					$("#partner_speicher_th").empty();
+
+					MainState.setProjektPartner(submitData["<%=Partner.COLUMN_PRIMARY_KEY%>"])
 				}
 			});
 		})

@@ -39,7 +39,7 @@ public class SaveProjectServlet extends HttpServlet {
     	
     	Projekt projekt = new Projekt();
     	projekt.setPrimaryKey(request.getParameter(Projekt.COLUMN_PRIMARY_KEY));
-    	projekt.setVertragsnummer(request.getParameter(Projekt.COLUMN_VERTRAGSNUMMER));
+//    	projekt.setVertragsnummer(request.getParameter(Projekt.COLUMN_VERTRAGSNUMMER));
     	projekt.setProjektPartnerId(request.getParameter(Projekt.COLUMN_PROJEKTPARTNER));
     	
     	JSON json = new JSON();

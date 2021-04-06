@@ -7,17 +7,26 @@ const Main = (function () {
         subPages = pages;
     }
 
-    public.setSucheServletAddress = function setSucheServletAddress(address){
+    public.setSucheServletAddress = function setSucheServletAddress(address) {
         sucheServletAddress = address;
     }
 
     public.init = async function init() {
+        
         await initSubpages(subPages);
-        GlobaleSuche.init(sucheServletAddress);
+        await GlobaleSuche.init(sucheServletAddress);
+
+        NavigationMenu.open("#projekt_partner_erstellen");
+        // NavigationMenu.open("#projekt_erstellen");
+        // NavigationMenu.open("#substanz_erstellen");
+        // NavigationMenu.open("#experiment_erstellen");
+        // NavigationMenu.open("#analyse_erstellen");
+        // NavigationMenu.open("#probeneingang_erstellen");
+        // NavigationMenu.open("#eingangsanalytik_erstellen");
     }
 
     function initSubpages(subpages) {
-        
+
         return new Promise(resolve => {
 
             const length = Object.keys(subpages).length;
