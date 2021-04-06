@@ -8,7 +8,11 @@
 <%@ page import="model.database.tableModels.experimente.ExperimentDurchfuehrungstext" %>
 <%@ page import="model.database.tableModels.experimente.ExperimentSerie" %>
 
-<div class="experiment_erstellen_header">No/ID</div>
+<%
+    String experiment_typ = request.getParameter("typ");
+%>
+
+<div class="experiment_erstellen_header">Experiment ID</div>
 <div class="experiment_erstellen_entry">
 
     <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
@@ -65,18 +69,18 @@
         %>
     </select>
     <input id="experiment_serie_text" style="display: none" type="text"
-        name=<%=ExperimentErstellenServlet.EXPERIMENT_SERIE_TEXT%>>
+           name=<%=ExperimentErstellenServlet.EXPERIMENT_SERIE_TEXT%>>
 </div>
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" id="experiment_no_input_field" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
+    <input required type="text" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
 </div>
 
 <div class="experiment_erstellen_header">Durchführung</div>
 <div class="experiment_erstellen_entry">
-    <select id="durchfuehrung_select" required onchange="newExperimentDurchfuehrungstext(this)"
-        name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT%>>
+    <select id="durchfuehrung_select" onchange="newExperimentDurchfuehrungstext(this)" required
+            name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">neuer Durchführungstext</option>
         <%
@@ -100,13 +104,13 @@
         <tr>
             <th>
                 <input id="experiment_durchfuehrungstext_titel" style="display: none" type="text"
-                    placeholder="neuer Titel" name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
+                       placeholder="neuer Titel" name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
             </th>
         </tr>
         <tr>
             <th>
                 <textarea required id="experiment_durchführungstext_text" rows="4" cols="50"
-                    name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
+                          name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
             </th>
         </tr>
     </table>
@@ -139,7 +143,7 @@
 
 <div class="experiment_erstellen_header">Experiment No.</div>
 <div class="experiment_erstellen_entry">
-    <input type="text" id="experiment_no_input_field2" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
+    <input required type="text" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
 </div>
 
 <div class="experiment_erstellen_header">Planung Abgeschlossen</div>
@@ -185,6 +189,11 @@
     <input type="date" name=<%=ExperimentErstellenServlet.EXPERIMENT_START%>>
 </div>
 
+<div class="experiment_erstellen_header typ_Verdampfung">Vial Tara [g]</div>
+<div class="experiment_erstellen_entry typ_Verdampfung">
+    <input type="number" value="0" step="0.0001" min="0" name=<%=ExperimentErstellenServlet.VIAL_TARA_G%>>
+</div>
+
 <div class="experiment_erstellen_header">API/Startmaterial</div>
 <div class="experiment_erstellen_entry">
 
@@ -193,16 +202,13 @@
     <!--         <option value="" selected disabled>bitte auswaehlen</option> -->
     <%--         <% --%>
 
-
     <%--
+
+
 //             try {
 //                 ModelTable apiModelList = new ModelTable(new Probe());
 //                 for (Model model : apiModelList.getModelList()) {
---%>
-
-
-
-    <%--         %> --%>
+<%--         %> --%>
     <%--         <option value=<%=model.getPrimaryKey()%>><%=model.getPrimaryKey()%> --%>
     <!--         </option> -->
     <%--         <% --%>
@@ -219,6 +225,7 @@
     <%--         %> --%>
     <!--     </select> -->
 
+
     <input required type="text" name=<%=ExperimentErstellenServlet.API_STARTMATERIAL%>>
 </div>
 
@@ -231,7 +238,7 @@
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
     <input type="number" value="0" min="0" step="0.001"
-        name="<%=ExperimentErstellenServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
+           name="<%=ExperimentErstellenServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">CoF Bezeichnung</div>
@@ -246,7 +253,7 @@
 
 <div class="experiment_erstellen_header">CoF Soll Einwaage</div>
 <div class="experiment_erstellen_entry">
-    <input type="number" value="0" name="<%=ExperimentErstellenServlet.COF_SOLL_EINWAAGE%>">
+    <input type="number" value="0" min="0" name="<%=ExperimentErstellenServlet.COF_SOLL_EINWAAGE%>">
     <i>mg</i>
 </div>
 
@@ -275,10 +282,19 @@
     <input type="text" name=<%=ExperimentErstellenServlet.LOESUNGSMITTEL_IN_VOLUMEN%>>
 </div>
 
-<div class="experiment_erstellen_header">Beobachtungen zur Slurryerstellung oder Abänderung des Experiments</div>
-<div class="experiment_erstellen_entry">
+<div class="experiment_erstellen_header typ_Slurry">Beobachtungen zur Slurryerstellung oder Abänderung des Experiments
+</div>
+<div class="experiment_erstellen_entry typ_Slurry">
     <input type="text"
-        name=<%=ExperimentErstellenServlet.BEOBACHTUNG_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
+           name=<%=ExperimentErstellenServlet.BEOBACHTUNG_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
+</div>
+
+<div class="experiment_erstellen_header typ_Verdampfung">Beobachtungen zum Loesungsvorgang oder Abänderung des
+    Experiments
+</div>
+<div class="experiment_erstellen_entry typ_Verdampfung">
+    <input type="text"
+           name=<%=ExperimentErstellenServlet.BEOBACHTUNG_LOESUNGSVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
 </div>
 
 <div class="experiment_erstellen_header">Experiment Start</div>
@@ -316,6 +332,17 @@
 <div class="experiment_erstellen_header">Beobachtungen zum Ende des Experiments & Aufarbeitung</div>
 <div class="experiment_erstellen_entry">
     <input type="text" name=<%=ExperimentErstellenServlet.BEOBACHTUNGEN_ENDE_EXPERIMENT_UND_AUFBEREITUNG%>>
+</div>
+
+<div class="experiment_erstellen_header typ_Verdampfung">Auswaage Vial mit Kristallisat [g]</div>
+<div class="experiment_erstellen_entry typ_Verdampfung">
+    <input type="number" value="0" min="0" step="0.0001"
+           name="<%=ExperimentErstellenServlet.AUSBEUTE_VIAL_KRISTALLAT_G%>">
+</div>
+
+<div class="experiment_erstellen_header typ_Verdampfung">Ausbeute / [mg] von Präp / analytik</div>
+<div class="experiment_erstellen_entry typ_Verdampfung">
+    <input type="number" value="0" min="0" step="0.1" name="<%=ExperimentErstellenServlet.AUSBEUTE_MG_PRAEP_ANALYTIK%>">
 </div>
 
 <div class="experiment_erstellen_header">Standort/Lagerorte der finalen Probe</div>
@@ -438,8 +465,15 @@
     <input type="text" name=<%=ExperimentErstellenServlet.EINSTUFUNG_ERGEBNIS%>>
 </div>
 
-
 <script>
+    switch ('<%=experiment_typ%>') {
+        case 'slurry':
+            $('.typ_Verdampfung').remove();
+            break;
+        case 'verdampfung':
+            $('.typ_Slurry').remove();
+            break;
+    }
 
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
@@ -467,5 +501,4 @@
             }
         ]
     );
-
 </script>

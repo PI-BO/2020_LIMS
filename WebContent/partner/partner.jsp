@@ -1,4 +1,3 @@
-<%@page import="model.database.tableModels.Substanz" %>
 <%@page import="model.database.tableModels.Projekt" %>
 <%@page import="config.Address" %>
 <%@ page import="model.database.tableModels.Partner" %>

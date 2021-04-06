@@ -1,17 +1,17 @@
 function showExperimenttypFieldsMethode(select) {
-    let experimentErstellenSubPage;
+    let experimentTyp;
     switch (select) {
         case "202":
-            experimentErstellenSubPage = "experiment/experimenttyp_slurry.jsp";
+            experimentTyp = "slurry";
             break;
         case "101":
-            experimentErstellenSubPage = "experiment/experimenttyp_verdampfung.jsp";
+            experimentTyp = "verdampfung";
             break;
         default:
             return;
     }
 
-    const experimentErstellenPosting = $.post(experimentErstellenSubPage, {});
+    const experimentErstellenPosting = $.post("experiment/experimenttyp.jsp", {typ: experimentTyp});
     experimentErstellenPosting.done(function (data) {
         $("#experiment_erstellen_content").empty().append(data);
     });

@@ -60,15 +60,17 @@
                 const content = $("#experiment_bearbeiten_content");
 
                 const table = data['table']
-                let experimentBearbeitenPosting
+                let experimentTyp
                 if (table === '<%=ExperimenttypVerdampfung.TABLE%>') {
-                    experimentBearbeitenPosting = $.post('<%=Address.getExperimentTypVerdampfungJsp()%>', {});
+                    experimentTyp = 'verdampfung';
                 } else if (table === '<%=ExperimenttypSlurry.TABLE%>') {
-                    experimentBearbeitenPosting = $.post('<%=Address.getExperimentTypSlurryJsp()%>', {});
+                    experimentTyp = 'slurry';
                 } else {
                     content.empty()
                     return;
                 }
+
+                const experimentBearbeitenPosting = $.post('<%=Address.getExperimentTypJsp()%>', {typ: experimentTyp});
                 experimentBearbeitenPosting.done(function (post) {
                     content.empty().append(post).ready(function () {
                         content.children().slice(0,2).remove();// remove first 2 elements

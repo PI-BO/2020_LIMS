@@ -7,13 +7,12 @@ public class Address {
 	private final static String EINGANGSANALYTIK_JSP = "/eingangsanalytik/eingangsanalytik.jsp";
 	private final static String EINGANGSANALYTIK_JS = "/eingangsanalytik/eingangsanalytik.js";
 	private final static String EINGANGSANALYTIK_CSS = "/eingangsanalytik/eingangsanalytik.css";
-	private final static String PROBENEINGANG_JSP = "/probeneingang/probeneingang.jsp";
+	private final static String PROBENEINGANG_JSP = "/probeneingang/probeneingang_erstellen.jsp";
 	private final static String EXPLORER_JSP = "/explorer/explorer.jsp";
 	private final static String EXPLORER_JS = "/explorer/explorerFunctions.js";
 	private final static String EXPLORER_CSS = "/explorer/explorer.css";
 	private final static String PARTNER_JSP = "/partner/partner.jsp";
 	private final static String PROJEKT_JSP = "/projekt/projekt.jsp";
-	private static final String SUBSTANZ_JSP = "/substanz/substanz.jsp";
 	private static final String PROBE_JSP = "/probe/probe.jsp";
 	private static final String EXPERIMENT_JSP = "/experiment/experiment.jsp";
 	private final static String PROJEKTE_LIST_JSP = "/projekt/projekteList.jsp";
@@ -27,7 +26,6 @@ public class Address {
 	private final static String EXPERIMENT_ERSTELLEN_JSP = "/experiment/experiment_erstellen.jsp";
 	private final static String EXPERIMENT_ERSTELLEN_CSS = "/experiment/experiment_erstellen.css";
 	private final static String EXPERIMENT_ERSTELLEN_JS = "/experiment/experiment_erstellen.js";
-	private final static String SUBSTANZ_ERSTELLEN_JSP = "/substanz/substanz_erstellen.jsp";
 	private final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
 	private final static String PROJEKT_PARTNER_ERSTELLEN_JSP = "/projektpartner/partner_erstellen.jsp";
 	private static final String EXPERIMENT_ERSTELLEN_SERVLET = "/experiment/erstellen";
@@ -39,8 +37,7 @@ public class Address {
 	private static final String GLOBALE_SUCHE_JS = "/suche/GlobaleSuche.js";
 	private static final String EXPERIMENT_BEARBEITEN_SERVLET = "/experiment/bearbeiten";
 	private static final String EXPERIMENT_BEARBEITEN_JSP = "/experiment/experiment_bearbeiten.jsp";
-	private static final String EXPERIMENTTYP_SLURRY_JSP = "/experiment/experimenttyp_slurry.jsp";
-	private static final String EXPERIMENTTYP_VERDAMPFUNG_JSP = "/experiment/experimenttyp_verdampfung.jsp";
+	private static final String EXPERIMENTTYP_JSP = "/experiment/experimenttyp.jsp";
 	private static final String EXPERIMENT_BEARBEITEN_CSS = "/experiment/experiment_bearbeiten.css";
 	private static final String ANALYSE_DATENMASKE_PXRD_JSP = "/analyse/datenmaske_pxrd.jsp";
 	private static final String ANALYSE_DATENMASKE_IR_JSP = "/analyse/datenmaske_ir.jsp";
@@ -53,6 +50,9 @@ public class Address {
 	private static final String PARTNER_BEARBEITEN_JSP = "/projektpartner/partner_bearbeiten.jsp";
 	private static final String PROJEKT_BEARBEITEN_SERVLET = "/projekt/bearbeiten";
 	private static final String PROJEKT_BEARBEITEN_JSP = "/projekt/projekt_bearbeiten.jsp";
+	private static final String PROBENEINGANG_BEARBEITEN_SERVLET = "/probeneingang/bearbeiten";
+	private static final String PROBENEINGANG_BEARBEITEN_JSP = "/probeneingang/probeneingang_bearbeiten.jsp";
+	private static final String PROBENEINGANG_JS = "/probeneingang/probeneingang.js";
 
 	public static String getMainPath() {
 		return MAIN_PATH;
@@ -92,10 +92,6 @@ public class Address {
 	
 	public static String getProjektJSP() {
 		return MAIN_PATH + PROJEKT_JSP;
-	}
-
-	public static String getSubstanzJSP() {
-		return MAIN_PATH + SUBSTANZ_JSP;
 	}
 
 	public static String getProbeJSP() {
@@ -158,10 +154,6 @@ public class Address {
 		return MAIN_PATH + EXPERIMENT_ERSTELLEN_CSS;
 	}
 
-	public static String getSubstanzErstellenJsp() {
-		return MAIN_PATH + SUBSTANZ_ERSTELLEN_JSP;
-	}
-	
 	public static String getProjektPartnerErstellenJsp() {
 		return MAIN_PATH + PROJEKT_PARTNER_ERSTELLEN_JSP;
 	}
@@ -210,13 +202,9 @@ public class Address {
 		return MAIN_PATH + EXPERIMENT_BEARBEITEN_JSP;
 	}
 
-    public static String getExperimentTypSlurryJsp() {
-		return MAIN_PATH + EXPERIMENTTYP_SLURRY_JSP;
+    public static String getExperimentTypJsp() {
+		return MAIN_PATH + EXPERIMENTTYP_JSP;
     }
-
-	public static String getExperimentTypVerdampfungJsp() {
-		return MAIN_PATH + EXPERIMENTTYP_VERDAMPFUNG_JSP;
-	}
 
 	public static String getExperimentBearbeitenCss() {
 		return MAIN_PATH + EXPERIMENT_BEARBEITEN_CSS;
@@ -262,7 +250,19 @@ public class Address {
 		return MAIN_PATH + PROJEKT_BEARBEITEN_SERVLET;
 	}
 
-	public static Object getProjektBearbeitenJsp() {
+	public static String getProjektBearbeitenJsp() {
 		return MAIN_PATH + PROJEKT_BEARBEITEN_JSP;
 	}
+
+	public static String getProbeneingangBearbeitenServlet() {
+		return MAIN_PATH + PROBENEINGANG_BEARBEITEN_SERVLET;
+	}
+
+	public static String getProbeneingangBearbeitenJsp() {
+		return MAIN_PATH + PROBENEINGANG_BEARBEITEN_JSP;
+	}
+
+    public static String getProbeneingangJS() {
+		return MAIN_PATH + PROBENEINGANG_JS;
+    }
 }

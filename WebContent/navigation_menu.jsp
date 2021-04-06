@@ -39,23 +39,13 @@
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
-						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_clipboard"
-									id="substanz_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper"
-									style="opacity: 0.3">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
-						</ul>
-					</li>
-
 					<li><span class="navigation_tree_node symbol_folder_closed">Proben</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="probeneingang_erstellen">Probeneingang</span></li>
 							<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="probe_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper"
-									style="opacity: 0.3">bearbeiten</span></li>
+									  id="probeneingang_bearbeiten">bearbeiten</span></li>
 							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
 						</ul>
 					</li>
@@ -110,7 +100,6 @@
 			{
 				"#projekt_partner_erstellen": 	"<%=Address.getProjektPartnerErstellenJsp()%>",
 				"#projekt_erstellen": 			"<%=Address.getProjektErstellenJsp()%>",
-				"#substanz_erstellen": 			"<%=Address.getSubstanzErstellenJsp()%>",
 				"#experiment_erstellen": 		"<%=Address.getExperimentErstellenJsp()%>",
 				"#analyse_erstellen": 			"<%=Address.getAnalyseErstellenJsp()%>",
 				"#probeneingang_erstellen": 	"<%=Address.getProbeneingangJSP()%>",
@@ -118,7 +107,8 @@
 				"#experiment_bearbeiten":		"<%=Address.getExperimentBearbeitenJsp()%>",
 				"#analyse_bearbeiten":			"<%=Address.getAnalyseBearbeitenJsp()%>",
 				"#projekt_partner_bearbeiten":	"<%=Address.getPartnerBearbeitenJsp()%>",
-				"#projekt_bearbeiten":			"<%=Address.getProjektBearbeitenJsp()%>"
+				"#projekt_bearbeiten":			"<%=Address.getProjektBearbeitenJsp()%>",
+				"#probeneingang_bearbeiten":	"<%=Address.getProbeneingangBearbeitenJsp()%>"
 			}
 		);
 

@@ -25,7 +25,6 @@
 	explorerState.setPartnerListAddress("<%=Address.getPartnerListJSP()%>");
 	explorerState.setPartnerAddress("<%=Address.getPartnerJSP()%>");
 	explorerState.setProjektAddress("<%=Address.getProjektJSP()%>");
-	explorerState.setSubstanzAddress("<%=Address.getSubstanzJSP()%>");
 	explorerState.setProbeAddress("<%=Address.getProbeJSP()%>");
 	explorerState.setExperimentAddress("<%=Address.getExperimentJSP()%>")
 	

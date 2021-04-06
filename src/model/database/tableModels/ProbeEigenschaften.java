@@ -8,31 +8,31 @@ import utility.JSON;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SubstanzEigenschaften extends Model{
-    private String substanzKey;
+public class ProbeEigenschaften extends Model{
+    private String probeKey;
     private String eigenschaftKey;
-    private final String COLUMN_SUBSTANZ_KEY = Substanz.COLUMN_PRIMARY_KEY;
+    private final String COLUMN_PROBE_KEY = Probe.COLUMN_PRIMARY_KEY;
     private final String COLUMN_EIGENSCHAFT_KEY = Eigenschaften.COLUMN_PRIMARY_KEY;
     private final String TABLE = "substanz_eigenschaften";
 
-    public SubstanzEigenschaften() {
+    public ProbeEigenschaften() {
 
     }
 
-    public SubstanzEigenschaften(String substanzId, String eigenschaftId) throws SQLException, ModelNotFoundException {
-        this.substanzKey = substanzId;
+    public ProbeEigenschaften(String probeId, String eigenschaftId) throws SQLException, ModelNotFoundException {
+        this.probeKey = probeId;
         this.eigenschaftKey = eigenschaftId;
         database.getModel(this);
     }
 
 	@Override
     public String getPrimaryKey() {
-        return substanzKey;
+        return probeKey;
     }
 	
 	@Override
-	public void setPrimaryKey(String substanzKey){
-		this.substanzKey = substanzKey;
+	public void setPrimaryKey(String probeKey){
+		this.probeKey = probeKey;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class SubstanzEigenschaften extends Model{
 
     @Override
     public String getPrimaryKeyColumn() {
-        return COLUMN_SUBSTANZ_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
+        return COLUMN_PROBE_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
     }
 
     @Override
@@ -53,8 +53,8 @@ public class SubstanzEigenschaften extends Model{
     @Override
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
         while (resultSet.next()) {
-            int substanzIdIndex = resultSet.findColumn(COLUMN_SUBSTANZ_KEY);
-            substanzKey = resultSet.getString(substanzIdIndex);
+            int probeIdIndex = resultSet.findColumn(COLUMN_PROBE_KEY);
+            probeKey = resultSet.getString(probeIdIndex);
 
             int eigenschaftIdIndex = resultSet.findColumn(COLUMN_EIGENSCHAFT_KEY);
             eigenschaftKey = resultSet.getString(eigenschaftIdIndex);
@@ -63,12 +63,12 @@ public class SubstanzEigenschaften extends Model{
 
     @Override
     public String getValuesAsSQLString() {
-        return "\"" + substanzKey + "\",\"" + eigenschaftKey + "\"";
+        return "\"" + probeKey + "\",\"" + eigenschaftKey + "\"";
     }
 
     @Override
     public String getRelationSchema() {
-        return COLUMN_SUBSTANZ_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
+        return COLUMN_PROBE_KEY + "," + COLUMN_EIGENSCHAFT_KEY;
     }
 
 	@Override
@@ -76,7 +76,7 @@ public class SubstanzEigenschaften extends Model{
 		
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
-		dummyResultSetEntry.addKeyValuePair(COLUMN_SUBSTANZ_KEY, substanzKey);
+		dummyResultSetEntry.addKeyValuePair(COLUMN_PROBE_KEY, probeKey);
 		dummyResultSetEntry.addKeyValuePair(COLUMN_EIGENSCHAFT_KEY, eigenschaftKey);
 		dummyResultSet.addEntry(dummyResultSetEntry);
 		
@@ -85,7 +85,6 @@ public class SubstanzEigenschaften extends Model{
 	
 	@Override
 	public JSON toJSON() {
-
 		JSON json = new JSON();
 		json.addKeyValue("table", getTable());
 		json.addKeyValue("id", getPrimaryKey());

@@ -9,10 +9,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controller.servlets.ProbeneingangServlet;
-
 public class Probeneingang {
-												// GEHÖRT ZU:
+												// GEHÃ–RT ZU:
 	
 	private String interneVergabenummer;		// ??? Projekt-Id, Substanz-Vergabenummer, Substanz-Id / Probe-Id ???
 	private String wirkstoff;					// Substanz

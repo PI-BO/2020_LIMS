@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <title>Solid-Chem | LIMS - Insert Experiment</title>
     <link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
+    <script type="text/javascript" src="<%=Address.getMainPath()%>/experiment/experimenttyp.jsp"></script>
     <script src="<%=Address.getExperimentErstellenJS()%>"></script>
     <script type="text/javascript">
         $(document).ready(function () {

@@ -14,11 +14,11 @@ import java.util.List;
 
 public class Probe extends Model{
 
-	private String substanzID;
+	private String projektID;
 	
     public static final String COLUMN_PRIMARY_KEY = "probennummer";
-    public static final String COLUMN_SUBSTANZ_ID = "substanz_ID";
-	public static final String COLUMN_FOREIGN_KEY = COLUMN_SUBSTANZ_ID;
+	public static final String COLUMN_PROJEKT_ID = "projekt_id";
+	public static final String COLUMN_FOREIGN_KEY = COLUMN_PROJEKT_ID;
 	public static final String TABLE = "probe";
 
     public Probe(){
@@ -44,7 +44,7 @@ public class Probe extends Model{
         if (resultSet.next()) {
 
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
-            substanzID = resultSet.getString(resultSet.findColumn(COLUMN_SUBSTANZ_ID));
+            projektID = resultSet.getString(resultSet.findColumn(COLUMN_PROJEKT_ID));
 
         } else {
 
@@ -53,33 +53,33 @@ public class Probe extends Model{
     }
 
     public String getSubstanzID() {
-        return substanzID;
+        return projektID;
     }
     
-    public void setSubstanzID(String substanzID) throws SQLException, ModelNotFoundException {
-    	this.substanzID = substanzID;
+    public void setProjektID(String substanzID) throws SQLException, ModelNotFoundException {
+    	this.projektID = substanzID;
     }
     
 	@Override
 	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
 
-		Substanz substanz = new Substanz(substanzID);
+		Projekt projekt = new Projekt(projektID);
 		super.saveToDatabase();
-		this.addParent(substanz);
+		this.addParent(projekt);
 	}
 
 	@Override
 	public String getValuesAsSQLString() {
-		return primaryKey + "," + substanzID;
+		return primaryKey + "," + projektID;
 	}
 	
 	@Override
 	public String getRelationSchema() {
-		return COLUMN_PRIMARY_KEY + "," + COLUMN_SUBSTANZ_ID;
+		return COLUMN_PRIMARY_KEY + "," + COLUMN_PROJEKT_ID;
 	}
 
-	public Substanz getSubstanz() throws ModelNotFoundException, SQLException {
-        return new Substanz(substanzID);
+	public Projekt getProjekt() throws ModelNotFoundException, SQLException {
+        return new Projekt(projektID);
     }
 	
 	@Override
@@ -88,7 +88,7 @@ public class Probe extends Model{
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
-		dummyResultSetEntry.addKeyValuePair(COLUMN_SUBSTANZ_ID, substanzID);
+		dummyResultSetEntry.addKeyValuePair(COLUMN_PROJEKT_ID, projektID);
 		dummyResultSet.addEntry(dummyResultSetEntry);
 		
 		return dummyResultSet;
@@ -96,7 +96,7 @@ public class Probe extends Model{
 
 	@Override
 	public String getForeignKey() {
-		return substanzID;
+		return projektID;
 	}
 	
 	@Override
@@ -105,7 +105,7 @@ public class Probe extends Model{
 		JSON json = new JSON();
 		json.addKeyValue("table", TABLE);
 		json.addKeyValue("id", primaryKey);
-		json.addKeyValue(COLUMN_SUBSTANZ_ID, substanzID);
+		json.addKeyValue(COLUMN_PROJEKT_ID, projektID);
 		
 		return json;
 	}

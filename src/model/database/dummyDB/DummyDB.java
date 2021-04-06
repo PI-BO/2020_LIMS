@@ -12,7 +12,6 @@ import model.database.tableModels.analyse.Analysetyp;
 import model.database.tableModels.experimente.*;
 import model.database.tableModels.experimente.ExperimenttypSlurry;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -100,91 +99,65 @@ public class DummyDB implements Database {
 		projekt.setProjektPartnerId("2");
 		projekt.saveToDatabase();
 
-		// Substanzen
-		Substanz substanz = new Substanz();
-		substanz.setPrimaryKey("SubstanzA1");
-		substanz.setProjektID("A");
-		substanz.saveToDatabase();
-
-		substanz = new Substanz();
-		substanz.setPrimaryKey("SubstanzA2");
-		substanz.setProjektID("A");
-		substanz.saveToDatabase();
-
-		substanz = new Substanz();
-		substanz.setPrimaryKey("SubstanzA3");
-		substanz.setProjektID("A");
-		substanz.saveToDatabase();
-
-		substanz = new Substanz();
-		substanz.setPrimaryKey("SubstanzB");
-		substanz.setProjektID("B");
-		substanz.saveToDatabase();
-
-		substanz = new Substanz();
-		substanz.setPrimaryKey("SubstanzC");
-		substanz.setProjektID("C");
-		substanz.saveToDatabase();
-
 		// Proben
 		Probe probe = new Probe();
 		probe.setPrimaryKey("ProbeA1");
-		probe.setSubstanzID("SubstanzA1");
+		probe.setProjektID("A");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeA2");
-		probe.setSubstanzID("SubstanzA2");
+		probe.setProjektID("A");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeB1");
-		probe.setSubstanzID("SubstanzA3");
+		probe.setProjektID("B");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeB");
-		probe.setSubstanzID("SubstanzB");
+		probe.setProjektID("B");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeC");
-		probe.setSubstanzID("SubstanzB");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeC2");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeD");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeD2");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeE");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeE2");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeF");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeF2");
-		probe.setSubstanzID("SubstanzC");
+		probe.setProjektID("C");
 		probe.saveToDatabase();
 
 		// Experimente

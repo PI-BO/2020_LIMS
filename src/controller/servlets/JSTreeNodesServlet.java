@@ -47,9 +47,7 @@ public class JSTreeNodesServlet extends HttpServlet {
             if (table.equals(Partner.TABLE)) {
                 getProjects(response, new Partner(parentId));
             } else if (table.equals(Projekt.TABLE)) {
-                getSubstances(response, new Projekt(parentId));
-            } else if (table.equals(Substanz.TABLE)) {
-                getProben(response, new Substanz(parentId));
+                getProben(response, new Projekt(parentId));
             } else if (table.equals(Probe.TABLE)) {
                 getExperiments(response, new Probe(parentId));
             } else if (table.equals(Experiment.TABLE)) {
@@ -161,24 +159,12 @@ public class JSTreeNodesServlet extends HttpServlet {
         );
     }
 
-    private void getSubstances(HttpServletResponse response, Projekt p) throws ModelNotFoundException, SQLException, IOException {
-        ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(p);
-        List<Substanz> substanzen = projekteSubstanz.getSubstanzen();
-        List<String> jsons = new ArrayList<>();
-        for (Substanz substanz : substanzen)
-            jsons.add(jsonObject(substanz, p.getTable() + ':' + p.getPrimaryKey(), true));
-
-        response.getWriter().write(
-                jsonArray(jsons)
-        );
-    }
-
-    private void getProben(HttpServletResponse response, Substanz substanz) throws ModelNotFoundException, SQLException, IOException {
-        SubstanzenProbe substanzenProbe = new SubstanzenProbe(substanz);
-        List<Probe> proben = substanzenProbe.getProben();
+    private void getProben(HttpServletResponse response, Projekt projekt) throws ModelNotFoundException, SQLException, IOException {
+        ProjekteProbe projekteProbe = new ProjekteProbe(projekt);
+        List<Probe> proben = projekteProbe.getProben();
         List<String> jsons = new ArrayList<>();
         for (Probe probe : proben)
-            jsons.add(jsonObject(probe, substanz.getTable() + ':' + substanz.getPrimaryKey(), true));
+            jsons.add(jsonObject(probe, projekt.getTable() + ':' + projekt.getPrimaryKey(), true));
 
         response.getWriter().write(
                 jsonArray(jsons)

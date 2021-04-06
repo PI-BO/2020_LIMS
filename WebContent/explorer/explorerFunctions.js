@@ -98,10 +98,6 @@ class ExplorerState {
 		this.projektAddress = address;
 	}
 
-	setSubstanzAddress(address){
-		this.substanzAddress = address;
-	}
-
 	setProbeAddress(address){
 		this.probeAddress = address;
 	}
@@ -146,8 +142,6 @@ class ExplorerState {
 				url = this.partnerAddress;
 			} else if (item.table == "projekte") {
 				url = this.projektAddress;
-			} else if (item.table == "substanz"){
-				url = this.substanzAddress;
 			} else if (item.table == "probe"){
 				url = this.probeAddress;
 			} else if (item.table == "experiment"){

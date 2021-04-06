@@ -1,15 +1,11 @@
 package controller.servlets;
 
 import exceptions.ModelNotFoundException;
-import exceptions.WhereAddedException;
 import model.database.Database;
-import model.database.dummyDB.DummyDB;
 import model.database.manager.DatabaseManager;
-import model.database.mariaDB.MariaDB;
 import model.database.tableModels.Partner;
 import model.database.tableModels.Probe;
 import model.database.tableModels.Projekt;
-import model.database.tableModels.Substanz;
 import model.database.tableModels.analyse.Analyse;
 import model.database.tableModels.experimente.Experiment;
 
@@ -44,9 +40,6 @@ public class JSTreeSearchServlet extends HttpServlet {
 
         String[] projektparam = request.getParameterValues("Projekt[]");
         if (projektparam != null) getProjects(str, projektparam);
-
-        String[] substanceparam = request.getParameterValues("Substanz[]");
-        if (substanceparam != null) getSubstaces(str, substanceparam);
 
         String[] probenparam = request.getParameterValues("Probe[]");
         if (probenparam != null) getProbe(str, probenparam);
@@ -104,39 +97,15 @@ public class JSTreeSearchServlet extends HttpServlet {
         }
     }
 
-    private void getSubstaces(String str, String[] substanceparam) {
-        try {
-            ResultSet set = database.findSubstring(Substanz.class, str, substanceparam);
-            String columnPrimaryKey = Substanz.COLUMN_PRIMARY_KEY;
-            String columnParent = Substanz.COLUMN_PROJEKT_ID;
-            while (set.next()) {
-                keys.add(Substanz.TABLE + ":" + set.getString(columnPrimaryKey));
-                keys.add(Projekt.TABLE + ":" + set.getString(columnParent));
-                Projekt projekt = new Projekt(set.getString(columnParent));
-                keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IllegalAccessException e) {
-            //e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (ModelNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void getProbe(String str, String[] probenparam) {
         try {
             ResultSet set = database.findSubstring(Probe.class, str, probenparam);
             String columnPrimaryKey = Probe.COLUMN_PRIMARY_KEY;
-            String columnParent = Probe.COLUMN_SUBSTANZ_ID;
+            String columnParent = Probe.COLUMN_PROJEKT_ID;
             while (set.next()) {
                 keys.add(Probe.TABLE + ":" + set.getString(columnPrimaryKey));
-                keys.add(Substanz.TABLE + ":" + set.getString(columnParent));
-                Substanz substanz = new Substanz(set.getString(columnParent));
-                keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
-                Projekt projekt = new Projekt(substanz.getProjektID());
+                keys.add(Projekt.TABLE + ":" + set.getString(columnParent));
+                Projekt projekt = new Projekt(set.getString(columnParent));
                 keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {
@@ -159,10 +128,8 @@ public class JSTreeSearchServlet extends HttpServlet {
                 keys.add(Experiment.TABLE + ":" + set.getString(columnPrimaryKey));
                 keys.add(Probe.TABLE + ":" + set.getString(columnParent));
                 Probe probe = new Probe(set.getString(columnParent));
-                keys.add(Substanz.TABLE + ":" + probe.getSubstanzID());
-                Substanz substanz = new Substanz(probe.getSubstanzID());
-                keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
-                Projekt projekt = new Projekt(substanz.getProjektID());
+                keys.add(Projekt.TABLE + ":" + probe.getSubstanzID());
+                Projekt projekt = new Projekt(probe.getSubstanzID());
                 keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {
@@ -187,10 +154,8 @@ public class JSTreeSearchServlet extends HttpServlet {
                 Experiment experiment = new Experiment(set.getString(columnParent));
                 keys.add(Probe.TABLE + ":" + experiment.getProbenNr());
                 Probe probe = new Probe(experiment.getProbenNr());
-                keys.add(Substanz.TABLE + ":" + probe.getSubstanzID());
-                Substanz substanz = new Substanz(probe.getSubstanzID());
-                keys.add(Projekt.TABLE + ":" + substanz.getProjektID());
-                Projekt projekt = new Projekt(substanz.getProjektID());
+                keys.add(Projekt.TABLE + ":" + probe.getSubstanzID());
+                Projekt projekt = new Projekt(probe.getSubstanzID());
                 keys.add(Partner.TABLE + ':' + projekt.getVertragsnummer());
             }
         } catch (SQLException throwables) {

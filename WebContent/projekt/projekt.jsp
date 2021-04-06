@@ -1,6 +1,6 @@
-<%@page import="model.database.tableModels.Substanz"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="config.Address"%>
+<%@ page import="model.database.tableModels.Probe" %>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
@@ -27,21 +27,21 @@
 
 
 		<%
-				for (Substanz substanz : projekt.getSubstanzen()) {
+				for (Probe probe : projekt.getProben()) {
 			%>
 
 		<tr>
 			<td class="explorer_table_data symbol_folder_closed" onclick="(
 					function() {
-					let data = {projekt_id: '<%=substanz.getPrimaryKey()%>'};
-					loadPage('<%=Address.getSubstanzJSP()%>', data);
+					let data = {projekt_id: '<%=probe.getPrimaryKey()%>'};
+					loadPage('<%=Address.getProbeJSP()%>', data);
 					explorerState.pushToState({
-					table: '<%=substanz.getTable()%>',
-					id: '<%=substanz.getPrimaryKey()%>',
-					text: '<%=substanz.getPrimaryKey()%>'
+					table: '<%=probe.getTable()%>',
+					id: '<%=probe.getPrimaryKey()%>',
+					text: '<%=probe.getPrimaryKey()%>'
 					});
 					}
-					)()"><%=substanz.getPrimaryKey()%></td>
+					)()"><%=probe.getPrimaryKey()%></td>
 			<td class="explorer_table_data"></td>
 			<td class="explorer_table_data"></td>
 		</tr>

@@ -2,7 +2,6 @@
 <%@page import="config.Address" %>
 <%@page import="model.database.tableModels.Partner" %>
 <%@page import="model.database.tableModels.Projekt" %>
-<%@page import="model.database.tableModels.Substanz" %>
 <%@page import="model.database.tableModels.Probe" %>
 <%@page import="model.database.tableModels.experimente.Experiment" %>
 <%@page import="model.database.tableModels.analyse.Analyse" %>
@@ -96,26 +95,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Substanzen</th>
-                        <td>
-                            <label><input type="checkbox" id="Substanz:${Substanz.COLUMN_PRIMARY_KEY}" class="checkbox"
-                                          checked="true">id</label>
-                        </td>
-                        <td>
-                            <label><input disabled type="checkbox" id="Substanz:${Substanz.COLUMN_PROJEKT_ID}"
-                                          class="checkbox">Projekt
-                                id</label>
-                        </td>
-                    </tr>
-                    <tr>
                         <th>Proben</th>
                         <td>
                             <label><input type="checkbox" id="Probe:${Probe.COLUMN_PRIMARY_KEY}" class="checkbox"
                                           checked="true">id</label>
                         </td>
                         <td>
-                            <label><input disabled type="checkbox" id="Probe:${Probe.COLUMN_SUBSTANZ_ID}"
-                                          class="checkbox">Substanz
+                            <label><input disabled type="checkbox" id="Probe:${Probe.COLUMN_PROJEKT_ID}"
+                                          class="checkbox">Projekt
                                 id</label>
                         </td>
                     </tr>
@@ -184,7 +171,6 @@
                 data: {
                     "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
                     "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
-                    "Substanz": ["${Substanz.COLUMN_PRIMARY_KEY}"],
                     "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"],
                     "Experiment": ["${Experiment.COLUMN_PRIMARY_KEY}"],
                     "Analyse": ["${Analyse.COLUMN_PRIMARY_KEY}"]
@@ -238,8 +224,6 @@
             url = "<%=Address.getPartnerJSP()%>"
         } else if (nodeCategory == "<%=Projekt.TABLE%>") {
             url = "<%=Address.getProjektJSP()%>";
-        } else if (nodeCategory == "<%=Substanz.TABLE%>"){
-            url = "<%=Address.getSubstanzJSP()%>"
         } else if (nodeCategory == "<%=Probe.TABLE%>"){
             url = "<%=Address.getProbeJSP()%>"
         } else if (nodeCategory == "<%=Experiment.TABLE%>"){

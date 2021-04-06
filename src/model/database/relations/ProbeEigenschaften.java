@@ -3,7 +3,7 @@ package model.database.relations;
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.Eigenschaften;
 import model.database.tableModels.Model;
-import model.database.tableModels.Substanz;
+import model.database.tableModels.Probe;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
  * @author Narwutsch Dominic
  * created on 10.02.2021
  */
-public class SubstanzEigenschaften extends ManyToManyA<Substanz, Eigenschaften> {
+public class ProbeEigenschaften extends ManyToManyA<Probe, Eigenschaften> {
     private List<Eigenschaften> eigenschaften;
 
-    protected SubstanzEigenschaften(Substanz substanz, Class<Eigenschaften> m, Model relationTable) throws ModelNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
-        super(substanz, m, relationTable);
+    protected ProbeEigenschaften(Probe probe, Class<Eigenschaften> m, Model relationTable) throws ModelNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        super(probe, m, relationTable);
         database.resolveManyToMany(this);
     }
 

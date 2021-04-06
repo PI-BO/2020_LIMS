@@ -2,7 +2,7 @@ package model.database.relations;
 
 import exceptions.ModelNotFoundException;
 import model.database.tableModels.Probe;
-import model.database.tableModels.Substanz;
+import model.database.tableModels.Projekt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SubstanzenProbe extends OneToMany<Substanz, Probe>{
+public class ProjekteProbe extends OneToMany<Projekt, Probe> {
     List<Probe> proben;
 
-    public SubstanzenProbe(Substanz one) throws ModelNotFoundException, SQLException {
+    public ProjekteProbe(Projekt one) throws ModelNotFoundException, SQLException {
         super(one, Probe.class);
         database.resolveOneToMany(this);
     }

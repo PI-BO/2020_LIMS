@@ -1,4 +1,4 @@
-package controller.servlets;
+package controller.servlets.probeneingang;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,7 +15,6 @@ import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.Probeneingang;
 import model.database.tableModels.Probe;
-import model.database.tableModels.Projekt;
 import utility.JSON;
 
 import java.io.IOException;
@@ -24,11 +23,11 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Enumeration;
 
-@WebServlet(ProbeneingangServlet.ROUTE)
+@WebServlet(ProbeneingangErstellenServlet.ROUTE)
 @MultipartConfig
-public class ProbeneingangServlet extends HttpServlet {
+public class ProbeneingangErstellenServlet extends HttpServlet {
 
-	private static final Logger LOGGER = LogManager.getLogger(ProbeneingangServlet.class.getSimpleName());
+	private static final Logger LOGGER = LogManager.getLogger(ProbeneingangErstellenServlet.class.getSimpleName());
 
 	private static final long serialVersionUID = 7322122506656092712L;
 	public static final String ROUTE = "/probeneingang";
@@ -54,7 +53,7 @@ public class ProbeneingangServlet extends HttpServlet {
 			
 			Probe probe = new Probe();
 			probe.setPrimaryKey(probeneingang.getProbenNr());
-			probe.setSubstanzID(probeneingang.getWirkstoffId());
+			probe.setProjektID(probeneingang.getWirkstoffId());
 			probe.saveToDatabase();
 		}
 		catch (IOException e) {

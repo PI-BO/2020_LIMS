@@ -8,7 +8,7 @@ import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyResultSet;
 import model.database.dummyDB.DummyResultSetEntry;
-import model.database.relations.ProjekteSubstanz;
+import model.database.relations.ProjekteProbe;
 import utility.JSON;
 
 public class Projekt extends Model {
@@ -39,9 +39,9 @@ public class Projekt extends Model {
 		}
 	}
 
-	public List<Substanz> getSubstanzen() throws ModelNotFoundException, SQLException {
-		ProjekteSubstanz projekteSubstanz = new ProjekteSubstanz(this);
-		return projekteSubstanz.getSubstanzen();
+	public List<Probe> getProben() throws ModelNotFoundException, SQLException {
+		ProjekteProbe projekteProbe = new ProjekteProbe(this);
+		return projekteProbe.getProben();
 	}
 
 	@Override
