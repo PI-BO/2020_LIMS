@@ -120,14 +120,11 @@
 <form id="form_probeneingang">
     <input type="hidden" id="probeneingang_url" value=<%=ProbeneingangErstellenServlet.ROUTE%>>
     <table id="table_probeneingang">
-		<tr style="background-color: #77bbff;">
-			<th class="tooltip" style="background-color: #77bbff; padding: 16px;">
-				Probeneingang <a href="javascript:void(0);">?</a>
-				<div class="tooltiptext">Die erst Probe ist die Hauptprobe von der spaeter Unterproben fuer
-					Experimente genommen werden koennen?
-				</div>
-			</th>
-		</tr>
+        <tr style="background-color: #77bbff;">
+            <th id="probeneingangTooltip" style="background-color: #77bbff; padding: 16px;">
+                Probeneingang
+            </th>
+        </tr>
 
         <tr>
             <th style="text-align: center" id="button_probeneingang_speichern">
@@ -145,7 +142,7 @@
 	$(document).ready(function () {
 		const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
 		probeneingangContent.done(function (data) {
-			$("#table_probeneingang").prepend(data);
+			$("#table_probeneingang tr").eq(0).after(data);
 		});
 	})
 

@@ -141,12 +141,13 @@
         </tr>
 
         <tr>
-            <th class="tooltip">Proben-Nr</th>
+            <th id="probenIdTooltip">
+                Proben ID
+            </th>
         </tr>
         <tr>
             <td>
-                <input required type="text" id="proben_id_input_field" name="<%=Probeneingang.PROBEN_NR%>"
-                       placeholder="* neue Proben ID">
+                <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
             </td>
         </tr>
 
@@ -201,16 +202,6 @@
         $("#preview-container").empty();
         $("#input_image_upload").val("");
     });
-
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_NR%>",
-        [
-            {
-                "category": "probe",
-                "parameter": "id",
-                "value": ""
-            }
-        ]
-    );
 </script>
 </body>
 </html>
