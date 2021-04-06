@@ -18,7 +18,6 @@ public class Probeneingang {
 	private String auftraggeber;				// Partner
 	private String probenNr;					// Substanz-Id
 	private String projektvertragnummer;		// Projekt-Id
-	private String anlagennummer;				// Substanz
 	private String summenformel;				// Substanz
 	private String bezeichnung;					// Substanz
 	private String originator;					// Substanz
@@ -29,9 +28,6 @@ public class Probeneingang {
 	private String standort;					// Substanz
 	private String charge;						// Substanz
 	private boolean msds = false;				// Substanz
-	private String messungDSC;					// Substanz
-	private String messungPulver;				// Substanz
-	private String messungIR;					// Substanz
 	private String bemerkungenZurMessung;		// Substanz
 	private boolean vertragVorhanden = false;	// Substanz weil Projekt mehre Substanzen
 	private String vertragVorhandenDatum;		// Substanz weil Projekt mehre Substanzen
@@ -53,10 +49,10 @@ public class Probeneingang {
 	public static final String INTERNE_VERGABENUMMER = "INTERNE_VERGABENUMMER";
 	public static final String WIRKSTOFF = "WIRKSTOFF";
 	public static final String WIRKSTOFF_ID = "WIRKSTOFF_ID123";
-	public static final String AUFTRAGGEBER = "AUFTRAGGEBER_ID";
-	public static final String PROBEN_NR = "PROBEN_NR";
+	public static final String AUFTRAGGEBER = "AUFTRAGGEBER_NAME";
+	public static final String PROJEKT = "PROJEKT_NAME";
+	public static final String PROBEN_ID = "PROBEN_ID";
 	public static final String PROJEKTVERTRAGNUMMER= "PROJEKTVERTRAGNUMMER";
-	public static final String ANLAGENNUMMER = "ANLAGENNUMMER";
 	public static final String SUMMENFORMEL = "SUMMENFORMEL";
 	public static final String BEZEICHNUNG = "BEZEICHNUNG";
 	public static final String ORIGINATOR = "ORIGINATOR";
@@ -65,9 +61,6 @@ public class Probeneingang {
 	public static final String BESONDERHEITEN = "BESONDERHEITEN";
 	public static final String INFOS = "INFOS";
 	public static final String STANDORT = "STANDORT";
-	public static final String MESSUNG_DSC = "MESSUNG_DSC";
-	public static final String MESSUNG_PULVER = "MESSUNG_PULVER";
-	public static final String MESSUNG_IR = "MESSUNG_IR";
 	public static final String BEMERKUNGEN_ZUR_MESSUNG = "BEMERKUNGEN_ZUR_MESSUNG";
 	public static final String VERTRAG_VORHANDEN = "VERTRAG_VORHANDEN";
 	public static final String VERTRAG_VORHANDEN_DATUM = "VERTRAG_VORHANDEN_DATUM";
@@ -81,7 +74,6 @@ public class Probeneingang {
 	public static final String VERTRAG_BEZAHLT_DATUM = "VERTRAG_BEZAHLT_DATUM";
 	public static final String BEMERKUNGEN = "BEMERKUNGEN";
 	public static final String LITERATUR = "LITERATUR";
-	
 	
 	public String getInterneVergabenummer() {
 		return interneVergabenummer;
@@ -118,12 +110,6 @@ public class Probeneingang {
 	}
 	public void setProjektvertragnummer(String projektvertragnummer) {
 		this.projektvertragnummer = projektvertragnummer;
-	}
-	public String getAnlagennummer() {
-		return anlagennummer;
-	}
-	public void setAnlagennummer(String anlagennummer) {
-		this.anlagennummer = anlagennummer;
 	}
 	public String getSummenformel() {
 		return summenformel;
@@ -172,24 +158,6 @@ public class Probeneingang {
 	}
 	public void setStandort(String standort) {
 		this.standort = standort;
-	}
-	public String getMessungDSC() {
-		return messungDSC;
-	}
-	public void setMessungDSC(String messungDSC) {
-		this.messungDSC = messungDSC;
-	}
-	public String getMessungPulver() {
-		return messungPulver;
-	}
-	public void setMessungPulver(String messungPulver) {
-		this.messungPulver = messungPulver;
-	}
-	public String getMessungIR() {
-		return messungIR;
-	}
-	public void setMessungIR(String messungIR) {
-		this.messungIR = messungIR;
 	}
 	public String getBemerkungenZurMessung() {
 		return bemerkungenZurMessung;
@@ -314,7 +282,6 @@ public class Probeneingang {
 		
 //		LOGGER.debug(parameterName + ": " + parameter);
 		
-		if(parameterName.equals(ANLAGENNUMMER))                     		{ setAnlagennummer(parameter); 			   return; }
 		if(parameterName.equals(AUFTRAGGEBER))                          	{ setAuftraggeber(parameter);              return; }
 		if(parameterName.equals(BEMERKUNGEN))                           	{ setBemerkungen(parameter);               return; }
 		if(parameterName.equals(BEMERKUNGEN_ZUR_MESSUNG))               	{ setBemerkungenZurMessung(parameter);     return; }
@@ -323,11 +290,8 @@ public class Probeneingang {
 		if(parameterName.equals(INFOS))                                 	{ setInfos(parameter);                     return; }
 		if(parameterName.equals(INTERNE_VERGABENUMMER))                 	{ setInterneVergabenummer(parameter);      return; }
 		if(parameterName.equals(LITERATUR))                             	{ setLiteratur(parameter);                 return; }
-		if(parameterName.equals(MESSUNG_DSC))                           	{ setMessungDSC(parameter);                return; }
-		if(parameterName.equals(MESSUNG_IR))                            	{ setMessungIR(parameter);                 return; }
-		if(parameterName.equals(MESSUNG_PULVER))                        	{ setMessungPulver(parameter);             return; }
 		if(parameterName.equals(ORIGINATOR))                            	{ setOriginator(parameter);                return; }
-		if(parameterName.equals(PROBEN_NR))                             	{ setProbenNr(parameter);                  return; }
+		if(parameterName.equals(PROBEN_ID))                             	{ setProbenNr(parameter);                  return; }
 		if(parameterName.equals(PROBENEINGANG))                         	{ setProbeneingangDatum(parameter);        return; }
 		if(parameterName.equals(PROBENMASSE))                           	{ setProbenmasse(parameter);               return; }
 		if(parameterName.equals(PROJEKTVERTRAGNUMMER))                  	{ setProjektvertragnummer(parameter);      return; }

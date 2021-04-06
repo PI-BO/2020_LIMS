@@ -39,6 +39,16 @@
 						</ul>
 					</li>
 
+					<!-- <li><span class="navigation_tree_node symbol_folder_closed">Substanzen</span>
+						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_clipboard"
+									id="substanz_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_pen_paper"
+									style="opacity: 0.3">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+						</ul>
+					</li> -->
+
 					<li><span class="navigation_tree_node symbol_folder_closed">Proben</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
@@ -100,6 +110,7 @@
 			{
 				"#projekt_partner_erstellen": 	"<%=Address.getProjektPartnerErstellenJsp()%>",
 				"#projekt_erstellen": 			"<%=Address.getProjektErstellenJsp()%>",
+				// "#substanz_erstellen": 			"<%=Address.getSubstanzErstellenJsp()%>",
 				"#experiment_erstellen": 		"<%=Address.getExperimentErstellenJsp()%>",
 				"#analyse_erstellen": 			"<%=Address.getAnalyseErstellenJsp()%>",
 				"#probeneingang_erstellen": 	"<%=Address.getProbeneingangJSP()%>",
@@ -115,18 +126,6 @@
 		NavigationMenu.initSucheListener("#globale_suche_anzeigen2", "#main-content-global-search");
 
 		NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
-
-		setTimeout(() => {
-
-			// 	NavigationMenu.open("#projekt_partner_erstellen");
-			// NavigationMenu.open("#projekt_erstellen");
-			// NavigationMenu.open("#substanz_erstellen");
-			// 	NavigationMenu.open("#experiment_erstellen");
-			// 	NavigationMenu.open("#analyse_erstellen");
-			// 	NavigationMenu.open("#probeneingang_erstellen");
-			// 	NavigationMenu.open("#eingangsanalytik_erstellen");
-		}, 800)
-
 	});
 
 </script>

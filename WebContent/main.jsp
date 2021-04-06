@@ -37,14 +37,24 @@
 	</div>
 </body>
 <script src="Main.js"></script>
+<script src="suche/Parameter.js"></script>
+<script src="Model.js"></script>
+<script src="MainState.js"></script>
+<script src="Tooltip.js"></script>
+<script src="<%=Address.getGlobaleSucheJs()%>"></script>
 <script type="text/javascript">
 
-	Main.initSubpages(
+	Main.setSubpages(
 		{
 			"<%=Address.getGlobaleSucheJsp()%>": "#main-content-global-search",
 			"<%=Address.getExplorerJSP()%>": "#main-content-explorer"
 		}
 	);
 
+	Main.setSucheServletAddress("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
+	
+	Main.init();
+
 </script>
+
 </html>

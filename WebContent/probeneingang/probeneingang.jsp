@@ -2,38 +2,41 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <tr>
-    <th class="tooltip">
-        Wirkstoff-Name <a href="javascript:void(0);">?</a>
-        <div class="tooltiptext">Wirkstoff ist Substanz?</div>
-    </th>
+	<th>Auftraggeber</th>
 </tr>
 <tr>
-    <td>
-        <input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
-    </td>
+	<td>
+		<input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
+	</td>
 </tr>
 
 <tr>
-    <th>Auftraggeber</th>
+	<th>Projekt ID</th>
 </tr>
 <tr>
-    <td>
-        <input type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>
-                placeholder="">
-    </td>
-</tr>
-
-<tr>
-    <th class="tooltip">
-        Proben-Nr <a href="javascript:void(0);">?</a>
-        <div class="tooltiptext">Proben-Nr und Proben ID sind dasselbe?</div>
-    </th>
+	<td>
+		<input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT%>>
+	</td>
 </tr>
 <tr>
-    <td>
-        <input required type="text" id="proben_id_input_field" name="<%=Probeneingang.PROBEN_NR%>"
-               placeholder="* neue Proben ID">
-    </td>
+	<th id="wirkstoffTooltip">
+		Wirkstoff
+	</th>
+</tr>
+<tr>
+	<td>
+		<input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+	</td>
+</tr>
+<tr>
+	<th id="probenIdTooltip">
+		Proben ID
+	</th>
+</tr>
+<tr>
+	<td>
+		<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
+	</td>
 </tr>
 
 <tr>
@@ -158,75 +161,19 @@
         $("#input_image_upload").val("");
     });
 
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.WIRKSTOFF_ID%>",
-        [
-            {
-                "category": "substanz",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "projekte",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "partner",
-                "parameter": "name",
-                "value": ""
-            }
-        ]
-    );
+	GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
+			[
+				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0].value)
+			]
+		);
+		Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
+		Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
+		Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");
 
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.AUFTRAGGEBER%>",
-        [
-            {
-                "category": "partner",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "partner",
-                "parameter": "name",
-                "value": ""
-            },
-            {
-                "category": "partner",
-                "parameter": "email",
-                "value": ""
-            },
-            {
-                "category": "substanz",
-                "parameter": "id",
-                "value": () => document.getElementsByName("<%=Probeneingang.WIRKSTOFF_ID%>")[0].value
-            }
+		let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
+		auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
 
-        ]
-    );
-
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_NR%>",
-        [
-            {
-                "category": "probe",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "projekte",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "partner",
-                "parameter": "name",
-                "value": () => document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0].value
-            },
-            {
-                "category": "substanz",
-                "parameter": "id",
-                "value": () => document.getElementsByName("<%=Probeneingang.WIRKSTOFF_ID%>")[0].value
-            }
-
-        ]
-    );
+		let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0];
+		projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
 </script>

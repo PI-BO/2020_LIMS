@@ -1,3 +1,4 @@
+<%@page import="model.database.tableModels.Partner"%>
 <%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="controller.servlets.projekt.SaveProjectServlet"%>
@@ -29,81 +30,6 @@
 			border-color: red;
 			border-width: 2px;
 		}
-
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #77bbff;
-			border: 2px solid #77bbff;
-			min-width: 10px;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			z-index: 1;
-		}
-
-		/* Links inside the dropdown */
-		.dropdown-content a {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-		}
-
-		/* Change color of dropdown links on hover */
-		.dropdown-content a:hover {
-			background-color: #ddd
-		}
-
-		/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-		.show {
-			display: block;
-		}
-
-		.tooltip {
-			position: relative;
-			display: inline-block;
-			/*   color: #0000EE; */
-			/*   border-bottom: 1px solid #0000EE; */
-		}
-
-		.tooltip .tooltiptext {
-			visibility: hidden;
-			/*   height: 1em; */
-			min-width: 20em;
-			width: auto;
-			background-color: black;
-			color: #fff;
-			text-align: center;
-			border-radius: 6px;
-			padding: 10px;
-			position: absolute;
-			z-index: 1;
-			top: -5px;
-			left: 110%;
-		}
-
-		.tooltip:hover {
-			cursor: help;
-		}
-
-		.tooltip a:hover {
-			cursor: help;
-		}
-
-		.tooltip .tooltiptext::after {
-			content: " ";
-			position: absolute;
-			top: 50%;
-			right: 100%;
-			/* To the left of the tooltip */
-			margin-top: -5px;
-			border-width: 5px;
-			border-style: solid;
-			border-color: transparent black transparent transparent;
-		}
-
-		.tooltip:hover .tooltiptext {
-			visibility: visible;
-		}
 	</style>
 </head>
 
@@ -119,16 +45,17 @@
 				<th>Projekt Informationen</th>
 			</tr>
 			<tr>
-				<td>Projektpartner ID</td>
+				<td>Projektpartner Name</td>
 				<td>
-					<input required id="partner_id_input_field" class="drop_down_field" type=text placeholder="*"
-						name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
+					<input required type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
 				</td>
 			</tr>
 			<tr>
-				<td>Projekt ID</td>
+				<td id="projektIdTooltip">
+					Projekt ID
+				</td>
 				<td>
-					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*"
+					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder=""
 						name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
@@ -148,65 +75,88 @@
 			</tr>
 		</table>
 	</form>
-	<script type="module" src="projekt/projekt_erstellen.js"></script>
+	<script src="projekt/projekt_erstellen.js"></script>
 	<script>
 
-	$("#form_projekt_erstellen").submit(function (e) {
+		$("#form_projekt_erstellen").submit(function (e) {
 			e.preventDefault();
 
 			var submitData = {};
 
 			for (var i = 0; i < e.target.length; i++) {
 
-				console.log(e.target[i].name, e.target[i].value);
-				submitData[e.target[i].name] = e.target[i].value;
+				// console.log(e.target[i].name, e.target[i].value);
+				if (e.target[i].name === "") continue;
 
+				submitData[e.target[i].name] = e.target[i].value;
 			}
 
-			var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
-			var posting = $.post(url, submitData);
-			posting.done(function (data) {
+			let partnerName = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value;
 
-				if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+			GlobaleSuche.backgroundSearch(
+				[
+					new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, partnerName)
+				],
+				requestedData => {
 
-				if (data["status"] === "success") {
+					let partnerId = requestedData[0][0][Parameters.PARTNER.PK];
 
-					let requiredFields = document.querySelectorAll("input:required");
-					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
-					$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
-					$("#th_speichern").empty();
+					// for (let j = 0; j < requestedData.length; j++) {
+					// 	let tupel = requestedData[j];
+					// 	for (let i = 0; i < tupel.length; i++) {
+					// 		let element = tupel[i];
+					// 		if (element["table"] !== Parameters.PARTNER.CATEGORY) continue;
+					// 		if (element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
+					// 		partnerId = element[Parameters.PARTNER.PK];
+					// 		break;
+					// 	}
+					// 	if (partnerId !== undefined) break;
+					// }
+
+					submitData[Parameters.PROJEKT.FK] = partnerId;
+
+					var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
+					var posting = $.post(url, submitData);
+					posting.done(async function (data) {
+
+						if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+
+						if (data["status"] === "success") {
+
+							let requiredFields = document.querySelectorAll("input:required");
+							for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+							$("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+							$("#th_speichern").empty();
+
+							MainState.setProjekt(submitData["<%=Projekt.COLUMN_PRIMARY_KEY%>"])
+						}
+					});
 				}
-			});
+			)
 		})
 
 		// Such-Links
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
-			[
-				{
-					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
-					"parameter": GlobaleSuche.MODEL.PARTNER.PK,
-					"value": "",
-				},
-				{
-					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
-					"parameter": "name",
-					"value": ""
-				}
-			]);
+		// GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
+		// 	[
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
+		// 	]
+		// );
 
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
 			[
-				{
-					"category": "projekte",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": GlobaleSuche.MODEL.PARTNER.CATEGORY,
-					"parameter": GlobaleSuche.MODEL.PROJEKT.PK,
-					"value": () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value
-				},
-			]);
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
+			]
+		);
+
+		Tooltip.setTooltip("projektIdTooltip", "Projekt ID automatisch generieren lassen?");
+
+		let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
+
+		projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+
 	</script>
+
 </html>

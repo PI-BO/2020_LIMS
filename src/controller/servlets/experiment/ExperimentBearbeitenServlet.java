@@ -20,9 +20,10 @@ import java.util.Enumeration;
 
 import static controller.servlets.experiment.ExperimentErstellenServlet.*;
 
-@WebServlet("/experiment/bearbeiten")
+@WebServlet(ExperimentBearbeitenServlet.ROUTE)
 public class ExperimentBearbeitenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(ExperimentBearbeitenServlet.class.getName());
+    public static final String ROUTE = "/experiment/bearbeiten";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -20,8 +20,9 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-@WebServlet("/jstree/search")
+@WebServlet(JSTreeSearchServlet.ROUTE)
 public class JSTreeSearchServlet extends HttpServlet {
+	public static final String ROUTE = "/jstree/search";
     private Database database = DatabaseManager.getDatabaseInstance();
     private Set<String> keys;
 

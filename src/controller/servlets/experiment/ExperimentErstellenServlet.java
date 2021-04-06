@@ -19,9 +19,10 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Locale;
 
-@WebServlet("/experiment/erstellen")
+@WebServlet(ExperimentErstellenServlet.ROUTE)
 public class ExperimentErstellenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Config.class.getName());
+    public static final String ROUTE = "/experiment/erstellen";
 
     // Basisfelder
     public static final String NO_ID = "EXPERIMENT_" + ExperimenteModel.COLUMN_PRIMARY_KEY;

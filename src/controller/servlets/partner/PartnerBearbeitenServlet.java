@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/partner/bearbeiten")
+@WebServlet(PartnerBearbeitenServlet.ROUTE)
 public class PartnerBearbeitenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(AnalyseBearbeitenServlet.class.getName());
-
+    public static final String ROUTE = "/partner/bearbeiten";
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String primaryKey = req.getParameter("id");

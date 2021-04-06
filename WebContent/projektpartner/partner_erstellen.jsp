@@ -1,4 +1,4 @@
-<%@page import="controller.servlets.SavePartnerServlet"%>
+<%@page import="controller.servlets.partner.SavePartnerServlet"%>
 <%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="model.database.tableModels.Model"%>
@@ -33,34 +33,6 @@
 			border-color: red;
 			border-width: 2px;
 		}
-
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #77bbff;
-			border: 2px solid #77bbff;
-			min-width: 10px;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			z-index: 1;
-		}
-
-		/* Links inside the dropdown */
-		.dropdown-content a {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-		}
-
-		/* Change color of dropdown links on hover */
-		.dropdown-content a:hover {
-			background-color: #ddd
-		}
-
-		/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-		.show {
-			display: block;
-		}
 	</style>
 </head>
 
@@ -76,7 +48,9 @@
 				<th>Partner Informationen</th>
 			</tr>
 			<tr>
-				<td>Projektpartner ID</td>
+				<td id="ProjektpartnerTooltip">
+					Projektpartner ID
+				</td>
 				<td>
 					<input required id="partner_id_input_field" type=text placeholder="*"
 						name=<%=Partner.COLUMN_PRIMARY_KEY%>>
@@ -119,12 +93,9 @@
 
 			}
 
-			// 		var url = "http://localhost:8080/2020_LIMS/save_partner_servlet";
 			var url = "<%=Address.getMainPath()%>" + "<%=SavePartnerServlet.ROUTE%>";
 			var posting = $.post(url, submitData);
 			posting.done(function (data) {
-
-				console.log({ data })
 
 				if (data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
 
@@ -134,27 +105,21 @@
 					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
 					$("#partner_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
 					$("#partner_speicher_th").empty();
+
+					MainState.setProjektPartner(submitData["<%=Partner.COLUMN_PRIMARY_KEY%>"])
 				}
 			});
 		})
 
-
-
 		// Such-Links
 		GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
 			[
-				{
-					"category": "partner",
-					"parameter": "id",
-					"value": ""
-				},
-				{
-					"category": "partner",
-					"parameter": "name",
-					"value": ""
-				}
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
 			]
 		);
+
+		Tooltip.setTooltip("ProjektpartnerTooltip", "ID automatisch generieren lassen?");
 
 	</script>
 
