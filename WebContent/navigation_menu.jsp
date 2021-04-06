@@ -110,7 +110,7 @@
 			{
 				"#projekt_partner_erstellen": 	"<%=Address.getProjektPartnerErstellenJsp()%>",
 				"#projekt_erstellen": 			"<%=Address.getProjektErstellenJsp()%>",
-				// "#substanz_erstellen": 			"<%=Address.getSubstanzErstellenJsp()%>",
+				// "#substanz_erstellen": 			"Address.getSubstanzErstellenJsp()",
 				"#experiment_erstellen": 		"<%=Address.getExperimentErstellenJsp()%>",
 				"#analyse_erstellen": 			"<%=Address.getAnalyseErstellenJsp()%>",
 				"#probeneingang_erstellen": 	"<%=Address.getProbeneingangJSP()%>",
