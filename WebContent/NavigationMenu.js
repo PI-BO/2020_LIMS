@@ -3,6 +3,7 @@ const NavigationMenu = (function () {
     const mainContentId = "main-content";
     const subPagesShowDelay = 500;
     const navigationNodeShowDelay = 400;
+    const globalSearchMainContentContainerId = "main-content-global-search";
 
     public = {};
 
@@ -65,6 +66,20 @@ const NavigationMenu = (function () {
             ];
             // GlobaleSuche.initTemplateParameters(template);
             GlobaleSuche.disableCallbackMode();
+            public.show(containerId);
+            GlobaleSuche.resetPositionIfOutOfBounds();
+        });
+    }
+
+    public.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback){
+        
+        $(buttonId).click(function () {
+            GlobaleSuche.initTemplateParameters(template);
+            GlobaleSuche.addSearchCallback((callbackData)=>{
+                callback(callbackData);
+                console.log({callbackData})
+                NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+            }, "", "true")
             public.show(containerId);
             GlobaleSuche.resetPositionIfOutOfBounds();
         });

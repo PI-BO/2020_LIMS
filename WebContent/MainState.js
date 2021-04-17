@@ -4,6 +4,10 @@ const MainState = (function () {
     const PROJEKT = Parameters.PROJEKT.CATEGORY;
     const PROBE = Parameters.PROBE.CATEGORY;
 
+    const partnerNavigationState = "partner_navigation_state";
+    const projektNavigationState = "projekte_navigation_state";
+    const probeNavigationState = "probe_navigation_state";
+
     public.state = {};
 
     resetState();
@@ -14,6 +18,10 @@ const MainState = (function () {
             [PROJEKT]: new Model(Parameters.PROJEKT),
             [PROBE]: new Model(Parameters.PROBE)
         }
+
+        document.getElementById(partnerNavigationState).innerText = " - ";
+        document.getElementById(projektNavigationState).innerText = " - ";
+        document.getElementById(probeNavigationState).innerText = " - ";
     }
 
     public.setProjektPartner = function setProjektPartner(id) {
@@ -24,7 +32,7 @@ const MainState = (function () {
                 ], (searchResults) => {
                     resetState();
                     public.state[PARTNER] = searchResults[0][0];
-                    document.getElementById("partner_navigation_state").innerText = public.state[PARTNER][Parameters.PARTNER.NAME];
+                    document.getElementById(partnerNavigationState).innerText = public.state[PARTNER][Parameters.PARTNER.NAME];
                     resolve();
                 }
             )
@@ -40,7 +48,7 @@ const MainState = (function () {
                     const projekt = searchResults[0][0];
                     await public.setProjektPartner(projekt[Parameters.PROJEKT.FK])
                     public.state[PROJEKT] = projekt;
-                    document.getElementById("projekte_navigation_state").innerText = public.state[PROJEKT][Parameters.PROJEKT.PK];
+                    document.getElementById(projektNavigationState).innerText = public.state[PROJEKT][Parameters.PROJEKT.PK];
                     resolve();
                 }
             )
@@ -56,7 +64,7 @@ const MainState = (function () {
                     const probe = searchResults[0][0];
                     await public.setProjekt(probe[Parameters.PROBE.FK]);
                     public.state[PROBE] = probe;
-                    document.getElementById("probe_navigation_state").innerText = public.state[PROBE][Parameters.PROBE.PK];
+                    document.getElementById(probeNavigationState).innerText = public.state[PROBE][Parameters.PROBE.PK];
                     resolve();
                 }
             )

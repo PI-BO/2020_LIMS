@@ -92,9 +92,9 @@ const GlobaleSuche = (function () {
 		return new Promise(resolve => {
 
 			servletURL = servletAddress;
-	
+
 			fetchDatabase((tupelArray) => {
-	
+
 				initAddParameterButton();
 				initSearchButton();
 				fetchParameters(tupelArray);
@@ -179,7 +179,6 @@ const GlobaleSuche = (function () {
 			parentContainer.style.border = "solid";
 			parentContainer.style.borderColor = "rgb(53, 149, 245)";
 
-
 			// limit to left and top screenborders
 			if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
 			if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
@@ -213,14 +212,13 @@ const GlobaleSuche = (function () {
 		const documentWidth = document.body.clientWidth;
 		const documentHeight = document.body.clientHeight;
 
-		// containerHeight = containerHeight + (heightThresholdBottomSide - containerHeight);
-		// containerWidth = containerWidth + (widthThresholdRightSide - containerWidth);
-
-		if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
-		if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
-
+		// limit to right and bottom screenborders
 		if (parentContainer.offsetTop > documentHeight - containerHeight) parentContainer.style.top = documentHeight - containerHeight + "px";
 		if (parentContainer.offsetLeft > documentWidth - containerWidth) parentContainer.style.left = documentWidth - containerWidth + "px";
+		
+		// limit to left and top screenborders
+		if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
+		if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
 	}
 
 	public.resetPosition = function resetPosition() {
@@ -636,19 +634,19 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	function mergeRedundantTupel(tupelList){
+	function mergeRedundantTupel(tupelList) {
 
 		let mergedTupelList = [].concat(tupelList);
 
-		for(let i = mergedTupelList.length-1; i > 0; i--){
-			
+		for (let i = mergedTupelList.length - 1; i > 0; i--) {
+
 			let tupel = mergedTupelList[i];
 
-			for(let j = i-1; j >= 0; j--){
+			for (let j = i - 1; j >= 0; j--) {
 
 				let nextTupel = mergedTupelList[j];
-				
-				if(!areEqual(tupel, nextTupel)) continue;
+
+				if (!areEqual(tupel, nextTupel)) continue;
 
 				mergedTupelList.splice(j, 1);
 				i--;
@@ -656,17 +654,17 @@ const GlobaleSuche = (function () {
 		}
 
 		return mergedTupelList;
-		
-		function areEqual(tupel, nextTupel){
-			
-			if(tupel.length !== nextTupel.length) return false;
-			
-			for(let i = 0; i < tupel.length; i++){
+
+		function areEqual(tupel, nextTupel) {
+
+			if (tupel.length !== nextTupel.length) return false;
+
+			for (let i = 0; i < tupel.length; i++) {
 
 				let elementA = JSON.stringify(tupel[i]);
 				let elementB = JSON.stringify(nextTupel[i]);
 
-				if( elementA !== elementB) return false;
+				if (elementA !== elementB) return false;
 			}
 
 			return true;
