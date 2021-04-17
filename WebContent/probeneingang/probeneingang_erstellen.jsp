@@ -195,8 +195,10 @@
 
         }, false);
     }
+
+    Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
+    Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
+    Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");
 </script>
-
 </body>
-
 </html>

@@ -40,14 +40,10 @@ public class Probe extends Model{
     }
 
     public void setAttributes(ResultSet resultSet) throws SQLException, ModelNotFoundException {
-
         if (resultSet.next()) {
-
             primaryKey = resultSet.getString(resultSet.findColumn(COLUMN_PRIMARY_KEY));
             projektID = resultSet.getString(resultSet.findColumn(COLUMN_PROJEKT_ID));
-
         } else {
-
             throw new ModelNotFoundException("Probe nicht gefunden");
         }
     }
@@ -83,7 +79,6 @@ public class Probe extends Model{
 	
 	@Override
 	public DummyResultSet returnAsDummyResultSet() {
-
 		DummyResultSet dummyResultSet = new DummyResultSet();
 		DummyResultSetEntry dummyResultSetEntry = new DummyResultSetEntry();
 		dummyResultSetEntry.addKeyValuePair(COLUMN_PRIMARY_KEY, primaryKey);
@@ -100,7 +95,6 @@ public class Probe extends Model{
 	
 	@Override
 	public JSON toJSON() {
-		
 		JSON json = new JSON();
 		json.addKeyValue("table", TABLE);
 		json.addKeyValue("id", primaryKey);

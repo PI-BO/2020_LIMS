@@ -151,6 +151,8 @@
             </td>
         </tr>
 
+        <div id="table_probeneingang_content"></div>
+
         <tr>
             <th style="text-align: center" id="button_probeneingang_speichern">
                 <button disabled id="button_probeneingang_update" type="submit">Speichern</button>
@@ -172,20 +174,23 @@
             type: 'get',
             data: {id: e.target.value},
             success: function (data) {
-                const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
-                probeneingangContent.done(function (post) {
-                    $("#table_probeneingang tr").eq(2).after(post).ready(function () {
-                        $(this).children().slice(0,2).remove();
-                        for (let key in data) {
-                            const nodeList = document.getElementsByName(key)
-                            const val = data[key]
-                            for (let i = 0; i < nodeList.length; i++) {
-                                nodeList[i].value = val
-                                nodeList[i].disabled = false
+                const trlist = $("#table_probeneingang tr")
+                if (data) {
+                    const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
+                    probeneingangContent.done(function (post) {
+                        trlist.eq(2).after(post).ready(function () {
+                            for (let key in data) {
+                                const nodeList = document.getElementsByName(key)
+                                const val = data[key]
+                                for (let i = 0; i < nodeList.length; i++) {
+                                    nodeList[i].value = val
+                                    nodeList[i].disabled = false
+                                }
                             }
-                        }
+                        });
                     });
-                });
+                } else if (trlist.length === 38)
+                    trlist.slice(3, 36).remove()
             },
             error: function (xhr, status, error) {
                 alert("Fehler: " + xhr.responseText);
