@@ -19,16 +19,10 @@ const Parameters = {
 		VERTRAGSNUMMER: "vertragsnummer",
 		FK: "projektpartner"
 	},
-	SUBSTANZ: {
-		CATEGORY: "substanz",
-		PK: "id",
-		FK: "projekt_id",
-		WIRKSTOFF: "wirkstoff"
-	},
 	PROBE: {
 		CATEGORY: "probe",
 		PK: "id",
-		FK: "substanz_id"
+		FK: "projekt_id"
 	},
 	EXPERIMENT: {
 		CATEGORY: "experiment",

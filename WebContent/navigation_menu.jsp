@@ -20,22 +20,26 @@
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_user">Partner [<span id="partner_navigation_state"> - </span>]</span>
+					<li><span class="navigation_tree_node symbol_user">Partner [<span style="color:blue;"
+								id="partner_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_partner_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="projekt_partner_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+							<li><span class="navigation_tree_node symbol_search"
+									id="partner_auswaehlen">auswaehlen</span></li>
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Projekte [<span id="projekte_navigation_state"> - </span>]</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Projekte [<span style="color:blue;"
+								id="projekte_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
-									  id="projekt_bearbeiten">bearbeiten</span></li>
+									id="projekt_bearbeiten">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" id="projekt_auswaehlen">auswaehlen</span></li>
 						</ul>
 					</li>
 
@@ -49,28 +53,31 @@
 						</ul>
 					</li> -->
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Probe [<span id="probe_navigation_state"> - </span>]</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Probe [<span style="color:blue;"
+								id="probe_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="probeneingang_erstellen">Probeneingang</span></li>
 							<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="probe_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper"
-									  id="probeneingang_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+									id="probeneingang_bearbeiten">bearbeiten</span></li>
+							<li><span class="navigation_tree_node symbol_search" id="probe_auswaehlen">auswaehlen</span></li>
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Experiment</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Experiment [<span style="color:blue;"
+								id="experiment_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="experiment_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="experiment_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span></li>
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Analysen</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Analysen [<span style="color:blue;"
+								id="analysen_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="analyse_erstellen">erstellen</span></li>
@@ -108,24 +115,52 @@
 
 		NavigationMenu.initInputMaskListener("#main-content-input-masks",
 			{
-				"#projekt_partner_erstellen": 	"<%=Address.getProjektPartnerErstellenJsp()%>",
-				"#projekt_erstellen": 			"<%=Address.getProjektErstellenJsp()%>",
+				"#projekt_partner_erstellen": "<%=Address.getProjektPartnerErstellenJsp()%>",
+				"#projekt_erstellen": "<%=Address.getProjektErstellenJsp()%>",
 				// "#substanz_erstellen": 			"Address.getSubstanzErstellenJsp()",
-				"#experiment_erstellen": 		"<%=Address.getExperimentErstellenJsp()%>",
-				"#analyse_erstellen": 			"<%=Address.getAnalyseErstellenJsp()%>",
-				"#probeneingang_erstellen": 	"<%=Address.getProbeneingangJSP()%>",
-				"#eingangsanalytik_erstellen":	"<%=Address.getEingangsAnalytikJSP()%>",
-				"#experiment_bearbeiten":		"<%=Address.getExperimentBearbeitenJsp()%>",
-				"#analyse_bearbeiten":			"<%=Address.getAnalyseBearbeitenJsp()%>",
-				"#projekt_partner_bearbeiten":	"<%=Address.getPartnerBearbeitenJsp()%>",
-				"#projekt_bearbeiten":			"<%=Address.getProjektBearbeitenJsp()%>",
-				"#probeneingang_bearbeiten":	"<%=Address.getProbeneingangBearbeitenJsp()%>"
+				"#experiment_erstellen": "<%=Address.getExperimentErstellenJsp()%>",
+				"#analyse_erstellen": "<%=Address.getAnalyseErstellenJsp()%>",
+				"#probeneingang_erstellen": "<%=Address.getProbeneingangJSP()%>",
+				"#eingangsanalytik_erstellen": "<%=Address.getEingangsAnalytikJSP()%>",
+				"#experiment_bearbeiten": "<%=Address.getExperimentBearbeitenJsp()%>",
+				"#analyse_bearbeiten": "<%=Address.getAnalyseBearbeitenJsp()%>",
+				"#projekt_partner_bearbeiten": "<%=Address.getPartnerBearbeitenJsp()%>",
+				"#projekt_bearbeiten": "<%=Address.getProjektBearbeitenJsp()%>",
+				"#probeneingang_bearbeiten": "<%=Address.getProbeneingangBearbeitenJsp()%>"
 			}
 		);
 
 		NavigationMenu.initSucheListener("#globale_suche_anzeigen2", "#main-content-global-search");
 
-		NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
+		NavigationMenu.initAuswaehlenButton("#partner_auswaehlen", "#main-content-global-search",
+			[
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+			],
+			(callbackData) => {
+				MainState.setProjektPartner(callbackData);	
+			}
+		);
+		
+		NavigationMenu.initAuswaehlenButton("#projekt_auswaehlen", "#main-content-global-search",
+			[
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+			],
+			(callbackData) => {
+				MainState.setProjekt(callbackData);	
+			}
+		);
+
+		NavigationMenu.initAuswaehlenButton("#probe_auswaehlen", "#main-content-global-search",
+			[
+				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, "")
+			],
+			(callbackData) => {
+				MainState.setProbe(callbackData);	
+			}
+		);
+
+	NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
 	});
 
 </script>
