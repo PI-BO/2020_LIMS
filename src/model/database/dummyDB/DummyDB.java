@@ -369,7 +369,11 @@ public class DummyDB implements Database {
 	}
 
 	private boolean primaryKeyNotFound(String requestedKey, DummyRelation model) {
-		return !model.getForeignKey().equals(requestedKey);
+		try {
+			return !model.getForeignKey().equals(requestedKey);
+		} catch (NullPointerException e) {
+			return true;
+		}
 	}
 
 	private boolean compositeKeyNotFound(AnalyseTemperaturprogramme requestModel, DummyRelation model) {
