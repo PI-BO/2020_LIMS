@@ -16,7 +16,8 @@ public class Probeneingang {
 	private String wirkstoff;					// Substanz
 	private String wirkstoffId;					// Substanz
 	private String auftraggeber;				// Partner
-	private String probenNr;					// Substanz-Id
+	private String projektId;					// Substanz-Id
+	private String probenId;					// Substanz-Id
 	private String projektvertragnummer;		// Projekt-Id
 	private String summenformel;				// Substanz
 	private String bezeichnung;					// Substanz
@@ -50,7 +51,7 @@ public class Probeneingang {
 	public static final String WIRKSTOFF = "WIRKSTOFF";
 	public static final String WIRKSTOFF_ID = "WIRKSTOFF_ID123";
 	public static final String AUFTRAGGEBER = "AUFTRAGGEBER_NAME";
-	public static final String PROJEKT = "PROJEKT_NAME";
+	public static final String PROJEKT_ID = "PROJEKT_NAME";
 	public static final String PROBEN_ID = "PROBEN_ID";
 	public static final String PROJEKTVERTRAGNUMMER= "PROJEKTVERTRAGNUMMER";
 	public static final String SUMMENFORMEL = "SUMMENFORMEL";
@@ -99,11 +100,18 @@ public class Probeneingang {
 	public void setAuftraggeber(String auftraggeber) {
 		this.auftraggeber = auftraggeber;
 	}
-	public String getProbenNr() {
-		return probenNr;
+	public String getProjektId() {
+		return projektId;
 	}
-	public void setProbenNr(String probenNr) {
-		this.probenNr = probenNr;
+	public void setProjektId(String projektId) {
+		System.out.println("Probeneingang setProjektID = " + projektId);
+		this.projektId = projektId;
+	}
+	public String getProbenId() {
+		return probenId;
+	}
+	public void setProbenId(String probenId) {
+		this.probenId = probenId;
 	}
 	public String getProjektvertragnummer() {
 		return projektvertragnummer;
@@ -282,6 +290,7 @@ public class Probeneingang {
 		
 //		LOGGER.debug(parameterName + ": " + parameter);
 		
+		if(parameterName.equals(PROJEKT_ID))                          		{ setProjektId(parameter);              return; }
 		if(parameterName.equals(AUFTRAGGEBER))                          	{ setAuftraggeber(parameter);              return; }
 		if(parameterName.equals(BEMERKUNGEN))                           	{ setBemerkungen(parameter);               return; }
 		if(parameterName.equals(BEMERKUNGEN_ZUR_MESSUNG))               	{ setBemerkungenZurMessung(parameter);     return; }
@@ -291,7 +300,7 @@ public class Probeneingang {
 		if(parameterName.equals(INTERNE_VERGABENUMMER))                 	{ setInterneVergabenummer(parameter);      return; }
 		if(parameterName.equals(LITERATUR))                             	{ setLiteratur(parameter);                 return; }
 		if(parameterName.equals(ORIGINATOR))                            	{ setOriginator(parameter);                return; }
-		if(parameterName.equals(PROBEN_ID))                             	{ setProbenNr(parameter);                  return; }
+		if(parameterName.equals(PROBEN_ID))                             	{ setProbenId(parameter);                  return; }
 		if(parameterName.equals(PROBENEINGANG))                         	{ setProbeneingangDatum(parameter);        return; }
 		if(parameterName.equals(PROBENMASSE))                           	{ setProbenmasse(parameter);               return; }
 		if(parameterName.equals(PROJEKTVERTRAGNUMMER))                  	{ setProjektvertragnummer(parameter);      return; }

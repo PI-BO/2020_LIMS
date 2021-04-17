@@ -52,8 +52,8 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
 			probeneingang.saveToDatabasePlaceholderMethod();
 			
 			Probe probe = new Probe();
-			probe.setPrimaryKey(probeneingang.getProbenNr());
-			probe.setProjektID(probeneingang.getWirkstoffId());
+			probe.setPrimaryKey(probeneingang.getProbenId());
+			probe.setProjektID(probeneingang.getProjektId());
 			probe.saveToDatabase();
 		}
 		catch (IOException e) {
@@ -89,14 +89,11 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
     
     private Probeneingang createProbeneingang(HttpServletRequest request) throws IOException, ServletException {
     	
-    	
-    	
     	Probeneingang probeneingang = new Probeneingang();
     	
     	Enumeration<String> parameterNames = request.getParameterNames();
     	
     	String parameterName;
-    	if(parameterNames.hasMoreElements()) parameterName = parameterNames.nextElement();
     	
     	while(parameterNames.hasMoreElements()){
     		
@@ -107,7 +104,6 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
     		String parameter = (String)request.getParameter(parameterName);
     		
     		probeneingang.setParameters(parameterName, parameter);
-    		
     	}
     	
     	Collection<Part> parts = request.getParts();

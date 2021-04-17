@@ -65,7 +65,7 @@ public class ProbeneingangBearbeitenServlet extends HttpServlet {
 			probeneingang.saveToDatabasePlaceholderMethod();
 			
 			Probe probe = new Probe();
-			probe.setPrimaryKey(probeneingang.getProbenNr());
+			probe.setPrimaryKey(probeneingang.getProbenId());
 			probe.setProjektID(probeneingang.getWirkstoffId());
 			probe.saveToDatabase();
 		}

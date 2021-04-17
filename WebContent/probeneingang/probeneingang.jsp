@@ -15,7 +15,7 @@
 </tr>
 <tr>
     <td>
-        <input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT%>>
+        <input type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
     </td>
 </tr>
 <tr>
@@ -164,7 +164,7 @@
     GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
         [
             new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
-            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0].value)
+            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0].value)
         ]
     );
     Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
@@ -175,7 +175,7 @@
         let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
         auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
     
-        let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0];
+        let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
         projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
     }
 

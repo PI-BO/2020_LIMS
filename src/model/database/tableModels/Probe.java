@@ -62,7 +62,6 @@ public class Probe extends Model{
     
 	@Override
 	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
-
 		Projekt projekt = new Projekt(projektID);
 		super.saveToDatabase();
 		this.addParent(projekt);
