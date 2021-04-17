@@ -257,14 +257,14 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters) {
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, linkText = "suchen") {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
 		inputElements.forEach(inputElement => {
 
 			let searchLink = document.createElement("a")
-			searchLink.text = "suchen"
+			searchLink.text = linkText;
 			searchLink.href = "javascript:void(0);"
 			searchLink.style.paddingLeft = "0.3em"
 			inputElement.insertAdjacentElement("afterend", searchLink);

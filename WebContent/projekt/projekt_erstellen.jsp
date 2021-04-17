@@ -153,9 +153,14 @@
 
 		Tooltip.setTooltip("projektIdTooltip", "Projekt ID automatisch generieren lassen?");
 
-		let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
+		function projektErstellenInit(){
 
-		projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+			let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
+			projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+		}
+
+		projektErstellenInit();
+
 
 	</script>
 

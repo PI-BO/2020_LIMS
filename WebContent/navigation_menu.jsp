@@ -20,7 +20,7 @@
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_user">Projektpartner</span>
+					<li><span class="navigation_tree_node symbol_user">Projektpartner [<span id="partner_navigation_state"></span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_partner_erstellen">erstellen</span></li>
@@ -30,7 +30,7 @@
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Projekte</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Projekte [<span id="projekte_navigation_state"></span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_erstellen">erstellen</span></li>
@@ -49,7 +49,7 @@
 						</ul>
 					</li> -->
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Proben</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Probe [<span id="probe_navigation_state"></span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="probeneingang_erstellen">Probeneingang</span></li>

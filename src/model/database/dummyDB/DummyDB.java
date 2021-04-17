@@ -342,7 +342,7 @@ public class DummyDB implements Database {
 			return;
 		}
 		
-		throw new ModelNotFoundException();
+		throw new ModelNotFoundException("requestedModel: " + requestedModel.getClass().toString());
 	}
 
 	@Override

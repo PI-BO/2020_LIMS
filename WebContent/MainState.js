@@ -1,14 +1,18 @@
 const MainState = (function () {
 
+    const PARTNER = Parameters.PARTNER.CATEGORY;
+    const PROJEKT = Parameters.PROJEKT.CATEGORY;
+    const PROBE = Parameters.PROBE.CATEGORY;
+
     public.state = {};
-    
+
     resetState();
-    
-    function resetState(){
+
+    function resetState() {
         public.state = {
-            [Parameters.PARTNER.CATEGORY]: new Model(Parameters.PARTNER),
-            [Parameters.PROJEKT.CATEGORY]: new Model(Parameters.PROJEKT),
-            [Parameters.PROBE.CATEGORY]: new Model(Parameters.PROBE)
+            [PARTNER]: new Model(Parameters.PARTNER),
+            [PROJEKT]: new Model(Parameters.PROJEKT),
+            [PROBE]: new Model(Parameters.PROBE)
         }
     }
 
@@ -19,7 +23,8 @@ const MainState = (function () {
                     new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, id)
                 ], (searchResults) => {
                     resetState();
-                    public.state[Parameters.PARTNER.CATEGORY] = searchResults[0][0];
+                    public.state[PARTNER] = searchResults[0][0];
+                    document.getElementById("partner_navigation_state").innerText = public.state[PARTNER][Parameters.PARTNER.NAME];
                     resolve();
                 }
             )
@@ -34,7 +39,8 @@ const MainState = (function () {
                 ], async (searchResults) => {
                     const projekt = searchResults[0][0];
                     await public.setProjektPartner(projekt[Parameters.PROJEKT.FK])
-                    public.state[Parameters.PROJEKT.CATEGORY] = projekt;
+                    public.state[PROJEKT] = projekt;
+                    document.getElementById("projekte_navigation_state").innerText = public.state[PROJEKT][Parameters.PROJEKT.PK];
                     resolve();
                 }
             )
@@ -49,7 +55,8 @@ const MainState = (function () {
                 ], async (searchResults) => {
                     const probe = searchResults[0][0];
                     await public.setProjekt(probe[Parameters.PROBE.FK]);
-                    public.state[Parameters.PROBE.CATEGORY] = probe;
+                    public.state[PROBE] = probe;
+                    document.getElementById("probe_navigation_state").innerText = public.state[PROBE][Parameters.PROBE.PK];
                     resolve();
                 }
             )

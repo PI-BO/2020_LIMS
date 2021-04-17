@@ -2,41 +2,41 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <tr>
-	<th>Auftraggeber</th>
+    <th>Auftraggeber</th>
 </tr>
 <tr>
-	<td>
-		<input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
-	</td>
+    <td>
+        <input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
+    </td>
 </tr>
 
 <tr>
-	<th>Projekt ID</th>
+    <th>Projekt ID</th>
 </tr>
 <tr>
-	<td>
-		<input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT%>>
-	</td>
+    <td>
+        <input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT%>>
+    </td>
 </tr>
 <tr>
-	<th id="wirkstoffTooltip">
-		Wirkstoff
-	</th>
+    <th id="wirkstoffTooltip">
+        Wirkstoff
+    </th>
 </tr>
 <tr>
-	<td>
-		<input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
-	</td>
+    <td>
+        <input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+    </td>
 </tr>
 <tr>
-	<th id="probenIdTooltip">
-		Proben ID
-	</th>
+    <th id="probenIdTooltip">
+        Proben ID
+    </th>
 </tr>
 <tr>
-	<td>
-		<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
-	</td>
+    <td>
+        <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
+    </td>
 </tr>
 
 <tr>
@@ -145,7 +145,7 @@
                     <br>
                     <button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
                     <input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*"
-                           onchange="loadFile(this)" multiple>
+                        onchange="loadFile(this)" multiple>
                 </td>
                 <td>
                     <div id="preview-container" style="max-width: 300px"></div>
@@ -161,19 +161,23 @@
         $("#input_image_upload").val("");
     });
 
-	GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
-			[
-				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
-				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0].value)
-			]
-		);
-		Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
-		Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
-		Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");
+    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
+        [
+            new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0].value)
+        ]
+    );
+    Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
+    Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
+    Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");
 
-		let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
-		auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+    function probenEingangInit(){
+        let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
+        auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+    
+        let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0];
+        projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
+    }
 
-		let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT%>")[0];
-		projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
+    probenEingangInit();
 </script>
