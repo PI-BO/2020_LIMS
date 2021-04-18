@@ -143,12 +143,29 @@
 		// 	]
 		// );
 
+		// // Such-Links
+		// GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
+		// 	[
+		// 		new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
+		// 	]
+		// );
+
 		// Such-Links
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
 			[
-				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
-			]
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+				// new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
+			],
+			returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
+		);
+
+		GlobaleSuche.addGenerierenLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
+			[
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+			], 
+			returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
 		);
 
 		Tooltip.setTooltip("projektIdTooltip", "Projekt ID automatisch generieren lassen?");

@@ -71,15 +71,15 @@ const NavigationMenu = (function () {
         });
     }
 
-    public.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback){
+    public.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback, returnParameter){
         
         $(buttonId).click(function () {
+            NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
             GlobaleSuche.initTemplateParameters(template);
             GlobaleSuche.addSearchCallback((callbackData)=>{
                 callback(callbackData);
-                console.log({callbackData})
                 NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-            }, "", "true")
+            }, startSearch=true, returnParameter)
             public.show(containerId);
             GlobaleSuche.resetPositionIfOutOfBounds();
         });

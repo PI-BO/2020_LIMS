@@ -62,7 +62,7 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
 		}
 		catch (ModelNotFoundException e) {
 			json.addKeyValue("status", "error");
-			json.addKeyValue("message", "Substanz ID nicht vorhanden");
+			json.addKeyValue("message", "Projekt ID nicht vorhanden");
 			out.print(json.toString());
 			e.printStackTrace();
 			return;

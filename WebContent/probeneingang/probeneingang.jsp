@@ -15,7 +15,7 @@
 </tr>
 <tr>
     <td>
-        <input type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
+        <input required readonly type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
     </td>
 </tr>
 <tr>
@@ -161,12 +161,24 @@
         $("#input_image_upload").val("");
     });
 
+    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKT_ID%>",
+        [
+            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+        ],
+        returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
+        linkText = "auswaehlen"
+    );
+
     GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
         [
             new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
-            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0].value)
-        ]
+            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0].value),
+            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+        ],
+        returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
     );
+
     Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
     Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
     Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");

@@ -23,7 +23,7 @@ const GlobaleSuche = (function () {
 	const searchValueClass = "global_search_parameter_input";
 	const firstHeaderClass = "global_search_result_table_first_header";
 	const secondHeaderClass = "global_search_result_table_second_header";
-	const resultRowClass = "global_search_result_table_result_row";
+	const resultCellClass = "global_search_result_table_result_cell";
 	const parameterRowClass = "global_search_parameter_row"
 
 	// Close Button
@@ -83,6 +83,7 @@ const GlobaleSuche = (function () {
 
 	// InputMask-Callback
 	let searchCallbackForInputMasks = undefined;
+	let searchCallbackReturnParameterForInputMasks = new Parameter("", "", "");
 
 	// URL
 	let servletURL = "";
@@ -255,7 +256,42 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, linkText = "suchen") {
+	public.addGenerierenLinkToInputWithName = function addGenerierenLinkToInputWithName(inputElementName, templateParameters, returnParameter) {
+
+		let inputElements = document.getElementsByName(inputElementName);
+
+		inputElements.forEach(inputElement => {
+
+			let searchLink = document.createElement("a")
+			searchLink.text = "generieren";
+			searchLink.href = "javascript:void(0);"
+			searchLink.style.paddingLeft = "0.3em"
+			inputElement.insertAdjacentElement("afterend", searchLink);
+			addListener(searchLink, templateParameters, inputElement, returnParameter);
+		})
+
+		function addListener(searchLink, templateParameters, inputElement, returnParameter) {
+
+			searchLink.addEventListener("click", () => {
+				
+				public.backgroundSearch(templateParameters, (resultArray)=>{
+					
+					let highestId = 0;
+
+					resultArray.forEach(resultTupel => {
+
+						const resultElement = resultTupel[0];
+						if(resultElement[returnParameter.parameter] > highestId) highestId = resultElement[returnParameter.parameter];
+					})
+
+					highestId++;
+					inputElement.value = highestId;
+				});
+			});
+		}
+	}
+
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallback) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -266,20 +302,20 @@ const GlobaleSuche = (function () {
 			searchLink.href = "javascript:void(0);"
 			searchLink.style.paddingLeft = "0.3em"
 			inputElement.insertAdjacentElement("afterend", searchLink);
-			addListener(searchLink, templateParameters, inputElement);
-
+			addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallback);
 		})
 
-		function addListener(searchLink, templateParameters, inputElement) {
+		function addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallback) {
 
 			searchLink.addEventListener("click", () => {
-
+				
+				if (optionalCallback !== undefined) optionalCallback();
 				NavigationMenu.show("#" + globalSearchMainContentContainerId);
 				GlobaleSuche.initTemplateParameters(templateParameters);
 				GlobaleSuche.resetPositionIfOutOfBounds();
 				GlobaleSuche.addSearchCallback((callbackContent) => {
 					NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-					inputElement.value = callbackContent;
+					inputElement.value = callbackContent[returnParameter.parameter];
 					inputElement.dispatchEvent(new Event("change"))
 					setTimeout(function () {
 						inputElement.scrollIntoView({
@@ -287,22 +323,22 @@ const GlobaleSuche = (function () {
 							inline: 'center'
 						});
 					}, 100);
-				}, "", "true")
+				}, startSearch=true, returnParameter)
 			});
 		}
-
-		// document.getElementById(searchLinkId).addEventListener("click", () => {
 	}
 
-	public.addSearchCallback = function addSearchCallback(callback, searchTargetString, startSearch) {
+	public.addSearchCallback = function addSearchCallback(callback, startSearch=false, returnParameter) {
 		searchCallbackForInputMasks = callback;
-		enableCallbackMode(searchTargetString);
-		if (startSearch !== undefined && startSearch === "true") search();
+		searchCallbackReturnParameterForInputMasks = returnParameter;
+		enableCallbackMode();
+		if (startSearch) search();
 	}
 
-	function enableCallbackMode(searchTargetString) {
+	function enableCallbackMode() {
 		setMinimizeButtonInputMode();
 		setCloseButtonInputMode();
+		// Header des Such-Fensters einen String anhaengen
 		// setMainHeaderTextInputMode(searchTargetString);
 	}
 
@@ -310,6 +346,7 @@ const GlobaleSuche = (function () {
 		searchCallbackForInputMasks = undefined;
 		resetMinimizeButtonInputMode();
 		resetCloseButtonInputMode();
+		// Header des Such-Fensters zuruecksetzen
 		// resetMainHeaderText();
 	}
 
@@ -693,7 +730,7 @@ const GlobaleSuche = (function () {
 
 		addTupelAsTableHeader(categories, resultTableId, firstHeaderClass, mergeEqualCells = true);
 		addTupelAsTableHeader(parameters, resultTableId, secondHeaderClass, mergeEqualCells = false, addSortFunction = true);
-		addResultsToTable(filteredResults, resultTableId, resultRowClass);
+		addResultsToTable(filteredResults, resultTableId);
 		mergeRedundantRows(resultTableId);
 
 		// ------ functions ------
@@ -824,17 +861,17 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	function addResultsToTable(results, resultTableId, className) {
-		addTupelArrayToResults(results, resultTableId, className, displayKey, addShowDetailsCallbackFunction = true);
+	function addResultsToTable(results, resultTableId) {
+		addTupelArrayToResults(results, resultTableId, displayKey, addShowDetailsCallbackFunction = true);
 	}
 
-	function addTupelArrayToResults(results, tableId, className, onlyThisKey, addShowDetailsCallbackFunction) {
+	function addTupelArrayToResults(results, tableId, onlyThisKey, addShowDetailsCallbackFunction) {
 
 		let table = document.getElementById(tableId);
 
 		results.forEach(tupel => {
 			let row = table.insertRow(-1);
-			if (className !== undefined) row.className = className;
+			// if (className !== undefined) row.className = className;
 			tupel.forEach(tupelElement => {
 
 				for (let key in tupelElement) {
@@ -846,13 +883,15 @@ const GlobaleSuche = (function () {
 					if (onlyThisKey === undefined) {
 						let cell = addToNewTableCell(cellContent, row);
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
-						addCallbackFunction(cell, cellContent);
+						// addCallbackFunction(cell, cellContent);
+						if(tupelElement.table === searchCallbackReturnParameterForInputMasks.category) addCallbackFunction(cell, tupelElement);
 					}
-
+					
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
-						addCallbackFunction(cell, cellContent);
+						// addCallbackFunction(cell, cellContent);
+						if(tupelElement.table === searchCallbackReturnParameterForInputMasks.category) addCallbackFunction(cell, tupelElement);
 						break;
 					}
 				}
@@ -865,6 +904,7 @@ const GlobaleSuche = (function () {
 			}
 
 			function addCallbackFunction(cell, cellContent) {
+				cell.className = resultCellClass;
 				cell.addEventListener("click", () => {
 					if (searchCallbackForInputMasks === undefined) return;
 					searchCallbackForInputMasks(cellContent);
@@ -872,8 +912,15 @@ const GlobaleSuche = (function () {
 					public.disableCallbackMode();
 				})
 			}
-
+			
 			function addShowDetailsListener(cell, tupelElement) {
+				
+				cell.addEventListener("mouseenter", () => {
+					if (GlobaleSuche.hasCallbackMethod()) return;
+					if (searchCallbackForInputMasks !== undefined) return;
+					cell.className = resultCellClass;
+				});
+
 				cell.addEventListener("click", () => {
 
 					if (GlobaleSuche.hasCallbackMethod()) return;
@@ -895,7 +942,7 @@ const GlobaleSuche = (function () {
 
 					addTupelAsTableHeader(tableNameHeaderArray, resultTableId, firstHeaderClass, mergeHeader = true);
 					addTupelAsTableHeader(tupelElementArray, resultTableId, secondHeaderClass);
-					addTupelArrayToResults([[tupelElement]], resultTableId, resultRowClass, onlyThisKey = undefined, addShowDetailsCallbackFunction = false);
+					addTupelArrayToResults([[tupelElement]], resultTableId, onlyThisKey = undefined, addShowDetailsCallbackFunction = false);
 				});
 			}
 		})

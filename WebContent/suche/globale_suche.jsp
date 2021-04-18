@@ -41,16 +41,18 @@
 		#global_search_result_table td {
 			border: 1px solid #ddd;
 			padding: 8px;
-			cursor: default;
 		}
 
-		#global_search_result_table tr:nth-child(n+2) td {
+		#global_search_result_table tr:nth-child(1) td {
+			cursor: default;
+		}
+		#global_search_result_table tr:nth-child(2) td {
 			cursor: cell;
 		}
 
-		#global_search_result_table tr:nth-child(n+3) td {
+		/* #global_search_result_table tr:nth-child(n+3) td {
 			cursor: pointer;
-		}
+		} */
 
 		#global_search_result_table tr:nth-of-type(even) {
 			background-color: #ffffff;
@@ -72,8 +74,9 @@
 			text-align: center;
 		}
 
-		.global_search_result_table_result_row td:hover {
+		.global_search_result_table_result_cell:hover {
 			background-color: #ddd;
+			cursor: pointer;
 		}
 
 		#global_search_main_header {

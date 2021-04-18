@@ -82,19 +82,19 @@ public class DummyDB implements Database {
 
 		// Projekte
 		Projekt projekt = new Projekt();
-		projekt.setPrimaryKey("A");
+		projekt.setPrimaryKey("1");
 		projekt.setVertragsnummer("1");
 		projekt.setProjektPartnerId("1");
 		projekt.saveToDatabase();
 
 		projekt = new Projekt();
-		projekt.setPrimaryKey("B");
+		projekt.setPrimaryKey("2");
 		projekt.setVertragsnummer("1");
 		projekt.setProjektPartnerId("1");
 		projekt.saveToDatabase();
 
 		projekt = new Projekt();
-		projekt.setPrimaryKey("C");
+		projekt.setPrimaryKey("3");
 		projekt.setVertragsnummer("2");
 		projekt.setProjektPartnerId("2");
 		projekt.saveToDatabase();
@@ -102,62 +102,62 @@ public class DummyDB implements Database {
 		// Proben
 		Probe probe = new Probe();
 		probe.setPrimaryKey("ProbeA1");
-		probe.setProjektID("A");
+		probe.setProjektID("1");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeA2");
-		probe.setProjektID("A");
+		probe.setProjektID("1");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeB1");
-		probe.setProjektID("B");
+		probe.setProjektID("2");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeB");
-		probe.setProjektID("B");
+		probe.setProjektID("2");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeC");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeC2");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeD");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeD2");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeE");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeE2");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeF");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		probe = new Probe();
 		probe.setPrimaryKey("ProbeF2");
-		probe.setProjektID("C");
+		probe.setProjektID("3");
 		probe.saveToDatabase();
 
 		// Experimente

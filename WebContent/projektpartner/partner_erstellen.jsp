@@ -112,11 +112,21 @@
 		})
 
 		// Such-Links
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
+		// GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
+		// 	[
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+		// 	], 
+		// 	returnParameter = new Parameter("", ""),
+		// 	linkText = "auflisten"
+		// );
+
+		// Such-Links
+		GlobaleSuche.addGenerierenLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
 			[
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
-			]
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
+			], 
+			returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
 		);
 
 		Tooltip.setTooltip("ProjektpartnerTooltip", "ID automatisch generieren lassen?");

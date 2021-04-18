@@ -23,23 +23,24 @@
 					<li><span class="navigation_tree_node symbol_user">Partner [<span style="color:blue;"
 								id="partner_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_search"
+									id="partner_auswaehlen">auswaehlen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_partner_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="projekt_partner_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search"
-									id="partner_auswaehlen">auswaehlen</span></li>
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Projekte [<span style="color:blue;"
+					<li><span class="navigation_tree_node symbol_folder_closed">Projekt [<span style="color:blue;"
 								id="projekte_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_search"
+									id="projekt_auswaehlen">auswaehlen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="projekt_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" id="projekt_auswaehlen">auswaehlen</span></li>
 						</ul>
 					</li>
 
@@ -56,41 +57,40 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Probe [<span style="color:blue;"
 								id="probe_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_search" id="probe_auswaehlen">auswaehlen</span>
+							</li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="probeneingang_erstellen">Probeneingang</span></li>
 							<!-- 							<li><span class="navigation_tree_node symbol_clipboard" id="probe_erstellen">erstellen</span></li> -->
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="probeneingang_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" id="probe_auswaehlen">auswaehlen</span></li>
 						</ul>
 					</li>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Experiment [<span style="color:blue;"
 								id="experiment_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span>
+							</li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="experiment_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="experiment_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span></li>
 						</ul>
 					</li>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Analysen [<span style="color:blue;"
 								id="analysen_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
+							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span>
+							</li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="analyse_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_folder_closed"
+							<li><span class="navigation_tree_node symbol_folder_closed" id="eingangsanalytik_erstellen"
 									style="opacity: 0.3">Eingangsanalyse</span>
-								<ul class="navigation_tree_branches">
-									<li><span class="navigation_tree_node symbol_clipboard"
-											id="eingangsanalytik_erstellen" style="opacity: 0.3">erstellen</span></li>
-								</ul>
 							</li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="analyse_bearbeiten">bearbeiten</span></li>
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">suchen</span></li>
 						</ul>
 					</li>
 
@@ -138,29 +138,35 @@
 				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
 			],
 			(callbackData) => {
-				MainState.setProjektPartner(callbackData);	
-			}
+				MainState.setProjektPartner(callbackData[Parameters.PARTNER.PK]);
+			},
+			new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK),
 		);
-		
+
 		NavigationMenu.initAuswaehlenButton("#projekt_auswaehlen", "#main-content-global-search",
 			[
-				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
 			],
 			(callbackData) => {
-				MainState.setProjekt(callbackData);	
-			}
+				MainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);
+			},
+			returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK)
 		);
 
 		NavigationMenu.initAuswaehlenButton("#probe_auswaehlen", "#main-content-global-search",
 			[
-				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, "")
+				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
 			],
 			(callbackData) => {
-				MainState.setProbe(callbackData);	
-			}
+				MainState.setProbe(callbackData[Parameters.PROBE.PK]);
+			},
+			returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
 		);
 
-	NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
+		NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
 	});
 
 </script>
