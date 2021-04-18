@@ -58,24 +58,6 @@
             display: block;
         }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#form_partner_bearbeiten').submit(function () {
-                $.ajax({
-                    url: '<%=Address.getPartnerBearbeitenServlet()%>',
-                    type: 'post',
-                    data: $(this).serialize(),
-                    success: function () {
-                        replaceContent("button_partner_update", "Erfolgreich gespeichert", "green");
-                    },
-                    error: function (xhr, status, error) {
-                        replaceContent("button_partner_update", "Fehler: " + xhr.responseText, "red");
-                    }
-                });
-                return false;
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -125,12 +107,66 @@
 </body>
 
 <script>
+
+    // $(document).ready(function () {
+    //     $('#form_partner_bearbeiten').submit(function () {
+    //         $.ajax({
+    //             url: '<%=Address.getPartnerBearbeitenServlet()%>',
+    //             type: 'post',
+    //             data: $(this).serialize(),
+    //             success: function () {
+    //                 replaceContent("button_partner_update", "Erfolgreich gespeichert", "green");
+    //             },
+    //             error: function (xhr, status, error) {
+    //                 replaceContent("button_partner_update", "Fehler: " + xhr.responseText, "red");
+    //             }
+    //         });
+    //         return false;
+    //     });
+    // });
+
+    $("#form_partner_bearbeiten").submit(function (e) {
+			e.preventDefault();
+
+			var submitData = {};
+
+			for (var i = 0; i < e.target.length; i++) {
+
+				console.log(e.target[i].name, e.target[i].value);
+				submitData[e.target[i].name] = e.target[i].value;
+
+			}
+
+			var url = "<%=Address.getPartnerBearbeitenServlet()%>";
+			var posting = $.post(url, submitData);
+			posting.done(function (data) {
+
+				if (data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+
+				if (data["status"] === "success") {
+
+					let requiredFields = document.querySelectorAll("input:required");
+					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+					$("#partner_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+					$("#partner_speicher_th").empty();
+
+                    GlobaleSuche.deleteSearchLink("<%=Partner.COLUMN_PRIMARY_KEY%>");
+
+					// MainState.setProjektPartner(submitData["<%=Partner.COLUMN_PRIMARY_KEY%>"])
+				}
+			});
+		})
+
+
+
+
     document.getElementById('partner_id_input_field').addEventListener('change', function (e) {
         $.ajax({
             url: '<%=Address.getPartnerBearbeitenServlet()%>',
             type: 'get',
             data: { id: e.target.value },
             success: function (data) {
+                console.log({ data })
                 if (data)
                     for (let key in data) {
                         const nodeList = document.getElementsByName(key)
@@ -168,6 +204,10 @@
         ],
         returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
     );
+
+    function replaceContent(id, text, color) {
+        $(`#${id}`).empty().append(`<div style="color: ${color}">${text}</div>`)
+    }
 
 </script>
 

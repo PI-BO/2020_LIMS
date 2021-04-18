@@ -291,7 +291,7 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallbackBeginning, optionalCallbackEnd) {
+	public.deleteSearchLink = function deleteSearchLink(inputElementName){
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -304,6 +304,24 @@ const GlobaleSuche = (function () {
 			for(let i = 0; i < searchLinks.length; i++){
 				searchLinks[i].remove();
 			}
+		});
+	}
+
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallbackBeginning, optionalCallbackEnd) {
+
+		let inputElements = document.getElementsByName(inputElementName);
+
+		inputElements.forEach(inputElement => {
+
+			// public.deleteSearchLink(inputElementName);
+
+			// inputElement.parentElement;
+			// console.log(inputElement.parentElement);
+			// let searchLinks = inputElement.parentElement.getElementsByClassName("search_link");
+			// console.log({searchLinks})
+			// for(let i = 0; i < searchLinks.length; i++){
+			// 	searchLinks[i].remove();
+			// }
 			
 			let searchLink = document.createElement("a")
 			searchLink.text = linkText;

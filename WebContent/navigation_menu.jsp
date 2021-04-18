@@ -27,7 +27,7 @@
 									id="partner_auswaehlen">auswaehlen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_partner_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3"
+							<li><span class="navigation_tree_node symbol_pen_paper"
 									id="projekt_partner_bearbeiten">bearbeiten</span></li>
 						</ul>
 					</li>
@@ -90,6 +90,7 @@
 									style="opacity: 0.3">Eingangsanalyse</span>
 							</li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
+									style="opacity: 0.3"
 									id="analyse_bearbeiten">bearbeiten</span></li>
 						</ul>
 					</li>

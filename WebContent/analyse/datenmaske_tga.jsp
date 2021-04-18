@@ -24,7 +24,7 @@
     }
 %>
 
-<div class="analyse_erstellen_header">Analyse ID</div>
+<div class="analyse_erstellen_header" id="analyseIdTooltip">Analyse ID</div>
 <div class="analyse_erstellen_entry">
     <input required type="number" min="1" name=<%=AnalyseErstellenServlet.ANALYSE_ID%>>
 </div>
@@ -200,6 +200,8 @@
             new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
         ],
         new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
-        );
+    );
+
+    // Tooltip.setTooltip("analyseIdTooltip", "ID automatisch generieren lassen?");
 
 </script>

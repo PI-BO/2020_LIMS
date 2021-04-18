@@ -59,6 +59,8 @@
             success: function (data) {
                 const content = $("#experiment_bearbeiten_content");
 
+                GlobaleSuche.deleteSearchLink("<%=ExperimentErstellenServlet.NO_ID%>");
+
                 const table = data['table']
                 let experimentTyp
                 if (table === '<%=ExperimenttypVerdampfung.TABLE%>') {
