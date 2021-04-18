@@ -98,33 +98,36 @@ public class ExperimentErstellenServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(this.getClass() + ": doPost()");
+        String primaryKey = request.getParameter(NO_ID);
 
         try {
-            String typId = request.getParameter(TYP);
             String api = request.getParameter(API_STARTMATERIAL);
+            String typId = request.getParameter(TYP);
+            Experiment experiment = createExperiment(primaryKey, api, typId);
+            experiment.saveToDatabase();
+
             Experimenttyp typ = new Experimenttyp(typId);
             ExperimenteModel verdampfung = createExperiment(request, typ.getTyp());
             verdampfung.saveToDatabase();
-            createExperiment(verdampfung.getPrimaryKey(), api, typ.getPrimaryKey());
         } catch (ModelNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("text/plain");
             response.getWriter().println(throwables);
-        }
-		catch (DublicateModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        } catch (DublicateModelException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setContentType("text/plain");
+            response.getWriter().println("Experiment ID: " + primaryKey + " bereits vergeben!");
 		}
     }
 
-    private void createExperiment(String primaryKey, String api, String typ) throws SQLException, ModelNotFoundException, DublicateModelException {
+    private Experiment createExperiment(String primaryKey, String api, String typ) throws SQLException, ModelNotFoundException, DublicateModelException {
         Experiment experiment = new Experiment();
         experiment.setPrimaryKey(primaryKey);
         experiment.setProbenNr(api);
         experiment.setTyp(typ);
-        experiment.saveToDatabase();
+        return experiment;
     }
 
     private ExperimenteModel createExperiment(HttpServletRequest request, String typ) throws ModelNotFoundException, SQLException, DublicateModelException {
