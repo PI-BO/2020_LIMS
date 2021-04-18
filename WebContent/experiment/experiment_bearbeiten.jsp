@@ -108,12 +108,7 @@
             new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
             new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
         ],
-        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
-        undefined,
-        undefined,
-        () => {
-            // document.getElementsByClassName("search_link")[0].remove();
-        }
+        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
     );
 </script>
 

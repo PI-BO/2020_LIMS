@@ -229,10 +229,15 @@
                 new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
             ],
-            returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
-            undefined,
-            undefined,
+            returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
         );
+
+        function initProbeneingangBearbeiten() {
+            const probenIdInput = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
+            probenIdInput.value = MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK];
+            if (probenIdInput.value !== "") probenIdInput.dispatchEvent(new Event("change"));
+        }
+        initProbeneingangBearbeiten();
 
     </script>
 </body>
