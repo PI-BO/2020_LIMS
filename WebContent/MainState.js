@@ -40,7 +40,6 @@ const MainState = (function () {
     }
 
     public.setProjekt = function setProjekt(id) {
-        console.log("setProejtk start")
         return new Promise(resolve => {
             GlobaleSuche.backgroundSearch(
                 [
@@ -50,7 +49,6 @@ const MainState = (function () {
                     await public.setProjektPartner(projekt[Parameters.PROJEKT.FK])
                     public.state[PROJEKT] = projekt;
                     document.getElementById(projektNavigationState).innerText = public.state[PROJEKT][Parameters.PROJEKT.PK];
-                    console.log("setProejtk end")
                     resolve();
                 }
             )

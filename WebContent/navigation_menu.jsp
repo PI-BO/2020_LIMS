@@ -27,7 +27,7 @@
 									id="partner_auswaehlen">auswaehlen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_partner_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper"
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3"
 									id="projekt_partner_bearbeiten">bearbeiten</span></li>
 						</ul>
 					</li>
@@ -39,7 +39,7 @@
 									id="projekt_auswaehlen">auswaehlen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper"
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3"
 									id="projekt_bearbeiten">bearbeiten</span></li>
 						</ul>
 					</li>
@@ -117,7 +117,6 @@
 			{
 				"#projekt_partner_erstellen": "<%=Address.getProjektPartnerErstellenJsp()%>",
 				"#projekt_erstellen": "<%=Address.getProjektErstellenJsp()%>",
-				// "#substanz_erstellen": 			"Address.getSubstanzErstellenJsp()",
 				"#experiment_erstellen": "<%=Address.getExperimentErstellenJsp()%>",
 				"#analyse_erstellen": "<%=Address.getAnalyseErstellenJsp()%>",
 				"#probeneingang_erstellen": "<%=Address.getProbeneingangJSP()%>",

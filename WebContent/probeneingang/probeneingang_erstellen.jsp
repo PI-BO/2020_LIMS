@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Probeneingang</title>
     <!-- <link rel="stylesheet" href="projekt_erstellen.css"> -->
     <style>
@@ -113,90 +113,89 @@
             visibility: visible;
         }
     </style>
-	<script src="<%=Address.getProbeneingangJS()%>"></script>
+    <script src="<%=Address.getProbeneingangJS()%>"></script>
 </head>
 
 <body>
-<form id="form_probeneingang">
-    <input type="hidden" id="probeneingang_url" value=<%=ProbeneingangErstellenServlet.ROUTE%>>
-    <table id="table_probeneingang">
-        <tr style="background-color: #77bbff;">
-            <th id="probeneingangTooltip" style="background-color: #77bbff; padding: 16px;">
-                Probeneingang
-            </th>
-        </tr>
+    <form id="form_probeneingang">
+        <input type="hidden" id="probeneingang_url" value=<%=ProbeneingangErstellenServlet.ROUTE%>>
+        <table id="table_probeneingang">
+            <tr style="background-color: #77bbff;">
+                <th id="probeneingangTooltip" style="background-color: #77bbff; padding: 16px;">
+                    Probeneingang
+                </th>
+            </tr>
 
-        <tr>
-            <th style="text-align: center" id="button_probeneingang_speichern">
-                <button type="submit">Speichern</button>
-            </th>
-        </tr>
+            <tr>
+                <th style="text-align: center" id="button_probeneingang_speichern">
+                    <button type="submit">Speichern</button>
+                </th>
+            </tr>
 
-        <tr>
-            <th style="text-align: center" id="probeneingang_erstellen_save_message"></th>
-        </tr>
+            <tr>
+                <th style="text-align: center" id="probeneingang_erstellen_save_message"></th>
+            </tr>
 
-    </table>
-</form>
-<script>
-	$(document).ready(function () {
-		const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
-		probeneingangContent.done(function (data) {
-			$("#table_probeneingang tr").eq(0).after(data);
-		});
-	})
+        </table>
+    </form>
+    <script>
+        $(document).ready(function () {
+            const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
+            probeneingangContent.done(function (data) {
+                $("#table_probeneingang tr").eq(0).after(data);
+            });
+        })
 
-    // reset preview pictures when reset button has been pressed
-    $("#input_image_reset_button").on("click", function () {
-        $("#preview-container").empty();
-        $("#input_image_upload").val("");
-    });
+        // reset preview pictures when reset button has been pressed
+        $("#input_image_reset_button").on("click", function () {
+            $("#preview-container").empty();
+            $("#input_image_upload").val("");
+        });
 
-    initFormHandler();
+        initFormHandler();
 
-    function initFormHandler() {
+        function initFormHandler() {
 
-        // send form data to url
-        let form = document.querySelector('#form_probeneingang');
+            // send form data to url
+            let form = document.querySelector('#form_probeneingang');
 
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var formData = new FormData(form);
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(form);
 
-            // 			let url = "http://localhost:8080/2020_LIMS" + document.querySelector("#probeneingang_url").value;
-            let url = "<%=Address.getMainPath()%>" + document.querySelector("#probeneingang_url").value;
+                let url = "<%=Address.getMainPath()%>" + document.querySelector("#probeneingang_url").value;
 
-            json = fetch(url, {
-                method: "post",
-                body: formData
-            })
-                .then(response => {
-                    // 				replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
-
-                    let json = response.json().then(data => {
-
-                        console.log({data});
-
-                        if (data["status"] === "error") $("#probeneingang_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
-
-                        if (data["status"] === "success") {
-
-                            let requiredFields = document.querySelectorAll("input:required");
-                            for (let i = 0; i < requiredFields.length; i++) requiredFields[i].style["border-color"] = "green";
-                            $("#probeneingang_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
-                            $("#button_probeneingang_speichern").empty();
-                        }
-                    })
+                json = fetch(url, {
+                    method: "post",
+                    body: formData
                 })
-                .catch(error => {
-                    replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
-                });
+                    .then(response => {
+                        // 				replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
+
+                        let json = response.json().then(data => {
+
+                            console.log({ data });
+
+                            if (data["status"] === "error") $("#probeneingang_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+
+                            if (data["status"] === "success") {
+
+                                let requiredFields = document.querySelectorAll("input:required");
+                                for (let i = 0; i < requiredFields.length; i++) requiredFields[i].style["border-color"] = "green";
+                                $("#probeneingang_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+                                $("#button_probeneingang_speichern").empty();
+                            }
+                        })
+                    })
+                    .catch(error => {
+                        replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
+                    });
 
 
-        }, false);
-    }
-</script>
+            }, false);
+        }
 
+    </script>
 </body>
 
 </html>

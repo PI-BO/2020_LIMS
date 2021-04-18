@@ -4,8 +4,9 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Probeneingang bearbeiten</title>
     <!-- <link rel="stylesheet" href="projekt_erstellen.css"> -->
     <style>
@@ -134,74 +135,106 @@
 </head>
 
 <body>
-<form id="form_probeneingang_bearbeiten">
-    <table id="table_probeneingang">
-        <tr style="background-color: #77bbff;">
-            <th style="background-color: #77bbff; padding: 16px;">Probeneingang</th>
-        </tr>
+    <form id="form_probeneingang_bearbeiten">
+        <table id="table_probeneingang">
+            <tr style="background-color: #77bbff;">
+                <th style="background-color: #77bbff; padding: 16px;">Probeneingang</th>
+            </tr>
 
-        <tr>
-            <th id="probenIdTooltip">
-                Proben ID
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
-            </td>
-        </tr>
+            <tr class="table_probeneingang_bearbeiten_tr">
+                <th id="probenIdTooltip">
+                    Proben ID
+                </th>
+            </tr>
+            <tr class="table_probeneingang_bearbeiten_tr">
+                <td>
+                    <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
+                </td>
+            </tr>
 
-        <tr>
-            <th style="text-align: center" id="button_probeneingang_speichern">
-                <button disabled id="button_probeneingang_update" type="submit">Speichern</button>
-                <input required type="checkbox" id="acknowledge_probeneingang_update" onclick="enableSaveButton(this)">
-                <i>Die bestehende Probe wird mit den neuen werten berschrieben!</i>
-            </th>
-        </tr>
+            <div id="table_probeneingang_content"></div>
 
-        <tr>
-            <th style="text-align: center" id="probeneingang_erstellen_save_message"></th>
-        </tr>
+            <tr>
+                <th style="text-align: center" id="button_probeneingang_speichern">
+                    <button disabled id="button_probeneingang_update" type="submit">Speichern</button>
+                    <input required type="checkbox" id="acknowledge_probeneingang_update"
+                        onclick="enableSaveButton(this)">
+                    <i>Die bestehende Probe wird mit den neuen werten berschrieben!</i>
+                </th>
+            </tr>
 
-    </table>
-</form>
-<script>
-    document.getElementById('proben_id_input_field').addEventListener('change', function (e) {
-        $.ajax({
-            url: '<%=Address.getProbeneingangBearbeitenServlet()%>',
-            type: 'get',
-            data: {id: e.target.value},
-            success: function (data) {
-                const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
-                probeneingangContent.done(function (post) {
-                    $("#table_probeneingang tr").eq(2).after(post).ready(function () {
-                        $(this).children().slice(0,2).remove();
-                        for (let key in data) {
-                            const nodeList = document.getElementsByName(key)
-                            const val = data[key]
-                            for (let i = 0; i < nodeList.length; i++) {
-                                nodeList[i].value = val
-                                nodeList[i].disabled = false
+            <tr>
+                <th style="text-align: center" id="probeneingang_erstellen_save_message"></th>
+            </tr>
+
+        </table>
+    </form>
+    <script>
+        document.getElementById('proben_id_input_field').addEventListener('change', function (e) {
+            $.ajax({
+                url: '<%=Address.getProbeneingangBearbeitenServlet()%>',
+                type: 'get',
+                data: { id: e.target.value },
+                success: function (data) {
+                    const trlist = $("#table_probeneingang tr")
+                    if (data) {
+                        const probeneingangContent = $.post("probeneingang/probeneingang.jsp");
+                        probeneingangContent.done(async function (post) {
+                            await MainState.setProbe(e.target.value);
+                            trlist.eq(2).after(post).ready(function () {
+                                for (let key in data) {
+                                    const nodeList = document.getElementsByName(key)
+                                    const val = data[key]
+                                    for (let i = 0; i < nodeList.length; i++) {
+                                        nodeList[i].value = val
+                                        nodeList[i].disabled = false
+                                    }
+                                }
+                            });
+
+                            // Proben ID in das originale ProbenID InputField uebertragen
+                            const probenIdInputFieldNodeList = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>");
+                            probenIdInputFieldNodeList[1].value = probenIdInputFieldNodeList[0].value;
+                            // die ersten beiden Zeilen von probeneingang_bearbeiten werden geloescht, 
+                            // sonst sind die Input-Felder doppelt und probeneingang.jsp kann mehrfach doppelt 
+                            // unten am Dokument angehaengt werden!
+                            let rows = document.getElementsByClassName("table_probeneingang_bearbeiten_tr");
+                            for (let i = rows.length - 1; i >= 0; i--) {
+                                rows[i].remove();
                             }
-                        }
-                    });
-                });
-            },
-            error: function (xhr, status, error) {
-                alert("Fehler: " + xhr.responseText);
-            }
+                        });
+                    } else if (trlist.length === 38) trlist.slice(3, 36).remove()
+
+
+                },
+                error: function (xhr, status, error) {
+                    alert("Fehler: " + xhr.responseText);
+                }
+            });
         });
-    });
 
-    function enableSaveButton(param) {
-        $("#button_probeneingang_update").prop("disabled", !param.checked)
-    }
+        function enableSaveButton(param) {
+            $("#button_probeneingang_update").prop("disabled", !param.checked)
+        }
 
-    // reset preview pictures when reset button has been pressed
-    $("#input_image_reset_button").on("click", function () {
-        $("#preview-container").empty();
-        $("#input_image_upload").val("");
-    });
-</script>
+        // reset preview pictures when reset button has been pressed
+        $("#input_image_reset_button").on("click", function () {
+            $("#preview-container").empty();
+            $("#input_image_upload").val("");
+        });
+
+        GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
+            [
+                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
+                new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
+            ],
+            returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+            undefined,
+            undefined,
+        );
+
+    </script>
 </body>
+
 </html>

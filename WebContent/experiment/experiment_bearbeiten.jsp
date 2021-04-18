@@ -102,6 +102,19 @@
     function enableSaveButton(param) {
         $("#button_experiment_update").prop("disabled", !param.checked)
     }
+
+    GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
+        [
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
+        ],
+        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
+        undefined,
+        undefined,
+        () => {
+            // document.getElementsByClassName("search_link")[0].remove();
+        }
+    );
 </script>
 
 </html>

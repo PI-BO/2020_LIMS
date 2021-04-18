@@ -478,27 +478,17 @@
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
         [
-            {
-                "category": "experiment",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "experiment",
-                "parameter": "typ",
-                "value": ""
-            }
-        ]
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
+        ],
+        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
     );
 
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>",
         [
-            {
-                "category": "probe",
-                "parameter": "id",
-                "value": ""
-            }
-        ]
+            new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
+        ],
+        new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
     );
 </script>

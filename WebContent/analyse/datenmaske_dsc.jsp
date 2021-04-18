@@ -213,17 +213,10 @@
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>",
         [
-            {
-                "category": "experiment",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": "experiment",
-                "parameter": "typ",
-                "value": ""
-            }
-        ]
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
+        ],
+        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
     );
 
 

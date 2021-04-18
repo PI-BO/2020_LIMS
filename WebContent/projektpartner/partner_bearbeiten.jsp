@@ -4,8 +4,9 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Solid-Chem | LIMS - Update Partner</title>
     <!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
     <style>
@@ -76,48 +77,51 @@
         });
     </script>
 </head>
+
 <body>
-<form id="form_partner_bearbeiten">
-    <table id="create_partner_table">
-        <tr>
-            <th colspan=4>
-                <h1>Projektpartner bearbeiten</h1>
-            </th>
-        </tr>
-        <tr>
-            <th>Partner Informationen</th>
-        </tr>
-        <tr>
-            <td>Projektpartner ID</td>
-            <td>
-                <input required id="partner_id_input_field" type="number" placeholder="*"
-                       name=<%=Partner.COLUMN_PRIMARY_KEY%>>
-            </td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td>
-                <input disabled id="partner_name_input_field" type="text" placeholder="" name=<%=Partner.COLUMN_NAME%>>
-            </td>
-        </tr>
-        <tr>
-            <td>E-Mail</td>
-            <td>
-                <input disabled id="partner_email_input_field" type=text placeholder="" name=<%=Partner.COLUMN_EMAIL%>>
-            </td>
-        </tr>
-        <tr>
-            <th id="partner_speicher_th" colspan=4>
-                <button disabled id="button_partner_update" type="submit">Speichern</button>
-                <input required type="checkbox" id="acknowledge_parner_update" onclick="enableSaveButton(this)">
-                <i>Der bestehende Parner wird mit den neuen werten berschrieben!</i>
-            </th>
-        </tr>
-        <tr>
-            <th id="partner_erstellen_save_message" colspan=4></th>
-        </tr>
-    </table>
-</form>
+    <form id="form_partner_bearbeiten">
+        <table id="create_partner_table">
+            <tr>
+                <th colspan=4>
+                    <h1>Projektpartner bearbeiten</h1>
+                </th>
+            </tr>
+            <tr>
+                <th>Partner Informationen</th>
+            </tr>
+            <tr>
+                <td>Projektpartner ID</td>
+                <td>
+                    <input required id="partner_id_input_field" type="number" placeholder="*"
+                        name=<%=Partner.COLUMN_PRIMARY_KEY%>>
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input disabled id="partner_name_input_field" type="text" placeholder=""
+                        name=<%=Partner.COLUMN_NAME%>>
+                </td>
+            </tr>
+            <tr>
+                <td>E-Mail</td>
+                <td>
+                    <input disabled id="partner_email_input_field" type=text placeholder=""
+                        name=<%=Partner.COLUMN_EMAIL%>>
+                </td>
+            </tr>
+            <tr>
+                <th id="partner_speicher_th" colspan=4>
+                    <button disabled id="button_partner_update" type="submit">Speichern</button>
+                    <input required type="checkbox" id="acknowledge_parner_update" onclick="enableSaveButton(this)">
+                    <i>Der bestehende Parner wird mit den neuen werten berschrieben!</i>
+                </th>
+            </tr>
+            <tr>
+                <th id="partner_erstellen_save_message" colspan=4></th>
+            </tr>
+        </table>
+    </form>
 </body>
 
 <script>
@@ -125,7 +129,7 @@
         $.ajax({
             url: '<%=Address.getPartnerBearbeitenServlet()%>',
             type: 'get',
-            data: {id: e.target.value},
+            data: { id: e.target.value },
             success: function (data) {
                 if (data)
                     for (let key in data) {
@@ -158,22 +162,13 @@
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
         [
-            {
-                "category": "partner",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": GlobaleSuche.parameter.PARTNER.CATEGORY,
-                "parameter": GlobaleSuche.parameter.PARTNER.NAME,
-                "value": () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value
-            },
-            {
-                "category": GlobaleSuche.parameter.PARTNER.CATEGORY,
-                "parameter": GlobaleSuche.parameter.PARTNER.EMAIL,
-                "value": () => document.getElementsByName("<%=Partner.COLUMN_EMAIL%>")[0].value
-            },
-        ]);
+            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
+            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.EMAIL, "")
+        ],
+        returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
+    );
 
 </script>
+
 </html>

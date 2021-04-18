@@ -291,25 +291,34 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallback) {
+	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallbackBeginning, optionalCallbackEnd) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
 		inputElements.forEach(inputElement => {
 
+			inputElement.parentElement;
+			console.log(inputElement.parentElement);
+			let searchLinks = inputElement.parentElement.getElementsByClassName("search_link");
+			console.log({searchLinks})
+			for(let i = 0; i < searchLinks.length; i++){
+				searchLinks[i].remove();
+			}
+			
 			let searchLink = document.createElement("a")
 			searchLink.text = linkText;
 			searchLink.href = "javascript:void(0);"
 			searchLink.style.paddingLeft = "0.3em"
+			searchLink.classList = "search_link"
 			inputElement.insertAdjacentElement("afterend", searchLink);
-			addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallback);
+			addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallbackBeginning, optionalCallbackEnd);
 		})
 
-		function addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallback) {
+		function addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallbackBeginning, optionalCallbackEnd) {
 
 			searchLink.addEventListener("click", () => {
 				
-				if (optionalCallback !== undefined) optionalCallback();
+				if (optionalCallbackBeginning !== undefined) optionalCallbackBeginning();
 				NavigationMenu.show("#" + globalSearchMainContentContainerId);
 				GlobaleSuche.initTemplateParameters(templateParameters);
 				GlobaleSuche.resetPositionIfOutOfBounds();
@@ -323,6 +332,7 @@ const GlobaleSuche = (function () {
 							inline: 'center'
 						});
 					}, 100);
+					if (optionalCallbackEnd !== undefined) optionalCallbackEnd();
 				}, startSearch=true, returnParameter)
 			});
 		}

@@ -1,5 +1,5 @@
 class Parameter {
-	constructor(category, parameter, id) {
+	constructor(category, parameter, id = "") {
 		this.category = category;
 		this.parameter = parameter;
 		this.value = id;

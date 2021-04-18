@@ -101,7 +101,7 @@ public class Projekt extends Model {
 
 	@Override
 	public String getForeignKey() {
-		return vertragsnummer;
+		return projektPartnerId;
 	}
 
 	public JSON toJSON() {

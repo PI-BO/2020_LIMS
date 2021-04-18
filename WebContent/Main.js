@@ -16,7 +16,7 @@ const Main = (function () {
         await initSubpages(subPages);
         await GlobaleSuche.init(sucheServletAddress);
 
-        NavigationMenu.open("#projekt_partner_erstellen");
+        // NavigationMenu.open("#projekt_partner_erstellen");
         // NavigationMenu.open("#projekt_erstellen");
         // NavigationMenu.open("#substanz_erstellen");
         // NavigationMenu.open("#experiment_erstellen");

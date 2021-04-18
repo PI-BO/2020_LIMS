@@ -102,8 +102,6 @@
     </td>
 </tr>
 
-<tr></tr>
-
 <tr>
     <th>Bemerkungen zur Messung</th>
 </tr>
@@ -113,7 +111,6 @@
     </td>
 </tr>
 
-<tr></tr>
 
 <tr>
     <th>Bemerkungen</th>
@@ -145,7 +142,7 @@
                     <br>
                     <button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
                     <input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*"
-                        onchange="loadFile(this)" multiple>
+                           onchange="loadFile(this)" multiple>
                 </td>
                 <td>
                     <div id="preview-container" style="max-width: 300px"></div>
@@ -181,12 +178,11 @@
 
     Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
     Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
-    Tooltip.setTooltip("probeneingangTooltip", "Der Probeneingang dient zum Anlegen der ersten Probe? Von dieser Probe werden dann Unterproben fuer Experimente etc. genommen?");
 
-    function probenEingangInit(){
+    function probenEingangInit() {
         let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
         auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
-    
+
         let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
         projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
     }

@@ -1,3 +1,4 @@
+<%@page import="model.database.tableModels.Partner"%>
 <%@page import="config.Address" %>
 <%@page import="model.database.tableModels.Projekt" %>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
@@ -205,35 +206,29 @@
     }
 
     // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PROJEKTPARTNER%>",
-        [
-            {
-                "category": GlobaleSuche.parameter.PARTNER.CATEGORY,
-                "parameter": GlobaleSuche.parameter.PARTNER.PK,
-                "value": "",
-            },
-            {
-                "category": "partner",
-                "parameter": "name",
-                "value": ""
-            }
-        ]);
+		// GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
+		// 	[
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+		// 		// new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
+		// 	],
+		// 	returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
+		// );
 
-    // Such-Links
-    // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
-        [
-            {
-                "category": "projekte",
-                "parameter": "id",
-                "value": ""
-            },
-            {
-                "category": GlobaleSuche.parameter.PARTNER.CATEGORY,
-                "parameter": GlobaleSuche.parameter.PROJEKT.PK,
-                "value": () => document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0].value
-            },
-        ]);
+		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
+			[
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+			], 
+			returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+		);
+
+		function projektErstellenInit(){
+
+			let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
+			projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+		}
+
+		projektErstellenInit();
 </script>
 
 </html>
