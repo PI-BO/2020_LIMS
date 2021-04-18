@@ -1010,7 +1010,11 @@ public abstract class ExperimenteModel extends Model {
         json.addKeyValue("id", primaryKey);
 
         json.addKeyValue(COLUMN_SCREENING_NO_KEY, screening_no);
-        json.addKeyValue(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, Integer.toString(planung_erfolgt_durch));
+        try {
+            json.addKeyValue(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, Integer.toString(planung_erfolgt_durch));
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_PLANUNG_ERFOLGT_DURCH_KEY, null);
+        }
         json.addKeyValue(COLUMN_EXPERIMENT_SERIE_KEY, experiment_serie);
         json.addKeyValue(COLUMN_EXPERIMENT_NO_KEY, experiment_no);
         json.addKeyValue(COLUMN_DURCHFUEHRUNG_KEY, durchfuehrung);
@@ -1030,7 +1034,11 @@ public abstract class ExperimenteModel extends Model {
         json.addKeyValue(COLUMN_PLANUNG_ABGESCHLOSSEN_KEY, Boolean.toString(planung_abgeschlossen));
         json.addKeyValue(COLUMN_PRIORITAET_EXPERIMENT_KEY, prioritaet_experiment);
         json.addKeyValue(COLUMN_SICHERHEITSHINWEIS_KEY, sicherheitshinweis);
-        json.addKeyValue(COLUMN_VERANTWORTLICHER_OPERATOR, Integer.toString(verantwortlicher_operator));
+        try {
+            json.addKeyValue(COLUMN_VERANTWORTLICHER_OPERATOR, Integer.toString(verantwortlicher_operator));
+        } catch (NullPointerException e) {
+            json.addKeyValue(COLUMN_VERANTWORTLICHER_OPERATOR, null);
+        }
         try {
             json.addKeyValue(COLUMN_EXPERIMENT_START_KEY, experiment_start.toString());
         } catch (NullPointerException e) {
