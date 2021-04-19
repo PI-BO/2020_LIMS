@@ -67,6 +67,9 @@ public class ProjektBearbeitenServlet extends HttpServlet {
 			projekt.setVertragsnummer(vertragsnummer);
 
 			projekt.updateModel();
+			
+			Projekt projektTest = new Projekt(primaryKey);
+			System.out.println("projektTest = " + projektTest.toJSON().toString());
 		}
 		catch (ModelNotFoundException e) {
 			json.addKeyValue("status", "error");

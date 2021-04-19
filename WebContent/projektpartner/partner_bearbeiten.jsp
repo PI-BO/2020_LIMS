@@ -11,7 +11,6 @@
     <!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
     <style>
         #create_partner_table {
-            float: left;
             border: 1px solid #ddd;
             padding: 10px;
             padding-left: 30px;
@@ -69,7 +68,7 @@
                 </th>
             </tr>
             <tr>
-                <th>Partner Informationen</th>
+                <th style="float:left">Partner Informationen</th>
             </tr>
             <tr>
                 <td>Partner ID</td>
@@ -214,12 +213,15 @@
         let partnerName = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
         partnerName.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
 
-        let partnerInput = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
-        partnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK];
+        let partnerId = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
+        partnerId.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK];
+
+        let partnerEmail = document.getElementsByName("<%=Partner.COLUMN_EMAIL%>")[0];
+        partnerEmail.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.EMAIL];
 
         // terrible hack solange keine vernuenftige Loesing gefunden wurde
         setTimeout(function () {
-            if (partnerInput.value === "") {
+            if (partnerId.value === "") {
                 alert("bitte Partner auswaehlen!");
                 $("#partner_auswaehlen").click();
             }

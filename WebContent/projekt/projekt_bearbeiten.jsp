@@ -172,8 +172,12 @@
 
             console.log(e.target[i].name, e.target[i].value);
             submitData[e.target[i].name] = e.target[i].value;
-
         }
+
+        let partnerId = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.FK];
+        submitData[Parameters.PROJEKT.FK] = partnerId;
+
+        console.log({ partnerId })
 
         var url = "<%=Address.getProjektBearbeitenServlet()%>";
         var posting = $.post(url, submitData);
@@ -269,66 +273,78 @@
     // 	returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
     // );
 
-    function projektErstellenInit() {
-        console.log("init")
+    function projektBearbeitenInit() {
 
         let projektInput = document.getElementsByName("<%=Projekt.COLUMN_PRIMARY_KEY%>")[0];
         projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
 
         let partnerInput = document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0];
-        partnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK];
+        partnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+
+        let vertragsnummer = document.getElementsByName("<%=Projekt.COLUMN_VERTRAGSNUMMER%>")[0];
+        vertragsnummer.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.VERTRAGSNUMMER];
 
         let projektId = document.getElementById("projekt_id_input_field").value;
         console.log({ projektId })
 
-        $.ajax({
-            url: '<%=Address.getProjektBearbeitenServlet()%>',
-            type: 'get',
-            data: { id: projektId },
-            success: function (data) {
-                if (data)
-                    for (let key in data) {
-                        const nodeList = document.getElementsByName(key)
-                        const val = data[key]
-                        for (let i = 0; i < nodeList.length; i++) {
-                            nodeList[i].value = val
-                            // nodeList[i].disabled = false
-                        }
-                    }
-                else {
-                    const name = document.getElementById('partner_id_input_field')
-                    name.value = ''
-                    // name.disabled = true
-                    const email = document.getElementById('vertragsnummer_input_field')
-                    email.value = ''
-                    // email.disabled = true
-                }
 
-                if (projektInput.value === "") {
-
-                    alert("bitte Projekt auswaehlen!");
-                    $("#projekt_auswaehlen").click();
-                    return;
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("Fehler: " + xhr.responseText);
-
-                if (projektInput.value === "") {
-
-                    alert("bitte Projekt auswaehlen!");
-                    $("#projekt_auswaehlen").click();
-                    return;
-                }
+        // terrible hack solange keine vernuenftige Loesing gefunden wurde
+        setTimeout(function () {
+            if (projektInput.value === "") {
+                alert("bitte Projekt auswaehlen!");
+                $("#projekt_auswaehlen").click();
             }
-        });
+        }, 500);
+
+
+        // $.ajax({
+        //     url: '<%=Address.getProjektBearbeitenServlet()%>',
+        //     type: 'get',
+        //     data: { id: projektId },
+        //     success: function (data) {
+        //         if (data)
+        //             for (let key in data) {
+        //                 const nodeList = document.getElementsByName(key)
+        //                 const val = data[key]
+        //                 for (let i = 0; i < nodeList.length; i++) {
+        //                     nodeList[i].value = val
+        //                     // nodeList[i].disabled = false
+        //                 }
+        //             }
+        //         else {
+        //             const name = document.getElementById('partner_id_input_field')
+        //             name.value = ''
+        //             // name.disabled = true
+        //             const email = document.getElementById('vertragsnummer_input_field')
+        //             email.value = ''
+        //             // email.disabled = true
+        //         }
+
+        //         if (projektInput.value === "") {
+
+        //             alert("bitte Projekt auswaehlen!");
+        //             $("#projekt_auswaehlen").click();
+        //             return;
+        //         }
+        //     },
+        //     error: function (xhr, status, error) {
+        //         alert("Fehler: " + xhr.responseText);
+
+        //         if (projektInput.value === "") {
+
+        //             alert("bitte Projekt auswaehlen!");
+        //             $("#projekt_auswaehlen").click();
+        //             return;
+        //         }
+        //     }
+        // });
 
 
 
 
     }
 
-    projektErstellenInit();
+    projektBearbeitenInit();
 </script>
 
 </html>

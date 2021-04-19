@@ -180,6 +180,17 @@
 
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
+
+                let projektId = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
+                projektId.disabled = false;
+
+                let probenId = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
+                let probenIdWasDisabled = false;
+                if(probenId.disabled === true){
+                    probenId.disabled = false;
+                    probenIdWasDisabled = true;
+                } 
+
                 var formData = new FormData(form);
 
                 let url = '<%=Address.getProbeneingangBearbeitenServlet()%>';
@@ -190,6 +201,9 @@
                 })
                     .then(response => {
 
+                        projektId.disabled = true;
+                        if(probenIdWasDisabled) probenId.disabled = true;
+                        
                         let json = response.json().then(data => {
 
                             console.log({ data });
@@ -230,7 +244,7 @@
                                     const val = data[key]
                                     for (let i = 0; i < nodeList.length; i++) {
                                         nodeList[i].value = val
-                                        nodeList[i].disabled = false
+                                        // nodeList[i].disabled = false
                                     }
                                 }
                             });
@@ -245,6 +259,9 @@
                             for (let i = rows.length - 1; i >= 0; i--) {
                                 rows[i].remove();
                             }
+                            GlobaleSuche.deleteSearchLink("<%=Probeneingang.PROBEN_ID%>");
+                            let probenId = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
+                            probenId.disabled = true;
                         });
                     } else if (trlist.length === 38) trlist.slice(3, 36).remove()
 

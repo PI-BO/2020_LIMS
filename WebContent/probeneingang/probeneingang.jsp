@@ -15,17 +15,7 @@
 </tr>
 <tr>
     <td>
-        <input required readonly type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
-    </td>
-</tr>
-<tr>
-    <th id="wirkstoffTooltip">
-        Wirkstoff
-    </th>
-</tr>
-<tr>
-    <td>
-        <input type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+        <input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
     </td>
 </tr>
 <tr>
@@ -38,13 +28,23 @@
         <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
     </td>
 </tr>
+<tr>
+    <th id="wirkstoffTooltip">
+        Wirkstoff
+    </th>
+</tr>
+<tr>
+    <td>
+        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+    </td>
+</tr>
 
 <tr>
     <th>Summenformel</th>
 </tr>
 <tr>
     <td>
-        <input type="text" name=<%=Probeneingang.SUMMENFORMEL%>>
+        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.SUMMENFORMEL%>>
     </td>
 </tr>
 
@@ -53,7 +53,7 @@
 </tr>
 <tr>
     <td>
-        <input type="text" name=<%=Probeneingang.BEZEICHNUNG%>>
+        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BEZEICHNUNG%>>
     </td>
 </tr>
 
@@ -62,7 +62,7 @@
 </tr>
 <tr>
     <td>
-        <input type="text" name=<%=Probeneingang.ORIGINATOR%>>
+        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.ORIGINATOR%>>
     </td>
 </tr>
 
@@ -71,7 +71,7 @@
 </tr>
 <tr>
     <td>
-        <input type="date" name=<%=Probeneingang.PROBENEINGANG%>>
+        <input disabled type="date" name=<%=Probeneingang.PROBENEINGANG%>>
     </td>
 </tr>
 
@@ -80,7 +80,7 @@
 </tr>
 <tr>
     <td>
-        <input type="text" name=<%=Probeneingang.PROBENMASSE%>>
+        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.PROBENMASSE%>>
     </td>
 </tr>
 
@@ -89,7 +89,7 @@
 </tr>
 <tr>
     <td>
-        <input type="text" name=<%=Probeneingang.BESONDERHEITEN%>>
+        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BESONDERHEITEN%>>
     </td>
 </tr>
 
@@ -98,7 +98,7 @@
 </tr>
 <tr>
     <td>
-        <textarea rows="4" cols="50" name=<%=Probeneingang.INFOS%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.INFOS%>></textarea>
     </td>
 </tr>
 
@@ -107,7 +107,7 @@
 </tr>
 <tr>
     <td>
-        <textarea rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
     </td>
 </tr>
 
@@ -117,7 +117,7 @@
 </tr>
 <tr>
     <td>
-        <textarea rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
     </td>
 </tr>
 
@@ -126,7 +126,7 @@
 </tr>
 <tr>
     <td>
-        <textarea rows="4" cols="50" name=<%=Probeneingang.LITERATUR%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.LITERATUR%>></textarea>
     </td>
 </tr>
 

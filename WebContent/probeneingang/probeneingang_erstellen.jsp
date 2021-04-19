@@ -1,3 +1,4 @@
+<%@page import="model.Probeneingang"%>
 <%@page import="config.Address" %>
 <%@page import="controller.servlets.probeneingang.ProbeneingangErstellenServlet" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -155,12 +156,16 @@
         initFormHandler();
 
         function initFormHandler() {
-
+            
             // send form data to url
             let form = document.querySelector('#form_probeneingang');
-
+            
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
+
+                let projektId = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
+                projektId.disabled = false;
+
                 var formData = new FormData(form);
 
                 let url = "<%=Address.getMainPath()%>" + document.querySelector("#probeneingang_url").value;
@@ -170,8 +175,8 @@
                     body: formData
                 })
                     .then(response => {
-                        // 				replaceContent("button_probeneingang_speichern", "Erfolgreich gespeichert", "green");
 
+                        projektId.disabled = true;
                         let json = response.json().then(data => {
 
                             console.log({ data });

@@ -232,8 +232,6 @@ public class SucheServlet extends HttpServlet {
 		}
 		databaseJson += "]";
 		out.print(databaseJson);
-		
-		System.out.println(databaseJson.toString());
 	}
 
 	private void setAccessControlHeaders(HttpServletResponse resp) {
