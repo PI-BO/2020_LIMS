@@ -52,7 +52,7 @@
 					Projektpartner ID
 				</td>
 				<td>
-					<input required id="partner_id_input_field" type=text placeholder="*"
+					<input required id="partner_id_input_field" type=text placeholder=""
 						name=<%=Partner.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
@@ -125,7 +125,7 @@
 		GlobaleSuche.addGenerierenLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
 			[
 				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-			], 
+			],
 			returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
 		);
 

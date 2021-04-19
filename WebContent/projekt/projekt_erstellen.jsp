@@ -47,7 +47,7 @@
 			<tr>
 				<td>Projektpartner Name</td>
 				<td>
-					<input required type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
+					<input disabled required type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
 				</td>
 			</tr>
 			<tr>
@@ -101,18 +101,6 @@
 
 					let partnerId = requestedData[0][0][Parameters.PARTNER.PK];
 
-					// for (let j = 0; j < requestedData.length; j++) {
-					// 	let tupel = requestedData[j];
-					// 	for (let i = 0; i < tupel.length; i++) {
-					// 		let element = tupel[i];
-					// 		if (element["table"] !== Parameters.PARTNER.CATEGORY) continue;
-					// 		if (element[Parameters.PARTNER.NAME].toLowerCase() !== partnerName.toLowerCase()) continue;
-					// 		partnerId = element[Parameters.PARTNER.PK];
-					// 		break;
-					// 	}
-					// 	if (partnerId !== undefined) break;
-					// }
-
 					submitData[Parameters.PROJEKT.FK] = partnerId;
 
 					var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
@@ -151,33 +139,30 @@
 		// 	]
 		// );
 
-		// Such-Links
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
-			[
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
-				// new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
-			],
-			returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
-		);
-
 		GlobaleSuche.addGenerierenLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
 			[
 				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
-			], 
+			],
 			returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
 		);
 
 		Tooltip.setTooltip("projektIdTooltip", "Projekt ID automatisch generieren lassen?");
 
-		function projektErstellenInit(){
+		function projektErstellenInit() {
 
 			let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
 			projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+
+			// terrible hack solange keine vernuenftige Loesing gefunden wurde
+			setTimeout(function () {
+				if (projektPartnerInput.value === "") {
+					alert("bitte Partner auswaehlen!");
+					$("#partner_auswaehlen").click();
+				}
+			}, 500);
 		}
 
 		projektErstellenInit();
-
 
 	</script>
 

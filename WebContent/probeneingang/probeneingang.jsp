@@ -142,7 +142,7 @@
                     <br>
                     <button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
                     <input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*"
-                           onchange="loadFile(this)" multiple>
+                        onchange="loadFile(this)" multiple>
                 </td>
                 <td>
                     <div id="preview-container" style="max-width: 300px"></div>
@@ -187,7 +187,13 @@
         let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
         projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
 
-        if(projektInput.value === "") alert("bitte Projekt auswaehlen!");
+        // terrible hack solange keine vernuenftige Loesing gefunden wurde
+        setTimeout(function () {
+            if (projektInput.value === "") {
+                alert("bitte Projekt auswaehlen!");
+                $("#projekt_auswaehlen").click();
+            }
+        }, 500);
     }
 
     probenEingangInit();

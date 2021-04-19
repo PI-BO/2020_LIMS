@@ -114,31 +114,13 @@
         }
     </style>
     <script src="<%=Address.getProbeneingangJS()%>"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#form_probeneingang_bearbeiten').submit(function () {
-                $.ajax({
-                    url: '<%=Address.getProbeneingangBearbeitenServlet()%>',
-                    type: 'post',
-                    data: $(this).serialize(),
-                    success: function () {
-                        replaceContent("button_probeneingang_update", "Erfolgreich gespeichert", "green");
-                    },
-                    error: function (xhr, status, error) {
-                        replaceContent("button_probeneingang_update", "Fehler: " + xhr.responseText, "red");
-                    }
-                });
-                return false;
-            });
-        });
-    </script>
 </head>
 
 <body>
     <form id="form_probeneingang_bearbeiten">
         <table id="table_probeneingang">
             <tr style="background-color: #77bbff;">
-                <th style="background-color: #77bbff; padding: 16px;">Probeneingang</th>
+                <th style="background-color: #77bbff; padding: 16px;">Probe</th>
             </tr>
 
             <tr class="table_probeneingang_bearbeiten_tr">
@@ -148,8 +130,8 @@
             </tr>
             <tr class="table_probeneingang_bearbeiten_tr">
                 <td>
-                    <input readonly required type="text" id="proben_id_input_field" 
-                    placeholder="keine Probe ausgewaehlt!" style="color: red;" name=<%=Probeneingang.PROBEN_ID%>>
+                    <input disabled required type="text" id="proben_id_input_field" placeholder="" style="color: red;"
+                        name=<%=Probeneingang.PROBEN_ID%>>
                 </td>
             </tr>
 
@@ -160,7 +142,7 @@
                     <button disabled id="button_probeneingang_update" type="submit">Speichern</button>
                     <input required type="checkbox" id="acknowledge_probeneingang_update"
                         onclick="enableSaveButton(this)">
-                    <i>Die bestehende Probe wird mit den neuen werten berschrieben!</i>
+                    <i>Die bestehende Probe wird mit den neuen Werten ueberschrieben!</i>
                 </th>
             </tr>
 
@@ -171,6 +153,66 @@
         </table>
     </form>
     <script>
+
+        // $(document).ready(function () {
+        //     $('#form_probeneingang_bearbeiten').submit(function () {
+        //         $.ajax({
+        //             url: '<%=Address.getProbeneingangBearbeitenServlet()%>',
+        //             type: 'post',
+        //             data: $(this).serialize(),
+        //             success: function () {
+        //                 replaceContent("button_probeneingang_update", "Erfolgreich gespeichert", "green");
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 replaceContent("button_probeneingang_update", "Fehler: " + xhr.responseText, "red");
+        //             }
+        //         });
+        //         return false;
+        //     });
+        // });
+
+        initFormHandler();
+
+        function initFormHandler() {
+
+            // send form data to url
+            let form = document.querySelector('#form_probeneingang_bearbeiten');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(form);
+
+                let url = '<%=Address.getProbeneingangBearbeitenServlet()%>';
+
+                json = fetch(url, {
+                    method: "post",
+                    body: formData
+                })
+                    .then(response => {
+
+                        let json = response.json().then(data => {
+
+                            console.log({ data });
+
+                            if (data["status"] === "error") $("#probeneingang_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+
+                            if (data["status"] === "success") {
+
+                                let requiredFields = document.querySelectorAll("input:required");
+                                for (let i = 0; i < requiredFields.length; i++) requiredFields[i].style["border-color"] = "green";
+                                $("#probeneingang_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+                                $("#button_probeneingang_speichern").empty();
+                            }
+                        })
+                    })
+                    .catch(error => {
+                        replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
+                    });
+
+
+            }, false);
+        }
+
         document.getElementById('proben_id_input_field').addEventListener('change', function (e) {
             $.ajax({
                 url: '<%=Address.getProbeneingangBearbeitenServlet()%>',
@@ -224,19 +266,23 @@
             $("#input_image_upload").val("");
         });
 
-        // GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
-        //     [
-        //         new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
-        //         new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
-        //         new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
-        //     ],
-        //     returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
-        // );
-
         function initProbeneingangBearbeiten() {
             const probenIdInput = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
             probenIdInput.value = MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK];
-            if (probenIdInput.value !== "") probenIdInput.dispatchEvent(new Event("change"));
+
+            if (probenIdInput.value !== "") {
+                probenIdInput.disabled = false;
+                probenIdInput.dispatchEvent(new Event("change"));
+                probenIdInput.disabled = true;
+            }
+
+            // terrible hack solange keine vernuenftige Loesing gefunden wurde
+            setTimeout(function () {
+                if (probenIdInput.value === "") {
+                    alert("bitte Probe auswaehlen!");
+                    $("#probe_auswaehlen").click();
+                }
+            }, 500);
         }
         initProbeneingangBearbeiten();
 

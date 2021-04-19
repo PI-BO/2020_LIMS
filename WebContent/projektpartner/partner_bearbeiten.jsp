@@ -65,7 +65,7 @@
         <table id="create_partner_table">
             <tr>
                 <th colspan=4>
-                    <h1>Projektpartner bearbeiten</h1>
+                    <h1>Partner bearbeiten</h1>
                 </th>
             </tr>
             <tr>
@@ -81,15 +81,13 @@
             <tr>
                 <td>Name</td>
                 <td>
-                    <input id="partner_name_input_field" type="text" placeholder=""
-                        name=<%=Partner.COLUMN_NAME%>>
+                    <input id="partner_name_input_field" type="text" placeholder="" name=<%=Partner.COLUMN_NAME%>>
                 </td>
             </tr>
             <tr>
                 <td>E-Mail</td>
                 <td>
-                    <input id="partner_email_input_field" type=text placeholder=""
-                        name=<%=Partner.COLUMN_EMAIL%>>
+                    <input id="partner_email_input_field" type=text placeholder="" name=<%=Partner.COLUMN_EMAIL%>>
                 </td>
             </tr>
             <tr>
@@ -126,41 +124,38 @@
     // });
 
     $("#form_partner_bearbeiten").submit(function (e) {
-			e.preventDefault();
+        e.preventDefault();
 
-            var submitData = {};
-            
-            let partnerInput = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
-            partnerInput.disabled = false;
+        var submitData = {};
 
-			for (var i = 0; i < e.target.length; i++) {
+        let partnerInput = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
+        partnerInput.disabled = false;
 
-				console.log(e.target[i].name, e.target[i].value);
-				submitData[e.target[i].name] = e.target[i].value;
+        for (var i = 0; i < e.target.length; i++) {
+            submitData[e.target[i].name] = e.target[i].value;
+        }
 
-			}
+        var url = "<%=Address.getPartnerBearbeitenServlet()%>";
+        var posting = $.post(url, submitData);
+        posting.done(function (data) {
 
-			var url = "<%=Address.getPartnerBearbeitenServlet()%>";
-			var posting = $.post(url, submitData);
-			posting.done(function (data) {
+            partnerInput.disabled = true;
 
-                partnerInput.disabled = true;
+            if (data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
 
-				if (data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+            if (data["status"] === "success") {
 
-				if (data["status"] === "success") {
+                let requiredFields = document.querySelectorAll("input:required");
+                for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+                $("#partner_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+                $("#partner_speicher_th").empty();
 
-					let requiredFields = document.querySelectorAll("input:required");
-					for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
-					$("#partner_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
-					$("#partner_speicher_th").empty();
+                GlobaleSuche.deleteSearchLink("<%=Partner.COLUMN_PRIMARY_KEY%>");
 
-                    GlobaleSuche.deleteSearchLink("<%=Partner.COLUMN_PRIMARY_KEY%>");
-
-					MainState.setProjektPartner(partnerInput.value)
-				}
-			});
-		})
+                MainState.setProjektPartner(partnerInput.value)
+            }
+        });
+    })
 
 
 
@@ -221,7 +216,17 @@
 
         let partnerInput = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
         partnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK];
-    }
+
+        // terrible hack solange keine vernuenftige Loesing gefunden wurde
+        setTimeout(function () {
+            if (partnerInput.value === "") {
+                alert("bitte Partner auswaehlen!");
+                $("#partner_auswaehlen").click();
+            }
+        }, 500);
+
+    };
+
     partnerBearbeitenInit();
 
 </script>

@@ -83,7 +83,7 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
 		out.print(json.toString());
     }
 
-    private Probeneingang createProbeneingang(HttpServletRequest request) throws IOException, ServletException {
+    public static Probeneingang createProbeneingang(HttpServletRequest request) throws IOException, ServletException {
         Probeneingang probeneingang = new Probeneingang();
 
         Enumeration<String> parameterNames = request.getParameterNames();
@@ -115,7 +115,7 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("doPost()");
+        LOGGER.debug("ProbeneingangErstellenServlet.doGet() not implemented");
     }
 
     private void printTestLog(HttpServletRequest request) throws IOException, ServletException {

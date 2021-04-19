@@ -21,111 +21,142 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Enumeration;
 
-@WebServlet("/probeneingang/bearbeiten")
+@WebServlet(ProbeneingangBearbeitenServlet.ROUTE)
 @MultipartConfig
 public class ProbeneingangBearbeitenServlet extends HttpServlet {
-    private static final Logger LOGGER = LogManager.getLogger(ProbeneingangBearbeitenServlet.class.getSimpleName());
+	
+	private static final long serialVersionUID = -6819758462283370815L;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String primaryKey = request.getParameter("id");
-        JSON json;
+	public static final String ROUTE = "/probeneingang/bearbeiten";
 
-        if (primaryKey != null && !primaryKey.isEmpty())
-            try {
-                Probe probe = new Probe(primaryKey);
+	private static final Logger LOGGER = LogManager.getLogger(ProbeneingangBearbeitenServlet.class.getSimpleName());
 
-                json = probe.toJSON();
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+//		LOGGER.debug("ProbeneingangBearbeitenServlet.doGet() not implemented");
+		
+		String primaryKey = request.getParameter("id");
+		JSON json;
 
-                response.setCharacterEncoding("utf-8");
-                response.setContentType("application/json;charset=utf-8");
-                response.getWriter().print(json);
-            } catch (ModelNotFoundException e) {
-                //e.printStackTrace();
-            } catch (SQLException throwables) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.setContentType("text/plain");
-                response.getWriter().println(throwables);
-            }
-    }
+		if (primaryKey != null && !primaryKey.isEmpty()) try {
+			Probe probe = new Probe(primaryKey);
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("doPost()");
+			json = probe.toJSON();
 
-        response.setHeader("Access-Control-Allow-Origin", "*"); // TODO nur fuer Testzwecke! in Produktion rausnehmen!
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        PrintWriter out = response.getWriter();
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().print(json);
+		}
+		catch (ModelNotFoundException e) {
+			// e.printStackTrace();
+		}
+		catch (SQLException throwables) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("text/plain");
+			response.getWriter().println(throwables);
+		}
+	}
 
-        JSON json = new JSON();
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOGGER.debug("doPost()");
 
-        try {
-            Probeneingang probeneingang = createProbeneingang(request);
-            probeneingang.saveToDatabasePlaceholderMethod();
+		System.out.println(this.getClass() + ": doPost()");
+		LOGGER.debug("doPost()");
 
-            Probe probe = new Probe();
+		response.setHeader("Access-Control-Allow-Origin", "*"); // TODO nur fuer
+																// Testzwecke!
+																// in Produktion
+																// rausnehmen!
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		PrintWriter out = response.getWriter();
 
-            probe.setPrimaryKey(probeneingang.getProbenId());
-            probe.setProjektID(probeneingang.getProjektId());
+		JSON json = new JSON();
 
-            probe.saveToDatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        } catch (ModelNotFoundException e) {
-            json.addKeyValue("status", "error");
-            json.addKeyValue("message", "Substanz ID nicht vorhanden");
-            out.print(json.toString());
-            e.printStackTrace();
-            return;
-        } catch (DublicateModelException e) {
-            json.addKeyValue("status", "error");
-            json.addKeyValue("message", "Proben ID schon vorhanden");
-            out.print(json.toString());
-            e.printStackTrace();
-            return;
-        } catch (SQLException e) {
-            json.addKeyValue("status", "error");
-            json.addKeyValue("message", "SQLException");
-            out.print(json.toString());
-            e.printStackTrace();
-            return;
-        }
+		try {
+			Probeneingang probeneingang = ProbeneingangErstellenServlet.createProbeneingang(request);
+			probeneingang.saveToDatabasePlaceholderMethod();
 
-        json.addKeyValue("status", "success");
-        json.addKeyValue("message", "Erfolgreich gespeichert");
-        out.print(json.toString());
-    }
+			Probe probe = new Probe();
+			probe.setPrimaryKey(probeneingang.getProbenId());
+			probe.setProjektID(probeneingang.getProjektId());
+			probe.saveToDatabase();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		catch (ModelNotFoundException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Projekt ID nicht vorhanden");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
+		catch (DublicateModelException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Proben ID schon vorhanden");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
+		catch (SQLException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "SQLException");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
 
-    private Probeneingang createProbeneingang(HttpServletRequest request) throws IOException, ServletException {
-        Probeneingang probeneingang = new Probeneingang();
+		json.addKeyValue("status", "success");
+		json.addKeyValue("message", "Erfolgreich gespeichert");
+		out.print(json.toString());
 
-        Enumeration<String> parameterNames = request.getParameterNames();
-
-        String parameterName;
-        if (parameterNames.hasMoreElements()) parameterNames.nextElement();
-
-        while (parameterNames.hasMoreElements()) {
-            parameterName = parameterNames.nextElement();
-
-            if (parameterName == null) continue;
-
-            String parameter = request.getParameter(parameterName);
-
-            probeneingang.setParameters(parameterName, parameter);
-        }
-
-        Collection<Part> parts = request.getParts();
-
-        for (Part part : parts) {
-            if (part.getSubmittedFileName() == null) continue;
-
-            LOGGER.debug("imagefileName: " + part.getSubmittedFileName());
-
-            probeneingang.addBild(part.getInputStream());
-        }
-
-        return probeneingang;
-    }
+		// response.setHeader("Access-Control-Allow-Origin", "*"); // TODO nur
+		// fuer Testzwecke! in Produktion rausnehmen!
+		// response.setContentType("application/json");
+		// response.setCharacterEncoding("utf-8");
+		// PrintWriter out = response.getWriter();
+		//
+		// JSON json = new JSON();
+		//
+		// try {
+		// Probeneingang probeneingang = createProbeneingang(request);
+		// probeneingang.saveToDatabasePlaceholderMethod();
+		//
+		// Probe probe = new Probe();
+		//
+		// probe.setPrimaryKey(probeneingang.getProbenId());
+		// probe.setProjektID(probeneingang.getProjektId());
+		//
+		// probe.saveToDatabase();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// return;
+		// } catch (ModelNotFoundException e) {
+		// json.addKeyValue("status", "error");
+		// json.addKeyValue("message", "Substanz ID nicht vorhanden");
+		// out.print(json.toString());
+		// e.printStackTrace();
+		// return;
+		// } catch (DublicateModelException e) {
+		// json.addKeyValue("status", "error");
+		// json.addKeyValue("message", "Proben ID schon vorhanden");
+		// out.print(json.toString());
+		// e.printStackTrace();
+		// return;
+		// } catch (SQLException e) {
+		// json.addKeyValue("status", "error");
+		// json.addKeyValue("message", "SQLException");
+		// out.print(json.toString());
+		// e.printStackTrace();
+		// return;
+		// }
+		//
+		// json.addKeyValue("status", "success");
+		// json.addKeyValue("message", "Erfolgreich gespeichert");
+		// out.print(json.toString());
+	}
 }

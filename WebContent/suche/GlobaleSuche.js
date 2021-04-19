@@ -125,14 +125,18 @@ const GlobaleSuche = (function () {
 		closeButton.addEventListener("click", () => {
 			if (searchCallbackForInputMasks === undefined) {
 				NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-				public.resetPosition();
-				clearParameterRows();
-				clearResultTable();
-				addParameterRow();
+				resetSearchWindow();
 			} else {
 				public.disableCallbackMode();
 			}
 		})
+	}
+
+	function resetSearchWindow() {
+		public.resetPosition();
+		clearParameterRows();
+		clearResultTable();
+		addParameterRow();
 	}
 
 	function initMinimizeButton() {
@@ -216,7 +220,7 @@ const GlobaleSuche = (function () {
 		// limit to right and bottom screenborders
 		if (parentContainer.offsetTop > documentHeight - containerHeight) parentContainer.style.top = documentHeight - containerHeight + "px";
 		if (parentContainer.offsetLeft > documentWidth - containerWidth) parentContainer.style.left = documentWidth - containerWidth + "px";
-		
+
 		// limit to left and top screenborders
 		if (parentContainer.offsetTop < 0) parentContainer.style.top = 0 + "px";
 		if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
@@ -273,15 +277,15 @@ const GlobaleSuche = (function () {
 		function addListener(searchLink, templateParameters, inputElement, returnParameter) {
 
 			searchLink.addEventListener("click", () => {
-				
-				public.backgroundSearch(templateParameters, (resultArray)=>{
-					
+
+				public.backgroundSearch(templateParameters, (resultArray) => {
+
 					let highestId = 0;
 
 					resultArray.forEach(resultTupel => {
 
 						const resultElement = resultTupel[0];
-						if(resultElement[returnParameter.parameter] > highestId) highestId = resultElement[returnParameter.parameter];
+						if (resultElement[returnParameter.parameter] > highestId) highestId = resultElement[returnParameter.parameter];
 					})
 
 					highestId++;
@@ -291,7 +295,7 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	public.deleteSearchLink = function deleteSearchLink(inputElementName){
+	public.deleteSearchLink = function deleteSearchLink(inputElementName) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -300,8 +304,8 @@ const GlobaleSuche = (function () {
 			inputElement.parentElement;
 			console.log(inputElement.parentElement);
 			let searchLinks = inputElement.parentElement.getElementsByClassName("search_link");
-			console.log({searchLinks})
-			for(let i = 0; i < searchLinks.length; i++){
+			console.log({ searchLinks })
+			for (let i = 0; i < searchLinks.length; i++) {
 				searchLinks[i].remove();
 			}
 		});
@@ -322,7 +326,7 @@ const GlobaleSuche = (function () {
 			// for(let i = 0; i < searchLinks.length; i++){
 			// 	searchLinks[i].remove();
 			// }
-			
+
 			let searchLink = document.createElement("a")
 			searchLink.text = linkText;
 			searchLink.href = "javascript:void(0);"
@@ -335,7 +339,7 @@ const GlobaleSuche = (function () {
 		function addListener(searchLink, templateParameters, inputElement, returnParameter, optionalCallbackBeginning, optionalCallbackEnd) {
 
 			searchLink.addEventListener("click", () => {
-				
+
 				if (optionalCallbackBeginning !== undefined) optionalCallbackBeginning();
 				NavigationMenu.show("#" + globalSearchMainContentContainerId);
 				GlobaleSuche.initTemplateParameters(templateParameters);
@@ -351,12 +355,12 @@ const GlobaleSuche = (function () {
 						});
 					}, 100);
 					if (optionalCallbackEnd !== undefined) optionalCallbackEnd();
-				}, startSearch=true, returnParameter)
+				}, startSearch = true, returnParameter)
 			});
 		}
 	}
 
-	public.addSearchCallback = function addSearchCallback(callback, startSearch=false, returnParameter) {
+	public.addSearchCallback = function addSearchCallback(callback, startSearch = false, returnParameter) {
 		searchCallbackForInputMasks = callback;
 		searchCallbackReturnParameterForInputMasks = returnParameter;
 		enableCallbackMode();
@@ -912,14 +916,14 @@ const GlobaleSuche = (function () {
 						let cell = addToNewTableCell(cellContent, row);
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
 						// addCallbackFunction(cell, cellContent);
-						if(tupelElement.table === searchCallbackReturnParameterForInputMasks.category) addCallbackFunction(cell, tupelElement);
+						if (tupelElement.table === searchCallbackReturnParameterForInputMasks.category) addCallbackFunction(cell, tupelElement);
 					}
-					
+
 					if (onlyThisKey === key) {
 						let cell = addToNewTableCell(cellContent, row)
 						if (addShowDetailsCallbackFunction !== undefined && addShowDetailsCallbackFunction === true && tupelElement[displayKey] !== "") addShowDetailsListener(cell, tupelElement);
 						// addCallbackFunction(cell, cellContent);
-						if(tupelElement.table === searchCallbackReturnParameterForInputMasks.category) addCallbackFunction(cell, tupelElement);
+						if (tupelElement.table === searchCallbackReturnParameterForInputMasks.category) addCallbackFunction(cell, tupelElement);
 						break;
 					}
 				}
@@ -938,11 +942,13 @@ const GlobaleSuche = (function () {
 					searchCallbackForInputMasks(cellContent);
 					searchCallbackForInputMasks = undefined;
 					public.disableCallbackMode();
+
+					resetSearchWindow();
 				})
 			}
-			
+
 			function addShowDetailsListener(cell, tupelElement) {
-				
+
 				cell.addEventListener("mouseenter", () => {
 					if (GlobaleSuche.hasCallbackMethod()) return;
 					if (searchCallbackForInputMasks !== undefined) return;
