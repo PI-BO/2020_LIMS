@@ -158,14 +158,14 @@
         $("#input_image_upload").val("");
     });
 
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKT_ID%>",
-        [
-            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
-            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
-        ],
-        returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
-        linkText = "auswaehlen"
-    );
+    // GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKT_ID%>",
+    //     [
+    //         new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+    //         new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+    //     ],
+    //     returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
+    //     linkText = "auswaehlen"
+    // );
 
     GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
         [
@@ -173,7 +173,8 @@
             new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0].value),
             new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
         ],
-        returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+        returnParameter = new Parameter("", ""),
+        "auflisten"
     );
 
     Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
@@ -185,6 +186,8 @@
 
         let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
         projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
+
+        if(projektInput.value === "") alert("bitte Projekt auswaehlen!");
     }
 
     probenEingangInit();

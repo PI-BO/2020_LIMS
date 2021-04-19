@@ -72,23 +72,23 @@
                 <th>Partner Informationen</th>
             </tr>
             <tr>
-                <td>Projektpartner ID</td>
+                <td>Partner ID</td>
                 <td>
-                    <input required id="partner_id_input_field" type="number" placeholder="*"
+                    <input disabled required id="partner_id_input_field" type="text" placeholder=""
                         name=<%=Partner.COLUMN_PRIMARY_KEY%>>
                 </td>
             </tr>
             <tr>
                 <td>Name</td>
                 <td>
-                    <input disabled id="partner_name_input_field" type="text" placeholder=""
+                    <input id="partner_name_input_field" type="text" placeholder=""
                         name=<%=Partner.COLUMN_NAME%>>
                 </td>
             </tr>
             <tr>
                 <td>E-Mail</td>
                 <td>
-                    <input disabled id="partner_email_input_field" type=text placeholder=""
+                    <input id="partner_email_input_field" type=text placeholder=""
                         name=<%=Partner.COLUMN_EMAIL%>>
                 </td>
             </tr>
@@ -96,7 +96,7 @@
                 <th id="partner_speicher_th" colspan=4>
                     <button disabled id="button_partner_update" type="submit">Speichern</button>
                     <input required type="checkbox" id="acknowledge_parner_update" onclick="enableSaveButton(this)">
-                    <i>Der bestehende Parner wird mit den neuen werten berschrieben!</i>
+                    <i>Der bestehende Partner wird mit den neuen Werten ueberschrieben!</i>
                 </th>
             </tr>
             <tr>
@@ -128,7 +128,10 @@
     $("#form_partner_bearbeiten").submit(function (e) {
 			e.preventDefault();
 
-			var submitData = {};
+            var submitData = {};
+            
+            let partnerInput = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
+            partnerInput.disabled = false;
 
 			for (var i = 0; i < e.target.length; i++) {
 
@@ -141,6 +144,8 @@
 			var posting = $.post(url, submitData);
 			posting.done(function (data) {
 
+                partnerInput.disabled = true;
+
 				if (data["status"] === "error") $("#partner_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
 
 				if (data["status"] === "success") {
@@ -152,7 +157,7 @@
 
                     GlobaleSuche.deleteSearchLink("<%=Partner.COLUMN_PRIMARY_KEY%>");
 
-					// MainState.setProjektPartner(submitData["<%=Partner.COLUMN_PRIMARY_KEY%>"])
+					MainState.setProjektPartner(partnerInput.value)
 				}
 			});
 		})
@@ -208,6 +213,16 @@
     function replaceContent(id, text, color) {
         $(`#${id}`).empty().append(`<div style="color: ${color}">${text}</div>`)
     }
+
+    function partnerBearbeitenInit() {
+
+        let partnerName = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
+        partnerName.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
+
+        let partnerInput = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0];
+        partnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK];
+    }
+    partnerBearbeitenInit();
 
 </script>
 

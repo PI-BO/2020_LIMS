@@ -417,23 +417,17 @@ public class DummyDB implements Database {
 			if (primaryKeyNotFound(updatedModel, oldModel))
 				continue;
 
-			System.out.println("---------------" + updatedModel.toJSON());
-			if (updatedModel.getParents().size() > 0)
-				System.out.println("parent = " + updatedModel.getParents().get(0).toJSON());
-			if (updatedModel.getChildren().size() > 0)
-				System.out.println("child = " + updatedModel.getChildren().get(0).toJSON());
-
+			// copy all parents and children over to new model
 			updatedModel.getParents().addAll(oldModel.getParents());
 			updatedModel.getChildren().addAll(oldModel.getChildren());
 
-			System.out.println("---------------");
-			if (updatedModel.getParents().size() > 0)
-				System.out.println("parent = " + updatedModel.getParents().get(0).toJSON());
-			if (updatedModel.getChildren().size() > 0)
-				System.out.println("child = " + updatedModel.getChildren().get(0).toJSON());
-
+			// remove old model
 			modelList.remove(i);
+			// add new model
 			modelList.add(updatedModel);
+			
+			System.out.println("oldModel = " + oldModel.toJSON().toString());
+			System.out.println("updatedModel = " + updatedModel.toJSON().toString());
 
 			break;
 		}

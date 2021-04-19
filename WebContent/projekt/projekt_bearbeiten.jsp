@@ -7,7 +7,7 @@
 <html>
 
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Solid-Chem | LIMS - Insert Projekt</title>
     <!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
     <style>
@@ -105,77 +105,186 @@
             visibility: visible;
         }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#form_projekt_bearbeiten').submit(function () {
-                $.ajax({
-                    url: '<%=Address.getProjektBearbeitenServlet()%>',
-                    type: 'post',
-                    data: $(this).serialize(),
-                    success: function () {
-                        replaceContent("button_projekt_update", "Erfolgreich gespeichert", "green");
-                    },
-                    error: function (xhr, status, error) {
-                        replaceContent("button_projekt_update", "Fehler: " + xhr.responseText, "red");
-                    }
-                });
-                return false;
-            });
-        });
-    </script>
 </head>
 
 <body>
-<form id="form_projekt_bearbeiten">
-    <table id="create_projekt_table">
-        <tr>
-            <th colspan=4>
-                <h1>Projekt bearbeiten</h1>
-            </th>
-        </tr>
-        <tr>
-            <th>Projekt Informationen</th>
-        </tr>
-        <tr>
-            <td>Projekt ID</td>
-            <td>
-                <input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder="*"
-                       name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
-            </td>
-        </tr>
-        <tr>
-            <td>Projektpartner ID</td>
-            <td>
-                <input disabled required id="partner_id_input_field" class="drop_down_field" type=text placeholder="*"
-                       name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
-            </td>
-        </tr>
-        <tr>
-            <td>Vertragsnummer</td>
-            <td>
-                <input disabled id="vertragsnummer_input_field" type=text placeholder="" name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
-            </td>
-        </tr>
-        <tr>
-            <th id="th_speichern" colspan=4>
-                <button disabled id="button_projekt_update" type="submit">Speichern</button>
-                <input required type="checkbox" id="acknowledge_projekt_update" onclick="enableSaveButton(this)">
-                <i>Das bestehende Projekt wird mit den neuen werten berschrieben!</i>
-            </th>
-        </tr>
-        <tr>
-            <th id="projekt_erstellen_save_message" colspan=4></th>
-        </tr>
-    </table>
-</form>
+    <form id="form_projekt_bearbeiten">
+        <table id="create_projekt_table">
+            <tr>
+                <th colspan=4>
+                    <h1>Projekt bearbeiten</h1>
+                </th>
+            </tr>
+            <tr>
+                <th>Projekt Informationen</th>
+            </tr>
+            <tr>
+                <td>Projekt ID</td>
+                <td>
+                    <input disabled required id="projekt_id_input_field" class="drop_down_field" type=text
+                        placeholder="Projekt auswaehlen!" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
+                </td>
+            </tr>
+            <tr>
+                <td>Projektpartner ID</td>
+                <td>
+                    <input disabled required id="partner_id_input_field" class="drop_down_field" type=text
+                        placeholder="*" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
+                </td>
+            </tr>
+            <tr>
+                <td>Vertragsnummer</td>
+                <td>
+                    <input id="vertragsnummer_input_field" type=text placeholder=""
+                        name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
+                </td>
+            </tr>
+            <tr>
+                <th id="th_speichern" colspan=4>
+                    <button disabled id="button_projekt_update" type="submit">Speichern</button>
+                    <input required type="checkbox" id="acknowledge_projekt_update" onclick="enableSaveButton(this)">
+                    <i>Das bestehende Projekt wird mit den neuen Werten ueberschrieben!</i>
+                </th>
+            </tr>
+            <tr>
+                <th id="projekt_erstellen_save_message" colspan=4></th>
+            </tr>
+        </table>
+    </form>
 </body>
 
 <script>
-    document.getElementById('projekt_id_input_field').addEventListener('change', function (e) {
+
+
+
+    $("#form_projekt_bearbeiten").submit(function (e) {
+        e.preventDefault();
+
+        var submitData = {};
+
+
+        let projektInput = document.getElementsByName("<%=Projekt.COLUMN_PRIMARY_KEY%>")[0];
+        let partnerInput = document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0];
+        projektInput.disabled = false;
+        partnerInput.disabled = false;
+
+        for (var i = 0; i < e.target.length; i++) {
+
+            console.log(e.target[i].name, e.target[i].value);
+            submitData[e.target[i].name] = e.target[i].value;
+
+        }
+
+        var url = "<%=Address.getProjektBearbeitenServlet()%>";
+        var posting = $.post(url, submitData);
+        posting.done(function (data) {
+
+            projektInput.disabled = true;
+            partnerInput.disabled = true;
+
+            if (data["status"] === "error") $("#projekt_erstellen_save_message").empty().append("<h3 style=\"color:red\">" + data["message"] + "</h3>");
+
+            if (data["status"] === "success") {
+
+                let requiredFields = document.querySelectorAll("input:required");
+                for (let i = 0; i < requiredFields.length; i++)	requiredFields[i].style["border-color"] = "green";
+                $("#projekt_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
+                $("#th_speichern").empty();
+
+                // MainState.setProjektPartner(submitData["<%=Partner.COLUMN_PRIMARY_KEY%>"])
+            }
+        });
+    })
+
+
+    // $(document).ready(function () {
+    //     $('#form_projekt_bearbeiten').submit(function () {
+
+    //         let projektInput = document.getElementsByName("<%=Projekt.COLUMN_PRIMARY_KEY%>")[0];
+    //         let partnerInput = document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0];
+    //         projektInput.disabled = false;
+    //         partnerInput.disabled = false;
+
+
+
+    //         $.ajax({
+    //             url: '<%=Address.getProjektBearbeitenServlet()%>',
+    //             type: 'post',
+    //             data: $(this).serialize(),
+    //             success: function () {
+    //                 projektInput.disabled = true;
+    //                 partnerInput.disabled = true;
+    //                 replaceContent("button_projekt_update", "Erfolgreich gespeichert", "green");
+    //             },
+    //             error: function (xhr, status, error) {
+    //                 projektInput.disabled = true;
+    //                 partnerInput.disabled = true;
+    //                 replaceContent("button_projekt_update", "Fehler: " + xhr.responseText, "red");
+    //             }
+    //         });
+    //         return false;
+    //     });
+    // });
+
+
+    // document.getElementById('projekt_id_input_field').addEventListener('change', function (e) {
+    //     console.log("change")
+    //     $.ajax({
+    //         url: '<%=Address.getProjektBearbeitenServlet()%>',
+    //         type: 'get',
+    //         data: { id: e.target.value },
+    //         success: function (data) {
+    //             if (data)
+    //                 for (let key in data) {
+    //                     const nodeList = document.getElementsByName(key)
+    //                     const val = data[key]
+    //                     for (let i = 0; i < nodeList.length; i++) {
+    //                         nodeList[i].value = val
+    //                         nodeList[i].disabled = false
+    //                     }
+    //                 }
+    //             else {
+    //                 const name = document.getElementById('partner_id_input_field')
+    //                 name.value = ''
+    //                 name.disabled = true
+    //                 const email = document.getElementById('vertragsnummer_input_field')
+    //                 email.value = ''
+    //                 email.disabled = true
+    //             }
+    //         },
+    //         error: function (xhr, status, error) {
+    //             alert("Fehler: " + xhr.responseText);
+    //         }
+    //     });
+    // });
+
+    function enableSaveButton(param) {
+        $("#button_projekt_update").prop("disabled", !param.checked)
+    }
+
+    // GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
+    // 	[
+    // 		new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+    // 	], 
+    // 	returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+    // );
+
+    function projektErstellenInit() {
+        console.log("init")
+
+        let projektInput = document.getElementsByName("<%=Projekt.COLUMN_PRIMARY_KEY%>")[0];
+        projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
+
+        let partnerInput = document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0];
+        partnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK];
+
+        let projektId = document.getElementById("projekt_id_input_field").value;
+        console.log({ projektId })
+
         $.ajax({
             url: '<%=Address.getProjektBearbeitenServlet()%>',
             type: 'get',
-            data: {id: e.target.value},
+            data: { id: projektId },
             success: function (data) {
                 if (data)
                     for (let key in data) {
@@ -183,52 +292,43 @@
                         const val = data[key]
                         for (let i = 0; i < nodeList.length; i++) {
                             nodeList[i].value = val
-                            nodeList[i].disabled = false
+                            // nodeList[i].disabled = false
                         }
                     }
                 else {
                     const name = document.getElementById('partner_id_input_field')
                     name.value = ''
-                    name.disabled = true
+                    // name.disabled = true
                     const email = document.getElementById('vertragsnummer_input_field')
                     email.value = ''
-                    email.disabled = true
+                    // email.disabled = true
+                }
+
+                if (projektInput.value === "") {
+
+                    alert("bitte Projekt auswaehlen!");
+                    $("#projekt_auswaehlen").click();
+                    return;
                 }
             },
             error: function (xhr, status, error) {
                 alert("Fehler: " + xhr.responseText);
+
+                if (projektInput.value === "") {
+
+                    alert("bitte Projekt auswaehlen!");
+                    $("#projekt_auswaehlen").click();
+                    return;
+                }
             }
         });
-    });
 
-    function enableSaveButton(param) {
-        $("#button_projekt_update").prop("disabled", !param.checked)
+
+
+
     }
 
-    // Such-Links
-		// GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
-		// 	[
-		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
-		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
-		// 		// new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
-		// 	],
-		// 	returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
-		// );
-
-		GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
-			[
-				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
-			], 
-			returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
-		);
-
-		function projektErstellenInit(){
-
-			let projektPartnerInput = document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0];
-			projektPartnerInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
-		}
-
-		projektErstellenInit();
+    projektErstellenInit();
 </script>
 
 </html>

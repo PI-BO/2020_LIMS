@@ -8,6 +8,7 @@ const NavigationMenu = (function () {
     public = {};
 
     public.hideAllExcept = function hideAllExcept(id) {
+        console.log("hide all except ", id)
         let toggleList = [];
         const mainContentElement = document.getElementById(mainContentId);
 

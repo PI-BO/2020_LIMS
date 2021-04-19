@@ -39,7 +39,7 @@
 									id="projekt_auswaehlen">auswaehlen</span></li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="projekt_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3"
+							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 1"
 									id="projekt_bearbeiten">bearbeiten</span></li>
 						</ul>
 					</li>

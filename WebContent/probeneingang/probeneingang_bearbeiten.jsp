@@ -148,7 +148,8 @@
             </tr>
             <tr class="table_probeneingang_bearbeiten_tr">
                 <td>
-                    <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
+                    <input readonly required type="text" id="proben_id_input_field" 
+                    placeholder="keine Probe ausgewaehlt!" style="color: red;" name=<%=Probeneingang.PROBEN_ID%>>
                 </td>
             </tr>
 
@@ -223,14 +224,14 @@
             $("#input_image_upload").val("");
         });
 
-        GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
-            [
-                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
-                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
-                new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
-            ],
-            returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
-        );
+        // GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
+        //     [
+        //         new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+        //         new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
+        //         new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME)
+        //     ],
+        //     returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
+        // );
 
         function initProbeneingangBearbeiten() {
             const probenIdInput = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
