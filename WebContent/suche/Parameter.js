@@ -27,7 +27,13 @@ const Parameters = {
 	EXPERIMENT: {
 		CATEGORY: "experiment",
 		PK: "id",
-		FK: "proben_nr",
+		FK: "api_startmaterial",
 		TYP: "typ"
-	}
+	},
+	ANALYSE: {
+		CATEGORY: "analysen",
+		PK: "id",
+		FK: "experiment",
+		TYP: "typ"
+	},
 }

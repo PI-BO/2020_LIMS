@@ -162,7 +162,6 @@
             type: 'get',
             data: { id: e.target.value },
             success: function (data) {
-                console.log({ data })
                 if (data)
                     for (let key in data) {
                         const nodeList = document.getElementsByName(key)

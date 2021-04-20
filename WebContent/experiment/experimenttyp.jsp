@@ -12,6 +12,11 @@
     String experiment_typ = request.getParameter("typ");
 %>
 
+<div class="experiment_erstellen_header">Probe</div>
+<div class="experiment_erstellen_entry">
+    <input disabled type="text" name="proben_id_feedback">
+</div>
+
 <div class="experiment_erstellen_header" id="experiment_id_tooltip" style="width: -moz-available;">Experiment ID</div>
 <div class="experiment_erstellen_entry">
 
@@ -26,8 +31,8 @@
 
 <div class="experiment_erstellen_header">Planung erfolgt durch</div>
 <div class="experiment_erstellen_entry">
-    <select name=<%=ExperimentErstellenServlet.PLANUNG_ERFOLGT_DURCH%>>
-        <option value="" selected disabled>bitte auswaehlen</option>
+    <select required name=<%=ExperimentErstellenServlet.PLANUNG_ERFOLGT_DURCH%>>
+        <option value="" selected required>bitte auswaehlen</option>
         <%
             try {
                 ModelTable modelList = new ModelTable(new Mitarbeiter());
@@ -69,7 +74,7 @@
         %>
     </select>
     <input id="experiment_serie_text" style="display: none" type="text"
-           name=<%=ExperimentErstellenServlet.EXPERIMENT_SERIE_TEXT%>>
+        name=<%=ExperimentErstellenServlet.EXPERIMENT_SERIE_TEXT%>>
 </div>
 
 <div class="experiment_erstellen_header">Experiment No.</div>
@@ -80,7 +85,7 @@
 <div class="experiment_erstellen_header">Durchführung</div>
 <div class="experiment_erstellen_entry">
     <select id="durchfuehrung_select" onchange="newExperimentDurchfuehrungstext(this)" required
-            name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT%>>
+        name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <option value="new">neuer Durchführungstext</option>
         <%
@@ -104,13 +109,13 @@
         <tr>
             <th>
                 <input id="experiment_durchfuehrungstext_titel" style="display: none" type="text"
-                       placeholder="neuer Titel" name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
+                    placeholder="neuer Titel" name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TITEL%>>
             </th>
         </tr>
         <tr>
             <th>
                 <textarea required id="experiment_durchführungstext_text" rows="4" cols="50"
-                          name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
+                    name=<%=ExperimentErstellenServlet.DURCHFUEHRUNGSTEXT_TEXT%>></textarea>
             </th>
         </tr>
     </table>
@@ -141,11 +146,6 @@
     <input type="text" name=<%=ExperimentErstellenServlet.HINWEIS_AN_LABORLEITER%>>
 </div>
 
-<div class="experiment_erstellen_header">Experiment No.</div>
-<div class="experiment_erstellen_entry">
-    <input required type="text" name=<%=ExperimentErstellenServlet.EXPERIMENT_NO%>>
-</div>
-
 <div class="experiment_erstellen_header">Planung Abgeschlossen</div>
 <div class="experiment_erstellen_entry">
     <input type="checkbox" value="true" name=<%=ExperimentErstellenServlet.PLANUNG_ABGESCHLOSSEN%>>
@@ -163,7 +163,7 @@
 
 <div class="experiment_erstellen_header">Verantwortlicher Operator</div>
 <div class="experiment_erstellen_entry">
-    <select name=<%=ExperimentErstellenServlet.VERANTWORTLICHER_OPERATOR%>>
+    <select required name=<%=ExperimentErstellenServlet.VERANTWORTLICHER_OPERATOR%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -226,7 +226,7 @@
     <!--     </select> -->
 
 
-    <input required type="text" name=<%=ExperimentErstellenServlet.API_STARTMATERIAL%>>
+    <input disabled required type="text" name=<%=ExperimentErstellenServlet.API_STARTMATERIAL%>>
 </div>
 
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage</div>
@@ -238,7 +238,7 @@
 <div class="experiment_erstellen_header">API/Startmaterial Soll Einwaage [mg]</div>
 <div class="experiment_erstellen_entry">
     <input type="number" value="0" min="0" step="0.001"
-           name="<%=ExperimentErstellenServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
+        name="<%=ExperimentErstellenServlet.API_STARTMATERIAL_SOLL_EINWAAGE_MG%>">
 </div>
 
 <div class="experiment_erstellen_header">CoF Bezeichnung</div>
@@ -286,7 +286,7 @@
 </div>
 <div class="experiment_erstellen_entry typ_Slurry">
     <input type="text"
-           name=<%=ExperimentErstellenServlet.BEOBACHTUNG_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
+        name=<%=ExperimentErstellenServlet.BEOBACHTUNG_SLURRYERSTELLUNG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
 </div>
 
 <div class="experiment_erstellen_header typ_Verdampfung">Beobachtungen zum Loesungsvorgang oder Abänderung des
@@ -294,7 +294,7 @@
 </div>
 <div class="experiment_erstellen_entry typ_Verdampfung">
     <input type="text"
-           name=<%=ExperimentErstellenServlet.BEOBACHTUNG_LOESUNGSVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
+        name=<%=ExperimentErstellenServlet.BEOBACHTUNG_LOESUNGSVORGANG_ODER_AENDERUNGEN_DES_EXPERIMENTS%>>
 </div>
 
 <div class="experiment_erstellen_header">Experiment Start</div>
@@ -337,7 +337,7 @@
 <div class="experiment_erstellen_header typ_Verdampfung">Auswaage Vial mit Kristallisat [g]</div>
 <div class="experiment_erstellen_entry typ_Verdampfung">
     <input type="number" value="0" min="0" step="0.0001"
-           name="<%=ExperimentErstellenServlet.AUSBEUTE_VIAL_KRISTALLAT_G%>">
+        name="<%=ExperimentErstellenServlet.AUSBEUTE_VIAL_KRISTALLAT_G%>">
 </div>
 
 <div class="experiment_erstellen_header typ_Verdampfung">Ausbeute / [mg] von Präp / analytik</div>
@@ -475,23 +475,33 @@
             break;
     }
 
-
-    // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>",
+    GlobaleSuche.addGenerierenLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
         [
-            new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
+            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
         ],
-        new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
+        returnParameter = new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
     );
 
+    Tooltip.setTooltip("experiment_id_tooltip", "ID automatisch generieren lassen?");
 
-    GlobaleSuche.addGenerierenLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
-			[
-				new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
-			],
-			returnParameter = new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
-		);
 
-		Tooltip.setTooltip("experiment_id_tooltip", "ID automatisch generieren lassen?");
+    function experimentErstellenInit() {
+
+        let startMaterialInputField = document.getElementsByName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>")[0];
+        startMaterialInputField.value = MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK];
+
+        let probenIdFeedbackField = document.getElementsByName("proben_id_feedback")[0];
+        probenIdFeedbackField.value = startMaterialInputField.value;
+
+        // terrible hack solange keine vernuenftige Loesing gefunden wurde
+        setTimeout(function () {
+            if (startMaterialInputField.value === "") {
+                alert("bitte Probe auswaehlen!");
+                $("#probe_auswaehlen").click();
+            }
+        }, 500);
+    }
+
+    experimentErstellenInit();
 
 </script>

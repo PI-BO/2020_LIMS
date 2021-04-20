@@ -75,12 +75,12 @@
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="experiment_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper"
-									id="experiment_bearbeiten">bearbeiten</span></li>
+									id="experiment_bearbeiten" style="opacity: 0.3">bearbeiten</span></li>
 						</ul>
 					</li>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Analysen [<span style="color:blue;"
-								id="analysen_navigation_state"> - </span>]</span>
+					<li><span class="navigation_tree_node symbol_folder_closed">Analyse [<span style="color:blue;"
+								id="analyse_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span>
 							</li>

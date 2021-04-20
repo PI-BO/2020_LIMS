@@ -73,12 +73,12 @@ public class Experiment extends Model {
         return proben_nr;
     }
 
-    public void setProbenNr(String proben_nr) throws SQLException, ModelNotFoundException {
+    public void setProbenNr(String proben_nr) {
     	this.proben_nr = proben_nr;
     }
     
 	@Override
-	public void saveToDatabase() throws SQLException, DublicateModelException, ModelNotFoundException {
+	public void saveToDatabase() throws SQLException, ModelNotFoundException, DublicateModelException {
 
 		Probe probe = new Probe(proben_nr);
 		super.saveToDatabase();

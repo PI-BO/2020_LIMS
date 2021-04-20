@@ -169,15 +169,11 @@
         partnerIdInputField.disabled = false;
 
         for (var i = 0; i < e.target.length; i++) {
-
-            console.log(e.target[i].name, e.target[i].value);
             submitData[e.target[i].name] = e.target[i].value;
         }
 
         let partnerId = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.FK];
         submitData[Parameters.PROJEKT.FK] = partnerId;
-
-        console.log({ partnerId })
 
         var url = "<%=Address.getProjektBearbeitenServlet()%>";
         var posting = $.post(url, submitData);
@@ -214,10 +210,6 @@
 
         let vertragsnummer = document.getElementsByName("<%=Projekt.COLUMN_VERTRAGSNUMMER%>")[0];
         vertragsnummer.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.VERTRAGSNUMMER];
-
-        let projektId = document.getElementById("projekt_id_input_field").value;
-        console.log({ projektId })
-
 
         // terrible hack solange keine vernuenftige Loesing gefunden wurde
         setTimeout(function () {

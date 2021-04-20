@@ -189,6 +189,10 @@
                                 for (let i = 0; i < requiredFields.length; i++) requiredFields[i].style["border-color"] = "green";
                                 $("#probeneingang_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
                                 $("#button_probeneingang_speichern").empty();
+
+                                const probenIdInputField = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
+                                probenIdInputField.disabled = true;
+                                MainState.setProbe(probenIdInputField.value);
                             }
                         })
                     })

@@ -123,22 +123,6 @@
 			)
 		})
 
-		// Such-Links
-		// GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_NAME%>",
-		// 	[
-		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
-		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-		// 	]
-		// );
-
-		// // Such-Links
-		// GlobaleSuche.addSearchLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
-		// 	[
-		// 		new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
-		// 		new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => document.getElementsByName("<%=Partner.COLUMN_NAME%>")[0].value)
-		// 	]
-		// );
-
 		GlobaleSuche.addGenerierenLinkToInputWithName("<%=Projekt.COLUMN_PRIMARY_KEY%>",
 			[
 				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
