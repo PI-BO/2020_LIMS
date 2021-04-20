@@ -63,6 +63,8 @@
                 success: function () {
                     experimentIdInputField.disabled = true;
                     replaceContent("analyse_erstellen_speichern", "Erfolgreich gespeichert", "green");
+                    const analyseIdInputField = document.getElementsByName("<%=AnalyseErstellenServlet.ANALYSE_ID%>")[0];
+                    MainState.setAnalyse(analyseIdInputField.value);
                 },
                 error: function (xhr, status, error) {
                     experimentIdInputField.disabled = true;

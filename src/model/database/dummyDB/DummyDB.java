@@ -7,6 +7,7 @@ import model.database.Database;
 import model.database.relations.ManyToManyA;
 import model.database.relations.OneToMany;
 import model.database.tableModels.*;
+import model.database.tableModels.analyse.Analyse;
 import model.database.tableModels.analyse.AnalyseTemperaturprogramme;
 import model.database.tableModels.analyse.Analysetyp;
 import model.database.tableModels.experimente.*;
@@ -328,6 +329,11 @@ public class DummyDB implements Database {
 		 temperaturprogramme.setZeit(null);
 		 temperaturprogramme.setSegmenttyp("Dynamisch");
 		 temperaturprogramme.saveToDatabase();
+		 
+		 Analyse analyse = new Analyse();
+		 analyse.setPrimaryKey("1");
+		 analyse.setExperimentId("11");
+		 analyse.saveToDatabase();
 	}
 
 	@Override

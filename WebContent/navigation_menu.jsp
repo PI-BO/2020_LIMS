@@ -188,7 +188,7 @@
 				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
 			],
 			(callbackData) => {
-				MainState.setExperiment(callbackData[Parameters.ANALYSE.PK]);
+				MainState.setAnalyse(callbackData[Parameters.ANALYSE.PK]);
 			},
 			returnParameter = new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK)
 		);

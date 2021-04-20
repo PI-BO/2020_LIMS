@@ -840,7 +840,21 @@ const GlobaleSuche = (function () {
 					found++;
 				}
 			}
+
 			newResults.push(newTupel);
+		})
+		newResults = filterEmptyTupel(newResults);
+		return newResults;
+	}
+
+	function filterEmptyTupel(tupelArray){
+		let newResults = [];
+
+		tupelArray.forEach(tupel => {
+
+			tupel.forEach(tupelElement => {
+				if(tupelElement.display !== "") newResults.push(tupel);
+			});
 		})
 		return newResults;
 	}
@@ -865,6 +879,19 @@ const GlobaleSuche = (function () {
 			}
 
 		}
+	}
+
+	function deleteEmptyRows(resultTableId){
+
+		let table = document.getElementById(resultTableId);
+		let rows = table.rows;
+
+		for (let i = rows.length - 1; i > sortFunctionSkipRows; i--) {
+			
+			let row = rows[i];
+
+		}
+
 	}
 
 	function addTupelAsTableHeader(tupel, tableId, className, mergeEqualCells, addSortFunction) {
