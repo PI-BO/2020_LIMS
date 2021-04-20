@@ -302,9 +302,7 @@ const GlobaleSuche = (function () {
 		inputElements.forEach(inputElement => {
 
 			inputElement.parentElement;
-			console.log(inputElement.parentElement);
 			let searchLinks = inputElement.parentElement.getElementsByClassName("search_link");
-			console.log({ searchLinks })
 			for (let i = 0; i < searchLinks.length; i++) {
 				searchLinks[i].remove();
 			}
