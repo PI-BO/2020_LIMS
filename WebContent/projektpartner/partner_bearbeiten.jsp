@@ -156,9 +156,6 @@
         });
     })
 
-
-
-
     document.getElementById('partner_id_input_field').addEventListener('change', function (e) {
         $.ajax({
             url: '<%=Address.getPartnerBearbeitenServlet()%>',
@@ -193,16 +190,6 @@
     function enableSaveButton(param) {
         $("#button_partner_update").prop("disabled", !param.checked)
     }
-
-    // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
-        [
-            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
-            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, ""),
-            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.EMAIL, "")
-        ],
-        returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-    );
 
     function replaceContent(id, text, color) {
         $(`#${id}`).empty().append(`<div style="color: ${color}">${text}</div>`)

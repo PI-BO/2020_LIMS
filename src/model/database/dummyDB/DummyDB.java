@@ -89,7 +89,7 @@ public class DummyDB implements Database {
 
 		projekt = new Projekt();
 		projekt.setPrimaryKey("2");
-		projekt.setVertragsnummer("1");
+		projekt.setVertragsnummer("3");
 		projekt.setProjektPartnerId("1");
 		projekt.saveToDatabase();
 
@@ -420,6 +420,28 @@ public class DummyDB implements Database {
 			// copy all parents and children over to new model
 			updatedModel.getParents().addAll(oldModel.getParents());
 			updatedModel.getChildren().addAll(oldModel.getChildren());
+			
+			String updatedModelPrimaryKey = updatedModel.getPrimaryKey();
+			
+			for(Model parent : updatedModel.getParents()){
+				for(Model childOfParent : parent.getChildren()){
+					if(!childOfParent.getPrimaryKey().equals(updatedModelPrimaryKey)) continue;
+					if(parent.getChildren().remove(childOfParent)){
+						parent.getChildren().add(updatedModel);
+						break;
+					}
+				}
+			}
+			
+			for(Model child: updatedModel.getChildren()){
+				for(Model parentOfChild : child.getParents()){
+					if(!parentOfChild.getPrimaryKey().equals(updatedModelPrimaryKey)) continue;
+					if(child.getParents().remove(parentOfChild)){
+						child.getParents().add(updatedModel);
+						break;
+					}
+				}
+			}
 
 			// remove old model
 			modelList.remove(i);

@@ -68,9 +68,9 @@ public abstract class Model implements DummyResultSetInterface, DummyRelation, J
 	};
 	
 	public void addParent(Model parent) throws SQLException, ModelNotFoundException{
-		Model realParent = database.findModel(parent);
-		parents.add(realParent);
-		realParent.addChild(this);
+		Model parentInDatabase = database.findModel(parent);
+		parents.add(parentInDatabase);
+		parentInDatabase.addChild(this);
 	}
 	
 	private void addChild(Model child){

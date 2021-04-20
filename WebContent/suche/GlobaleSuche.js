@@ -32,7 +32,7 @@ const GlobaleSuche = (function () {
 
 	// Minimize Button
 	const minimizeButtonInputModeColor = "red";
-	const minimizeButtonInputModeValue = "Formular-Modus";
+	const minimizeButtonInputModeValue = "Auswahl-Modus";
 	const minimizeButtonDefaultValue = "_";
 
 	// Drag-Threshold

@@ -12,7 +12,7 @@
     String experiment_typ = request.getParameter("typ");
 %>
 
-<div class="experiment_erstellen_header">Experiment ID</div>
+<div class="experiment_erstellen_header" id="experiment_id_tooltip" style="width: -moz-available;">Experiment ID</div>
 <div class="experiment_erstellen_entry">
 
     <%--     <input required type="number" min="1" name=<%=ExperimentServlet.NO_ID%>> --%>
@@ -475,14 +475,6 @@
             break;
     }
 
-    // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
-        [
-            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
-            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
-        ],
-        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
-    );
 
     // Such-Links
     GlobaleSuche.addSearchLinkToInputWithName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>",
@@ -491,4 +483,15 @@
         ],
         new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
     );
+
+
+    GlobaleSuche.addGenerierenLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
+			[
+				new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
+			],
+			returnParameter = new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
+		);
+
+		Tooltip.setTooltip("experiment_id_tooltip", "ID automatisch generieren lassen?");
+
 </script>

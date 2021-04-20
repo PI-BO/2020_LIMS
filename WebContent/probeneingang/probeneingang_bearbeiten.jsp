@@ -154,23 +154,6 @@
     </form>
     <script>
 
-        // $(document).ready(function () {
-        //     $('#form_probeneingang_bearbeiten').submit(function () {
-        //         $.ajax({
-        //             url: '<%=Address.getProbeneingangBearbeitenServlet()%>',
-        //             type: 'post',
-        //             data: $(this).serialize(),
-        //             success: function () {
-        //                 replaceContent("button_probeneingang_update", "Erfolgreich gespeichert", "green");
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 replaceContent("button_probeneingang_update", "Fehler: " + xhr.responseText, "red");
-        //             }
-        //         });
-        //         return false;
-        //     });
-        // });
-
         initFormHandler();
 
         function initFormHandler() {
