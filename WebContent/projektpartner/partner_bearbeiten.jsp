@@ -209,7 +209,18 @@
         setTimeout(function () {
             if (partnerId.value === "") {
                 alert("bitte Partner auswaehlen!");
-                $("#partner_auswaehlen").click();
+                // $("#partner_auswaehlen").click();
+                NavigationMenu.openStateSearch(
+                    [
+                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
+                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+                    ],
+                    async (callbackData) => {
+                        await MainState.setProjektPartner(callbackData[Parameters.PARTNER.PK]);
+                        $("#projekt_partner_bearbeiten").click();
+                    },
+                    new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK),
+                )
             }
         }, 500);
 

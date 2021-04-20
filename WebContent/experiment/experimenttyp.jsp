@@ -497,7 +497,19 @@
         setTimeout(function () {
             if (startMaterialInputField.value === "") {
                 alert("bitte Probe auswaehlen!");
-                $("#probe_auswaehlen").click();
+                // $("#probe_auswaehlen").click();
+                NavigationMenu.openStateSearch(
+                    [
+                        new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+                        new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+                    ],
+                    async (callbackData) => {
+                        await MainState.setProbe(callbackData[Parameters.PROBE.PK]);
+                        $("#experiment_erstellen").click();
+                    },
+                    new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+                )
             }
         }, 500);
     }

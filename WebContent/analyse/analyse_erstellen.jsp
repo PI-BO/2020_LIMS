@@ -86,7 +86,20 @@
         setTimeout(function () {
             if (experimentIdInputField.value === "") {
                 alert("bitte Experiment auswaehlen!");
-                $("#experiment_auswaehlen").click();
+                // $("#experiment_auswaehlen").click();
+                NavigationMenu.openStateSearch(
+                    [
+                        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, ""),
+                        new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, () => MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK]),
+                        new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+                    ],
+                    async (callbackData) => {
+                        await MainState.setExperiment(callbackData[Parameters.EXPERIMENT.PK]);
+                        $("#analyse_erstellen").click();
+                    },
+                    new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
+                )
             }
         }, 500);
     }

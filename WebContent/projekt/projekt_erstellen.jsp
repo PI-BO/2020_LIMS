@@ -141,7 +141,19 @@
 			setTimeout(function () {
 				if (projektPartnerInput.value === "") {
 					alert("bitte Partner auswaehlen!");
-					$("#partner_auswaehlen").click();
+					// $("#partner_auswaehlen").click();
+
+					NavigationMenu.openStateSearch(
+						[
+							new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME]),
+							new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.PK])
+						],
+						async (callbackData) => {
+							await MainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);
+							$("#projekt_erstellen").click();
+						},
+						new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK),
+					)
 				}
 			}, 500);
 		}

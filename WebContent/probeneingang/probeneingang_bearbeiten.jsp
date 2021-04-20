@@ -169,10 +169,10 @@
 
                 let probenId = document.getElementsByName("<%=Probeneingang.PROBEN_ID%>")[0];
                 let probenIdWasDisabled = false;
-                if(probenId.disabled === true){
+                if (probenId.disabled === true) {
                     probenId.disabled = false;
                     probenIdWasDisabled = true;
-                } 
+                }
 
                 var formData = new FormData(form);
 
@@ -185,8 +185,8 @@
                     .then(response => {
 
                         projektId.disabled = true;
-                        if(probenIdWasDisabled) probenId.disabled = true;
-                        
+                        if (probenIdWasDisabled) probenId.disabled = true;
+
                         let json = response.json().then(data => {
 
                             console.log({ data });
@@ -280,7 +280,19 @@
             setTimeout(function () {
                 if (probenIdInput.value === "") {
                     alert("bitte Probe auswaehlen!");
-                    $("#probe_auswaehlen").click();
+                    // $("#probe_auswaehlen").click();
+                    NavigationMenu.openStateSearch(
+                        [
+                            new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+                            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+                            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+                        ],
+                        async (callbackData) => {
+                            await MainState.setProbe(callbackData[Parameters.PROBE.PK]);
+                            $("#probeneingang_erstellen").click();
+                        },
+                        new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+                    )
                 }
             }, 500);
         }

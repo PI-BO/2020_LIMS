@@ -20,7 +20,7 @@ const NavigationMenu = (function () {
                 $("#" + element).hide();
                 $("#" + element).show(subPagesShowDelay);
             } else {
-                 $("#" + element).hide();
+                $("#" + element).hide();
             }
         })
     }
@@ -71,18 +71,33 @@ const NavigationMenu = (function () {
         });
     }
 
-    public.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback, returnParameter){
-        
+    public.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback, returnParameter) {
+
         $(buttonId).click(function () {
-            NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
-            GlobaleSuche.initTemplateParameters(template);
-            GlobaleSuche.addSearchCallback((callbackData)=>{
-                callback(callbackData);
-                NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-            }, startSearch=true, returnParameter)
-            public.show(containerId);
-            GlobaleSuche.resetPositionIfOutOfBounds();
+
+            public.openStateSearch(template, callback, returnParameter)
+
+            // NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
+            // GlobaleSuche.initTemplateParameters(template);
+            // GlobaleSuche.addSearchCallback((callbackData) => {
+            //     callback(callbackData);
+            //     NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+            // }, startSearch = true, returnParameter)
+            // public.show(containerId);
+            // GlobaleSuche.resetPositionIfOutOfBounds();
         });
+    }
+
+    public.openStateSearch = function openStateSearch(template, callback, returnParameter) {
+
+        NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
+        GlobaleSuche.initTemplateParameters(template);
+        GlobaleSuche.addSearchCallback((callbackData) => {
+            callback(callbackData);
+            NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+        }, startSearch = true, returnParameter)
+        public.show("#main-content-global-search");
+        GlobaleSuche.resetPositionIfOutOfBounds();
     }
 
     public.initExplorerListener = function initExplorerListener(buttonId, containerId) {

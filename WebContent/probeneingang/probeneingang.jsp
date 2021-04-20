@@ -98,7 +98,8 @@
 </tr>
 <tr>
     <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.INFOS%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+            name=<%=Probeneingang.INFOS%>></textarea>
     </td>
 </tr>
 
@@ -107,7 +108,8 @@
 </tr>
 <tr>
     <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+            name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
     </td>
 </tr>
 
@@ -117,7 +119,8 @@
 </tr>
 <tr>
     <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+            name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
     </td>
 </tr>
 
@@ -126,7 +129,8 @@
 </tr>
 <tr>
     <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.LITERATUR%>></textarea>
+        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+            name=<%=Probeneingang.LITERATUR%>></textarea>
     </td>
 </tr>
 
@@ -191,7 +195,18 @@
         setTimeout(function () {
             if (projektInput.value === "") {
                 alert("bitte Projekt auswaehlen!");
-                $("#projekt_auswaehlen").click();
+                // $("#projekt_auswaehlen").click();
+                NavigationMenu.openStateSearch(
+                    [
+                        new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
+                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+                    ],
+                    async (callbackData) => {
+                        await MainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);
+                        $("#probeneingang_erstellen").click();
+                    },
+                    new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
+                )
             }
         }, 500);
     }

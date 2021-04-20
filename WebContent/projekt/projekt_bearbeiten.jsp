@@ -135,8 +135,7 @@
             <tr>
                 <td>Vertragsnummer</td>
                 <td>
-                    <input id="vertragsnummer_input_field" type=text 
-                        name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
+                    <input id="vertragsnummer_input_field" type=text name=<%=Projekt.COLUMN_VERTRAGSNUMMER%>>
                 </td>
             </tr>
             <tr>
@@ -215,7 +214,19 @@
         setTimeout(function () {
             if (projektInput.value === "") {
                 alert("bitte Projekt auswaehlen!");
-                $("#projekt_auswaehlen").click();
+                // $("#projekt_auswaehlen").click();
+                NavigationMenu.openStateSearch(
+                    [
+                        new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
+                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+                    ],
+                    async (callbackData) => {
+                        await MainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);
+                        $("#projekt_bearbeiten").click();
+                    },
+                    returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK)
+                )
+
             }
         }, 500);
     }
