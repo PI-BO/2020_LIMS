@@ -492,7 +492,10 @@ const GlobaleSuche = (function () {
 
 		function addSelectOptions(category, selectElement) {
 			let searchParameters = parameters[category];
-			if(searchParameters === undefined) alert("Noch kein Eintrag vorhanden (GlobaleSuche.addSelectOptions)")
+			if (searchParameters === undefined) {
+				alert("Noch kein Eintrag vorhanden (GlobaleSuche.addSelectOptions)");
+				return;
+			}
 			searchParameters.forEach(searchParameter => {
 				let option = document.createElement("option");
 				option.text = searchParameter;
