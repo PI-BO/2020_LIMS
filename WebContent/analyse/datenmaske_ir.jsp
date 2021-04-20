@@ -15,7 +15,7 @@
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
 
-    <input type="text" required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
+    <input type="text" disabled required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
 
     <!-- <select required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
@@ -97,13 +97,5 @@
 
 <script>
 
-    // Such-Links
-    GlobaleSuche.addSearchLinkToInputWithName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>",
-        [
-            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK),
-            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.TYP)
-        ],
-        new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
-    );
-
+    analyseErstellenInit();
 </script>

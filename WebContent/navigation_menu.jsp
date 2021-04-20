@@ -70,7 +70,7 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Experiment [<span style="color:blue;"
 								id="experiment_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span>
+							<li><span class="navigation_tree_node symbol_search" id="experiment_auswaehlen" style="opacity: 1.0">auswaehlen</span>
 							</li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="experiment_erstellen">erstellen</span></li>
@@ -82,7 +82,7 @@
 					<li><span class="navigation_tree_node symbol_folder_closed">Analyse [<span style="color:blue;"
 								id="analyse_navigation_state"> - </span>]</span>
 						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_search" style="opacity: 0.3">auswaehlen</span>
+							<li><span class="navigation_tree_node symbol_search" id="analyse_auswaehlen" style="opacity: 1.0">auswaehlen</span>
 							</li>
 							<li><span class="navigation_tree_node symbol_clipboard"
 									id="analyse_erstellen">erstellen</span></li>
@@ -164,6 +164,33 @@
 				MainState.setProbe(callbackData[Parameters.PROBE.PK]);
 			},
 			returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK)
+		);
+
+		NavigationMenu.initAuswaehlenButton("#experiment_auswaehlen", "#main-content-global-search",
+			[
+				new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, ""),
+				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, () => MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK]),
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+			],
+			(callbackData) => {
+				MainState.setExperiment(callbackData[Parameters.EXPERIMENT.PK]);
+			},
+			returnParameter = new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK)
+		);
+
+		NavigationMenu.initAuswaehlenButton("#analyse_auswaehlen", "#main-content-global-search",
+			[
+				new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK, ""),
+				new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, () => MainState.state[Parameters.EXPERIMENT.CATEGORY][Parameters.EXPERIMENT.PK]),
+				new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, () => MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK]),
+				new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+			],
+			(callbackData) => {
+				MainState.setExperiment(callbackData[Parameters.ANALYSE.PK]);
+			},
+			returnParameter = new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK)
 		);
 
 		NavigationMenu.initExplorerListener("#explorer_anzeigen", "#main-content-explorer");
