@@ -33,7 +33,7 @@
             ExperimenteModel experimenteModel = new ExperimentExperimenttyp(experiment).getTypModel();
     %>
 
-    <tr>
+    <tr class="explorer_table_row <%=experimenteModel.getPrimaryKey()%>">
         <td class="explorer_table_data symbol_folder_closed" onclick="(
                 function() {
                 let data = {projekt_id: '<%=experimenteModel.getPrimaryKey()%>'};
@@ -58,6 +58,8 @@
 <script>
 
     addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
+
+    contextMenu.initExperiment()
 
 </script>
 

@@ -31,8 +31,8 @@
         for (Model partner : partnerList.getModelList()) {
     %>
 
-    <tr>
-        <td class="explorer_table_data symbol_folder_closed" onclick="(
+    <tr class="explorer_table_row <%=partner.getPrimaryKey()%>">
+        <td class="explorer_table_data <%=partner.getPrimaryKey()%> symbol_folder_closed" onclick="(
                 function() {
                 let data = {projekt_id: '<%=partner.getPrimaryKey()%>'};
                 loadPage('<%=Address.getPartnerJSP()%>', data);
@@ -56,6 +56,8 @@
 
 <script>
     addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
+
+    contextMenu.initPartner();
 </script>
 
 </body>

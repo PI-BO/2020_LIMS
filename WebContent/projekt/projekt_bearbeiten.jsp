@@ -161,7 +161,6 @@
 
         var submitData = {};
 
-
         let projektIdInputField = document.getElementsByName("<%=Projekt.COLUMN_PRIMARY_KEY%>")[0];
         let partnerIdInputField = document.getElementsByName("<%=Projekt.COLUMN_PROJEKTPARTNER%>")[0];
         projektIdInputField.disabled = false;

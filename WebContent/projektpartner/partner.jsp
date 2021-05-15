@@ -30,7 +30,7 @@
         for (Projekt projekt : partner.getProjekte()) {
     %>
 
-    <tr>
+    <tr class="explorer_table_row <%=projekt.getPrimaryKey()%>">
         <td class="explorer_table_data symbol_folder_closed" onclick="(
                 function() {
                 let data = {projekt_id: '<%=projekt.getPrimaryKey()%>'};
@@ -55,6 +55,8 @@
 <script>
 
     addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
+
+    contextMenu.initProjekt();
 
 </script>
 
