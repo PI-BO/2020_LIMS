@@ -1,57 +1,53 @@
 const contextMenu = (function () {
 
     this.menu = {};
-    let func;
+    let bearbeiten;
 
     this.menu.initPartner = function () {
-        func = id => {
-            MainState.setProjektPartner(id)
-            setTimeout(() => $("#projekt_partner_bearbeiten").click(), 60);
-        }
-        init()
+        bearbeiten = id => MainState
+            .setProjektPartner(id)
+            .then(r => $("#projekt_partner_bearbeiten").click());
+        init();
     }
 
     this.menu.initProjekt = function () {
-        func = id => {
-            MainState.setProjekt(id)
-            setTimeout(() => $("#projekt_bearbeiten").click(), 60);
-        }
-        init()
+        bearbeiten = id => MainState
+            .setProjekt(id)
+            .then(r => $("#projekt_bearbeiten").click());
+        init();
     }
 
     this.menu.initProbe = function () {
-        func = id => {
-            MainState.setProbe(id)
-            setTimeout(() => $("#probeneingang_bearbeiten").click(), 60);
-        }
-        init()
+        bearbeiten = id => MainState
+            .setProbe(id)
+            .then(r => $("#probeneingang_bearbeiten").click());
+        init();
     }
 
     this.menu.initExperiment = function () {
-        func = id => {
-            MainState.setExperiment(id)
-            setTimeout(() => $("#experiment_bearbeiten").click(), 60);
-        }
-        init()
+        bearbeiten = id => MainState
+            .setExperiment(id)
+            .then(r => $("#experiment_bearbeiten").click());
+        init();
     }
 
     this.menu.initAnalyse = function () {
-        func = id => {
-            MainState.setAnalyse(id)
-            setTimeout(() => $("#analyse_bearbeiten").click(), 60);
-        }
-        init()
+        bearbeiten = id => MainState
+            .setAnalyse(id)
+            .then(r => $("#analyse_bearbeiten").click());
+        init();
     }
 
     function init() {
+        // Kontextmenü jeder Tabellen reihe hinzufügen
         $(".explorer_table_row").each(function () {
-            const id = $(this).attr('class').split(' ')[1]
+            const id = $(this).attr('class').split(' ')[1];
             this.addEventListener('contextmenu', ev => {
                 ev.preventDefault();
-                const menu = $("#contextMenu")
-                menu.css({left: ev.pageX, top: ev.pageY})
-                menu.find("#editProject").click(() => func(id))
-                menu.removeAttr("hidden")
+                const menu = $("#contextMenu");
+                menu.css({left: ev.pageX, top: ev.pageY});
+                menu.find("#editProject").click(() => bearbeiten(id));
+                menu.removeAttr("hidden");
             })
         })
 
