@@ -1,0 +1,11 @@
+<Context>
+    <Resource name="jdbc/LIMS"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="root"
+              password="123"
+              driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://localhost:3306/demo_v2"
+              maxActive="15"
+              maxIdle="3" />
+</Context>
