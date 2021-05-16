@@ -46,7 +46,9 @@ const contextMenu = (function () {
                 ev.preventDefault();
                 const menu = $("#contextMenu");
                 menu.css({left: ev.pageX, top: ev.pageY});
-                menu.find("#editProject").click(() => bearbeiten(id));
+                const button = menu.find("#editProject")
+                button.unbind('click');
+                button.click(() => bearbeiten(id));
                 menu.removeAttr("hidden");
             })
         })
