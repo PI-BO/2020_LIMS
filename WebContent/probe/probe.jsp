@@ -33,9 +33,8 @@
             ExperimenteModel experimenteModel = new ExperimentExperimenttyp(experiment).getTypModel();
     %>
 
-		<tr>
-			<td class="explorer_table_data symbol_folder_closed"
-				onclick="(
+    <tr class="explorer_table_row <%=experimenteModel.getPrimaryKey()%>">
+        <td class="explorer_table_data symbol_folder_closed" onclick="(
                 function() {
                 let data = {projekt_id: '<%=experimenteModel.getPrimaryKey()%>'};
                 loadPage('<%=Address.getExperimentJSP()%>', data);
@@ -59,6 +58,8 @@
 	<script>
 
     addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
+
+    contextMenu.initExperiment()
 
 </script>
 

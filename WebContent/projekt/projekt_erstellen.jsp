@@ -1,8 +1,8 @@
-<%@page import="model.database.tableModels.Partner"%>
-<%@page import="config.Address"%>
-<%@page import="model.database.tableModels.Projekt"%>
-<%@page import="controller.servlets.projekt.SaveProjectServlet"%>
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
+<%@page import="model.database.tableModels.Partner" %>
+<%@page import="config.Address" %>
+<%@page import="model.database.tableModels.Projekt" %>
+<%@page import="controller.servlets.projekt.SaveProjectServlet" %>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
 
 <!DOCTYPE html>
 <html>

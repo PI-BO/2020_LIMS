@@ -30,9 +30,8 @@
         for (Analyse analyse : experiment.getAnalysen()) {
     %>
 
-		<tr>
-			<td class="explorer_table_data symbol_folder_closed"
-				onclick="(
+    <tr class="explorer_table_row <%=analyse.getPrimaryKey()%>">
+        <td class="explorer_table_data symbol_folder_closed" onclick="(
                 function() {
                 explorerState.pushToState({
                 table: '<%=analyse.getTable()%>',
@@ -54,6 +53,8 @@
 	<script>
 
     addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
+
+    contextMenu.initAnalyse()
 
 </script>
 

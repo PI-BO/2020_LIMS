@@ -5,6 +5,10 @@ import org.apache.logging.log4j.Logger;
 
 import config.Config;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class DatabaseConnection {
@@ -40,8 +44,16 @@ public class DatabaseConnection {
     }
     
     private void connectToDatabase() throws SQLException {
-        connection = DriverManager.getConnection(DB_ADDRESS, LOGIN_NAME, PASSWORD);
-        LOGGER.debug("connected to database");
+        //connection = DriverManager.getConnection(DB_ADDRESS, LOGIN_NAME, PASSWORD);
+        try {
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/LIMS");
+            connection = ds.getConnection();
+            LOGGER.debug("connected to database");
+        } catch (NamingException e) {
+
+        }
     }
 
     private void disconnectFromDatabase() throws SQLException {
