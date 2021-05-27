@@ -5,7 +5,8 @@ html, body {
 }
 
 html {
-	background-image: url("https://solid-chem.de/wp-content/uploads/2016/12/sc_011.jpg");
+	background-image:
+		url("https://solid-chem.de/wp-content/uploads/2016/12/sc_011.jpg");
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
@@ -24,8 +25,8 @@ html {
 	grid-gap: 10px;
 }
 
-#main-content{
-	display: flex;	
+#main-content {
+	display: flex;
 }
 
 #main-header {

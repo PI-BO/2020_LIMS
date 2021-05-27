@@ -1,4 +1,6 @@
 const Main = (function () {
+    
+    const public = {};
 
     let subPages;
     let sucheServletAddress;

@@ -1,159 +1,150 @@
-<%@page import="model.Probeneingang" %>
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="model.Probeneingang"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <tr>
-    <th>Auftraggeber</th>
+	<th>Auftraggeber</th>
 </tr>
 <tr>
-    <td>
-        <input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
-    </td>
-</tr>
-
-<tr>
-    <th>Projekt ID</th>
-</tr>
-<tr>
-    <td>
-        <input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
-    </td>
-</tr>
-<tr>
-    <th id="probenIdTooltip">
-        Proben ID
-    </th>
-</tr>
-<tr>
-    <td>
-        <input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
-    </td>
-</tr>
-<tr>
-    <th id="wirkstoffTooltip">
-        Wirkstoff
-    </th>
-</tr>
-<tr>
-    <td>
-        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.WIRKSTOFF%>>
-    </td>
+	<td>
+		<input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
+	</td>
 </tr>
 
 <tr>
-    <th>Summenformel</th>
+	<th>Projekt ID</th>
 </tr>
 <tr>
-    <td>
-        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.SUMMENFORMEL%>>
-    </td>
-</tr>
-
-<tr>
-    <th>Bezeichung</th>
+	<td>
+		<input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
+	</td>
 </tr>
 <tr>
-    <td>
-        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BEZEICHNUNG%>>
-    </td>
-</tr>
-
-<tr>
-    <th>Originator</th>
+	<th id="probenIdTooltip">Proben ID</th>
 </tr>
 <tr>
-    <td>
-        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.ORIGINATOR%>>
-    </td>
+	<td>
+		<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
+	</td>
+</tr>
+<tr>
+	<th id="wirkstoffTooltip">Wirkstoff</th>
+</tr>
+<tr>
+	<td>
+		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.WIRKSTOFF%>>
+	</td>
 </tr>
 
 <tr>
-    <th>Probeneingang</th>
+	<th>Summenformel</th>
 </tr>
 <tr>
-    <td>
-        <input disabled type="date" name=<%=Probeneingang.PROBENEINGANG%>>
-    </td>
-</tr>
-
-<tr>
-    <th>Probenmasse</th>
-</tr>
-<tr>
-    <td>
-        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.PROBENMASSE%>>
-    </td>
+	<td>
+		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.SUMMENFORMEL%>>
+	</td>
 </tr>
 
 <tr>
-    <th>Besonderheiten</th>
+	<th>Bezeichung</th>
 </tr>
 <tr>
-    <td>
-        <input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BESONDERHEITEN%>>
-    </td>
-</tr>
-
-<tr>
-    <th>Infos</th>
-</tr>
-<tr>
-    <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
-            name=<%=Probeneingang.INFOS%>></textarea>
-    </td>
+	<td>
+		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BEZEICHNUNG%>>
+	</td>
 </tr>
 
 <tr>
-    <th>Bemerkungen zur Messung</th>
+	<th>Originator</th>
 </tr>
 <tr>
-    <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
-            name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
-    </td>
+	<td>
+		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.ORIGINATOR%>>
+	</td>
+</tr>
+
+<tr>
+	<th>Probeneingang</th>
+</tr>
+<tr>
+	<td>
+		<input disabled type="date" name=<%=Probeneingang.PROBENEINGANG%>>
+	</td>
+</tr>
+
+<tr>
+	<th>Probenmasse</th>
+</tr>
+<tr>
+	<td>
+		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.PROBENMASSE%>>
+	</td>
+</tr>
+
+<tr>
+	<th>Besonderheiten</th>
+</tr>
+<tr>
+	<td>
+		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BESONDERHEITEN%>>
+	</td>
+</tr>
+
+<tr>
+	<th>Infos</th>
+</tr>
+<tr>
+	<td>
+		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.INFOS%>></textarea>
+	</td>
+</tr>
+
+<tr>
+	<th>Bemerkungen zur Messung</th>
+</tr>
+<tr>
+	<td>
+		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
+	</td>
 </tr>
 
 
 <tr>
-    <th>Bemerkungen</th>
+	<th>Bemerkungen</th>
 </tr>
 <tr>
-    <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
-            name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
-    </td>
-</tr>
-
-<tr>
-    <th>Literatur</th>
-</tr>
-<tr>
-    <td>
-        <textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
-            name=<%=Probeneingang.LITERATUR%>></textarea>
-    </td>
+	<td>
+		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
+	</td>
 </tr>
 
 <tr>
-    <th>Bilder hinzufuegen</th>
+	<th>Literatur</th>
 </tr>
 <tr>
-    <td>
-        <table class="table_in_table" id="table_image_upload">
-            <tr>
-                <td>
-                    (mehrere Bilder auswaehlen: STRG + Linksklick)
-                    <br>
-                    <button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
-                    <input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*"
-                        onchange="loadFile(this)" multiple>
-                </td>
-                <td>
-                    <div id="preview-container" style="max-width: 300px"></div>
-                </td>
-            </tr>
-        </table>
-    </td>
+	<td>
+		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.LITERATUR%>></textarea>
+	</td>
+</tr>
+
+<tr>
+	<th>Bilder hinzufuegen</th>
+</tr>
+<tr>
+	<td>
+		<table class="table_in_table" id="table_image_upload">
+			<tr>
+				<td>
+					(mehrere Bilder auswaehlen: STRG + Linksklick)
+					<br>
+					<button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
+					<input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*" onchange="loadFile(this)" multiple>
+				</td>
+				<td>
+					<div id="preview-container" style="max-width: 300px"></div>
+				</td>
+			</tr>
+		</table>
+	</td>
 </tr>
 <script>
     // reset preview pictures when reset button has been pressed

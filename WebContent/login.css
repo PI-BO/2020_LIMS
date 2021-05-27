@@ -258,25 +258,57 @@ form button:hover {
 100%
 {
 -webkit-transform
+
+
 :
+
  
+
 translateY
-(-700px)
+
+
+(-700
+px
+)
+
  
+
 rotate
-(600deg);
+
+
+(600
+deg
+);
+
 
             
+
 transform
+
+
 :
+
  
+
 translateY
-(-700px)
+
+
+(-700
+px
+)
+
  
+
 rotate
-(600deg);
+
+
+(600
+deg
+);
+
 
   
+
 }
 }
 @
@@ -287,24 +319,56 @@ keyframes square { 0% {
 100%
 {
 -webkit-transform
+
+
 :
+
  
+
 translateY
-(-700px)
+
+
+(-700
+px
+)
+
  
+
 rotate
-(600deg);
+
+
+(600
+deg
+);
+
 
             
+
 transform
+
+
 :
+
  
+
 translateY
-(-700px)
+
+
+(-700
+px
+)
+
  
+
 rotate
-(600deg);
+
+
+(600
+deg
+);
+
 
   
+
 }
 }

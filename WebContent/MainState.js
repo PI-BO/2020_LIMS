@@ -1,4 +1,6 @@
 const MainState = (function () {
+    
+    const public = {};
 
     const PARTNER = Parameters.PARTNER.CATEGORY;
     const PROJEKT = Parameters.PROJEKT.CATEGORY;

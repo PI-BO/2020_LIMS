@@ -1,16 +1,16 @@
-<%@ page import="config.Address" %>
-<%@ page import="model.database.tableModels.analyse.*" %>
-<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet" %>
-<%@ page import="controller.servlets.analyse.AnalyseBearbeitenServlet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="config.Address"%>
+<%@ page import="model.database.tableModels.analyse.*"%>
+<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet"%>
+<%@ page import="controller.servlets.analyse.AnalyseBearbeitenServlet"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Solid-Chem | LIMS - Update Analyse</title>
-    <link rel="stylesheet" href="<%=Address.getAnalyseErstellenCss()%>">
-    <link rel="stylesheet" href="<%=Address.getAnalyseBearbeitenCss()%>">
-    <script src="<%=Address.getAnalyseErstellenJS()%>"></script>
-    <script type="text/javascript">
+<meta charset="UTF-8">
+<title>Solid-Chem | LIMS - Update Analyse</title>
+<link rel="stylesheet" href="<%=Address.getAnalyseErstellenCss()%>">
+<link rel="stylesheet" href="<%=Address.getAnalyseBearbeitenCss()%>">
+<script src="<%=Address.getAnalyseErstellenJS()%>"></script>
+<script type="text/javascript">
         $(document).ready(function () {
             $('#form_analyse_bearbeiten').submit(function () {
                 $.ajax({
@@ -30,23 +30,22 @@
     </script>
 </head>
 <body>
-<form id="form_analyse_bearbeiten">
-    <div class="analyse_bearbeiten_main_header">Analyse bearbeiten</div>
+	<form id="form_analyse_bearbeiten">
+		<div class="analyse_bearbeiten_main_header">Analyse bearbeiten</div>
 
-    <div class="analyse_bearbeiten_header">Analyse ID:</div>
-    <div class="analyse_bearbeiten_entry">
-        <input required type="number" min="1" id="analyse_id_input_field" name="<%=AnalyseErstellenServlet.ANALYSE_ID%>">
-    </div>
+		<div class="analyse_bearbeiten_header">Analyse ID:</div>
+		<div class="analyse_bearbeiten_entry">
+			<input required type="number" min="1" id="analyse_id_input_field" name="<%=AnalyseErstellenServlet.ANALYSE_ID%>">
+		</div>
 
-    <div id="analyse_bearbeiten_content">
-    </div>
+		<div id="analyse_bearbeiten_content"></div>
 
-    <div id="analyse_bearbeiten_speichern" class="experiment_bearbeiten_entry">
-        <button disabled id="button_analyse_update" type="submit">Speichern</button>
-        <input required type="checkbox" id="acknowledge_analyse_update" onclick="enableSaveButton(this)">
-        <i>Die bestehende Analyse wird mit den neuen werten überschrieben!</i>
-    </div>
-</form>
+		<div id="analyse_bearbeiten_speichern" class="experiment_bearbeiten_entry">
+			<button disabled id="button_analyse_update" type="submit">Speichern</button>
+			<input required type="checkbox" id="acknowledge_analyse_update" onclick="enableSaveButton(this)">
+			<i>Die bestehende Analyse wird mit den neuen werten überschrieben!</i>
+		</div>
+	</form>
 </body>
 
 <script>

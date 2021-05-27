@@ -12,6 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
+import model.database.dummyDB.DummyDB;
+import model.database.manager.DatabaseManager;
+import model.database.tableModels.Model;
 import model.database.tableModels.Partner;
 import utility.JSON;
 
@@ -36,7 +39,9 @@ public class SavePartnerServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-    	
+
+		if(hasDublicatedName(request, out)) return;	//TODO nur fuer DummyDB, bei MariaDB umstellen
+		
     	Partner partner = new Partner();
     	partner.setPrimaryKey(request.getParameter(Partner.COLUMN_PRIMARY_KEY));
     	partner.setName(request.getParameter(Partner.COLUMN_NAME));
@@ -72,6 +77,27 @@ public class SavePartnerServlet extends HttpServlet {
 		json.addKeyValue("status", "success");
 		json.addKeyValue("message", "Erfolgreich gespeichert");
 		out.print(json.toString());
+	}
+
+	private boolean hasDublicatedName(HttpServletRequest request, PrintWriter out) {
+		DummyDB dummyDb = (DummyDB)(DatabaseManager.getDatabaseInstance());
+		
+		for(Model model : dummyDb.getModelList()){
+			if(model.getClass() != Partner.class) continue;
+			Partner partner = (Partner)model;
+			if(!partner.getName().equals(request.getParameter(Partner.COLUMN_NAME))) continue;
+			
+			JSON json = new JSON();
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Name schon vorhanden");
+			out.print(json.toString());
+			
+			System.out.println("doppel");
+			
+			return true;
+		}
+		
+		return false;
 	}
 
     @Override

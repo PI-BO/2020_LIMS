@@ -9,7 +9,6 @@ input:invalid, select:invalid, textarea:invalid {
 /* 	border-color: green; */
 /* 	border-width: 3px; */
 /* } */
-
 #form_experiment_bearbeiten {
 	min-width: 500px;
 }

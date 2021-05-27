@@ -1,5 +1,7 @@
 const Tooltip = ( function (){
 
+    const public = {};
+
     public.setTooltip = function setTooltip(elementId, tooltipText){
 
         const element = document.getElementById(elementId);

@@ -1,17 +1,17 @@
-<%@ page import="config.Address" %>
-<%@ page import="model.database.tableModels.experimente.ExperimenttypVerdampfung" %>
-<%@ page import="model.database.tableModels.experimente.ExperimenttypSlurry" %>
-<%@ page import="model.database.tableModels.experimente.ExperimenteModel" %>
-<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="config.Address"%>
+<%@ page import="model.database.tableModels.experimente.ExperimenttypVerdampfung"%>
+<%@ page import="model.database.tableModels.experimente.ExperimenttypSlurry"%>
+<%@ page import="model.database.tableModels.experimente.ExperimenteModel"%>
+<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Solid-Chem | LIMS - Insert Experiment</title>
-    <link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
-    <link rel="stylesheet" href="<%=Address.getExperimentBearbeitenCss()%>">
-    <script src="<%=Address.getExperimentErstellenJS()%>"></script>
-    <script type="text/javascript">
+<meta charset="UTF-8">
+<title>Solid-Chem | LIMS - Insert Experiment</title>
+<link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
+<link rel="stylesheet" href="<%=Address.getExperimentBearbeitenCss()%>">
+<script src="<%=Address.getExperimentErstellenJS()%>"></script>
+<script type="text/javascript">
         $(document).ready(function () {
             $('#form_experiment_bearbeiten').submit(function () {
                 $.ajax({
@@ -31,23 +31,22 @@
     </script>
 </head>
 <body>
-<form id="form_experiment_bearbeiten">
-    <div class="experiment_bearbeiten_main_header">Experiment bearbeiten</div>
+	<form id="form_experiment_bearbeiten">
+		<div class="experiment_bearbeiten_main_header">Experiment bearbeiten</div>
 
-    <div class="experiment_bearbeiten_header">Experiment ID:</div>
-    <div class="experiment_bearbeiten_entry">
-        <input required type="number" min="1" id="experiment_id_input_field" name="<%=ExperimentErstellenServlet.NO_ID%>">
-    </div>
+		<div class="experiment_bearbeiten_header">Experiment ID:</div>
+		<div class="experiment_bearbeiten_entry">
+			<input required type="number" min="1" id="experiment_id_input_field" name="<%=ExperimentErstellenServlet.NO_ID%>">
+		</div>
 
-    <div id="experiment_bearbeiten_content">
-    </div>
+		<div id="experiment_bearbeiten_content"></div>
 
-    <div id="experiment_bearbeiten_speichern" class="experiment_bearbeiten_entry">
-        <button disabled id="button_experiment_update" type="submit">Speichern</button>
-        <input required type="checkbox" id="acknowledge_experiment_update" onclick="enableSaveButton(this)">
-        <i>Das bestehende Experiment wird mit den neuen werten überschrieben!</i>
-    </div>
-</form>
+		<div id="experiment_bearbeiten_speichern" class="experiment_bearbeiten_entry">
+			<button disabled id="button_experiment_update" type="submit">Speichern</button>
+			<input required type="checkbox" id="acknowledge_experiment_update" onclick="enableSaveButton(this)">
+			<i>Das bestehende Experiment wird mit den neuen werten überschrieben!</i>
+		</div>
+	</form>
 </body>
 
 <script>

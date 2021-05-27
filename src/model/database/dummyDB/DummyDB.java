@@ -630,4 +630,8 @@ public class DummyDB implements Database {
 
 		return branches;
 	}
+	
+	public List<Model> getModelList() {
+		return modelList;
+	}
 }

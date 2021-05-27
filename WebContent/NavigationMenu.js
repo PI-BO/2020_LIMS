@@ -5,7 +5,7 @@ const NavigationMenu = (function () {
     const navigationNodeShowDelay = 400;
     const globalSearchMainContentContainerId = "main-content-global-search";
 
-    public = {};
+    const public = {};
 
     public.hideAllExcept = function hideAllExcept(id) {
         let toggleList = [];
@@ -47,6 +47,9 @@ const NavigationMenu = (function () {
             $(id).click(function () {
                 var posting = $.post(url, {});
                 posting.done(function (data) {
+                    
+                    console.log({containerId}, {key});
+
                     $(containerId).empty().append(data);
                     public.hideAllExcept(containerId);
                 });

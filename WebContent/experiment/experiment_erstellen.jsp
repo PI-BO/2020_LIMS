@@ -1,38 +1,37 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet" %>
-<%@ page import="model.database.tableModels.*" %>
-<%@ page import="config.Address" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="exceptions.ModelNotFoundException" %>
-<%@ page import="model.database.tableModels.experimente.Experimenttyp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet"%>
+<%@ page import="model.database.tableModels.*"%>
+<%@ page import="config.Address"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import="exceptions.ModelNotFoundException"%>
+<%@ page import="model.database.tableModels.experimente.Experimenttyp"%>
 <!DOCTYPE html>
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Solid-Chem | LIMS - Insert Experiment</title>
-    <link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
-    <script type="text/javascript" src="<%=Address.getMainPath()%>/experiment/experimenttyp.jsp"></script>
-    <script src="<%=Address.getExperimentErstellenJS()%>"></script>
+<meta charset="UTF-8">
+<title>Solid-Chem | LIMS - Insert Experiment</title>
+<link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
+<script type="text/javascript" src="<%=Address.getMainPath()%>/experiment/experimenttyp.jsp"></script>
+<script src="<%=Address.getExperimentErstellenJS()%>"></script>
 </head>
 
 <body>
-    <form id="form_experiment_erstellen">
-        <div class="experiment_erstellen_main_header">Experiment erstellen</div>
+	<form id="form_experiment_erstellen">
+		<div class="experiment_erstellen_main_header">Experiment erstellen</div>
 
-        <div class="experiment_erstellen_header">Experiment Typ:</div>
-        <div class="experiment_erstellen_entry">
-            <select required onchange="showExperimenttypFieldsMethode(this.value)"
-                name=<%=ExperimentErstellenServlet.TYP%>>
-                <option value="" selected disabled>bitte auswaehlen</option>
-                <%
+		<div class="experiment_erstellen_header">Experiment Typ:</div>
+		<div class="experiment_erstellen_entry">
+			<select required onchange="showExperimenttypFieldsMethode(this.value)" name=<%=ExperimentErstellenServlet.TYP%>>
+				<option value="" selected disabled>bitte auswaehlen</option>
+				<%
                 try {
                     ModelTable experimentTypModelList = new ModelTable(new Experimenttyp());
                     for (Model model : experimentTypModelList.getModelList()) {
             %>
-                <option value="<%=model.getPrimaryKey()%>"><%=((Experimenttyp) model).getTyp()%>
-                </option>
-                <%
+				<option value="<%=model.getPrimaryKey()%>"><%=((Experimenttyp) model).getTyp()%>
+				</option>
+				<%
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -40,18 +39,16 @@
                     e.printStackTrace();
                 }
             %>
-            </select>
-        </div>
+			</select>
+		</div>
 
-        <div id="experiment_erstellen_content">
-        </div>
+		<div id="experiment_erstellen_content"></div>
 
-        <div id="experiment_erstellen_speichern" class="experiment_erstellen_entry">
-            <button id="button_experiment_speichern" type="submit">Speichern</button>
-        </div>
-        <div id="experiment_erstellen_save_message" class="experiment_erstellen_entry">
-        </div>
-    </form>
+		<div id="experiment_erstellen_speichern" class="experiment_erstellen_entry">
+			<button id="button_experiment_speichern" type="submit">Speichern</button>
+		</div>
+		<div id="experiment_erstellen_save_message" class="experiment_erstellen_entry"></div>
+	</form>
 </body>
 <script type="text/javascript">
 

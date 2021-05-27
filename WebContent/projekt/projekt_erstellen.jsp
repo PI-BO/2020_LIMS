@@ -8,29 +8,29 @@
 <html>
 
 <head>
-	<meta charset="UTF-8" />
-	<title>Solid-Chem | LIMS - Insert Projekt</title>
-	<!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
-	<style>
-		#create_projekt_table {
-			border: 1px solid #ddd;
-			padding: 10px;
-			padding-left: 30px;
-			padding-right: 30px;
-			display: inline-block;
-			background-color: white;
-		}
+<meta charset="UTF-8" />
+<title>Solid-Chem | LIMS - Insert Projekt</title>
+<!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
+<style>
+#create_projekt_table {
+	border: 1px solid #ddd;
+	padding: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	display: inline-block;
+	background-color: white;
+}
 
-		#th_speichern {
-			padding-top: 10px;
-		}
+#th_speichern {
+	padding-top: 10px;
+}
 
-		input:required {
-			border-style: solid;
-			border-color: red;
-			border-width: 2px;
-		}
-	</style>
+input:required {
+	border-style: solid;
+	border-color: red;
+	border-width: 2px;
+}
+</style>
 </head>
 
 <body>
@@ -51,12 +51,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td id="projektIdTooltip">
-					Projekt ID
-				</td>
+				<td id="projektIdTooltip">Projekt ID</td>
 				<td>
-					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder=""
-						name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
+					<input required id="projekt_id_input_field" class="drop_down_field" type=text placeholder="" name=<%=Projekt.COLUMN_PRIMARY_KEY%>>
 				</td>
 			</tr>
 			<!-- <tr>
@@ -161,5 +158,4 @@
 		projektErstellenInit();
 
 	</script>
-
 </html>

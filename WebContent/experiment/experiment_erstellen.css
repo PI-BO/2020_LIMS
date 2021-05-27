@@ -9,7 +9,6 @@ input:invalid, select:invalid, textarea:invalid {
 /* 	border-color: green; */
 /* 	border-width: 3px; */
 /* } */
-
 #form_experiment_erstellen {
 	min-width: 500px;
 }
@@ -66,6 +65,6 @@ input:invalid, select:invalid, textarea:invalid {
 	margin-right: 10px;
 }
 
-#durchfuehrung_select{
+#durchfuehrung_select {
 	max-width: 300px;
 }

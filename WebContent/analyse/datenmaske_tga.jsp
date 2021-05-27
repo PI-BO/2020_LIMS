@@ -1,14 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="exceptions.ModelNotFoundException" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.stream.Collectors" %>
-<%@ page import="model.database.tableModels.*" %>
-<%@ page import="model.database.tableModels.analyse.AnalyseTemperaturprogramme" %>
-<%@ page import="model.database.tableModels.experimente.Experiment" %>
-<%@ page import="model.database.tableModels.experimente.ExperimenteModel" %>
-<%@ page import="model.database.relations.ExperimentExperimenttyp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import="exceptions.ModelNotFoundException"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="java.util.stream.Collectors"%>
+<%@ page import="model.database.tableModels.*"%>
+<%@ page import="model.database.tableModels.analyse.AnalyseTemperaturprogramme"%>
+<%@ page import="model.database.tableModels.experimente.Experiment"%>
+<%@ page import="model.database.tableModels.experimente.ExperimenteModel"%>
+<%@ page import="model.database.relations.ExperimentExperimenttyp"%>
 
 <%!
     private ModelTable modelList;
@@ -26,15 +26,15 @@
 
 <div class="analyse_erstellen_header" id="analyseIdTooltip">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-    <input required type="number" min="1" name=<%=AnalyseErstellenServlet.ANALYSE_ID%>>
+	<input required type="number" min="1" name=<%=AnalyseErstellenServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
 
-    <input type="text" disabled required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
+	<input type="text" disabled required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
 
-    <!-- <select required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
+	<!-- <select required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
             try {
@@ -57,73 +57,73 @@
 
 <div class="analyse_erstellen_header">Datum</div>
 <div class="analyse_erstellen_entry">
-    <input type="date" name=<%=AnalyseErstellenServlet.DATUM%>>
+	<input type="date" name=<%=AnalyseErstellenServlet.DATUM%>>
 </div>
 
 <div class="analyse_erstellen_header">Einwaage [mg]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" min="0" step="0.001" name=<%=AnalyseErstellenServlet.EINWAAGE_MG%>>
+	<input type="number" min="0" step="0.001" name=<%=AnalyseErstellenServlet.EINWAAGE_MG%>>
 </div>
 
 <div class="analyse_erstellen_header">Rampe [K/min]</div>
 <div class="analyse_erstellen_entry">
-    <input type="number" min="0" name=<%=AnalyseErstellenServlet.RAMPE_K_MIN%>>
+	<input type="number" min="0" name=<%=AnalyseErstellenServlet.RAMPE_K_MIN%>>
 </div>
 
 <div class="analyse_erstellen_header">Temperaturprogramm</div>
 <div class="analyse_erstellen_entry">
-    <select required onchange="showTemperaturprogramm(this)" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM%>>
-        <option value="" selected disabled>bitte auswaehlen</option>
-        <option value="new">Neues Temperaturprogramm</option>
-        <%
+	<select required onchange="showTemperaturprogramm(this)" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM%>>
+		<option value="" selected disabled>bitte auswaehlen</option>
+		<option value="new">Neues Temperaturprogramm</option>
+		<%
             if (modelList != null) {
                 Set<String> tabellen = modelList.getModelList().stream().map(model -> ((AnalyseTemperaturprogramme) model).getTabelle()).collect(Collectors.toSet());
                 for (String tabelle : tabellen) {
         %>
-        <option value="<%=tabelle%>">Tabelle <%=tabelle%>
-        </option>
-        <%
+		<option value="<%=tabelle%>">Tabelle
+			<%=tabelle%>
+		</option>
+		<%
                 }
             }
         %>
-    </select>
-    <input id="temperaurprogramme_table_title" style="display: none" type="number" min="1"
-        name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TITEL%>>
-    <div id="temperaturprogramme_table" style="display: none">
-        <div class="temperaturprogramme_methode_add_button">
-            <input type="button" value=" neue Zeile " onclick="newTemperaturprogrammRow(this)">
-        </div>
-        <table id="template_temperaturprogramme">
-            <tbody>
-                <tr>
-                    <th>Schritt</th>
-                    <th>Temperatur [°C]</th>
-                    <th>Rampe [k/min]</th>
-                    <th>Zeit [min]</th>
-                    <th>Segmenttyp</th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	</select>
+	<input id="temperaurprogramme_table_title" style="display: none" type="number" min="1" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TITEL%>>
+	<div id="temperaturprogramme_table" style="display: none">
+		<div class="temperaturprogramme_methode_add_button">
+			<input type="button" value=" neue Zeile " onclick="newTemperaturprogrammRow(this)">
+		</div>
+		<table id="template_temperaturprogramme">
+			<tbody>
+				<tr>
+					<th>Schritt</th>
+					<th>Temperatur [°C]</th>
+					<th>Rampe [k/min]</th>
+					<th>Zeit [min]</th>
+					<th>Segmenttyp</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div class="analyse_erstellen_header">Bemerkung</div>
 <div class="analyse_erstellen_entry">
-    <input type="text" name=<%=AnalyseErstellenServlet.BEMERKUNG%>>
+	<input type="text" name=<%=AnalyseErstellenServlet.BEMERKUNG%>>
 </div>
 
 <div class="analyse_erstellen_header">Operator</div>
 <div class="analyse_erstellen_entry">
-    <select required name=<%=AnalyseErstellenServlet.OPERATOR%>>
-        <option value="" selected disabled>bitte auswaehlen</option>
-        <%
+	<select required name=<%=AnalyseErstellenServlet.OPERATOR%>>
+		<option value="" selected disabled>bitte auswaehlen</option>
+		<%
             try {
                 ModelTable modelList = new ModelTable(new Mitarbeiter());
                 for (Model model : modelList.getModelList()) {
         %>
-        <option value=<%=model.getPrimaryKey()%>><%=((Mitarbeiter) model).getNachname()%>
-        </option>
-        <%
+		<option value=<%=model.getPrimaryKey()%>><%=((Mitarbeiter) model).getNachname()%>
+		</option>
+		<%
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -131,32 +131,32 @@
                 e.printStackTrace();
             }
         %>
-    </select>
+	</select>
 </div>
 
 <!-- TABLE ROW -->
 <table style="display: none">
-    <tr class="temperaturprogramm_tamplate_table_row">
-        <td class="eingangsanalyse_entry">
-            <input type="number" min="1" name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SCHRITT%>">
-        </td>
+	<tr class="temperaturprogramm_tamplate_table_row">
+		<td class="eingangsanalyse_entry">
+			<input type="number" min="1" name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SCHRITT%>">
+		</td>
 
-        <td class="eingangsanalyse_entry">
-            <input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TEMPERATUR%>>
-        </td>
+		<td class="eingangsanalyse_entry">
+			<input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_TEMPERATUR%>>
+		</td>
 
-        <td class="eingangsanalyse_entry">
-            <input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_RAMPE%>>
-        </td>
+		<td class="eingangsanalyse_entry">
+			<input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_RAMPE%>>
+		</td>
 
-        <td class="eingangsanalyse_entry">
-            <input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_ZEIT%>>
-        </td>
+		<td class="eingangsanalyse_entry">
+			<input type="number" min="0" name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_ZEIT%>>
+		</td>
 
-        <td class="eingangsanalyse_entry">
-            <input type="text" name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>">
-        </td>
-    </tr>
+		<td class="eingangsanalyse_entry">
+			<input type="text" name="<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM_SEGMENTTYP%>">
+		</td>
+	</tr>
 </table>
 
 <script type="text/javascript">

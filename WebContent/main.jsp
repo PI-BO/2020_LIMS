@@ -1,23 +1,23 @@
 <%@page import="controller.servlets.SucheServlet"%>
-<%@page import="config.Address" %>
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
+<%@page import="config.Address"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-	<title>Solid-Chem | LIMS</title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>Solid-Chem | LIMS</title>
 
-	<script src="jquery-3.5.1.js"></script>
+<script src="jquery-3.5.1.js"></script>
 
-	<link rel="stylesheet" href="<%=Address.getMainCSS()%>">
-	<link rel="stylesheet" id="google-font-api-special-1-css"
-		href="https://fonts.googleapis.com/css?family=Roboto%3A100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%2C100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900&amp;ver=5.4.4"
-		type="text/css" media="all">
-	<link rel="stylesheet" id="google-font-api-special-2-css"
-		href="https://fonts.googleapis.com/css?family=Lato%3A100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%2C100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900&amp;subset=latin&amp;ver=5.4.4"
-		type="text/css" media="all">
+<link rel="stylesheet" href="<%=Address.MAIN_PATH + Address.MAIN_CSS%>">
+<link rel="stylesheet" id="google-font-api-special-1-css"
+	href="https://fonts.googleapis.com/css?family=Roboto%3A100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%2C100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900&amp;ver=5.4.4"
+	type="text/css" media="all">
+<link rel="stylesheet" id="google-font-api-special-2-css"
+	href="https://fonts.googleapis.com/css?family=Lato%3A100italic%2C200italic%2C300italic%2C400italic%2C500italic%2C600italic%2C700italic%2C800italic%2C900italic%2C100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900&amp;subset=latin&amp;ver=5.4.4"
+	type="text/css" media="all">
 </head>
 
 <body>
@@ -27,7 +27,7 @@
 		</div>
 		<div id="main-menu">
 			<!-- <%-- 				<%@ include file = "/navigation_menu.jsp" %> --%> -->
-			<jsp:include page="<%=Address.getNavigationMenuRelativeJSP()%>" />
+			<jsp:include page="<%=Address.NAVIGATION_MENU_JSP%>" />
 		</div>
 		<div id="main-content">
 			<div id="main-content-explorer" style="display: none"></div>
@@ -41,17 +41,18 @@
 <script src="Model.js"></script>
 <script src="MainState.js"></script>
 <script src="Tooltip.js"></script>
-<script src="<%=Address.getGlobaleSucheJs()%>"></script>
+<script src="suche/GlobaleSuche.js"></script>
+<script src="Form.js"></script>
 <script type="text/javascript">
 
 	Main.setSubpages(
 		{
-			"<%=Address.getGlobaleSucheJsp()%>": "#main-content-global-search",
-			"<%=Address.getExplorerJSP()%>": "#main-content-explorer"
+			"<%=Address.MAIN_PATH + Address.GLOBALE_SUCHE_JSP%>": "#main-content-global-search",
+			"<%=Address.MAIN_PATH + Address.EXPLORER_JSP%>": "#main-content-explorer"
 		}
 	);
 
-	Main.setSucheServletAddress("<%=Address.getMainPath()%>" + "<%=SucheServlet.ROUTE%>");
+	Main.setSucheServletAddress("<%=Address.MAIN_PATH%>" + "<%=SucheServlet.ROUTE%>");
 	
 	Main.init();
 

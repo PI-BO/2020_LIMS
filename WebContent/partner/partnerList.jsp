@@ -1,19 +1,21 @@
+<%@page import="model.database.tableModels.Projekt"%>
+<%@page import="model.database.tableModels.Model"%>
+<%@page import="model.database.tableModels.ModelTable"%>
 <%@page import="config.Address"%>
-<%@ page import="model.database.tableModels.experimente.Experiment"%>
-<%@ page import="model.database.tableModels.analyse.Analyse"%>
+<%@ page import="model.database.tableModels.Partner"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>LIMS | Projekt</title>
 <link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
-<title>LIMS | Experiment</title>
 </head>
 
 <%
     String projekt_id = request.getParameter("projekt_id");
-    Experiment experiment = new Experiment(projekt_id);
+    ModelTable partnerList = new ModelTable(new Partner());
 %>
 
 <body>
@@ -25,22 +27,23 @@
 			<td class="explorer_sortfunction symbol_triangle_up" onclick="">etc</td>
 		</tr>
 
-
 		<%
-        for (Analyse analyse : experiment.getAnalysen()) {
+        for (Model partner : partnerList.getModelList()) {
     %>
 
 		<tr>
 			<td class="explorer_table_data symbol_folder_closed"
 				onclick="(
                 function() {
+                let data = {projekt_id: '<%=partner.getPrimaryKey()%>'};
+                loadPage('<%=Address.getPartnerJSP()%>', data);
                 explorerState.pushToState({
-                table: '<%=analyse.getTable()%>',
-                id: '<%=analyse.getPrimaryKey()%>',
-                text: '<%=analyse.getPrimaryKey()%>'
+                table: '<%=partner.getTable()%>',
+                id: '<%=partner.getPrimaryKey()%>',
+                text: '<%=((Partner) partner).getName()%>'
                 });
                 }
-                )()"><%=analyse.getPrimaryKey()%>
+                )()"><%=((Partner) partner).getName()%>
 			</td>
 			<td class="explorer_table_data"></td>
 			<td class="explorer_table_data"></td>
@@ -49,12 +52,11 @@
 		<%
         }
     %>
+
 	</table>
 
 	<script>
-
     addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
-
 </script>
 
 </body>

@@ -360,7 +360,7 @@ const GlobaleSuche = (function () {
 
 	public.addSearchCallback = function addSearchCallback(callback, startSearch = false, returnParameter) {
 		searchCallbackForInputMasks = callback;
-		searchCallbackReturnParameterForInputMasks = returnParameter;
+		searchCallbackReturnParameterForInputMasks = returnParameter; //TODO: undefined besser abfangen?!
 		enableCallbackMode();
 		if (startSearch) search();
 	}
