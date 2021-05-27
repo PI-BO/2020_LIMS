@@ -114,7 +114,7 @@ input:required {
 	visibility: visible;
 }
 </style>
-<script src="<%=Address.getProbeneingangJS()%>"></script>
+<script src="<%=Address.MAIN_PATH + Address.PROBENEINGANG_JS%>"></script>
 </head>
 
 <body>
@@ -140,7 +140,7 @@ input:required {
 	<script>
         $(document).ready(function () {
         	
-			const url = "<%=Address.MAIN_PATH + Address.PROBENEINGANG_JSP%>";
+			const url = "<%=Address.MAIN_PATH + Address.PROBENEINGANG_BEARBEITEN_JSP%>";
         	const probeneingangContent = $.post(url);
             probeneingangContent.done(function (data) {
                 $("#table_probeneingang tr").eq(0).after(data);
