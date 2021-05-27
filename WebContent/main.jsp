@@ -27,6 +27,7 @@
 		</div>
 		<div id="main-menu">
 			<!-- <%-- 				<%@ include file = "/navigation_menu.jsp" %> --%> -->
+			<!-- TODO: -->
 			<jsp:include page="<%=Address.NAVIGATION_MENU_JSP%>" />
 		</div>
 		<div id="main-content">
