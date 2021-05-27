@@ -94,7 +94,7 @@
 				"#projekt_erstellen": "<%=Address.MAIN_PATH + Address.PROJEKT_ERSTELLEN_JSP%>",
 				"#experiment_erstellen": "<%=Address.MAIN_PATH + Address.EXPERIMENT_ERSTELLEN_JSP%>",
 				"#analyse_erstellen": "<%=Address.MAIN_PATH + Address.ANALYSE_ERSTELLEN_JSP%>",
-				"#probeneingang_erstellen": "<%=Address.MAIN_PATH + Address.PROBENEINGANG_JSP%>",
+				"#probeneingang_erstellen": "<%=Address.MAIN_PATH + Address.PROBENEINGANG_ERSTELLEN_JSP%>",
 				"#eingangsanalytik_erstellen": "<%=Address.MAIN_PATH + Address.EINGANGSANALYTIK_JSP%>",
 				"#experiment_bearbeiten": "<%=Address.MAIN_PATH + Address.EXPERIMENT_BEARBEITEN_JSP%>",
 				"#analyse_bearbeiten": "<%=Address.MAIN_PATH + Address.ANALYSE_BEARBEITEN_JSP%>",
