@@ -14,68 +14,77 @@ public class Address {
 	public final static String MAIN_PATH = "http://localhost:8080/2020_LIMS";
 	// public final static String MAIN_PATH = "https://hbolims.herokuapp.com";
 
-	public final static String EINGANGSANALYTIK_JSP = "/eingangsanalytik/eingangsanalytik.jsp";
-	public final static String EINGANGSANALYTIK_JS = "/eingangsanalytik/eingangsanalytik.js";
-	public final static String EINGANGSANALYTIK_CSS = "/eingangsanalytik/eingangsanalytik.css";
+	public final static String EINGANGSANALYTIK_PATH = "/eingangsanalytik";
+	public final static String EINGANGSANALYTIK_JSP = EINGANGSANALYTIK_PATH + "/eingangsanalytik.jsp";
+	public final static String EINGANGSANALYTIK_JS = EINGANGSANALYTIK_PATH + "/eingangsanalytik.js";
+	public final static String EINGANGSANALYTIK_CSS = EINGANGSANALYTIK_PATH + "/eingangsanalytik.css";
 
-	public final static String ANALYSE_ERSTELLEN_JSP = "/analyse/analyse_erstellen.jsp";
-	public final static String ANALYSE_ERSTELLEN_CSS = "/analyse/analyse_erstellen.css";
-	public final static String ANALYSE_ERSTELLEN_JS = "/analyse/analyse_erstellen.js";
+	public final static String ANALYSE_PATH = "/analyse";
+	public final static String ANALYSE_ERSTELLEN_JSP = ANALYSE_PATH + "/analyse_erstellen.jsp";
+	public final static String ANALYSE_ERSTELLEN_CSS = ANALYSE_PATH + "/analyse_erstellen.css";
+	public final static String ANALYSE_ERSTELLEN_JS = ANALYSE_PATH + "/analyse_erstellen.js";
 	public final static String ANALYSE_ERSTELLEN_SERVLET = AnalyseErstellenServlet.ROUTE;
-	public final static String ANALYSE_DATENMASKE_PXRD_JSP = "/analyse/datenmaske_pxrd.jsp";
-	public final static String ANALYSE_DATENMASKE_IR_JSP = "/analyse/datenmaske_ir.jsp";
-	public final static String ANALYSE_DATENMASKE_DSC_JSP = "/analyse/datenmaske_dsc.jsp";
-	public final static String ANALYSE_DATENMASKE_TGA_JSP = "/analyse/datenmaske_tga.jsp";
+	public final static String ANALYSE_DATENMASKE_PXRD_JSP = ANALYSE_PATH + "/datenmaske_pxrd.jsp";
+	public final static String ANALYSE_DATENMASKE_IR_JSP = ANALYSE_PATH + "/datenmaske_ir.jsp";
+	public final static String ANALYSE_DATENMASKE_DSC_JSP = ANALYSE_PATH + "/datenmaske_dsc.jsp";
+	public final static String ANALYSE_DATENMASKE_TGA_JSP = ANALYSE_PATH + "/datenmaske_tga.jsp";
 	public final static String ANALYSE_BEARBEITEN_SERVLET = AnalyseBearbeitenServlet.ROUTE;
-	public final static String ANALYSE_BEARBEITEN_CSS = "/analyse/analyse_bearbeiten.css";
-	public final static String ANALYSE_BEARBEITEN_JSP = "/analyse/analyse_bearbeiten.jsp";
+	public final static String ANALYSE_BEARBEITEN_CSS = ANALYSE_PATH + "/analyse_bearbeiten.css";
+	public final static String ANALYSE_BEARBEITEN_JSP = ANALYSE_PATH + "/analyse_bearbeiten.jsp";
 
-	public final static String PROBENEINGANG_JSP = "/probe/probeneingang.jsp";
-	public final static String PROBENEINGANG_ERSTELLEN_JSP = "/probe/probeneingang_erstellen.jsp";
-	public final static String PROBENEINGANG_BEARBEITEN_SERVLET = "/probe/bearbeiten";
-	public final static String PROBENEINGANG_BEARBEITEN_JSP = "/probe/probeneingang_bearbeiten.jsp";
-	public final static String PROBENEINGANG_JS = "/probe/probeneingang.js";
+	public final static String PROBENEINGANG_PATH = "/probe";
+	public final static String PROBENEINGANG_JSP = PROBENEINGANG_PATH + "/probeneingang.jsp";
+	public final static String PROBENEINGANG_ERSTELLEN_JSP = PROBENEINGANG_PATH + "/probeneingang_erstellen.jsp";
+	public final static String PROBENEINGANG_BEARBEITEN_SERVLET = PROBENEINGANG_PATH + "/bearbeiten";
+	public final static String PROBENEINGANG_BEARBEITEN_JSP = PROBENEINGANG_PATH + "/probeneingang_bearbeiten.jsp";
+	public final static String PROBENEINGANG_JS = PROBENEINGANG_PATH + "/probeneingang.js";
 
-	public final static String PROBE_JSP = "/probe/probe.jsp";
+	public final static String PROBE_JSP = PROBENEINGANG_PATH + "/probe.jsp";
 
-	public final static String EXPLORER_JSP = "/explorer/explorer.jsp";
-	public final static String EXPLORER_JS = "/explorer/explorerFunctions.js";
-	public final static String EXPLORER_CSS = "/explorer/explorer.css";
-	public final static String EXPLORER_NAVIGATION_MENU_JSP = "/main/explorer_navigation_menu.jsp";
+	public final static String EXPLORER_PATH = "/explorer";
+	public final static String EXPLORER_JSP = EXPLORER_PATH + "/explorer.jsp";
+	public final static String EXPLORER_JS = EXPLORER_PATH + "/explorerFunctions.js";
+	public final static String EXPLORER_CSS = EXPLORER_PATH + "/explorer.css";
+	public final static String EXPLORER_NAVIGATION_MENU_JSP = EXPLORER_PATH + "/explorer_navigation_menu.jsp";
 
-	public final static String PARTNER_JSP = "/partner/partner.jsp";
-	public final static String PARTNER_LIST_JSP = "/partner/partnerList.jsp";
-	public final static String PARTNER_ERSTELLEN_JSP = "/partner/partner_erstellen.jsp";
-	public final static String PARTNER_BEARBEITEN_JSP = "/partner/partner_bearbeiten.jsp";
+	public final static String PARTNER_PATH = "/partner";
+	public final static String PARTNER_JSP = PARTNER_PATH + "/partner.jsp";
+	public final static String PARTNER_LIST_JSP = PARTNER_PATH + "/partnerList.jsp";
+	public final static String PARTNER_ERSTELLEN_JSP = PARTNER_PATH + "/partner_erstellen.jsp";
+	public final static String PARTNER_BEARBEITEN_JSP = PARTNER_PATH + "/partner_bearbeiten.jsp";
 	public final static String PARTNER_BEARBEITEN_SERVLET = PartnerBearbeitenServlet.ROUTE;
 	public final static String PARTNER_SPEICHERN_SERVLET = PartnerErstellenServlet.ROUTE;
 
-	public final static String PROJEKT_JSP = "/projekt/projekt.jsp";
-	public final static String PROJEKTE_LIST_JSP = "/projekt/projekteList.jsp";
-	public final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
-	public final static String PROJEKT_BEARBEITEN_JSP = "/projekt/projekt_bearbeiten.jsp";
+	public final static String PROJEKT_PATH = "/projekt";
+	public final static String PROJEKT_JSP = PROJEKT_PATH + "/projekt.jsp";
+	public final static String PROJEKTE_LIST_JSP = PROJEKT_PATH + "/projekteList.jsp";
+	public final static String PROJEKT_ERSTELLEN_JSP = PROJEKT_PATH + "/projekt_erstellen.jsp";
+	public final static String PROJEKT_BEARBEITEN_JSP = PROJEKT_PATH + "/projekt_bearbeiten.jsp";
 	public final static String PROJEKT_BEARBEITEN_SERVLET = ProjektBearbeitenServlet.ROUTE;
 	public final static String PROJEKT_SPEICHERN_SERVLET = ProjektErstellenServlet.ROUTE;
 
-	public final static String EXPERIMENT_JSP = "/experiment/experiment.jsp";
-	public final static String EXPERIMENT_ERSTELLEN_JSP = "/experiment/experiment_erstellen.jsp";
-	public final static String EXPERIMENT_ERSTELLEN_CSS = "/experiment/experiment_erstellen.css";
-	public final static String EXPERIMENT_ERSTELLEN_JS = "/experiment/experiment_erstellen.js";
+	public final static String EXPERIMENT_PATH = "/experiment";
+	public final static String EXPERIMENT_JSP = EXPERIMENT_PATH + "/experiment.jsp";
+	public final static String EXPERIMENT_ERSTELLEN_JSP = EXPERIMENT_PATH + "/experiment_erstellen.jsp";
+	public final static String EXPERIMENT_ERSTELLEN_CSS = EXPERIMENT_PATH + "/experiment_erstellen.css";
+	public final static String EXPERIMENT_ERSTELLEN_JS = EXPERIMENT_PATH + "/experiment_erstellen.js";
 	public final static String EXPERIMENT_ERSTELLEN_SERVLET = ExperimentErstellenServlet.ROUTE;
 	public final static String EXPERIMENT_BEARBEITEN_SERVLET = ExperimentBearbeitenServlet.ROUTE;
-	public final static String EXPERIMENT_BEARBEITEN_JSP = "/experiment/experiment_bearbeiten.jsp";
-	public final static String EXPERIMENT_BEARBEITEN_CSS = "/experiment/experiment_bearbeiten.css";
-	public final static String EXPERIMENTTYP_JSP = "/experiment/experimenttyp.jsp";
+	public final static String EXPERIMENT_BEARBEITEN_JSP = EXPERIMENT_PATH + "/experiment_bearbeiten.jsp";
+	public final static String EXPERIMENT_BEARBEITEN_CSS = EXPERIMENT_PATH + "/experiment_bearbeiten.css";
+	public final static String EXPERIMENTTYP_JSP = EXPERIMENT_PATH + "/experimenttyp.jsp";
 
-	public final static String NAVIGATION_MENU_JSP = "/navigation_menu.jsp";
-	public final static String NAVIGATION_MENU_CSS = "/navigation_menu.css";
+	public final static String NAVIGATION_MENU_PATH = "";
+	public final static String NAVIGATION_MENU_JSP = NAVIGATION_MENU_PATH + "/navigation_menu.jsp";
+	public final static String NAVIGATION_MENU_CSS = NAVIGATION_MENU_PATH + "/navigation_menu.css";
 
 	public final static String MAIN_JSP = "/main.jsp";
 	public final static String MAIN_CSS = "/main.css";
 	public final static String LOGIN_HTML = "/login.html";
 
-	public final static String GLOBALE_SUCHE_JSP = "/suche/globale_suche.jsp";
-	public final static String GLOBALE_SUCHE_JS = "/suche/GlobaleSuche.js";
+	public final static String GLOBALE_SUCHE_PATH = "/suche";
+	public final static String GLOBALE_SUCHE_JSP = GLOBALE_SUCHE_PATH + "/globale_suche.jsp";
+	public final static String GLOBALE_SUCHE_JS = GLOBALE_SUCHE_PATH + "/GlobaleSuche.js";
 
 	
 	public static String getMainPath() {

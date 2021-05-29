@@ -1,4 +1,4 @@
-<%@page import="controller.servlets.SucheServlet"%>
+<%@page import="controller.servlets.suche.SucheServlet"%>
 <%@page import="config.Address"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
