@@ -5,9 +5,9 @@ import controller.servlets.analyse.AnalyseErstellenServlet;
 import controller.servlets.experiment.ExperimentBearbeitenServlet;
 import controller.servlets.experiment.ExperimentErstellenServlet;
 import controller.servlets.partner.PartnerBearbeitenServlet;
-import controller.servlets.partner.SavePartnerServlet;
+import controller.servlets.partner.PartnerErstellenServlet;
 import controller.servlets.projekt.ProjektBearbeitenServlet;
-import controller.servlets.projekt.SaveProjectServlet;
+import controller.servlets.projekt.ProjektErstellenServlet;
 
 public class Address {
 
@@ -48,14 +48,14 @@ public class Address {
 	public final static String PARTNER_ERSTELLEN_JSP = "/partner/partner_erstellen.jsp";
 	public final static String PARTNER_BEARBEITEN_JSP = "/partner/partner_bearbeiten.jsp";
 	public final static String PARTNER_BEARBEITEN_SERVLET = PartnerBearbeitenServlet.ROUTE;
-	public final static String PARTNER_SPEICHERN_SERVLET = SavePartnerServlet.ROUTE;
+	public final static String PARTNER_SPEICHERN_SERVLET = PartnerErstellenServlet.ROUTE;
 
 	public final static String PROJEKT_JSP = "/projekt/projekt.jsp";
 	public final static String PROJEKTE_LIST_JSP = "/projekt/projekteList.jsp";
 	public final static String PROJEKT_ERSTELLEN_JSP = "/projekt/projekt_erstellen.jsp";
 	public final static String PROJEKT_BEARBEITEN_JSP = "/projekt/projekt_bearbeiten.jsp";
 	public final static String PROJEKT_BEARBEITEN_SERVLET = ProjektBearbeitenServlet.ROUTE;
-	public final static String PROJEKT_SPEICHERN_SERVLET = SaveProjectServlet.ROUTE;
+	public final static String PROJEKT_SPEICHERN_SERVLET = ProjektErstellenServlet.ROUTE;
 
 	public final static String EXPERIMENT_JSP = "/experiment/experiment.jsp";
 	public final static String EXPERIMENT_ERSTELLEN_JSP = "/experiment/experiment_erstellen.jsp";
@@ -77,6 +77,7 @@ public class Address {
 	public final static String GLOBALE_SUCHE_JSP = "/suche/globale_suche.jsp";
 	public final static String GLOBALE_SUCHE_JS = "/suche/GlobaleSuche.js";
 
+	
 	public static String getMainPath() {
 		return MAIN_PATH;
 	}

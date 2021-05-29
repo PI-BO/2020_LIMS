@@ -1,4 +1,4 @@
-package controller.servlets;
+package controller.servlets.main;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 @WebServlet(MainServlet.ROUTE)
 public class MainServlet extends HttpServlet {
@@ -20,7 +21,7 @@ public class MainServlet extends HttpServlet {
 	private static final Logger LOGGER = LogManager.getLogger(MainServlet.class.getSimpleName());
 
 	public static final String ROUTE = "/main";
-	public static final String MAIN_PAGE = Address.getMainRelativeJSP();
+	public static final String MAIN_PAGE = Address.MAIN_JSP;
 	public static final String SESSION_ATTRIBUTE_NAVIGATION = "projekt_id_lise";
 
 	@Override
@@ -35,7 +36,6 @@ public class MainServlet extends HttpServlet {
 		redirectToWelcomePage(request, response);
 		// if (LoginServlet.isLogin(request, response)) doPost(request,
 		// response);
-
 	}
 
 	private void redirectToWelcomePage(HttpServletRequest request, HttpServletResponse response) throws IOException {

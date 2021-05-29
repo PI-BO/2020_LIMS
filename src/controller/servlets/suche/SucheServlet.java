@@ -1,4 +1,4 @@
-package controller.servlets;
+package controller.servlets.suche;
 
 import java.io.IOException;
 import java.io.PrintWriter;

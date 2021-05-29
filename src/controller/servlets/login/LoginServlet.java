@@ -1,4 +1,4 @@
-package controller.servlets;
+package controller.servlets.login;
 
 import exceptions.DublicateModelException;
 import exceptions.LoginInputInvalidException;
@@ -10,6 +10,8 @@ import model.database.tableModels.Sessions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import controller.servlets.main.MainServlet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
