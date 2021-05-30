@@ -78,12 +78,6 @@ input:required {
 	<script type="module" src="./partner/Partner.js"></script>
 	<script>
 
-		// import * as TestState from "../MainState.js";
-
-		// console.log(TestState);
-
-		// require("../MainState.js")
-
 		Form.addSubmit(
 			url = "<%=Address.getMainPath()%>" + "<%=PartnerErstellenServlet.ROUTE%>", 
 			formId = "form_partner_erstellen", 
