@@ -29,7 +29,7 @@ public class PartnerErstellenServlet extends HttpServlet {
 
 	private static final Logger LOGGER = LogManager.getLogger(PartnerErstellenServlet.class.getSimpleName());
 	
-	public static final String ROUTE = "/save_partner_servlet";
+	public static final String ROUTE = "/partner_erstellen_servlet";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

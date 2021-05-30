@@ -1,4 +1,4 @@
-class Parameter {
+export class Parameter {
 	constructor(category, parameter, id = "") {
 		this.category = category;
 		this.parameter = parameter;
@@ -6,7 +6,7 @@ class Parameter {
 	}
 }
 
-const Parameters = {
+export const Parameters = {
 	PARTNER: {
 		CATEGORY: "partner",
 		PK: "id",

@@ -76,31 +76,4 @@ input:required {
 	</form>
 
 	<script type="module" src="./partner/Partner.js"></script>
-	<script>
-
-		// import * as TestState from "../MainState.js";
-
-		// console.log(TestState);
-
-		// require("../MainState.js")
-
-		Form.addSubmit(
-			url = "<%=Address.getMainPath()%>" + "<%=PartnerErstellenServlet.ROUTE%>", 
-			formId = "form_partner_erstellen", 
-			messageId = "partner_erstellen_save_message",
-			callbackOnSuccess = () => {
-				const partnerID = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0].value;
-				MainState.setProjektPartner(partnerID);
-			}
-		);
-
-		// Such-Links
-		GlobaleSuche.addGenerierenLinkToInputWithName("<%=Partner.COLUMN_PRIMARY_KEY%>",
-			[
-				new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-			],
-			returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-		);
-
-	</script>
 </html>

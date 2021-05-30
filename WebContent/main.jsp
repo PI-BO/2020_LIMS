@@ -26,37 +26,13 @@
 			<img src="https://solid-chem.de/wp-content/uploads/2017/11/solid_chem_logo_head-kopie.png">
 		</div>
 		<div id="main-menu">
-			<!-- <%-- 				<%@ include file = "/navigation_menu.jsp" %> --%> -->
-			<!-- TODO: -->
-			<jsp:include page="<%=Address.NAVIGATION_MENU_JSP%>" />
 		</div>
 		<div id="main-content">
 			<div id="main-content-explorer" style="display: none"></div>
 			<div id="main-content-input-masks" style="display: none"></div>
 			<div id="main-content-global-search" style="display: none"></div>
-		</div>
+		</div>		
 	</div>
 </body>
-<script src="Main.js"></script>
-<script src="suche/Parameter.js"></script>
-<script src="Model.js"></script>
-<script src="MainState.js"></script>
-<script src="Tooltip.js"></script>
-<script src="suche/GlobaleSuche.js"></script>
-<script src="Form.js"></script>
-<script type="text/javascript">
-
-	Main.setSubpages(
-		{
-			"<%=Address.MAIN_PATH + Address.GLOBALE_SUCHE_JSP%>": "#main-content-global-search",
-			"<%=Address.MAIN_PATH + Address.EXPLORER_JSP%>": "#main-content-explorer"
-		}
-	);
-
-	Main.setSucheServletAddress("<%=Address.MAIN_PATH%>" + "<%=SucheServlet.ROUTE%>");
-	
-	Main.init();
-
-</script>
-
+<script type="module" src="Main.js"></script>
 </html>

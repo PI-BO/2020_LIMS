@@ -53,3 +53,5 @@ Form.addSubmit = function (url, formId, messageId, callbackOnSuccess) {
 		$("#" + messageId).empty().append("<h3 style=\"color:red\">" + message + "</h3>");
 	}
 }
+
+export default Form;

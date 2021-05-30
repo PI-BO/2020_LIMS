@@ -1,6 +1,8 @@
-const GlobaleSuche = (function () {
+import { Parameter } from './Parameter.js';
 
-	const public = {};
+export default (function () {
+
+	const Suche = {};
 
 	// IDs
 	const addButtonId = "global_search_add_parameter_button";
@@ -49,7 +51,7 @@ const GlobaleSuche = (function () {
 
 	let parameters = {}
 
-	public.MODEL = {
+	Suche.MODEL = {
 		PARTNER: {
 			CATEGORY: "partner",
 			PK: "id",
@@ -88,7 +90,7 @@ const GlobaleSuche = (function () {
 	// URL
 	let servletURL = "";
 
-	public.init = function init(servletAddress) {
+	Suche.init = function init(servletAddress) {
 
 		return new Promise(resolve => {
 
@@ -127,13 +129,13 @@ const GlobaleSuche = (function () {
 				NavigationMenu.hide("#" + globalSearchMainContentContainerId);
 				resetSearchWindow();
 			} else {
-				public.disableCallbackMode();
+				Suche.disableCallbackMode();
 			}
 		})
 	}
 
 	function resetSearchWindow() {
-		public.resetPosition();
+		Suche.resetPosition();
 		clearParameterRows();
 		clearResultTable();
 		addParameterRow();
@@ -208,7 +210,7 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	public.resetPositionIfOutOfBounds = function resetPositionIfOutOfBounds() {
+	Suche.resetPositionIfOutOfBounds = function resetPositionIfOutOfBounds() {
 
 		const parentContainer = document.getElementById(globalSearchMainContainerId);
 
@@ -226,7 +228,7 @@ const GlobaleSuche = (function () {
 		if (parentContainer.offsetLeft < 0) parentContainer.style.left = 0 + "px";
 	}
 
-	public.resetPosition = function resetPosition() {
+	Suche.resetPosition = function resetPosition() {
 		const parentContainer = document.getElementById(globalSearchMainContainerId);
 		parentContainer.style.removeProperty('top');
 		parentContainer.style.removeProperty('left');
@@ -260,11 +262,10 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.addGenerierenLinkToInputWithName = function addGenerierenLinkToInputWithName(inputElementName, templateParameters, returnParameter) {
+	Suche.addGenerierenLinkToInputWithName = function addGenerierenLinkToInputWithName(inputElementName, templateParameters, returnParameter) {
 
-		let inputElements = document.getElementsByName(inputElementName);
+		let inputElement = document.getElementById(inputElementName);
 
-		inputElements.forEach(inputElement => {
 
 			let searchLink = document.createElement("a")
 			searchLink.text = "generieren";
@@ -272,13 +273,12 @@ const GlobaleSuche = (function () {
 			searchLink.style.paddingLeft = "0.3em"
 			inputElement.insertAdjacentElement("afterend", searchLink);
 			addListener(searchLink, templateParameters, inputElement, returnParameter);
-		})
 
 		function addListener(searchLink, templateParameters, inputElement, returnParameter) {
 
 			searchLink.addEventListener("click", () => {
 
-				public.backgroundSearch(templateParameters, (resultArray) => {
+				Suche.backgroundSearch(templateParameters, (resultArray) => {
 
 					let highestId = 0;
 
@@ -295,7 +295,7 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	public.deleteSearchLink = function deleteSearchLink(inputElementName) {
+	Suche.deleteSearchLink = function deleteSearchLink(inputElementName) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -309,7 +309,7 @@ const GlobaleSuche = (function () {
 		});
 	}
 
-	public.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallbackBeginning, optionalCallbackEnd) {
+	Suche.addSearchLinkToInputWithName = function addSearchLinkToInputWithName(inputElementName, templateParameters, returnParameter = new Parameter("", displayKey), linkText = "suchen", optionalCallbackBeginning, optionalCallbackEnd) {
 
 		let inputElements = document.getElementsByName(inputElementName);
 
@@ -358,7 +358,7 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	public.addSearchCallback = function addSearchCallback(callback, startSearch = false, returnParameter) {
+	Suche.addSearchCallback = function addSearchCallback(callback, startSearch = false, returnParameter) {
 		searchCallbackForInputMasks = callback;
 		searchCallbackReturnParameterForInputMasks = returnParameter; //TODO: undefined besser abfangen?!
 		enableCallbackMode();
@@ -372,7 +372,7 @@ const GlobaleSuche = (function () {
 		// setMainHeaderTextInputMode(searchTargetString);
 	}
 
-	public.disableCallbackMode = function disableCallbackMode() {
+	Suche.disableCallbackMode = function disableCallbackMode() {
 		searchCallbackForInputMasks = undefined;
 		resetMinimizeButtonInputMode();
 		resetCloseButtonInputMode();
@@ -421,11 +421,11 @@ const GlobaleSuche = (function () {
 		mainHeaderText.style.removeProperty("background-color");
 	}
 
-	public.hasCallbackMethod = function hasCallbackMethod() {
+	Suche.hasCallbackMethod = function hasCallbackMethod() {
 		return (searchCallbackForInputMasks !== undefined)
 	}
 
-	public.initTemplateParameters = function initTemplateParameters(templateParameters) {
+	Suche.initTemplateParameters = function initTemplateParameters(templateParameters) {
 
 		clearParameterRows();
 		clearResultTable();
@@ -678,7 +678,7 @@ const GlobaleSuche = (function () {
 		})
 	}
 
-	public.backgroundSearch = function backgroundSearch(parameters, callbackFunction) {
+	Suche.backgroundSearch = function backgroundSearch(parameters, callbackFunction) {
 
 		let searchCategories = [];
 		let searchParameters = [];
@@ -974,7 +974,7 @@ const GlobaleSuche = (function () {
 					if (searchCallbackForInputMasks === undefined) return;
 					searchCallbackForInputMasks(cellContent);
 					searchCallbackForInputMasks = undefined;
-					public.disableCallbackMode();
+					Suche.disableCallbackMode();
 
 					resetSearchWindow();
 				})
@@ -1240,6 +1240,6 @@ const GlobaleSuche = (function () {
 		}
 	}
 
-	return public;
+	return Suche;
 
 })();
