@@ -1,10 +1,9 @@
-<%@page import="controller.servlets.partner.SavePartnerServlet"%>
+<%@page import="controller.servlets.partner.PartnerErstellenServlet"%>
 <%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="model.database.tableModels.Model"%>
 <%@page import="model.database.tableModels.Partner"%>
 <%@page import="model.database.tableModels.ModelTable"%>
-<%@page import="controller.servlets.projekt.SaveProjectServlet"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
@@ -76,10 +75,17 @@ input:required {
 		</table>
 	</form>
 
+	<script type="module" src="./partner/Partner.js"></script>
 	<script>
 
+		// import * as TestState from "../MainState.js";
+
+		// console.log(TestState);
+
+		// require("../MainState.js")
+
 		Form.addSubmit(
-			url = "<%=Address.getMainPath()%>" + "<%=SavePartnerServlet.ROUTE%>", 
+			url = "<%=Address.getMainPath()%>" + "<%=PartnerErstellenServlet.ROUTE%>", 
 			formId = "form_partner_erstellen", 
 			messageId = "partner_erstellen_save_message",
 			callbackOnSuccess = () => {

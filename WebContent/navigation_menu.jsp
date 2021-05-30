@@ -21,7 +21,7 @@
 					</span>
 						<ul class="navigation_tree_branches">
 							<li><span class="navigation_tree_node symbol_search" id="partner_auswaehlen">auswaehlen</span></li>
-							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_partner_erstellen">erstellen</span></li>
+							<li><span class="navigation_tree_node symbol_clipboard" id="partner_erstellen">erstellen</span></li>
 							<li><span class="navigation_tree_node symbol_pen_paper" id="partner_bearbeiten">bearbeiten</span></li>
 						</ul></li>
 
@@ -90,7 +90,7 @@
 
 		NavigationMenu.initInputMaskListener("#main-content-input-masks",
 			{
-				"#projekt_partner_erstellen": "<%=Address.MAIN_PATH + Address.PARTNER_ERSTELLEN_JSP%>",
+				"#partner_erstellen": "<%=Address.MAIN_PATH + Address.PARTNER_ERSTELLEN_JSP%>",
 				"#projekt_erstellen": "<%=Address.MAIN_PATH + Address.PROJEKT_ERSTELLEN_JSP%>",
 				"#experiment_erstellen": "<%=Address.MAIN_PATH + Address.EXPERIMENT_ERSTELLEN_JSP%>",
 				"#analyse_erstellen": "<%=Address.MAIN_PATH + Address.ANALYSE_ERSTELLEN_JSP%>",

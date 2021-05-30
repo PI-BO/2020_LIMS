@@ -1,5 +1,5 @@
+<%@page import="controller.servlets.analyse.EingangsanalytikServlet"%>
 <%@page import="config.Address"%>
-<%@page import="controller.servlets.EingangsanalytikServlet"%>
 <%@page import="model.EingangsanalyseSetterEnum"%>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 <!DOCTYPE html>

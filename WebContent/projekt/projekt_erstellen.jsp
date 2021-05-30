@@ -1,7 +1,7 @@
+<%@page import="controller.servlets.projekt.ProjektErstellenServlet"%>
 <%@page import="model.database.tableModels.Partner" %>
 <%@page import="config.Address" %>
 <%@page import="model.database.tableModels.Projekt" %>
-<%@page import="controller.servlets.projekt.SaveProjectServlet" %>
 <%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
 
 <!DOCTYPE html>
@@ -100,7 +100,7 @@ input:required {
 
 					submitData[Parameters.PROJEKT.FK] = partnerId;
 
-					var url = "<%=Address.getMainPath()%>" + "<%=SaveProjectServlet.ROUTE%>";
+					var url = "<%=Address.getMainPath()%>" + "<%=ProjektErstellenServlet.ROUTE%>";
 					var posting = $.post(url, submitData);
 					posting.done(async function (data) {
 
