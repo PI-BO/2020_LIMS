@@ -83,8 +83,8 @@ public class Address {
 	public final static String LOGIN_HTML = "/login.html";
 
 	public final static String GLOBALE_SUCHE_PATH = "/suche";
-	public final static String GLOBALE_SUCHE_JSP = GLOBALE_SUCHE_PATH + "/globale_suche.jsp";
-	public final static String GLOBALE_SUCHE_JS = GLOBALE_SUCHE_PATH + "/GlobaleSuche.js";
+	public final static String GLOBALE_SUCHE_JSP = GLOBALE_SUCHE_PATH + "/suche.jsp";
+	public final static String GLOBALE_SUCHE_JS = GLOBALE_SUCHE_PATH + "/Suche.js";
 
 	
 	public static String getMainPath() {

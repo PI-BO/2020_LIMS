@@ -1,4 +1,4 @@
-class Model {
+export default class Model {
     constructor(parameter) {
         for (let key in parameter) {
             if (key === "CATEGORY") {

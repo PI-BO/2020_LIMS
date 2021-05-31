@@ -1,5 +1,5 @@
-
-import Events from '../Events.js';
+import Address from '../Address.js';
+import EventType from '../EventType.js';
 
 const NavigationMenu = {};
 
@@ -10,7 +10,7 @@ const globalSearchMainContentContainerId = "main-content-global-search";
 
 NavigationMenu.render = function(htmlElement) {
 
-    const url = "http://localhost:8080/2020_LIMS/navigationMenu/navigation_menu.jsp";
+    const url = Address.NAVIGATION_MENU_JSP;
 
     fetch(url, {
         method: "post",
@@ -26,20 +26,18 @@ NavigationMenu.render = function(htmlElement) {
             const bearbeiten = partnerMenu.getElementsByTagName("bearbeiten")[0];
             
             auswaehlen.addEventListener("click", () => {
-                console.log("auswaehlen");
-                const event = new Event(Events.PARTNER.AUSWAEHLEN);
+                const event = new Event(EventType.PARTNER.AUSWAEHLEN);
                 htmlElement.dispatchEvent(event);
             });
             
             erstellen.addEventListener("click", () => {
-                console.log("auswaehlen");
-                const event = new Event(Events.PARTNER.ERSTELLEN);
+                const event = new Event(EventType.PARTNER.ERSTELLEN);
+                event.data = "test";
                 htmlElement.dispatchEvent(event);
             });
             
             bearbeiten.addEventListener("click", () => {
-                console.log("auswaehlen");
-                const event = new Event(Events.PARTNER.BEARBEITEN);
+                const event = new Event(EventType.PARTNER.BEARBEITEN);
                 htmlElement.dispatchEvent(event);
             });
 
@@ -167,6 +165,10 @@ function initDropDownMenus(treeNodeClass) {
         $(this).next().toggle(navigationNodeShowDelay);
         $(this).toggleClass("symbol_folder_open");
     });
+}
+
+NavigationMenu.setPartner = (partner) => {
+    document.getElementById("partner_navigation_state").innerText = partner;
 }
 
 export default NavigationMenu;

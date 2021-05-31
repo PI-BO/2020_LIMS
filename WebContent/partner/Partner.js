@@ -1,14 +1,15 @@
-import Suche from '../suche/GlobaleSuche.js'
+import Suche from '../suche/Suche.js'
 import { Parameter } from '../suche/Parameter.js';
 import { Parameters } from '../suche/Parameter.js';
 import Form from '../Form.js';
+import EventType from '../EventType.js';
+import Address from '../Address.js';
 
 export default class Partner {
 
-
     render(htmlElement) {
 
-        const url = "http://localhost:8080/2020_LIMS/partner/partner_erstellen.jsp";
+        const url = Address.PARTNER.ERSTELLEN_JSP;
 
         fetch(url, {
             method: "post",
@@ -26,12 +27,14 @@ export default class Partner {
                     new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
                 );
 
-                const servletUrl = "http://localhost:8080/2020_LIMS/partner_erstellen_servlet";
+                const servletUrl = Address.PARTNER.ERSTELLEN_SERVLET;
                 const formId = "form_partner_erstellen";
                 const messageId = "partner_erstellen_save_message";
                 const callbackOnSuccess = () => {
-                    // const partnerID = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0].value;
-                    // MainState.setProjektPartner(partnerID);
+                    const partnerID = document.getElementById("partner_id_input_field").value;
+                    const event = new Event(EventType.PARTNER.GESPEICHERT);
+                    event.data = partnerID;
+                    htmlElement.dispatchEvent(event);
                 }
 
                 Form.addSubmit(
