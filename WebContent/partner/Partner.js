@@ -33,7 +33,7 @@ export default class Partner {
                     // const partnerID = document.getElementsByName("<%=Partner.COLUMN_PRIMARY_KEY%>")[0].value;
                     // MainState.setProjektPartner(partnerID);
                 }
-                
+
                 Form.addSubmit(
                     servletUrl,
                     formId,

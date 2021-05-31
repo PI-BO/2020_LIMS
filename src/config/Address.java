@@ -74,7 +74,7 @@ public class Address {
 	public final static String EXPERIMENT_BEARBEITEN_CSS = EXPERIMENT_PATH + "/experiment_bearbeiten.css";
 	public final static String EXPERIMENTTYP_JSP = EXPERIMENT_PATH + "/experimenttyp.jsp";
 
-	public final static String NAVIGATION_MENU_PATH = "";
+	public final static String NAVIGATION_MENU_PATH = "/navigationMenu";
 	public final static String NAVIGATION_MENU_JSP = NAVIGATION_MENU_PATH + "/navigation_menu.jsp";
 	public final static String NAVIGATION_MENU_CSS = NAVIGATION_MENU_PATH + "/navigation_menu.css";
 
