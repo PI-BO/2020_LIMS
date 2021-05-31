@@ -42,7 +42,6 @@ NavigationMenu.render = function(htmlElement) {
                 const event = new Event(Events.PARTNER.BEARBEITEN);
                 htmlElement.dispatchEvent(event);
             });
-            
 
             initDropDownMenus(".navigation_tree_node");
             initOpenAllDropDownMenus(".navigation_table_header", ".navigation_tree_branches");
