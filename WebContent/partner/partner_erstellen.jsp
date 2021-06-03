@@ -61,7 +61,7 @@ input:required {
 			<tr>
 				<td>E-Mail</td>
 				<td>
-					<input type=text placeholder="" name=<%=Partner.COLUMN_EMAIL%>>
+					<input type=text placeholder="" id="partner_email_input_field" name=<%=Partner.COLUMN_EMAIL%>>
 				</td>
 			</tr>
 			<tr>

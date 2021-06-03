@@ -29,7 +29,7 @@ type="text/css" media="all">
 		<div id="main-content">
 			<div id="main-content-explorer" style="display: none"></div>
 			<div id="main-content-input-masks" style="display: none"></div>
-			<div id="main-content-global-search" style="display: none"></div>
+			<div id="main-content-search" style="display: none"></div>
 		</div>		
 	</div>
 </body>
