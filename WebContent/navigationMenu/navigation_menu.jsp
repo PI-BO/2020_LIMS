@@ -22,7 +22,8 @@
 						</ul></li>
 
 					<Partner>
-							<span class="navigation_tree_node symbol_user">Partner [<span style="color: blue;" id="partner_navigation_state"> - </span>]
+						<span class="navigation_tree_node symbol_user">
+							Partner [<span style="color: blue;" id="partner_navigation_state"> - </span>]
 						</span>
 						<ul class="navigation_tree_branches">
 							<li>
@@ -37,13 +38,25 @@
 						</ul>
 					</Partner>
 
-					<li><span class="navigation_tree_node symbol_folder_closed">Projekt [<span style="color: blue;" id="projekte_navigation_state"> - </span>]
-					</span>
-						<ul class="navigation_tree_branches">
-							<li><span class="navigation_tree_node symbol_search" id="projekt_auswaehlen">auswaehlen</span></li>
-							<li><span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
-							<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 1" id="projekt_bearbeiten">bearbeiten</span></li>
-						</ul></li>
+					<Projekt>
+						<li><span class="navigation_tree_node symbol_folder_closed">Projekt [<span style="color: blue;" id="projekt_navigation_state"> - </span>]
+						</span>
+							<ul class="navigation_tree_branches">
+								<li>
+									<auswaehlen>
+										<span class="navigation_tree_node symbol_search" id="projekt_auswaehlen">auswaehlen</span></li>
+									</auswaehlen>
+								<li>
+									<erstellen>
+										<span class="navigation_tree_node symbol_clipboard" id="projekt_erstellen">erstellen</span></li>
+									</erstellen>
+								<li>
+									<bearbeiten>
+										<span class="navigation_tree_node symbol_pen_paper" style="opacity: 1" id="projekt_bearbeiten">bearbeiten</span></li>
+									</bearbeiten>
+							</ul>
+						</li>
+					</Projekt>
 
 					<li><span class="navigation_tree_node symbol_folder_closed">Probe [<span style="color: blue;" id="probe_navigation_state"> - </span>]
 					</span>

@@ -1,64 +1,79 @@
-<%@page import="model.database.tableModels.Projekt" %>
-<%@page import="config.Address" %>
-<%@ page import="model.database.tableModels.Partner" %>
-<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
+<%@page import="controller.servlets.partner.PartnerErstellenServlet"%>
+<%@page import="config.Address"%>
+<%@page import="model.database.tableModels.Projekt"%>
+<%@page import="model.database.tableModels.Model"%>
+<%@page import="model.database.tableModels.Partner"%>
+<%@page import="model.database.tableModels.ModelTable"%>
+<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII"%>
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
-    <title>LIMS | Partner</title>
+<meta charset="UTF-8" />
+<title>Solid-Chem | LIMS - Insert Projekt</title>
+<!-- <link rel="stylesheet" href="projekt/projekt_erstellen.css"> -->
+<style>
+#create_partner_table {
+	border: 1px solid #ddd;
+	padding: 10px;
+	padding-left: 30px;
+	padding-right: 30px;
+	display: inline-block;
+	background-color: white;
+}
+
+#partner_speicher_th {
+	padding-top: 10px;
+}
+
+input:required {
+	border-style: solid;
+	border-color: red;
+	border-width: 2px;
+}
+</style>
 </head>
 
-<%
-    String projekt_id = request.getParameter("projekt_id");
-    Partner partner = new Partner(projekt_id);
-%>
-
 <body>
-<table id="explorer_table">
+	<form id="form_partner_erstellen">
+		<table id="create_partner_table">
+			<tr>
+				<th colspan=4>
+					<h1>Projektpartner erstellen</h1>
+				</th>
+			</tr>
+			<tr>
+				<th>Partner Informationen</th>
+			</tr>
+			<tr>
+				<td id="ProjektpartnerTooltip">Projektpartner ID</td>
+				<td>
+					<input required id="partner_id_input_field" type=text placeholder="" name=<%=Partner.COLUMN_PRIMARY_KEY%>>
+				</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>
+					<input required id="partner_name_input_field" type=text placeholder="" name=<%=Partner.COLUMN_NAME%>>
+				</td>
+			</tr>
+			<tr>
+				<td>E-Mail</td>
+				<td>
+					<input type=text placeholder="" id="partner_email_input_field" name=<%=Partner.COLUMN_EMAIL%>>
+				</td>
+			</tr>
+			<tr>
+				<th id="partner_speicher_th" colspan=4>
+					<button type="submit">Speichern</button>
+				</th>
+			</tr>
+			<tr>
+				<th id="partner_erstellen_save_message" colspan=4></th>
+			</tr>
+		</table>
+	</form>
 
-    <tr class="explorer_sortfunctions_row">
-        <td class="explorer_sortfunction symbol_triangle_up" onclick="sortExplorerTable(0)">Name</td>
-        <td class="explorer_sortfunction symbol_triangle_up" onclick="">Datum</td>
-        <td class="explorer_sortfunction symbol_triangle_up" onclick="">etc</td>
-    </tr>
-
-
-    <%
-        for (Projekt projekt : partner.getProjekte()) {
-    %>
-
-    <tr class="explorer_table_row <%=projekt.getPrimaryKey()%>">
-        <td class="explorer_table_data symbol_folder_closed" onclick="(
-                function() {
-                let data = {projekt_id: '<%=projekt.getPrimaryKey()%>'};
-                loadPage('<%=Address.getProjektJSP()%>', data);
-                explorerState.pushToState({
-                table: '<%=projekt.getTable()%>',
-                id: '<%=projekt.getPrimaryKey()%>',
-                text: '<%=projekt.getPrimaryKey()%>'
-                });
-                }
-                )()"><%=projekt.getPrimaryKey()%>
-        </td>
-        <td class="explorer_table_data"></td>
-        <td class="explorer_table_data"></td>
-    </tr>
-
-    <%
-        }
-    %>
-</table>
-
-<script>
-
-    addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
-
-    contextMenu.initProjekt();
-
-</script>
-
-</body>
+	<script type="module" src="./partner/Partner.js"></script>
 </html>

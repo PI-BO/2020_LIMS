@@ -51,7 +51,9 @@ export default class MainState extends Listenable {
                     const projekt = searchResults[0][0];
                     await this.setPartner(projekt[Parameters.PROJEKT.FK])
                     this.state.PROJEKT = projekt;
-                    document.getElementById(projektNavigationState).innerText = this.state.PROJEKT[Parameters.PROJEKT.PK];
+                    const event = new Event(EventType.STATE.PROJEKT);
+                    event.data = this.state.PROJEKT[Parameters.PROJEKT.PK];
+                    this.dispatchEvent(event);
                     resolve();
                 }
             )
@@ -67,7 +69,9 @@ export default class MainState extends Listenable {
                     const probe = searchResults[0][0];
                     await this.setProjekt(probe[Parameters.PROBE.FK]);
                     this.state.PROBE = probe;
-                    document.getElementById(probeNavigationState).innerText = this.state.PROBE[Parameters.PROBE.PK];
+                    const event = new Event(EventType.STATE.PROBE);
+                    event.data = this.state.PROBE[Parameters.PROBE.PK];
+                    this.dispatchEvent(event);
                     resolve();
                 }
             )
@@ -83,7 +87,9 @@ export default class MainState extends Listenable {
                     const experiment = searchResults[0][0];
                     await this.setProbe(experiment[Parameters.EXPERIMENT.FK]);
                     this.state.EXPERIMENT = experiment;
-                    document.getElementById(experimentNavigationState).innerText = this.state.EXPERIMENT[Parameters.EXPERIMENT.PK];
+                    const event = new Event(EventType.STATE.EXPERIMENT);
+                    event.data = this.state.EXPERIMENT[Parameters.EXPERIMENT.PK];
+                    this.dispatchEvent(event);
                     resolve();
                 }
             )
@@ -99,7 +105,9 @@ export default class MainState extends Listenable {
                     const analyse = searchResults[0][0];
                     await this.setExperiment(analyse[Parameters.ANALYSE.FK]);
                     this.state.ANALYSE = analyse;
-                    document.getElementById(analyseNavigationState).innerText = this.state.ANALYSE[Parameters.ANALYSE.PK];
+                    const event = new Event(EventType.STATE.ANALYSE);
+                    event.data = this.state.ANALYSE[Parameters.ANALYSE.PK];
+                    this.dispatchEvent(event);
                     resolve();
                 }
             )

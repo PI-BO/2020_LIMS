@@ -10,7 +10,7 @@ export default class NavigationMenu extends ViewModel {
         super();
         this.mainContentId = "main-content";
         this.partnerStateElementId = "partner_navigation_state";
-        this.projektStateElementId = "projekte_navigation_state";
+        this.projektStateElementId = "projekt_navigation_state";
         this.probeStateElementId = "probe_navigation_state";
         this.experimentStateElementId = "experiment_navigation_state";
         this.analyseStateElementId = "analyse_navigation_state";
@@ -29,25 +29,8 @@ export default class NavigationMenu extends ViewModel {
 
                 htmlElement.innerHTML = response
 
-                const partnerMenu = htmlElement.getElementsByTagName("Partner")[0];
-                const auswaehlen = partnerMenu.getElementsByTagName("auswaehlen")[0];
-                const erstellen = partnerMenu.getElementsByTagName("erstellen")[0];
-                const bearbeiten = partnerMenu.getElementsByTagName("bearbeiten")[0];
-
-                auswaehlen.addEventListener("click", () => {
-                    const event = new Event(EventType.PARTNER.AUSWAEHLEN);
-                    this.dispatchEvent(event);
-                });
-
-                erstellen.addEventListener("click", () => {
-                    const event = new Event(EventType.PARTNER.ERSTELLEN);
-                    this.dispatchEvent(event);
-                });
-
-                bearbeiten.addEventListener("click", () => {
-                    const event = new Event(EventType.PARTNER.BEARBEITEN);
-                    this.dispatchEvent(event);
-                });
+                this.initPartner(htmlElement);
+                this.initProjekt(htmlElement);
 
                 initDropDownMenus(".navigation_tree_node");
                 initOpenAllDropDownMenus(".navigation_table_header", ".navigation_tree_branches");
@@ -74,6 +57,52 @@ export default class NavigationMenu extends ViewModel {
 
     setAnalyse(stateText) {
         document.getElementById(this.analyseStateElementId).innerText = stateText;
+    }
+
+    initPartner(htmlElement){
+        const partner = {};
+        const partnerMenu = htmlElement.getElementsByTagName("Partner")[0];
+        partner.auswaehlen = partnerMenu.getElementsByTagName("auswaehlen")[0];
+        partner.erstellen = partnerMenu.getElementsByTagName("erstellen")[0];
+        partner.bearbeiten = partnerMenu.getElementsByTagName("bearbeiten")[0];
+
+        partner.auswaehlen.addEventListener("click", () => {
+            const event = new Event(EventType.PARTNER.AUSWAEHLEN);
+            this.dispatchEvent(event);
+        });
+
+        partner.erstellen.addEventListener("click", () => {
+            const event = new Event(EventType.PARTNER.ERSTELLEN);
+            this.dispatchEvent(event);
+        });
+
+        partner.bearbeiten.addEventListener("click", () => {
+            const event = new Event(EventType.PARTNER.BEARBEITEN);
+            this.dispatchEvent(event);
+        });
+    }
+
+    initProjekt(htmlElement){
+        const projekt = {};
+        const projektMenu = htmlElement.getElementsByTagName("Projekt")[0];
+        projekt.auswaehlen = projektMenu.getElementsByTagName("auswaehlen")[0];
+        projekt.erstellen = projektMenu.getElementsByTagName("erstellen")[0];
+        projekt.bearbeiten = projektMenu.getElementsByTagName("bearbeiten")[0];
+
+        projekt.auswaehlen.addEventListener("click", () => {
+            const event = new Event(EventType.PROJEKT.AUSWAEHLEN);
+            this.dispatchEvent(event);
+        });
+
+        projekt.erstellen.addEventListener("click", () => {
+            const event = new Event(EventType.PROJEKT.ERSTELLEN);
+            this.dispatchEvent(event);
+        });
+
+        projekt.bearbeiten.addEventListener("click", () => {
+            const event = new Event(EventType.PROJEKT.BEARBEITEN);
+            this.dispatchEvent(event);
+        });
     }
 }
 

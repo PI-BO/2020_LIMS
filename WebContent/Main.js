@@ -1,4 +1,5 @@
 import Partner from './partner/Partner.js';
+import Projekt from './projekt/Projekt.js';
 import NavigationMenu from './navigationMenu/NavigationMenu.js';
 import EventType from './EventType.js';
 import MainState from './MainState.js';
@@ -123,15 +124,36 @@ ExecuteEvent.PROJEKT.AUSWAEHLEN = async () => {
 }
 
 ExecuteEvent.PROJEKT.ERSTELLEN = () => {
-
+    projekt = new Projekt();
+    projekt.addEventListener(EventType.PROJEKT.GESPEICHERT, (projekt) => {
+        ExecuteEvent.PROJEKT.GESPEICHERT(projekt);
+    });
+    projekt.render(inputMasksContainer);
+    show(inputMasksContainer);
 }
 
 ExecuteEvent.PROJEKT.BEARBEITEN = () => {
-
+    const model = mainState.state.PROJEKT;
+    projekt = new Projekt(model);
+    projekt.addEventListener(EventType.PROJEKT.GESPEICHERT, (projekt) => {
+        mainState.setPartner(projekt);
+    });
+    projekt.addEventListener(EventType.PROJEKT.SUCHEN, async () => {
+        alert("bitte Projekt auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        await projektSuchen();
+        const model = mainState.state.PROJEKT;
+        hide(searchContainer);
+        show(inputMasksContainer);
+        projekt.initProjektBearbeiten(model);
+    });
+    projekt.render(inputMasksContainer);
+    show(inputMasksContainer);
 }
 
-ExecuteEvent.PROJEKT.GESPEICHERT = () => {
-
+ExecuteEvent.PROBE.GESPEICHERT = (projekt) => {
+    mainState.setProjekt(projekt);
 }
 
 
@@ -160,7 +182,7 @@ async function projektSuchen() {
         const template =
             [
                 new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
-                new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
+                new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, mainState.state.PARTNER[Parameters.PARTNER.NAME])
             ];
         const callback = async (callbackData) => {
             await mainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);

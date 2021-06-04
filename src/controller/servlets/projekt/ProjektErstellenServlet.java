@@ -26,7 +26,7 @@ public class ProjektErstellenServlet extends HttpServlet {
 
 	private static final Logger LOGGER = LogManager.getLogger(ProjektErstellenServlet.class.getSimpleName());
 	
-	public static final String ROUTE = "/save_project_servlet";
+	public static final String ROUTE = "/projekt_erstellen_servlet";
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
