@@ -12,15 +12,18 @@ export default class Partner extends ViewModel {
         super();
         this.model = model;
         this.showDelay = 500;
+        this.inputPartnerId = "partner_id_input_field";
+        this.inputPartnerName = "partner_name_input_field";
+        this.inputPartnerEmail = "partner_email_input_field";
+        this.formId = "form_partner_erstellen";
+        this.messageId = "partner_erstellen_save_message";
     }
 
     render(htmlElementId) {
 
         const htmlElement = document.getElementById(htmlElementId);
 
-        const url = Address.PARTNER.ERSTELLEN_JSP;
-
-        fetch(url, {
+        fetch(Address.PARTNER.ERSTELLEN_JSP, {
             method: "post",
         })
             .then(response => response.text())
@@ -35,29 +38,18 @@ export default class Partner extends ViewModel {
 
     initPartnerErstellen() {
         Suche.addGenerierenLinkToInputWithName(
-            "partner_id_input_field",
+            this.inputPartnerId,
             [
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
             ],
             new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
         );
 
-        const servletUrl = Address.PARTNER.ERSTELLEN_SERVLET;
-        const formId = "form_partner_erstellen";
-        const messageId = "partner_erstellen_save_message";
-
-        const callbackOnSuccess = () => {
-            const partnerID = document.getElementById("partner_id_input_field").value;
-            const event = new Event(EventType.PARTNER.GESPEICHERT);
-            event.data = partnerID;
-            this.dispatchEvent(event);
-        }
-
         Form.addSubmit(
-            servletUrl,
-            formId,
-            messageId,
-            callbackOnSuccess
+            Address.PARTNER.ERSTELLEN_SERVLET,
+            this.formId,
+            this.messageId,
+            this.callbackOnSuccess
         );
     }
 
@@ -69,34 +61,30 @@ export default class Partner extends ViewModel {
             return false;
         }
 
-        let partnerIdInput = document.getElementById("partner_id_input_field");
+        let partnerIdInput = document.getElementById(this.inputPartnerId);
         partnerIdInput.value = model[Parameters.PARTNER.PK];
 
-        let partnerNameInput = document.getElementById("partner_name_input_field");
+        let partnerNameInput = document.getElementById(this.inputPartnerName);
         partnerNameInput.value = model[Parameters.PARTNER.NAME];
 
-        let partnerEmailInput = document.getElementsByName("partner_email_input_field");
+        let partnerEmailInput = document.getElementsByName(this.inputPartnerEmail);
         partnerEmailInput.value = model[Parameters.PARTNER.EMAIL];
 
-        const servletUrl = Address.PARTNER.ERSTELLEN_SERVLET;
-        const formId = "form_partner_erstellen";
-        const messageId = "partner_erstellen_save_message";
-
-        const callbackOnSuccess = () => {
-            const partnerID = document.getElementById("partner_id_input_field").value;
-            const event = new Event(EventType.PARTNER.GESPEICHERT);
-            event.data = partnerID;
-            this.dispatchEvent(event);
-        }
-
         Form.addSubmit(
-            servletUrl,
-            formId,
-            messageId,
-            callbackOnSuccess
+            Address.PARTNER.ERSTELLEN_SERVLET,
+            this.formId,
+            this.messageId,
+            this.callbackOnSuccess
         );
 
         return true;
+    }
+    
+    callbackOnSuccess() {
+        const partnerID = document.getElementById(this.inputPartnerId).value;
+        const event = new Event(EventType.PARTNER.GESPEICHERT);
+        event.data = partnerID;
+        this.dispatchEvent(event);
     }
 }
 

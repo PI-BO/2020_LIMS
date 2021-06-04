@@ -19,5 +19,4 @@ export default class Listenable{
             console.log("dispatchEvent:", {event});
         });
     }
-    
 }

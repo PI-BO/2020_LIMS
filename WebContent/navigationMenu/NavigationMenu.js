@@ -2,22 +2,20 @@ import Address from '../Address.js';
 import EventType from '../EventType.js';
 import ViewModel from '../ViewModel.js';
 
-export default class NavigationMenu{
-    constructor(){
-        return createNavigationMenu();
+const showDelay = 500;
+const navigationNodeShowDelay = 400;
+
+export default class NavigationMenu extends ViewModel {
+    constructor() {
+        super();
+        this.mainContentId = "main-content";
+        this.partnerStateElementId = "partner_navigation_state";
+        this.projektStateElementId = "projekte_navigation_state";
+        this.probeStateElementId = "probe_navigation_state";
+        this.experimentStateElementId = "experiment_navigation_state";
+        this.analyseStateElementId = "analyse_navigation_state";
     }
-}
-
-function createNavigationMenu() {
-
-    let NavigationMenu = new ViewModel();
-
-    const mainContentId = "main-content";
-    const showDelay = 500;
-    const navigationNodeShowDelay = 400;
-    const globalSearchMainContentContainerId = "main-content-global-search";
-
-    NavigationMenu.render = function (htmlElementId) {
+    render(htmlElementId) {
 
         const htmlElement = document.getElementById(htmlElementId);
 
@@ -38,18 +36,17 @@ function createNavigationMenu() {
 
                 auswaehlen.addEventListener("click", () => {
                     const event = new Event(EventType.PARTNER.AUSWAEHLEN);
-                    NavigationMenu.dispatchEvent(event);
+                    this.dispatchEvent(event);
                 });
 
                 erstellen.addEventListener("click", () => {
                     const event = new Event(EventType.PARTNER.ERSTELLEN);
-                    event.data = "test";
-                    NavigationMenu.dispatchEvent(event);
+                    this.dispatchEvent(event);
                 });
 
                 bearbeiten.addEventListener("click", () => {
                     const event = new Event(EventType.PARTNER.BEARBEITEN);
-                    NavigationMenu.dispatchEvent(event);
+                    this.dispatchEvent(event);
                 });
 
                 initDropDownMenus(".navigation_tree_node");
@@ -59,130 +56,146 @@ function createNavigationMenu() {
             });
     }
 
-    NavigationMenu.hideAllExcept = function hideAllExcept(id) {
-        let toggleList = [];
-        const mainContentElement = document.getElementById(mainContentId);
-
-        for (let i = 0; i < mainContentElement.children.length; i++) {
-            toggleList.push(mainContentElement.children[i].id);
-        }
-
-        toggleList.forEach(element => {
-            if ("#" + element === id) {
-                $("#" + element).hide();
-                $("#" + element).show(showDelay);
-            } else {
-                $("#" + element).hide();
-            }
-        })
+    setPartner(stateText) {
+        document.getElementById(this.partnerStateElementId).innerText = stateText;
     }
 
-    NavigationMenu.show = function show(id) {
-        $(id).show(showDelay);
+    setProjekt(stateText) {
+        document.getElementById(this.projektStateElementId).innerText = stateText;
     }
 
-    NavigationMenu.open = function open(buttonId) {
-        $(buttonId).click();
+    setExperiment(stateText) {
+        document.getElementById(this.experimentStateElementId).innerText = stateText;
     }
 
-    NavigationMenu.hide = function hide(id) {
-        $(id).hide();
+    setProbe(stateText) {
+        document.getElementById(this.probeStateElementId).innerText = stateText;
     }
 
-    NavigationMenu.initInputMaskListener = function initInputMaskListener(containerId, buttonIdAndUrl) {
+    setAnalyse(stateText) {
+        document.getElementById(this.analyseStateElementId).innerText = stateText;
+    }
+}
 
-        for (let key in buttonIdAndUrl) {
 
-            const id = key;
-            const url = buttonIdAndUrl[key];
 
-            $(id).click(function () {
-                var posting = $.post(url, {});
-                posting.done(function (data) {
+// NavigationMenu.hideAllExcept = function hideAllExcept(id) {
+//     let toggleList = [];
+//     const mainContentElement = document.getElementById(mainContentId);
 
-                    console.log({ containerId }, { key });
+//     for (let i = 0; i < mainContentElement.children.length; i++) {
+//         toggleList.push(mainContentElement.children[i].id);
+//     }
 
-                    $(containerId).empty().append(data);
-                    NavigationMenu.hideAllExcept(containerId);
-                });
+//     toggleList.forEach(element => {
+//         if ("#" + element === id) {
+//             $("#" + element).hide();
+//             $("#" + element).show(showDelay);
+//         } else {
+//             $("#" + element).hide();
+//         }
+//     })
+// }
+
+// NavigationMenu.show = function show(id) {
+//     $(id).show(showDelay);
+// }
+
+// NavigationMenu.open = function open(buttonId) {
+//     $(buttonId).click();
+// }
+
+// NavigationMenu.hide = function hide(id) {
+//     $(id).hide();
+// }
+
+NavigationMenu.initInputMaskListener = function initInputMaskListener(containerId, buttonIdAndUrl) {
+
+    for (let key in buttonIdAndUrl) {
+
+        const id = key;
+        const url = buttonIdAndUrl[key];
+
+        $(id).click(function () {
+            var posting = $.post(url, {});
+            posting.done(function (data) {
+
+                console.log({ containerId }, { key });
+
+                $(containerId).empty().append(data);
+                NavigationMenu.hideAllExcept(containerId);
             });
-        }
-    }
-
-    NavigationMenu.initSucheListener = function initSucheListener(buttonId, containerId) {
-
-        $(buttonId).click(function () {
-            const template = [
-                { "partner": "id" },
-                { "partner": "name" },
-                { "partner": "email" },
-                { "projekte": "id" },
-                { "projekte": "vertragsnummer" }
-            ];
-            // GlobaleSuche.initTemplateParameters(template);
-            GlobaleSuche.disableCallbackMode();
-            NavigationMenu.show(containerId);
-            GlobaleSuche.resetPositionIfOutOfBounds();
         });
     }
+}
 
-    NavigationMenu.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback, returnParameter) {
+NavigationMenu.initSucheListener = function initSucheListener(buttonId, containerId) {
 
-        $(buttonId).click(function () {
-
-            NavigationMenu.openStateSearch(template, callback, returnParameter)
-
-            // NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
-            // GlobaleSuche.initTemplateParameters(template);
-            // GlobaleSuche.addSearchCallback((callbackData) => {
-            //     callback(callbackData);
-            //     NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-            // }, startSearch = true, returnParameter)
-            // public.show(containerId);
-            // GlobaleSuche.resetPositionIfOutOfBounds();
-        });
-    }
-
-    NavigationMenu.openStateSearch = function openStateSearch(template, callback, returnParameter) {
-
-        NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
-        GlobaleSuche.initTemplateParameters(template);
-        GlobaleSuche.addSearchCallback((callbackData) => {
-            callback(callbackData);
-            NavigationMenu.hide("#" + globalSearchMainContentContainerId);
-        }, startSearch = true, returnParameter)
-        NavigationMenu.show("#main-content-global-search");
+    $(buttonId).click(function () {
+        const template = [
+            { "partner": "id" },
+            { "partner": "name" },
+            { "partner": "email" },
+            { "projekte": "id" },
+            { "projekte": "vertragsnummer" }
+        ];
+        // GlobaleSuche.initTemplateParameters(template);
+        GlobaleSuche.disableCallbackMode();
+        NavigationMenu.show(containerId);
         GlobaleSuche.resetPositionIfOutOfBounds();
-    }
+    });
+}
 
-    NavigationMenu.initExplorerListener = function initExplorerListener(buttonId, containerId) {
-        $(buttonId).click(function () {
-            NavigationMenu.hideAllExcept(containerId);
-            $('#lazy').jstree(true).refresh();
-        });
-    }
+NavigationMenu.initAuswaehlenButton = function initAuswaehlenButton(buttonId, containerId, template, callback, returnParameter) {
 
-    function initOpenAllDropDownMenus(headerClass, branchesClass) {
-        $(headerClass).click(function () {
-            if ($(branchesClass).is(":hidden")) {
-                $(branchesClass).show(navigationNodeShowDelay);
-                $(".symbol_folder_closed").show(navigationNodeShowDelay);
-            } else {
-                $(branchesClass).hide(navigationNodeShowDelay);
-            }
-        });
-    }
+    $(buttonId).click(function () {
 
-    function initDropDownMenus(treeNodeClass) {
-        $(treeNodeClass).click(function () {
-            $(this).next().toggle(navigationNodeShowDelay);
-            $(this).toggleClass("symbol_folder_open");
-        });
-    }
+        NavigationMenu.openStateSearch(template, callback, returnParameter)
 
-    NavigationMenu.setPartner = (partner) => {
-        document.getElementById("partner_navigation_state").innerText = partner;
-    }
+        // NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
+        // GlobaleSuche.initTemplateParameters(template);
+        // GlobaleSuche.addSearchCallback((callbackData) => {
+        //     callback(callbackData);
+        //     NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+        // }, startSearch = true, returnParameter)
+        // public.show(containerId);
+        // GlobaleSuche.resetPositionIfOutOfBounds();
+    });
+}
 
-    return NavigationMenu;
+// NavigationMenu.openStateSearch = function openStateSearch(template, callback, returnParameter) {
+
+//     NavigationMenu.hideAllExcept(globalSearchMainContentContainerId);
+//     GlobaleSuche.initTemplateParameters(template);
+//     GlobaleSuche.addSearchCallback((callbackData) => {
+//         callback(callbackData);
+//         NavigationMenu.hide("#" + globalSearchMainContentContainerId);
+//     }, startSearch = true, returnParameter)
+//     NavigationMenu.show("#main-content-global-search");
+//     GlobaleSuche.resetPositionIfOutOfBounds();
+// }
+
+NavigationMenu.initExplorerListener = function initExplorerListener(buttonId, containerId) {
+    $(buttonId).click(function () {
+        NavigationMenu.hideAllExcept(containerId);
+        $('#lazy').jstree(true).refresh();
+    });
+}
+
+function initOpenAllDropDownMenus(headerClass, branchesClass) {
+    $(headerClass).click(function () {
+        if ($(branchesClass).is(":hidden")) {
+            $(branchesClass).show(navigationNodeShowDelay);
+            $(".symbol_folder_closed").show(navigationNodeShowDelay);
+        } else {
+            $(branchesClass).hide(navigationNodeShowDelay);
+        }
+    });
+}
+
+function initDropDownMenus(treeNodeClass) {
+    $(treeNodeClass).click(function () {
+        $(this).next().toggle(navigationNodeShowDelay);
+        $(this).toggleClass("symbol_folder_open");
+    });
 }
