@@ -8,77 +8,106 @@ import ViewModel from '../ViewModel.js';
 
 export default class Projekt extends ViewModel {
 
-    constructor(model) {
+    constructor(state) {
         super();
-        this.model = model;
+        this.state = state;
         this.showDelay = 500;
-        this.inputProjektId = "projekt_id_input_field";
-        this.inputPartnerName = "partner_name_input_field";
+        this.inputIdProjektId = "projekt_id_input_field";
+        this.inputIdPartnerName = "partner_name_input_field";
+        this.inputIdPartnerId = "partner_id_input_field";
         this.formId = "form_projekt_erstellen";
         this.messageId = "projekt_erstellen_save_message";
+        this.projektHeaderId = "projekt_header";
+        this.html = new Promise((resolve) => {
+            fetch(Address.PROJEKT.ERSTELLEN_JSP, {
+                method: "post",
+            })
+                .then(response => response.text())
+                .then(response => {
+                    this.html = response;
+                    resolve();
+                });
+        })
+
     }
 
-    render(htmlElementId) {
+    async render(htmlElementId) {
 
         const htmlElement = document.getElementById(htmlElementId);
-
-        fetch(Address.PROJEKT.ERSTELLEN_JSP, {
-            method: "post",
-        })
-            .then(response => response.text())
-            .then(response => {
-
-                htmlElement.innerHTML = response;
-
-                if (this.model === undefined) this.initProjektErstellen();
-                if (this.model !== undefined) this.initProjektBearbeiten(this.model);
-            });
+        await this.html;
+        htmlElement.innerHTML = this.html;
+        this.init();
     }
 
-    initProjektErstellen() {
-        Suche.addGenerierenLinkToInputWithName(
-            this.inputProjektId,
-            [
+    erstellen() {
+
+        this.init = () => {
+
+            document.getElementById(this.projektHeaderId).innerHTML = "Projekt erstellen"
+
+            if (this.state.PARTNER[Parameters.PARTNER.PK] === "") {
+                const event = new Event(EventType.PARTNER.SUCHEN);
+                this.dispatchEvent(event);
+                return false;
+            }
+
+            Suche.addGenerierenLinkToInputWithName(
+                this.inputIdProjektId,
+                [
+                    new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
+                ],
                 new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
-            ],
-            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, "")
-        );
+            );
 
-        Form.addSubmit(
-            Address.PROJEKT.ERSTELLEN_SERVLET,
-            this.formId,
-            this.messageId,
-            this.callbackOnSuccess
-        );
-    }
+            let partnerNameInput = document.getElementById(this.inputIdPartnerName);
+            partnerNameInput.value = this.state.PARTNER[Parameters.PARTNER.NAME];
 
-    initProjektBearbeiten(model) {
+            let partnerIdInput = document.getElementById(this.inputIdPartnerId);
+            partnerIdInput.value = this.state.PARTNER[Parameters.PARTNER.PK];
 
-        if (model[Parameters.PROJEKT.PK] === "") {
-            const event = new Event(EventType.PROJEKT.SUCHEN);
-            this.dispatchEvent(event);
-            return false;
+            Form.addSubmit(
+                Address.PROJEKT.ERSTELLEN_SERVLET,
+                this.formId,
+                this.messageId,
+                this.callbackOnSuccess.bind(this)
+            );
         }
-
-        //TODO: state benutzen anstelle von model
-        // let partnerNameInput = document.getElementById(this.inputPartnerName);
-        // partnerNameInput.value = model[Parameters.PARTNER.PK];
-
-        let projektIdInput = document.getElementById(this.inputProjektId);
-        projektIdInput.value = model[Parameters.PROJEKT.PK];
-
-        Form.addSubmit(
-            Address.PROJEKT.ERSTELLEN_SERVLET,
-            this.formId,
-            this.messageId,
-            this.callbackOnSuccess
-        );
-
-        return true;
     }
-    
+
+    bearbeiten() {
+
+        this.init = () => {
+
+            document.getElementById(this.projektHeaderId).innerHTML = "Projekt bearbeiten"
+
+            if (this.state.PROJEKT[Parameters.PROJEKT.PK] === "") {
+                const event = new Event(EventType.PROJEKT.SUCHEN);
+                this.dispatchEvent(event);
+            }
+
+            let partnerNameInput = document.getElementById(this.inputIdPartnerName);
+            partnerNameInput.value = this.state.PARTNER[Parameters.PARTNER.NAME];
+            partnerNameInput.disabled = true;
+            
+            let partnerIdInput = document.getElementById(this.inputIdPartnerId);
+            partnerIdInput.value = this.state.PARTNER[Parameters.PARTNER.PK];
+            partnerIdInput.disabled = true;
+            
+            let projektIdInput = document.getElementById(this.inputIdProjektId);
+            projektIdInput.value = this.state.PROJEKT[Parameters.PROJEKT.PK];
+            projektIdInput.disabled = true;
+
+            Form.addSubmit(
+                Address.PROJEKT.BEARBEITEN_SERVLET,
+                this.formId,
+                this.messageId,
+                this.callbackOnSuccess.bind(this)
+            );
+        }
+    }
+
     callbackOnSuccess() {
-        const projektId = document.getElementById(this.inputProjektId).value;
+        const projektId = document.getElementById(this.inputIdProjektId).value;
         const event = new Event(EventType.PROJEKT.GESPEICHERT);
         event.data = projektId;
         this.dispatchEvent(event);

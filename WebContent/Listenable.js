@@ -15,8 +15,8 @@ export default class Listenable{
         this.eventListener[eventType].forEach(listener => {
             let data = {};
             if (event.data !== undefined) data = event.data;
-            listener(data);
             console.log("dispatchEvent:", {event});
+            listener(data);
         });
     }
 }

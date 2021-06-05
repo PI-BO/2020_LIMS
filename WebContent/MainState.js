@@ -1,6 +1,6 @@
 import { Parameters, Parameter } from './suche/Parameter.js';
 import Model from './Model.js';
-import GlobaleSuche from './suche/Suche.js';
+import Suche from './suche/Suche.js';
 import EventType from './EventType.js';
 import Listenable from './Listenable.js';
 
@@ -27,7 +27,7 @@ export default class MainState extends Listenable {
 
     setPartner(id) {
         return new Promise(resolve => {
-            GlobaleSuche.backgroundSearch(
+            Suche.backgroundSearch(
                 [
                     new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, id)
                 ], (searchResults) => {
@@ -44,7 +44,7 @@ export default class MainState extends Listenable {
 
     setProjekt(id) {
         return new Promise(resolve => {
-            GlobaleSuche.backgroundSearch(
+            Suche.backgroundSearch(
                 [
                     new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, id)
                 ], async (searchResults) => {
@@ -62,7 +62,7 @@ export default class MainState extends Listenable {
 
     setProbe(id) {
         return new Promise(resolve => {
-            GlobaleSuche.backgroundSearch(
+            Suche.backgroundSearch(
                 [
                     new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, id)
                 ], async (searchResults) => {
@@ -80,7 +80,7 @@ export default class MainState extends Listenable {
 
     setExperiment(id) {
         return new Promise(resolve => {
-            GlobaleSuche.backgroundSearch(
+            Suche.backgroundSearch(
                 [
                     new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, id)
                 ], async (searchResults) => {
@@ -98,7 +98,7 @@ export default class MainState extends Listenable {
 
     setAnalyse(id) {
         return new Promise(resolve => {
-            GlobaleSuche.backgroundSearch(
+            Suche.backgroundSearch(
                 [
                     new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK, id)
                 ], async (searchResults) => {
@@ -122,10 +122,10 @@ export default class MainState extends Listenable {
 
 class State {
     constructor() {
-        this.PARTNER = new Model(Parameters.PARTNER),
-            this.PROJEKT = new Model(Parameters.PROJEKT),
-            this.PROBE = new Model(Parameters.PROBE),
-            this.EXPERIMENT = new Model(Parameters.EXPERIMENT),
-            this.ANALYSE = new Model(Parameters.ANALYSE)
+        this.PARTNER = new Model(Parameters.PARTNER);
+        this.PROJEKT = new Model(Parameters.PROJEKT);
+        this.PROBE = new Model(Parameters.PROBE);
+        this.EXPERIMENT = new Model(Parameters.EXPERIMENT);
+        this.ANALYSE = new Model(Parameters.ANALYSE);
     }
 }

@@ -37,16 +37,22 @@ input:required {
 		<table id="create_projekt_table">
 			<tr>
 				<th colspan=4>
-					<h1>Projekt erstellen</h1>
+					<h1 id="projekt_header"></h1>
 				</th>
 			</tr>
 			<tr>
 				<th>Projekt Informationen</th>
 			</tr>
 			<tr>
-				<td>Projektpartner Name</td>
+				<td>Partner Name</td>
 				<td>
 					<input disabled required type=text placeholder="" id="partner_name_input_field" name=<%=Partner.COLUMN_NAME%>>
+				</td>
+			</tr>
+			<tr>
+				<td>Partner ID</td>
+				<td>
+					<input disabled required type=text placeholder="" id="partner_id_input_field" name=<%=Projekt.COLUMN_PROJEKTPARTNER%>>
 				</td>
 			</tr>
 			<tr>

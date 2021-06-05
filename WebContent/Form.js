@@ -14,8 +14,6 @@ Form.addSubmit = function (url, formId, messageId, callbackOnSuccess) {
 			submitData[e.target[i].name] = e.target[i].value;
 		}
 		
-		console.log(submitData); //TODO: 
-
 		var posting = $.post(url, submitData);
 		posting.done(function (data) {
 

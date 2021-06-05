@@ -8,80 +8,93 @@ import ViewModel from '../ViewModel.js';
 
 export default class Partner extends ViewModel {
 
-    constructor(model) {
+    constructor(state) {
         super();
-        this.model = model;
+        this.state = state;
         this.showDelay = 500;
-        this.inputPartnerId = "partner_id_input_field";
-        this.inputPartnerName = "partner_name_input_field";
-        this.inputPartnerEmail = "partner_email_input_field";
+        this.inputIdPartnerId = "partner_id_input_field";
+        this.inputIdPartnerName = "partner_name_input_field";
+        this.inputIdPartnerEmail = "partner_email_input_field";
         this.formId = "form_partner_erstellen";
         this.messageId = "partner_erstellen_save_message";
+        this.partnerHeaderId = "partner_header";
+        this.html = new Promise((resolve) => {
+            fetch(Address.PARTNER.ERSTELLEN_JSP, {
+                method: "post",
+            })
+                .then(response => response.text())
+                .then(response => {
+                    this.html = response;
+                    resolve();
+                });
+        })
     }
 
-    render(htmlElementId) {
+    async render(htmlElementId) {
 
         const htmlElement = document.getElementById(htmlElementId);
-
-        fetch(Address.PARTNER.ERSTELLEN_JSP, {
-            method: "post",
-        })
-            .then(response => response.text())
-            .then(response => {
-
-                htmlElement.innerHTML = response;
-
-                if (this.model === undefined) this.initPartnerErstellen();
-                if (this.model !== undefined) this.initPartnerBearbeiten(this.model);
-            });
+        await this.html;
+        htmlElement.innerHTML = this.html;
+        this.init();
     }
 
-    initPartnerErstellen() {
-        Suche.addGenerierenLinkToInputWithName(
-            this.inputPartnerId,
-            [
+    erstellen() {
+
+        this.init = () => {
+
+            document.getElementById(this.partnerHeaderId).innerHTML = "Partner erstellen"
+    
+            Suche.addGenerierenLinkToInputWithName(
+                this.inputIdPartnerId,
+                [
+                    new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
+                ],
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-            ],
-            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
-        );
-
-        Form.addSubmit(
-            Address.PARTNER.ERSTELLEN_SERVLET,
-            this.formId,
-            this.messageId,
-            this.callbackOnSuccess
-        );
+            );
+    
+            Form.addSubmit(
+                Address.PARTNER.ERSTELLEN_SERVLET,
+                this.formId,
+                this.messageId,
+                this.callbackOnSuccess.bind(this)
+            );
+        }
     }
 
-    initPartnerBearbeiten(model) {
+    bearbeiten() {
 
-        if (model[Parameters.PARTNER.PK] === "") {
-            const event = new Event(EventType.PARTNER.SUCHEN);
-            this.dispatchEvent(event);
-            return false;
+        this.init = () => {
+
+            document.getElementById(this.partnerHeaderId).innerHTML = "Partner bearbeiten"
+    
+            if (this.state.PARTNER[Parameters.PARTNER.PK] === "") {
+                const event = new Event(EventType.PARTNER.SUCHEN);
+                this.dispatchEvent(event);
+                return false;
+            }
+    
+            let partnerIdInput = document.getElementById(this.inputIdPartnerId);
+            partnerIdInput.value = this.state.PARTNER[Parameters.PARTNER.PK];
+            partnerIdInput.disabled = true;
+    
+            let partnerNameInput = document.getElementById(this.inputIdPartnerName);
+            partnerNameInput.value = this.state.PARTNER[Parameters.PARTNER.NAME];
+    
+            let partnerEmailInput = document.getElementsByName(this.inputIdPartnerEmail);
+            partnerEmailInput.value = this.state.PARTNER[Parameters.PARTNER.EMAIL];
+    
+            Form.addSubmit(
+                Address.PARTNER.BEARBEITEN_SERVLET,
+                this.formId,
+                this.messageId,
+                this.callbackOnSuccess.bind(this)
+            );
         }
 
-        let partnerIdInput = document.getElementById(this.inputPartnerId);
-        partnerIdInput.value = model[Parameters.PARTNER.PK];
-
-        let partnerNameInput = document.getElementById(this.inputPartnerName);
-        partnerNameInput.value = model[Parameters.PARTNER.NAME];
-
-        let partnerEmailInput = document.getElementsByName(this.inputPartnerEmail);
-        partnerEmailInput.value = model[Parameters.PARTNER.EMAIL];
-
-        Form.addSubmit(
-            Address.PARTNER.ERSTELLEN_SERVLET,
-            this.formId,
-            this.messageId,
-            this.callbackOnSuccess
-        );
-
-        return true;
     }
     
     callbackOnSuccess() {
-        const partnerID = document.getElementById(this.inputPartnerId).value;
+        const partnerID = document.getElementById(this.inputIdPartnerId).value;
         const event = new Event(EventType.PARTNER.GESPEICHERT);
         event.data = partnerID;
         this.dispatchEvent(event);

@@ -79,12 +79,14 @@ ExecuteEvent.PROBE = {};
 ExecuteEvent.PARTNER.AUSWAEHLEN = async () => {
     hide(inputMasksContainer);
     show(searchContainer);
-    await partnerSuchen();
+    const partnerId = await partnerSuchen();
+    await mainState.setPartner(partnerId);
     hide(searchContainer);
 }
 
 ExecuteEvent.PARTNER.ERSTELLEN = () => {
-    partner = new Partner();
+    partner = new Partner(mainState.state);
+    partner.erstellen();
     partner.addEventListener(EventType.PARTNER.GESPEICHERT, (partner) => {
         ExecuteEvent.PARTNER.GESPEICHERT(partner);
     });
@@ -93,8 +95,8 @@ ExecuteEvent.PARTNER.ERSTELLEN = () => {
 }
 
 ExecuteEvent.PARTNER.BEARBEITEN = () => {
-    const model = mainState.state.PARTNER;
-    partner = new Partner(model);
+    partner = new Partner(mainState.state);
+    partner.bearbeiten();
     partner.addEventListener(EventType.PARTNER.GESPEICHERT, (partner) => {
         mainState.setPartner(partner);
     });
@@ -102,11 +104,12 @@ ExecuteEvent.PARTNER.BEARBEITEN = () => {
         alert("bitte Partner auswaehlen!");
         hideFast(inputMasksContainer);
         show(searchContainer);
-        await partnerSuchen();
-        const model = mainState.state.PARTNER;
+        const partnerId = await partnerSuchen();
+        await mainState.setPartner(partnerId);
+        partner.state = mainState.state;
+        partner.render(inputMasksContainer);
         hide(searchContainer);
         show(inputMasksContainer);
-        partner.initPartnerBearbeiten(model);
     });
     partner.render(inputMasksContainer);
     show(inputMasksContainer);
@@ -119,22 +122,35 @@ ExecuteEvent.PARTNER.GESPEICHERT = (partner) => {
 ExecuteEvent.PROJEKT.AUSWAEHLEN = async () => {
     hide(inputMasksContainer);
     show(searchContainer);
-    await projektSuchen();
+    const projektId = await projektSuchen();
+    await mainState.setProjekt(projektId);
     hide(searchContainer);
 }
 
 ExecuteEvent.PROJEKT.ERSTELLEN = () => {
-    projekt = new Projekt();
+    projekt = new Projekt(mainState.state);
+    projekt.erstellen();
     projekt.addEventListener(EventType.PROJEKT.GESPEICHERT, (projekt) => {
         ExecuteEvent.PROJEKT.GESPEICHERT(projekt);
+    });
+    projekt.addEventListener(EventType.PARTNER.SUCHEN, async () => {
+        alert("bitte Partner auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const partnerId = await partnerSuchen();
+        await mainState.setPartner(partnerId);
+        projekt.state = mainState.state;
+        projekt.render(inputMasksContainer);
+        hide(searchContainer);
+        show(inputMasksContainer);
     });
     projekt.render(inputMasksContainer);
     show(inputMasksContainer);
 }
 
 ExecuteEvent.PROJEKT.BEARBEITEN = () => {
-    const model = mainState.state.PROJEKT;
-    projekt = new Projekt(model);
+    projekt = new Projekt(mainState.state);
+    projekt.bearbeiten();
     projekt.addEventListener(EventType.PROJEKT.GESPEICHERT, (projekt) => {
         mainState.setPartner(projekt);
     });
@@ -142,30 +158,31 @@ ExecuteEvent.PROJEKT.BEARBEITEN = () => {
         alert("bitte Projekt auswaehlen!");
         hideFast(inputMasksContainer);
         show(searchContainer);
-        await projektSuchen();
-        const model = mainState.state.PROJEKT;
+        const projektId = await projektSuchen();
+        await mainState.setProjekt(projektId);
         hide(searchContainer);
         show(inputMasksContainer);
-        projekt.initProjektBearbeiten(model);
+        projekt.state = mainState.state;
+        projekt.render(inputMasksContainer);
     });
     projekt.render(inputMasksContainer);
     show(inputMasksContainer);
 }
 
-ExecuteEvent.PROBE.GESPEICHERT = (projekt) => {
+ExecuteEvent.PROJEKT.GESPEICHERT = (projekt) => {
     mainState.setProjekt(projekt);
 }
 
-
 async function partnerSuchen() {
-    return new Promise(async (resolve) => {
+    let partnerId;
+    await new Promise(async (resolve) => {
         const template =
             [
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, ""),
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
             ];
         const callback = async (callbackData) => {
-            await mainState.setPartner(callbackData[Parameters.PARTNER.PK]);
+            partnerId = callbackData[Parameters.PARTNER.PK];
             resolve();
         };
         const returnParameter = new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK);
@@ -175,17 +192,19 @@ async function partnerSuchen() {
             callback(callbackData);
         }, true, returnParameter)
     });
+    return partnerId;
 }
 
 async function projektSuchen() {
-    return new Promise(async (resolve) => {
+    let projektId;
+    await new Promise(async (resolve) => {
         const template =
             [
                 new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, mainState.state.PARTNER[Parameters.PARTNER.NAME])
             ];
         const callback = async (callbackData) => {
-            await mainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);
+            projektId = callbackData[Parameters.PROJEKT.PK];
             resolve();
         };
         const returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK);
@@ -195,4 +214,5 @@ async function projektSuchen() {
             callback(callbackData);
         }, true, returnParameter)
     });
+    return projektId;
 }

@@ -40,7 +40,7 @@ input:required {
 		<table id="create_partner_table">
 			<tr>
 				<th colspan=4>
-					<h1>Projektpartner erstellen</h1>
+					<h1 id="partner_header"></h1>
 				</th>
 			</tr>
 			<tr>

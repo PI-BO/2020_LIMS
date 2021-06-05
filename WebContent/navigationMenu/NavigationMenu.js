@@ -6,6 +6,7 @@ const showDelay = 500;
 const navigationNodeShowDelay = 400;
 
 export default class NavigationMenu extends ViewModel {
+    
     constructor() {
         super();
         this.mainContentId = "main-content";
@@ -15,6 +16,7 @@ export default class NavigationMenu extends ViewModel {
         this.experimentStateElementId = "experiment_navigation_state";
         this.analyseStateElementId = "analyse_navigation_state";
     }
+
     render(htmlElementId) {
 
         const htmlElement = document.getElementById(htmlElementId);
