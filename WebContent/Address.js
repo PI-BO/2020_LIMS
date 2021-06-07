@@ -14,6 +14,12 @@ Address.PROJEKT = {
     BEARBEITEN_SERVLET : Address.PATH + "/projekt/bearbeiten",
 }
 
+Address.PROBE = {
+    ERSTELLEN_JSP : Address.PATH + "/probe/probeneingang.jsp",
+    ERSTELLEN_SERVLET : Address.PATH + "/probeneingang/erstellen",
+    BEARBEITEN_SERVLET : Address.PATH + "/probeneingang/bearbeiten",
+}
+
 Address.NAVIGATION_MENU_JSP = Address.PATH + "/navigationMenu/navigation_menu.jsp";
 
 Address.SUCHE = {

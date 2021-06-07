@@ -11,7 +11,6 @@ export default class Partner extends ViewModel {
     constructor(state) {
         super();
         this.state = state;
-        this.showDelay = 500;
         this.inputIdPartnerId = "partner_id_input_field";
         this.inputIdPartnerName = "partner_name_input_field";
         this.inputIdPartnerEmail = "partner_email_input_field";
@@ -70,7 +69,7 @@ export default class Partner extends ViewModel {
             if (this.state.PARTNER[Parameters.PARTNER.PK] === "") {
                 const event = new Event(EventType.PARTNER.SUCHEN);
                 this.dispatchEvent(event);
-                return false;
+                return;
             }
     
             let partnerIdInput = document.getElementById(this.inputIdPartnerId);

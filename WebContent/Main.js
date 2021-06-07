@@ -1,5 +1,6 @@
 import Partner from './partner/Partner.js';
 import Projekt from './projekt/Projekt.js';
+import Probeneingang from './probe/Probeneingang.js';
 import NavigationMenu from './navigationMenu/NavigationMenu.js';
 import EventType from './EventType.js';
 import MainState from './MainState.js';
@@ -20,7 +21,7 @@ const navigationMenu = new NavigationMenu();
 const explorer = {};
 let partner;
 let projekt;
-let probe;
+let probeneingang;
 let experiment;
 let analyse;
 
@@ -33,6 +34,11 @@ navigationMenu.addEventListener(EventType.PARTNER.AUSWAEHLEN, async () => Execut
 navigationMenu.addEventListener(EventType.PROJEKT.ERSTELLEN, () => ExecuteEvent.PROJEKT.ERSTELLEN());
 navigationMenu.addEventListener(EventType.PROJEKT.BEARBEITEN, () => ExecuteEvent.PROJEKT.BEARBEITEN());
 navigationMenu.addEventListener(EventType.PROJEKT.AUSWAEHLEN, async () => ExecuteEvent.PROJEKT.AUSWAEHLEN());
+navigationMenu.addEventListener(EventType.PARTNER.AUSWAEHLEN, async () => ExecuteEvent.PARTNER.AUSWAEHLEN());
+
+navigationMenu.addEventListener(EventType.PROBE.EINGANG, () => ExecuteEvent.PROBE.ERSTELLEN());
+navigationMenu.addEventListener(EventType.PROBE.BEARBEITEN, () => ExecuteEvent.PROBE.BEARBEITEN());
+navigationMenu.addEventListener(EventType.PROBE.AUSWAEHLEN, async () => ExecuteEvent.PROBE.AUSWAEHLEN());
 
 mainState.addEventListener(EventType.STATE.PARTNER, (id) => navigationMenu.setPartner(id));
 mainState.addEventListener(EventType.STATE.PROJEKT, (id) => navigationMenu.setProjekt(id));
@@ -152,7 +158,7 @@ ExecuteEvent.PROJEKT.BEARBEITEN = () => {
     projekt = new Projekt(mainState.state);
     projekt.bearbeiten();
     projekt.addEventListener(EventType.PROJEKT.GESPEICHERT, (projekt) => {
-        mainState.setPartner(projekt);
+        mainState.setProjekt(projekt);
     });
     projekt.addEventListener(EventType.PROJEKT.SUCHEN, async () => {
         alert("bitte Projekt auswaehlen!");
@@ -171,6 +177,60 @@ ExecuteEvent.PROJEKT.BEARBEITEN = () => {
 
 ExecuteEvent.PROJEKT.GESPEICHERT = (projekt) => {
     mainState.setProjekt(projekt);
+}
+
+ExecuteEvent.PROBE.AUSWAEHLEN = async () => {
+    hide(inputMasksContainer);
+    show(searchContainer);
+    const probeId = await probeSuchen();
+    await mainState.setProbe(probeId);
+    hide(searchContainer);
+}
+
+ExecuteEvent.PROBE.ERSTELLEN = () => {
+    probeneingang = new Probeneingang(mainState.state);
+    probeneingang.erstellen();
+    probeneingang.addEventListener(EventType.PROBE.GESPEICHERT, (probe) => {
+        ExecuteEvent.PROBE.GESPEICHERT(probe);
+    });
+    probeneingang.addEventListener(EventType.PROBE.SUCHEN, async () => {
+        alert("bitte Projekt auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const probeId = await projektSuchen();
+        await mainState.setProjekt(probeId);
+        probeneingang.state = mainState.state;
+        probeneingang.render(inputMasksContainer);
+        hide(searchContainer);
+        show(inputMasksContainer);
+    });
+    probeneingang.render(inputMasksContainer);
+    show(inputMasksContainer);
+}
+
+ExecuteEvent.PROBE.BEARBEITEN = () => {
+    probeneingang = new Probeneingang(mainState.state);
+    probeneingang.bearbeiten();
+    probeneingang.addEventListener(EventType.PROBE.GESPEICHERT, (probe) => {
+        mainState.setProbe(probe);
+    });
+    probeneingang.addEventListener(EventType.PROBE.SUCHEN, async () => {
+        alert("bitte Probe auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const probeId = await probeSuchen();
+        await mainState.setProbe(probeId);
+        hide(searchContainer);
+        show(inputMasksContainer);
+        probeneingang.state = mainState.state;
+        probeneingang.render(inputMasksContainer);
+    });
+    probeneingang.render(inputMasksContainer);
+    show(inputMasksContainer);
+}
+
+ExecuteEvent.PROBE.GESPEICHERT = (probe) => {
+    mainState.setProbe(probe);
 }
 
 async function partnerSuchen() {
@@ -215,4 +275,26 @@ async function projektSuchen() {
         }, true, returnParameter)
     });
     return projektId;
+}
+
+async function probeSuchen() {
+    let probeId;
+    await new Promise(async (resolve) => {
+        const template =
+            [
+                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, mainState.state.PROJEKT[Parameters.PROJEKT.PK])
+            ];
+        const callback = async (callbackData) => {
+            probeId = callbackData[Parameters.PROBE.PK];
+            resolve();
+        };
+        const returnParameter = new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK);
+        Suche.resetPositionIfOutOfBounds();
+        Suche.initTemplateParameters(template);
+        Suche.addSearchCallback((callbackData) => {
+            callback(callbackData);
+        }, true, returnParameter)
+    });
+    return probeId;
 }

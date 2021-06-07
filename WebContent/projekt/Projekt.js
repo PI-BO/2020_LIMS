@@ -11,7 +11,6 @@ export default class Projekt extends ViewModel {
     constructor(state) {
         super();
         this.state = state;
-        this.showDelay = 500;
         this.inputIdProjektId = "projekt_id_input_field";
         this.inputIdPartnerName = "partner_name_input_field";
         this.inputIdPartnerId = "partner_id_input_field";
@@ -48,7 +47,7 @@ export default class Projekt extends ViewModel {
             if (this.state.PARTNER[Parameters.PARTNER.PK] === "") {
                 const event = new Event(EventType.PARTNER.SUCHEN);
                 this.dispatchEvent(event);
-                return false;
+                return;
             }
 
             Suche.addGenerierenLinkToInputWithName(
@@ -83,6 +82,7 @@ export default class Projekt extends ViewModel {
             if (this.state.PROJEKT[Parameters.PROJEKT.PK] === "") {
                 const event = new Event(EventType.PROJEKT.SUCHEN);
                 this.dispatchEvent(event);
+                return;
             }
 
             let partnerNameInput = document.getElementById(this.inputIdPartnerName);

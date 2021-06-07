@@ -33,6 +33,7 @@ export default class NavigationMenu extends ViewModel {
 
                 this.initPartner(htmlElement);
                 this.initProjekt(htmlElement);
+                this.initProbe(htmlElement);
 
                 initDropDownMenus(".navigation_tree_node");
                 initOpenAllDropDownMenus(".navigation_table_header", ".navigation_tree_branches");
@@ -103,6 +104,29 @@ export default class NavigationMenu extends ViewModel {
 
         projekt.bearbeiten.addEventListener("click", () => {
             const event = new Event(EventType.PROJEKT.BEARBEITEN);
+            this.dispatchEvent(event);
+        });
+    }
+
+    initProbe(htmlElement){
+        const probe = {};
+        const probeMenu = htmlElement.getElementsByTagName("Probe")[0];
+        probe.auswaehlen = probeMenu.getElementsByTagName("auswaehlen")[0];
+        probe.erstellen = probeMenu.getElementsByTagName("Probeneingang")[0];
+        probe.bearbeiten = probeMenu.getElementsByTagName("bearbeiten")[0];
+
+        probe.auswaehlen.addEventListener("click", () => {
+            const event = new Event(EventType.PROBE.AUSWAEHLEN);
+            this.dispatchEvent(event);
+        });
+
+        probe.erstellen.addEventListener("click", () => {
+            const event = new Event(EventType.PROBE.EINGANG);
+            this.dispatchEvent(event);
+        });
+
+        probe.bearbeiten.addEventListener("click", () => {
+            const event = new Event(EventType.PROBE.BEARBEITEN);
             this.dispatchEvent(event);
         });
     }

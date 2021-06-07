@@ -1,206 +1,304 @@
-<%@page import="model.Probeneingang"%>
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="model.Probeneingang" %>
+	<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+		<%@page import="config.Address" %>
+			<%@page import="controller.servlets.probeneingang.ProbeneingangErstellenServlet" %>
 
-<tr>
-	<th>Auftraggeber</th>
-</tr>
-<tr>
-	<td>
-		<input disabled type="text" id="partner_name_input_field" name=<%=Probeneingang.AUFTRAGGEBER%>>
-	</td>
-</tr>
+				<!DOCTYPE html>
+				<html>
 
-<tr>
-	<th>Projekt ID</th>
-</tr>
-<tr>
-	<td>
-		<input disabled type="text" id="projekt_id_input_field" name=<%=Probeneingang.PROJEKT_ID%>>
-	</td>
-</tr>
-<tr>
-	<th id="probenIdTooltip">Proben ID</th>
-</tr>
-<tr>
-	<td>
-		<input required type="text" id="proben_id_input_field" name=<%=Probeneingang.PROBEN_ID%>>
-	</td>
-</tr>
-<tr>
-	<th id="wirkstoffTooltip">Wirkstoff</th>
-</tr>
-<tr>
-	<td>
-		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.WIRKSTOFF%>>
-	</td>
-</tr>
+				<head>
+					<meta charset="UTF-8" />
+					<title>Probeneingang</title>
+					<!-- <link rel="stylesheet" href="projekt_erstellen.css"> -->
+					<style>
+						input:required {
+							border-style: solid;
+							border-color: red;
+							border-width: 2px;
+						}
 
-<tr>
-	<th>Summenformel</th>
-</tr>
-<tr>
-	<td>
-		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.SUMMENFORMEL%>>
-	</td>
-</tr>
+						#table_probeneingang {
+							border-spacing: 0;
+							background-color: white;
+							width: auto;
+						}
 
-<tr>
-	<th>Bezeichung</th>
-</tr>
-<tr>
-	<td>
-		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BEZEICHNUNG%>>
-	</td>
-</tr>
+						#table_probeneingang tr:nth-child(even) {
+							background-color: #dddddd;
+						}
 
-<tr>
-	<th>Originator</th>
-</tr>
-<tr>
-	<td>
-		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.ORIGINATOR%>>
-	</td>
-</tr>
+						#table_probeneingang th {
+							text-align: left;
+							padding: 4px;
+						}
 
-<tr>
-	<th>Probeneingang</th>
-</tr>
-<tr>
-	<td>
-		<input disabled type="date" name=<%=Probeneingang.PROBENEINGANG%>>
-	</td>
-</tr>
+						#table_probeneingang td {
+							border: 1px solid #dddddd;
+							text-align: left;
+							padding: 8px;
+						}
 
-<tr>
-	<th>Probenmasse</th>
-</tr>
-<tr>
-	<td>
-		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.PROBENMASSE%>>
-	</td>
-</tr>
+						.table_in_table_header {
+							border-right: 1px solid white;
+						}
 
-<tr>
-	<th>Besonderheiten</th>
-</tr>
-<tr>
-	<td>
-		<input placeholder="in Demo noch nicht vorhanden!" type="text" name=<%=Probeneingang.BESONDERHEITEN%>>
-	</td>
-</tr>
+						#table_probeneingang input {
+							min-width: 300px;
+							max-width: auto;
+						}
 
-<tr>
-	<th>Infos</th>
-</tr>
-<tr>
-	<td>
-		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.INFOS%>></textarea>
-	</td>
-</tr>
+						.table_in_table {
+							border-collapse: collapse;
+							max-width: auto;
+						}
 
-<tr>
-	<th>Bemerkungen zur Messung</th>
-</tr>
-<tr>
-	<td>
-		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
-	</td>
-</tr>
+						.table_in_table td {
+							min-width: auto;
+						}
+
+						#table_image_upload td {
+							border: 0px solid #dddddd;
+						}
+
+						.image-container {
+							/* 			border: 2px solid #dddddd;	 */
+							float: left;
+							width: 25%;
+							margin: 5px;
+						}
+
+						.tooltip {
+							position: relative;
+							display: inline-block;
+							/*   color: #0000EE; */
+							/*   border-bottom: 1px solid #0000EE; */
+						}
+
+						.tooltip .tooltiptext {
+							visibility: hidden;
+							/*   height: 1em; */
+							min-width: 20em;
+							width: auto;
+							background-color: black;
+							color: #fff;
+							text-align: center;
+							border-radius: 6px;
+							padding: 10px;
+							position: absolute;
+							z-index: 1;
+							top: -5px;
+							left: 110%;
+						}
+
+						.tooltip:hover {
+							cursor: help;
+						}
+
+						.tooltip a:hover {
+							cursor: help;
+						}
+
+						.tooltip .tooltiptext::after {
+							content: " ";
+							position: absolute;
+							top: 50%;
+							right: 100%;
+							/* To the left of the tooltip */
+							margin-top: -5px;
+							border-width: 5px;
+							border-style: solid;
+							border-color: transparent black transparent transparent;
+						}
+
+						.tooltip:hover .tooltiptext {
+							visibility: visible;
+						}
+					</style>
+					<script src="<%=Address.MAIN_PATH + Address.PROBENEINGANG_JS%>"></script>
+					
+				</head>
+
+				<body>
+					<form id="form_probeneingang">
+						<input type="hidden" id="probeneingang_url" value=<%=ProbeneingangErstellenServlet.ROUTE%>>
+						<table id="table_probeneingang">
+							<tr style="background-color: #77bbff;">
+								<th id="probeneingangTooltip" style="background-color: #77bbff; padding: 16px;">
+									Probeneingang</th>
+							</tr>
+
+							<tr>
+								<th>Auftraggeber</th>
+							</tr>
+							<tr>
+								<td>
+									<input disabled type="text" id="partner_name_input_field"
+										name=<%=Probeneingang.AUFTRAGGEBER%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Projekt ID</th>
+							</tr>
+							<tr>
+								<td>
+									<input disabled type="text" id="projekt_id_input_field"
+										name=<%=Probeneingang.PROJEKT_ID%>>
+								</td>
+							</tr>
+							<tr>
+								<th id="probenIdTooltip">Proben ID</th>
+							</tr>
+							<tr>
+								<td>
+									<input required type="text" id="probe_id_input_field"
+										name=<%=Probeneingang.PROBEN_ID%>>
+								</td>
+							</tr>
+							<tr>
+								<th id="wirkstoffTooltip">Wirkstoff</th>
+							</tr>
+							<tr>
+								<td>
+									<input placeholder="in Demo noch nicht vorhanden!" type="text"
+										name=<%=Probeneingang.WIRKSTOFF%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Summenformel</th>
+							</tr>
+							<tr>
+								<td>
+									<input placeholder="in Demo noch nicht vorhanden!" type="text"
+										name=<%=Probeneingang.SUMMENFORMEL%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Bezeichung</th>
+							</tr>
+							<tr>
+								<td>
+									<input placeholder="in Demo noch nicht vorhanden!" type="text"
+										name=<%=Probeneingang.BEZEICHNUNG%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Originator</th>
+							</tr>
+							<tr>
+								<td>
+									<input placeholder="in Demo noch nicht vorhanden!" type="text"
+										name=<%=Probeneingang.ORIGINATOR%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Probeneingang</th>
+							</tr>
+							<tr>
+								<td>
+									<input disabled type="date" name=<%=Probeneingang.PROBENEINGANG%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Probenmasse</th>
+							</tr>
+							<tr>
+								<td>
+									<input placeholder="in Demo noch nicht vorhanden!" type="text"
+										name=<%=Probeneingang.PROBENMASSE%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Besonderheiten</th>
+							</tr>
+							<tr>
+								<td>
+									<input placeholder="in Demo noch nicht vorhanden!" type="text"
+										name=<%=Probeneingang.BESONDERHEITEN%>>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Infos</th>
+							</tr>
+							<tr>
+								<td>
+									<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+										name=<%=Probeneingang.INFOS%>></textarea>
+								</td>
+							</tr>
+
+							<tr>
+								<th>Bemerkungen zur Messung</th>
+							</tr>
+							<tr>
+								<td>
+									<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+										name=<%=Probeneingang.BEMERKUNGEN_ZUR_MESSUNG%>></textarea>
+								</td>
+							</tr>
 
 
-<tr>
-	<th>Bemerkungen</th>
-</tr>
-<tr>
-	<td>
-		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
-	</td>
-</tr>
+							<tr>
+								<th>Bemerkungen</th>
+							</tr>
+							<tr>
+								<td>
+									<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+										name=<%=Probeneingang.BEMERKUNGEN%>></textarea>
+								</td>
+							</tr>
 
-<tr>
-	<th>Literatur</th>
-</tr>
-<tr>
-	<td>
-		<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50" name=<%=Probeneingang.LITERATUR%>></textarea>
-	</td>
-</tr>
+							<tr>
+								<th>Literatur</th>
+							</tr>
+							<tr>
+								<td>
+									<textarea placeholder="in Demo noch nicht vorhanden!" rows="4" cols="50"
+										name=<%=Probeneingang.LITERATUR%>></textarea>
+								</td>
+							</tr>
 
-<tr>
-	<th>Bilder hinzufuegen</th>
-</tr>
-<tr>
-	<td>
-		<table class="table_in_table" id="table_image_upload">
-			<tr>
-				<td>
-					(mehrere Bilder auswaehlen: STRG + Linksklick)
-					<br>
-					<button type="button" id="input_image_reset_button">Bilderauswahl leeren</button>
-					<input type="file" id="input_image_upload" name="probeneingang_bilder" accept="image/*" onchange="loadFile(this)" multiple>
-				</td>
-				<td>
-					<div id="preview-container" style="max-width: 300px"></div>
-				</td>
-			</tr>
-		</table>
-	</td>
-</tr>
-<script>
-    // reset preview pictures when reset button has been pressed
-    $("#input_image_reset_button").on("click", function () {
-        $("#preview-container").empty();
-        $("#input_image_upload").val("");
-    });
+							<tr>
+								<th>Bilder hinzufuegen</th>
+							</tr>
+							<tr>
+								<td>
+									<table class="table_in_table" id="table_image_upload">
+										<tr>
+											<td>
+												(mehrere Bilder auswaehlen: STRG + Linksklick)
+												<br>
+												<button type="button" id="input_image_reset_button">Bilderauswahl
+													leeren</button>
+												<input type="file" id="input_image_upload" name="probeneingang_bilder"
+													accept="image/*"multiple>
+											</td>
+											<td>
+												<div id="preview-container" style="max-width: 300px"></div>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<th style="text-align: center" id="button_probeneingang_speichern">
+									<button type="submit">Speichern</button>
+								</th>
+							</tr>
 
-    // GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROJEKT_ID%>",
-    //     [
-    //         new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
-    //         new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
-    //     ],
-    //     returnParameter = new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
-    //     linkText = "auswaehlen"
-    // );
+							<tr>
+								<th style="text-align: center" id="probeneingang_erstellen_save_message"></th>
+							</tr>
 
-    GlobaleSuche.addSearchLinkToInputWithName("<%=Probeneingang.PROBEN_ID%>",
-        [
-            new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
-            new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0].value),
-            new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, "")
-        ],
-        returnParameter = new Parameter("", ""),
-        "auflisten"
-    );
+						</table>
+					</form>
+				</body>
 
-    Tooltip.setTooltip("probenIdTooltip", "automatisch generieren lassen?");
-    Tooltip.setTooltip("wirkstoffTooltip", "Wirkstoff schon vorhanden und raussuchen, oder neuen erstellen?");
-
-    function probenEingangInit() {
-        let auftraggeberInput = document.getElementsByName("<%=Probeneingang.AUFTRAGGEBER%>")[0];
-        auftraggeberInput.value = MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME];
-
-        let projektInput = document.getElementsByName("<%=Probeneingang.PROJEKT_ID%>")[0];
-        projektInput.value = MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK];
-
-        // terrible hack solange keine vernuenftige Loesing gefunden wurde
-        setTimeout(function () {
-            if (projektInput.value === "") {
-                alert("bitte Projekt auswaehlen!");
-                // $("#projekt_auswaehlen").click();
-                NavigationMenu.openStateSearch(
-                    [
-                        new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, ""),
-                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
-                    ],
-                    async (callbackData) => {
-                        await MainState.setProjekt(callbackData[Parameters.PROJEKT.PK]);
-                        $("#probeneingang_erstellen").click();
-                    },
-                    new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK),
-                )
-            }
-        }, 500);
-    }
-
-    probenEingangInit();
-</script>
+				</html>

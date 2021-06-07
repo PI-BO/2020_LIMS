@@ -27,7 +27,7 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(ProbeneingangErstellenServlet.class.getSimpleName());
 
     private static final long serialVersionUID = 7322122506656092712L;
-    public static final String ROUTE = "/probeneingang";
+    public static final String ROUTE = "/probeneingang/erstellen";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
