@@ -82,7 +82,8 @@ public class ProbeneingangBearbeitenServlet extends HttpServlet {
 			Probe probe = new Probe();
 			probe.setPrimaryKey(probeneingang.getProbenId());
 			probe.setProjektID(probeneingang.getProjektId());
-			probe.saveToDatabase();
+//			probe.saveToDatabase();
+			probe.updateModel();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -95,13 +96,13 @@ public class ProbeneingangBearbeitenServlet extends HttpServlet {
 			e.printStackTrace();
 			return;
 		}
-		catch (DublicateModelException e) {
-			json.addKeyValue("status", "error");
-			json.addKeyValue("message", "Proben ID schon vorhanden");
-			out.print(json.toString());
-			e.printStackTrace();
-			return;
-		}
+//		catch (DublicateModelException e) {
+//			json.addKeyValue("status", "error");
+//			json.addKeyValue("message", "Proben ID schon vorhanden");
+//			out.print(json.toString());
+//			e.printStackTrace();
+//			return;
+//		}
 		catch (SQLException e) {
 			json.addKeyValue("status", "error");
 			json.addKeyValue("message", "SQLException");

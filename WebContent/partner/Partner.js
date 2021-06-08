@@ -39,6 +39,8 @@ export default class Partner extends ViewModel {
 
     erstellen() {
 
+        hallo = "hallo";
+
         this.init = () => {
 
             document.getElementById(this.partnerHeaderId).innerHTML = "Partner erstellen"
@@ -50,12 +52,12 @@ export default class Partner extends ViewModel {
                 ],
                 new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.PK, "")
             );
-    
+
             Form.addSubmit(
                 Address.PARTNER.ERSTELLEN_SERVLET,
                 this.formId,
                 this.messageId,
-                this.callbackOnSuccess.bind(this)
+                this.callbackOnSuccess.bind(this)                
             );
         }
     }

@@ -20,6 +20,16 @@ Address.PROBE = {
     BEARBEITEN_SERVLET : Address.PATH + "/probeneingang/bearbeiten",
 }
 
+Address.EXPERIMENT = {
+    ERSTELLEN_JSP : Address.PATH + "/experiment/experiment_erstellen.jsp",
+    ERSTELLEN_SERVLET : Address.PATH + "/experiment/erstellen",
+    BEARBEITEN_SERVLET : Address.PATH + "/experiment/bearbeiten",
+}
+
+Address.EXPERIMENT_TYP = {
+    ERSTELLEN_JSP : Address.PATH + "/experiment/experimenttyp.jsp",
+}
+
 Address.NAVIGATION_MENU_JSP = Address.PATH + "/navigationMenu/navigation_menu.jsp";
 
 Address.SUCHE = {

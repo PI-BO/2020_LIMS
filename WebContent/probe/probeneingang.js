@@ -28,7 +28,7 @@ export default class Probeneingang extends ViewModel {
                 .then(response => response.text())
                 .then(response => {
                     this.html = response;
-                    resolve();
+                    resolve();                    
                 });
         })
     }
@@ -104,6 +104,10 @@ export default class Probeneingang extends ViewModel {
             let projektIdInput = document.getElementById(this.inputIdProjektId);
             projektIdInput.value = this.state.PROJEKT[Parameters.PROJEKT.PK];
             projektIdInput.disabled = true;
+
+            let probeIdInput = document.getElementById(this.inputIdProbeId);
+            probeIdInput.value = this.state.PROBE[Parameters.PROBE.PK];
+            probeIdInput.disabled = true;
 
             Form.addMultipartSubmit(
                 Address.PROBE.BEARBEITEN_SERVLET,

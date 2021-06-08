@@ -18,11 +18,11 @@
 
 <body>
 	<form id="form_experiment_erstellen">
-		<div class="experiment_erstellen_main_header">Experiment erstellen</div>
+		<div id="experiment_erstellen_main_header"></div>
 
 		<div class="experiment_erstellen_header">Experiment Typ:</div>
 		<div class="experiment_erstellen_entry">
-			<select required onchange="showExperimenttypFieldsMethode(this.value)" name=<%=ExperimentErstellenServlet.TYP%>>
+			<select id="select_experiment_typ" required name=<%=ExperimentErstellenServlet.TYP%>>
 				<option value="" selected disabled>bitte auswaehlen</option>
 				<%
                 try {

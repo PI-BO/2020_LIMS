@@ -455,54 +455,44 @@
 </div>
 
 <script>
-    switch ('<%=experiment_typ%>') {
-        case 'slurry':
-            $('.typ_Verdampfung').remove();
-            break;
-        case 'verdampfung':
-            $('.typ_Slurry').remove();
-            break;
-    }
+    // switch ('<%=experiment_typ%>') {
+    //     case 'slurry':
+    //         $('.typ_Verdampfung').remove();
+    //         break;
+    //     case 'verdampfung':
+    //         $('.typ_Slurry').remove();
+    //         break;
+    // }
 
-    GlobaleSuche.addGenerierenLinkToInputWithName("<%=ExperimentErstellenServlet.NO_ID%>",
-        [
-            new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
-        ],
-        returnParameter = new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, "")
-    );
+    // function experimentErstellenInit() {
 
-    Tooltip.setTooltip("experiment_id_tooltip", "ID automatisch generieren lassen?");
+    //     let startMaterialInputField = document.getElementsByName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>")[0];
+    //     startMaterialInputField.value = MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK];
 
+    //     let probenIdFeedbackField = document.getElementsByName("proben_id_feedback")[0];
+    //     probenIdFeedbackField.value = startMaterialInputField.value;
 
-    function experimentErstellenInit() {
+    //     // terrible hack solange keine vernuenftige Loesing gefunden wurde
+    //     setTimeout(function () {
+    //         if (startMaterialInputField.value === "") {
+    //             alert("bitte Probe auswaehlen!");
+    //             // $("#probe_auswaehlen").click();
+    //             NavigationMenu.openStateSearch(
+    //                 [
+    //                     new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
+    //                     new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
+    //                     new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
+    //                 ],
+    //                 async (callbackData) => {
+    //                     await MainState.setProbe(callbackData[Parameters.PROBE.PK]);
+    //                     $("#experiment_erstellen").click();
+    //                 },
+    //                 new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
+    //             )
+    //         }
+    //     }, 500);
+    // }
 
-        let startMaterialInputField = document.getElementsByName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>")[0];
-        startMaterialInputField.value = MainState.state[Parameters.PROBE.CATEGORY][Parameters.PROBE.PK];
-
-        let probenIdFeedbackField = document.getElementsByName("proben_id_feedback")[0];
-        probenIdFeedbackField.value = startMaterialInputField.value;
-
-        // terrible hack solange keine vernuenftige Loesing gefunden wurde
-        setTimeout(function () {
-            if (startMaterialInputField.value === "") {
-                alert("bitte Probe auswaehlen!");
-                // $("#probe_auswaehlen").click();
-                NavigationMenu.openStateSearch(
-                    [
-                        new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, ""),
-                        new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, () => MainState.state[Parameters.PROJEKT.CATEGORY][Parameters.PROJEKT.PK]),
-                        new Parameter(Parameters.PARTNER.CATEGORY, Parameters.PARTNER.NAME, () => MainState.state[Parameters.PARTNER.CATEGORY][Parameters.PARTNER.NAME])
-                    ],
-                    async (callbackData) => {
-                        await MainState.setProbe(callbackData[Parameters.PROBE.PK]);
-                        $("#experiment_erstellen").click();
-                    },
-                    new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK),
-                )
-            }
-        }, 500);
-    }
-
-    experimentErstellenInit();
+    // experimentErstellenInit();
 
 </script>

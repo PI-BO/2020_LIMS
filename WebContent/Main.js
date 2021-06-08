@@ -1,6 +1,7 @@
 import Partner from './partner/Partner.js';
 import Projekt from './projekt/Projekt.js';
 import Probeneingang from './probe/Probeneingang.js';
+import Experiment from './experiment/Experiment.js';
 import NavigationMenu from './navigationMenu/NavigationMenu.js';
 import EventType from './EventType.js';
 import MainState from './MainState.js';
@@ -34,11 +35,14 @@ navigationMenu.addEventListener(EventType.PARTNER.AUSWAEHLEN, async () => Execut
 navigationMenu.addEventListener(EventType.PROJEKT.ERSTELLEN, () => ExecuteEvent.PROJEKT.ERSTELLEN());
 navigationMenu.addEventListener(EventType.PROJEKT.BEARBEITEN, () => ExecuteEvent.PROJEKT.BEARBEITEN());
 navigationMenu.addEventListener(EventType.PROJEKT.AUSWAEHLEN, async () => ExecuteEvent.PROJEKT.AUSWAEHLEN());
-navigationMenu.addEventListener(EventType.PARTNER.AUSWAEHLEN, async () => ExecuteEvent.PARTNER.AUSWAEHLEN());
 
 navigationMenu.addEventListener(EventType.PROBE.EINGANG, () => ExecuteEvent.PROBE.ERSTELLEN());
 navigationMenu.addEventListener(EventType.PROBE.BEARBEITEN, () => ExecuteEvent.PROBE.BEARBEITEN());
 navigationMenu.addEventListener(EventType.PROBE.AUSWAEHLEN, async () => ExecuteEvent.PROBE.AUSWAEHLEN());
+
+navigationMenu.addEventListener(EventType.EXPERIMENT.ERSTELLEN, () => ExecuteEvent.EXPERIMENT.ERSTELLEN());
+navigationMenu.addEventListener(EventType.EXPERIMENT.BEARBEITEN, () => ExecuteEvent.EXPERIMENT.BEARBEITEN());
+navigationMenu.addEventListener(EventType.EXPERIMENT.AUSWAEHLEN, async () => ExecuteEvent.EXPERIMENT.AUSWAEHLEN());
 
 mainState.addEventListener(EventType.STATE.PARTNER, (id) => navigationMenu.setPartner(id));
 mainState.addEventListener(EventType.STATE.PROJEKT, (id) => navigationMenu.setProjekt(id));
@@ -233,6 +237,60 @@ ExecuteEvent.PROBE.GESPEICHERT = (probe) => {
     mainState.setProbe(probe);
 }
 
+ExecuteEvent.EXPERIMENT.AUSWAEHLEN = async () => {
+    hide(inputMasksContainer);
+    show(searchContainer);
+    const experimentId = await experimentSuchen();
+    await mainState.setExperiment(experimentId);
+    hide(searchContainer);
+}
+
+ExecuteEvent.EXPERIMENT.ERSTELLEN = () => {
+    experiment = new Experiment(mainState.state);
+    experiment.erstellen();
+    experiment.addEventListener(EventType.EXPERIMENT.GESPEICHERT, (experiment) => {
+        ExecuteEvent.EXPERIMENT.GESPEICHERT(experiment);
+    });
+    experiment.addEventListener(EventType.EXPERIMENT.SUCHEN, async () => {
+        alert("bitte Experiment auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const experimentId = await experimentSuchen();
+        await mainState.setExperiment(experimentId);
+        experiment.state = mainState.state;
+        experiment.render(inputMasksContainer);
+        hide(searchContainer);
+        show(inputMasksContainer);
+    });
+    experiment.render(inputMasksContainer);
+    show(inputMasksContainer);
+}
+
+ExecuteEvent.EXPERIMENT.BEARBEITEN = () => {
+    experiment = new Experiment(mainState.state);
+    experiment.bearbeiten();
+    experiment.addEventListener(EventType.EXPERIMENT.GESPEICHERT, (experiment) => {
+        mainState.setExperiment(experiment);
+    });
+    experiment.addEventListener(EventType.EXPERIMENT.SUCHEN, async () => {
+        alert("bitte Experiment auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const experimentId = await experimentSuchen();
+        await mainState.setExperiment(experimentId);
+        hide(searchContainer);
+        show(inputMasksContainer);
+        experiment.state = mainState.state;
+        experiment.render(inputMasksContainer);
+    });
+    experiment.render(inputMasksContainer);
+    show(inputMasksContainer);
+}
+
+ExecuteEvent.EXPERIMENT.GESPEICHERT = (experiment) => {
+    mainState.setExperiment(experiment);
+}
+
 async function partnerSuchen() {
     let partnerId;
     await new Promise(async (resolve) => {
@@ -297,4 +355,26 @@ async function probeSuchen() {
         }, true, returnParameter)
     });
     return probeId;
+}
+
+async function experimentSuchen() {
+    let experimentId;
+    await new Promise(async (resolve) => {
+        const template =
+            [
+                new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK, ""),
+                new Parameter(Parameters.PROJEKT.CATEGORY, Parameters.PROJEKT.PK, mainState.state.PROJEKT[Parameters.PROJEKT.PK])
+            ];
+        const callback = async (callbackData) => {
+            experimentId = callbackData[Parameters.EXPERIMENT.PK];
+            resolve();
+        };
+        const returnParameter = new Parameter(Parameters.EXPERIMENT.CATEGORY, Parameters.EXPERIMENT.PK);
+        Suche.resetPositionIfOutOfBounds();
+        Suche.initTemplateParameters(template);
+        Suche.addSearchCallback((callbackData) => {
+            callback(callbackData);
+        }, true, returnParameter)
+    });
+    return experimentId;
 }

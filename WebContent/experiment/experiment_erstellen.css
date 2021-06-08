@@ -20,7 +20,7 @@ input:invalid, select:invalid, textarea:invalid {
 	background-color: white;
 }
 
-.experiment_erstellen_main_header {
+#experiment_erstellen_main_header {
 	background-color: #77bbff;
 	padding: 16px;
 	font-weight: bold;
