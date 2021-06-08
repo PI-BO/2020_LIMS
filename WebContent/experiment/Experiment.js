@@ -10,29 +10,11 @@ import ExperimentTyp from './ExperimentTyp.js';
 export default class Experiment extends ViewModel {
 
     constructor(state) {
-        super();
+        super(Address.EXPERIMENT.ERSTELLEN_JSP);
         this.state = state;
         this.headerId = "experiment_erstellen_main_header";
         this.selectExperimentTypId = "select_experiment_typ";
         this.experimentTypContentId = "experiment_erstellen_content"
-        this.html = new Promise((resolve) => {
-            fetch(Address.EXPERIMENT.ERSTELLEN_JSP, {
-                method: "post",
-            })
-                .then(response => response.text())
-                .then(response => {
-                    this.html = response;
-                    resolve();
-                });
-        })
-    }
-
-    async render(htmlElementId) {
-
-        const htmlElement = document.getElementById(htmlElementId);
-        await this.html;
-        htmlElement.innerHTML = this.html;
-        this.init();
     }
 
     erstellen() {

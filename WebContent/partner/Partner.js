@@ -9,7 +9,7 @@ import ViewModel from '../ViewModel.js';
 export default class Partner extends ViewModel {
 
     constructor(state) {
-        super();
+        super(Address.PARTNER.ERSTELLEN_JSP);
         this.state = state;
         this.inputIdPartnerId = "partner_id_input_field";
         this.inputIdPartnerName = "partner_name_input_field";
@@ -17,29 +17,9 @@ export default class Partner extends ViewModel {
         this.formId = "form_partner_erstellen";
         this.messageId = "partner_erstellen_save_message";
         this.partnerHeaderId = "partner_header";
-        this.html = new Promise((resolve) => {
-            fetch(Address.PARTNER.ERSTELLEN_JSP, {
-                method: "post",
-            })
-                .then(response => response.text())
-                .then(response => {
-                    this.html = response;
-                    resolve();
-                });
-        })
-    }
-
-    async render(htmlElementId) {
-
-        const htmlElement = document.getElementById(htmlElementId);
-        await this.html;
-        htmlElement.innerHTML = this.html;
-        this.init();
     }
 
     erstellen() {
-
-        hallo = "hallo";
 
         this.init = () => {
 

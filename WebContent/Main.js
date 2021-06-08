@@ -1,8 +1,9 @@
+import NavigationMenu from './navigationMenu/NavigationMenu.js';
 import Partner from './partner/Partner.js';
 import Projekt from './projekt/Projekt.js';
 import Probeneingang from './probe/Probeneingang.js';
 import Experiment from './experiment/Experiment.js';
-import NavigationMenu from './navigationMenu/NavigationMenu.js';
+import Analyse from './analyse/Analyse.js';
 import EventType from './EventType.js';
 import MainState from './MainState.js';
 import Suche from './suche/Suche.js';
@@ -44,6 +45,10 @@ navigationMenu.addEventListener(EventType.EXPERIMENT.ERSTELLEN, () => ExecuteEve
 navigationMenu.addEventListener(EventType.EXPERIMENT.BEARBEITEN, () => ExecuteEvent.EXPERIMENT.BEARBEITEN());
 navigationMenu.addEventListener(EventType.EXPERIMENT.AUSWAEHLEN, async () => ExecuteEvent.EXPERIMENT.AUSWAEHLEN());
 
+navigationMenu.addEventListener(EventType.ANALYSE.ERSTELLEN, () => ExecuteEvent.ANALYSE.ERSTELLEN());
+navigationMenu.addEventListener(EventType.ANALYSE.BEARBEITEN, () => ExecuteEvent.ANALYSE.BEARBEITEN());
+navigationMenu.addEventListener(EventType.ANALYSE.AUSWAEHLEN, async () => ExecuteEvent.ANALYSE.AUSWAEHLEN());
+
 mainState.addEventListener(EventType.STATE.PARTNER, (id) => navigationMenu.setPartner(id));
 mainState.addEventListener(EventType.STATE.PROJEKT, (id) => navigationMenu.setProjekt(id));
 mainState.addEventListener(EventType.STATE.EXPERIMENT, (id) => navigationMenu.setExperiment(id));
@@ -53,6 +58,7 @@ mainState.addEventListener(EventType.STATE.PROBE, (id) => navigationMenu.setProb
 /************** Init App ***************/
 
 navigationMenu.render(mainMenuContainer);
+show(mainMenuContainer);
 Suche.render(searchContainer);
 hide(searchContainer);
 
@@ -291,6 +297,60 @@ ExecuteEvent.EXPERIMENT.GESPEICHERT = (experiment) => {
     mainState.setExperiment(experiment);
 }
 
+ExecuteEvent.ANALYSE.AUSWAEHLEN = async () => {
+    hide(inputMasksContainer);
+    show(searchContainer);
+    const analyseID = await analyseSuchen();
+    await mainState.setAnalyse(analyseID);
+    hide(searchContainer);
+}
+
+ExecuteEvent.ANALYSE.ERSTELLEN = () => {
+    analyse = new Analyse(mainState.state);
+    analyse.erstellen();
+    analyse.addEventListener(EventType.ANALYSE.GESPEICHERT, (analyse) => {
+        ExecuteEvent.ANALYSE.GESPEICHERT(analyse);
+    });
+    analyse.addEventListener(EventType.ANALYSE.SUCHEN, async () => {
+        alert("bitte Analyse auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const analyseId = await analyseSuchen();
+        await mainState.setAnalyse(analyseId);
+        analyse.state = mainState.state;
+        analyse.render(inputMasksContainer);
+        hide(searchContainer);
+        show(inputMasksContainer);
+    });
+    analyse.render(inputMasksContainer);
+    show(inputMasksContainer);
+}
+
+ExecuteEvent.ANALYSE.BEARBEITEN = () => {
+    analyse = new Analyse(mainState.state);
+    analyse.bearbeiten();
+    analyse.addEventListener(EventType.ANALYSE.GESPEICHERT, (analyse) => {
+        mainState.setAnalyse(analyse);
+    });
+    analyse.addEventListener(EventType.ANALYSE.SUCHEN, async () => {
+        alert("bitte Analyse auswaehlen!");
+        hideFast(inputMasksContainer);
+        show(searchContainer);
+        const analyseId = await analyseSuchen();
+        await mainState.setAnalyse(analyseId);
+        hide(searchContainer);
+        show(inputMasksContainer);
+        analyse.state = mainState.state;
+        analyse.render(inputMasksContainer);
+    });
+    analyse.render(inputMasksContainer);
+    show(inputMasksContainer);
+}
+
+ExecuteEvent.ANALYSE.GESPEICHERT = (analyse) => {
+    mainState.setAnalyse(analyse);
+}
+
 async function partnerSuchen() {
     let partnerId;
     await new Promise(async (resolve) => {
@@ -377,4 +437,26 @@ async function experimentSuchen() {
         }, true, returnParameter)
     });
     return experimentId;
+}
+
+async function analyseSuchen() {
+    let analyseId;
+    await new Promise(async (resolve) => {
+        const template =
+            [
+                new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK, ""),
+                new Parameter(Parameters.PROBE.CATEGORY, Parameters.PROBE.PK, mainState.state.PROBE[Parameters.PROBE.PK])
+            ];
+        const callback = async (callbackData) => {
+            analyseId = callbackData[Parameters.ANALYSE.PK];
+            resolve();
+        };
+        const returnParameter = new Parameter(Parameters.ANALYSE.CATEGORY, Parameters.ANALYSE.PK);
+        Suche.resetPositionIfOutOfBounds();
+        Suche.initTemplateParameters(template);
+        Suche.addSearchCallback((callbackData) => {
+            callback(callbackData);
+        }, true, returnParameter)
+    });
+    return analyseId;
 }

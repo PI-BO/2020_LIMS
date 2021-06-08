@@ -84,27 +84,6 @@
             }
         });
     })
-
-
-
-
-
-    // $(document).ready(function () {
-    //     $('#form_experiment_erstellen').submit(function () {
-    //         $.ajax({
-    //             url: '<%=Address.getExperimentErstellenServlet()%>',
-    //             type: 'post',
-    //             data: $(this).serialize(),
-    //             success: function () {
-    //                 replaceContent("experiment_erstellen_speichern", "Erfolgreich gespeichert", "green");
-    //             },
-    //             error: function (xhr, status, error) {
-    //                 replaceContent("button_experiment_speichern", "Fehler: " + xhr.responseText, "red");
-    //             }
-    //         });
-    //         return false;
-    //     });
-    // });
 </script>
 
 </html>

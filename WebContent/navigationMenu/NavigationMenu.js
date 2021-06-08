@@ -2,45 +2,33 @@ import Address from '../Address.js';
 import EventType from '../EventType.js';
 import ViewModel from '../ViewModel.js';
 
-const showDelay = 500;
 const navigationNodeShowDelay = 400;
 
 export default class NavigationMenu extends ViewModel {
-    
+
     constructor() {
-        super();
+        super(Address.NAVIGATION_MENU_JSP);
         this.mainContentId = "main-content";
         this.partnerStateElementId = "partner_navigation_state";
         this.projektStateElementId = "projekt_navigation_state";
         this.probeStateElementId = "probe_navigation_state";
         this.experimentStateElementId = "experiment_navigation_state";
         this.analyseStateElementId = "analyse_navigation_state";
+        this.navigationElementId = "navigation_table";
     }
 
-    render(htmlElementId) {
+    init() {
 
-        const htmlElement = document.getElementById(htmlElementId);
+        const htmlElement = document.getElementById(this.navigationElementId);
 
-        const url = Address.NAVIGATION_MENU_JSP;
+        this.initPartner(htmlElement);
+        this.initProjekt(htmlElement);
+        this.initProbe(htmlElement);
+        this.initExperiment(htmlElement);
+        this.initAnalyse(htmlElement);
 
-        fetch(url, {
-            method: "post",
-        })
-            .then(response => response.text())
-            .then(response => {
-
-                htmlElement.innerHTML = response
-
-                this.initPartner(htmlElement);
-                this.initProjekt(htmlElement);
-                this.initProbe(htmlElement);
-                this.initExperiment(htmlElement);
-
-                initDropDownMenus(".navigation_tree_node");
-                initOpenAllDropDownMenus(".navigation_table_header", ".navigation_tree_branches");
-
-                $("#" + htmlElementId).show(showDelay);
-            });
+        initDropDownMenus(".navigation_tree_node");
+        initOpenAllDropDownMenus(".navigation_table_header", ".navigation_tree_branches");
     }
 
     setPartner(stateText) {
@@ -63,7 +51,7 @@ export default class NavigationMenu extends ViewModel {
         document.getElementById(this.analyseStateElementId).innerText = stateText;
     }
 
-    initPartner(htmlElement){
+    initPartner(htmlElement) {
         const partner = {};
         const partnerMenu = htmlElement.getElementsByTagName("Partner")[0];
         partner.auswaehlen = partnerMenu.getElementsByTagName("auswaehlen")[0];
@@ -86,7 +74,7 @@ export default class NavigationMenu extends ViewModel {
         });
     }
 
-    initProjekt(htmlElement){
+    initProjekt(htmlElement) {
         const projekt = {};
         const projektMenu = htmlElement.getElementsByTagName("Projekt")[0];
         projekt.auswaehlen = projektMenu.getElementsByTagName("auswaehlen")[0];
@@ -109,7 +97,7 @@ export default class NavigationMenu extends ViewModel {
         });
     }
 
-    initProbe(htmlElement){
+    initProbe(htmlElement) {
         const probe = {};
         const probeMenu = htmlElement.getElementsByTagName("Probe")[0];
         probe.auswaehlen = probeMenu.getElementsByTagName("auswaehlen")[0];
@@ -132,7 +120,7 @@ export default class NavigationMenu extends ViewModel {
         });
     }
 
-    initExperiment(htmlElement){
+    initExperiment(htmlElement) {
         const experiment = {};
         const experimentMenu = htmlElement.getElementsByTagName("Experiment")[0];
         experiment.auswaehlen = experimentMenu.getElementsByTagName("auswaehlen")[0];
@@ -151,6 +139,35 @@ export default class NavigationMenu extends ViewModel {
 
         experiment.bearbeiten.addEventListener("click", () => {
             const event = new Event(EventType.EXPERIMENT.BEARBEITEN);
+            this.dispatchEvent(event);
+        });
+    }
+
+    initAnalyse(htmlElement) {
+        const analyse = {};
+        const analyseMenu = htmlElement.getElementsByTagName("Analyse")[0];
+        analyse.auswaehlen = analyseMenu.getElementsByTagName("auswaehlen")[0];
+        analyse.erstellen = analyseMenu.getElementsByTagName("erstellen")[0];
+        analyse.bearbeiten = analyseMenu.getElementsByTagName("bearbeiten")[0];
+        analyse.Eingangsanalyse = analyseMenu.getElementsByTagName("bearbeiten")[0];
+
+        analyse.auswaehlen.addEventListener("click", () => {
+            const event = new Event(EventType.ANALYSE.AUSWAEHLEN);
+            this.dispatchEvent(event);
+        });
+
+        analyse.erstellen.addEventListener("click", () => {
+            const event = new Event(EventType.ANALYSE.ERSTELLEN);
+            this.dispatchEvent(event);
+        });
+
+        analyse.bearbeiten.addEventListener("click", () => {
+            const event = new Event(EventType.ANALYSE.BEARBEITEN);
+            this.dispatchEvent(event);
+        });
+
+        analyse.Eingangsanalyse.addEventListener("click", () => {
+            const event = new Event(EventType.ANALYSE.EINGANGSANALYSE);
             this.dispatchEvent(event);
         });
     }

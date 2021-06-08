@@ -6,6 +6,11 @@ import Listenable from './Listenable.js';
 
 export default class MainState extends Listenable {
 
+    constructor() {
+        super();
+        this.init();
+    }
+
     init() {
 
         this.partnerNavigationState = "partner_navigation_state";
@@ -112,11 +117,6 @@ export default class MainState extends Listenable {
                 }
             )
         })
-    }
-
-    constructor() {
-        super();
-        this.init();
     }
 }
 

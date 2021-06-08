@@ -134,21 +134,39 @@
 								</li>
 							</Experiment>
 
-							<li><span class="navigation_tree_node symbol_folder_closed">Analyse [<span
-										style="color: blue;" id="analyse_navigation_state"> - </span>]
-								</span>
-								<ul class="navigation_tree_branches">
-									<li><span class="navigation_tree_node symbol_search" id="analyse_auswaehlen"
-											style="opacity: 1.0">auswaehlen</span></li>
-									<li><span class="navigation_tree_node symbol_clipboard"
-											id="analyse_erstellen">erstellen</span></li>
-									<li><span class="navigation_tree_node symbol_folder_closed"
-											id="eingangsanalytik_erstellen" style="opacity: 0.3">Eingangsanalyse</span>
-									</li>
-									<li><span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3"
-											id="analyse_bearbeiten">bearbeiten</span></li>
-								</ul>
-							</li>
+							<Analyse>
+								<li><span class="navigation_tree_node symbol_folder_closed">Analyse [<span
+											style="color: blue;" id="analyse_navigation_state"> - </span>]
+									</span>
+									<ul class="navigation_tree_branches">
+										<auswaehlen>
+											<li>
+												<span class="navigation_tree_node symbol_search" id="analyse_auswaehlen"
+													style="opacity: 1.0">auswaehlen</span>
+											</li>
+										</auswaehlen>
+										<erstellen>
+											<li>
+												<span class="navigation_tree_node symbol_clipboard"
+													id="analyse_erstellen">erstellen</span>
+											</li>
+										</erstellen>
+										<Eingangsanalyse>
+											<li><span class="navigation_tree_node symbol_folder_closed"
+													id="eingangsanalytik_erstellen"
+													style="opacity: 0.3">Eingangsanalyse</span>
+											</li>
+										</Eingangsanalyse>
+										<bearbeiten>
+											<li>
+												<span class="navigation_tree_node symbol_pen_paper" style="opacity: 0.3"
+													id="analyse_bearbeiten">bearbeiten</span>
+											</li>
+										</bearbeiten>
+									</ul>
+								</li>
+
+							</Analyse>
 
 							<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">Explorer</span>
 							</li>
