@@ -1,18 +1,20 @@
-import Suche from '../suche/Suche.js'
-import { Parameter } from '../suche/Parameter.js';
 import { Parameters } from '../suche/Parameter.js';
-import Form from '../Form.js';
-import EventType from '../EventType.js';
 import Address from '../Address.js';
 import ViewModel from '../ViewModel.js';
 import ContextMenu from './contextMenu.js';
 import '../jstree/jstree.min.js';
+import PartnerList from './PartnerList.js';
+import Partner from './Partner.js';
+import Projekt from './Projekt.js';
+import Probe from './Probe.js';
+import Experiment from './Experiment.js';
 
 export default class ExplorerNavigation extends ViewModel {
 
     constructor(state) {
         super(Address.EXPLORER.NAVIGATION);
         this.explorerState = state;
+        this.explorerContentId = "explorer-content";
         this.init = () => {
             $('#evts_button').on("click", function () {
                 var instance = $('#lazy').jstree(true);
@@ -34,16 +36,16 @@ export default class ExplorerNavigation extends ViewModel {
                     ajax: {
                         url: "jstree/search",
                         data: {
-                            // "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
-                            // "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
-                            // "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"],
-                            // "Experiment": ["${Experiment.COLUMN_PRIMARY_KEY}"],
-                            // "Analyse": ["${Analyse.COLUMN_PRIMARY_KEY}"]
-                            "Partner": [Parameters.PARTNER.PK],
-                            "Projekt": [Parameters.PROJEKT.PK],
-                            "Probe": [Parameters.PROBE.PK],
-                            "Experiment": [Parameters.EXPERIMENT.PK],
-                            "Analyse": [Parameters.ANALYSE.PK]
+                            "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
+                            "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
+                            "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"],
+                            "Experiment": ["${Experiment.COLUMN_PRIMARY_KEY}"],
+                            "Analyse": ["${Analyse.COLUMN_PRIMARY_KEY}"]
+                            // "Partner": [Parameters.PARTNER.PK],
+                            // "Projekt": [Parameters.PROJEKT.PK],
+                            // "Probe": [Parameters.PROBE.PK],
+                            // "Experiment": [Parameters.EXPERIMENT.PK],
+                            // "Analyse": [Parameters.ANALYSE.PK]
                         }
                     }
                 },
@@ -90,30 +92,38 @@ export default class ExplorerNavigation extends ViewModel {
         const path = this.createPath(data);
 
         let url;
+        let explorerPage;
         if (nodeCategory == "j1_1") {	//Projekte Node
             // url = "<%=Address.getPartnerListJSP()%>";
-            url = Address.EXPLORER.PARTNER_LIST;
+            // url = Address.EXPLORER.PARTNER_LIST;
+            explorerPage = new PartnerList();
+            ContextMenu.initPartner();
         } else if (nodeCategory == Parameters.PARTNER.CATEGORY) {
             // url = "<%=Address.getPartnerJSP()%>"
-            url = Address.EXPLORER.PARTNER;
+            // url = Address.EXPLORER.PARTNER;
+            explorerPage = new Partner();
+            ContextMenu.initProjekt();
         } else if (nodeCategory == Parameters.PROJEKT.CATEGORY) {
             // url = "<%=Address.getProjektJSP()%>";
-            url = Address.EXPLORER.PROJEKT;
+            // url = Address.EXPLORER.PROJEKT;
+            explorerPage = new Projekt();
+            ContextMenu.initProbe();
         } else if (nodeCategory == Parameters.PROBE.CATEGORY) {
             // url = "<%=Address.getProbeJSP()%>"
-            url = Address.EXPLORER.PROBE;
+            // url = Address.EXPLORER.PROBE;
+            explorerPage = new Probe();
+            ContextMenu.initExperiment();
         } else if (nodeCategory == Parameters.EXPERIMENT.CATEGORY) {
             // url = "<%=Address.getExperimentJSP()%>"
-            url = Address.EXPLORER.EXPERIMENT;
+            // url = Address.EXPLORER.EXPERIMENT;
+            explorerPage = new Experiment();
+            ContextMenu.initAnalyse();
         } else {
             return;
         }
 
-        const posting = $.post(url, { projekt_id: nodeId });
+        explorerPage.render(this.explorerContentId);
 
-        posting.done(function (returnedData) {
-            $("#explorer-content").empty().append(returnedData);
-        });
         this.explorerState.setState(path)
     }
 

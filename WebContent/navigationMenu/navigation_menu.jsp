@@ -29,8 +29,7 @@
 							</Account>
 
 							<Partner>
-								<span class="navigation_tree_node symbol_user">
-									Partner [<span style="color: blue;" id="partner_navigation_state"> - </span>]
+								<span class="navigation_tree_node symbol_user">Partner [<span style="color: blue;" id="partner_navigation_state"> - </span>]
 								</span>
 								<ul class="navigation_tree_branches">
 									<auswaehlen>

@@ -54,9 +54,5 @@
 
 </table>
 
-<script>
-    contextMenu.initPartner();
-</script>
-
 </body>
 </html>

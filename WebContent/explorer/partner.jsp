@@ -52,9 +52,5 @@
     %>
 </table>
 
-<script>
-    contextMenu.initProjekt();
-</script>
-
 </body>
 </html>

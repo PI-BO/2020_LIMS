@@ -54,6 +54,7 @@ Address.EXPLORER = {
     PARTNER_LIST: Address.PATH + "/explorer/partnerList.jsp",
     PARTNER: Address.PATH + "/explorer/partner.jsp",
     PROJEKT: Address.PATH + "/explorer/projekt.jsp",
+    PROJEKTE_LIST: Address.PATH + "/explorer/projekteList.jsp",
     PROBE: Address.PATH + "/explorer/probe.jsp",
     EXPERIMENT: Address.PATH + "/explorer/experiment.jsp",
     NAVIGATION: Address.PATH + "/explorer/explorer_navigation_menu.jsp",

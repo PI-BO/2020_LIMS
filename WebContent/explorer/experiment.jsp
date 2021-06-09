@@ -50,11 +50,5 @@
     %>
 	</table>
 
-	<script>
-
-    contextMenu.initAnalyse()
-
-</script>
-
 </body>
 </html>

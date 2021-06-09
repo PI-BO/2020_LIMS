@@ -55,11 +55,5 @@
     %>
 	</table>
 
-	<script>
-
-    contextMenu.initExperiment()
-
-</script>
-
 </body>
 </html>

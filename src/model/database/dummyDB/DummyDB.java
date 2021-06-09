@@ -348,7 +348,7 @@ public class DummyDB implements Database {
 			return;
 		}
 		
-		throw new ModelNotFoundException("requestedModel: " + requestedModel.getClass().toString());
+		throw new ModelNotFoundException("requestedModel: " + requestedModel.getClass().getSimpleName() + "\tPrimaryKey : " + requestedModel.getPrimaryKey());
 	}
 
 	@Override
