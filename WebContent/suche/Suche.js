@@ -1,12 +1,11 @@
 import { Parameter } from './Parameter.js';
 import Address from '../Address.js';
 import ViewModel from '../ViewModel.js';
+import EventType from '../EventType.js';
 
 export default (function () {
 
 	const Suche = new ViewModel();
-
-	const showDelay = 500;
 
 	// IDs
 	const addButtonId = "global_search_add_parameter_button";
@@ -141,7 +140,9 @@ export default (function () {
 		let closeButton = document.getElementById(closeSearchButtonId);
 		closeButton.addEventListener("click", () => {
 			if (searchCallbackForInputMasks === undefined) {
-				Suche.htmlElement.style.display = "none"; //TODO:
+				// Suche.htmlElement.style.display = "none"; //TODO:
+				const event = new Event(EventType.SUCHE.SCHLIESSEN);
+				Suche.dispatchEvent(event);
 				resetSearchWindow();
 			} else {
 				Suche.disableCallbackMode();
@@ -159,7 +160,8 @@ export default (function () {
 	function initMinimizeButton() {
 		let minimizeButton = document.getElementById(minimizeSearchButtonId);
 		minimizeButton.addEventListener("click", () => {
-			Suche.htmlElement.style.display = "none"; //TODO:
+			const event = new Event(EventType.SUCHE.MINIMIEREN);
+			Suche.dispatchEvent(event);
 		})
 	}
 

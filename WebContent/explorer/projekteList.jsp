@@ -43,7 +43,6 @@
 
 	<script>
 
-			addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
 			
 			$(".explorer_table_data").click(function(){
 				let data = {projekt_id : $(this).text()};

@@ -9,11 +9,12 @@ export default class NavigationMenu extends ViewModel {
     constructor() {
         super(Address.NAVIGATION_MENU_JSP);
         this.mainContentId = "main-content";
-        this.partnerStateElementId = "partner_navigation_state";
-        this.projektStateElementId = "projekt_navigation_state";
-        this.probeStateElementId = "probe_navigation_state";
-        this.experimentStateElementId = "experiment_navigation_state";
-        this.analyseStateElementId = "analyse_navigation_state";
+        this.state = {};
+        this.state.partnerElementId = "partner_navigation_state";
+        this.state.projektElementId = "projekt_navigation_state";
+        this.state.probeElementId = "probe_navigation_state";
+        this.state.experimentElementId = "experiment_navigation_state";
+        this.state.analyseElementId = "analyse_navigation_state";
         this.navigationElementId = "navigation_table";
     }
 
@@ -26,29 +27,31 @@ export default class NavigationMenu extends ViewModel {
         this.initProbe(htmlElement);
         this.initExperiment(htmlElement);
         this.initAnalyse(htmlElement);
+        this.initSuche(htmlElement);
+        this.initExplorer(htmlElement);
 
         initDropDownMenus(".navigation_tree_node");
         initOpenAllDropDownMenus(".navigation_table_header", ".navigation_tree_branches");
     }
 
     setPartner(stateText) {
-        document.getElementById(this.partnerStateElementId).innerText = stateText;
+        document.getElementById(this.state.partnerElementId).innerText = stateText;
     }
 
     setProjekt(stateText) {
-        document.getElementById(this.projektStateElementId).innerText = stateText;
+        document.getElementById(this.state.projektElementId).innerText = stateText;
     }
 
     setExperiment(stateText) {
-        document.getElementById(this.experimentStateElementId).innerText = stateText;
+        document.getElementById(this.state.experimentElementId).innerText = stateText;
     }
 
     setProbe(stateText) {
-        document.getElementById(this.probeStateElementId).innerText = stateText;
+        document.getElementById(this.state.probeElementId).innerText = stateText;
     }
 
     setAnalyse(stateText) {
-        document.getElementById(this.analyseStateElementId).innerText = stateText;
+        document.getElementById(this.state.analyseElementId).innerText = stateText;
     }
 
     initPartner(htmlElement) {
@@ -168,6 +171,24 @@ export default class NavigationMenu extends ViewModel {
 
         analyse.Eingangsanalyse.addEventListener("click", () => {
             const event = new Event(EventType.ANALYSE.EINGANGSANALYSE);
+            this.dispatchEvent(event);
+        });
+    }
+
+    initSuche(htmlElement) {
+        const suche = htmlElement.getElementsByTagName("Suche")[0];
+
+        suche.addEventListener("click", () => {
+            const event = new Event(EventType.SUCHE.AUFRUFEN);
+            this.dispatchEvent(event);
+        });
+    }
+
+    initExplorer(htmlElement) {
+        const explorer = htmlElement.getElementsByTagName("Explorer")[0];
+
+        explorer.addEventListener("click", () => {
+            const event = new Event(EventType.EXPLORER.AUFRUFEN);
             this.dispatchEvent(event);
         });
     }

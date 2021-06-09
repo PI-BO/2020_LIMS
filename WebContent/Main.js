@@ -8,10 +8,12 @@ import EventType from './EventType.js';
 import MainState from './MainState.js';
 import Suche from './suche/Suche.js';
 import { Parameter, Parameters } from './suche/Parameter.js';
+import Explorer from './explorer/Explorer.js';
 
 const inputMasksContainer = "main-content-input-masks";
 const mainMenuContainer = "main-menu";
 const searchContainer = "main-content-search";
+const explorerContainer = "main-content-explorer";
 
 const showDelay = 500;
 const hideDelay = 100;
@@ -20,7 +22,7 @@ let ExecuteEvent = {};
 
 const mainState = new MainState();
 const navigationMenu = new NavigationMenu();
-const explorer = {};
+const explorer = new Explorer();
 let partner;
 let projekt;
 let probeneingang;
@@ -49,18 +51,30 @@ navigationMenu.addEventListener(EventType.ANALYSE.ERSTELLEN, () => ExecuteEvent.
 navigationMenu.addEventListener(EventType.ANALYSE.BEARBEITEN, () => ExecuteEvent.ANALYSE.BEARBEITEN());
 navigationMenu.addEventListener(EventType.ANALYSE.AUSWAEHLEN, async () => ExecuteEvent.ANALYSE.AUSWAEHLEN());
 
+navigationMenu.addEventListener(EventType.SUCHE.AUFRUFEN, () => ExecuteEvent.SUCHE.AUFRUFEN());
+navigationMenu.addEventListener(EventType.SUCHE.SCHLIESSEN, () => ExecuteEvent.SUCHE.SCHLIESSEN());
+navigationMenu.addEventListener(EventType.SUCHE.MINIMIEREN, async () => ExecuteEvent.SUCHE.MINIMIEREN());
+
+navigationMenu.addEventListener(EventType.EXPLORER.AUFRUFEN, () => ExecuteEvent.EXPLORER.AUFRUFEN());
+navigationMenu.addEventListener(EventType.EXPLORER.SCHLIESSEN, () => ExecuteEvent.EXPLORER.SCHLIESSEN());
+navigationMenu.addEventListener(EventType.EXPLORER.MINIMIEREN, async () => ExecuteEvent.EXPLORER.MINIMIEREN());
+
 mainState.addEventListener(EventType.STATE.PARTNER, (id) => navigationMenu.setPartner(id));
 mainState.addEventListener(EventType.STATE.PROJEKT, (id) => navigationMenu.setProjekt(id));
 mainState.addEventListener(EventType.STATE.EXPERIMENT, (id) => navigationMenu.setExperiment(id));
 mainState.addEventListener(EventType.STATE.ANALYSE, (id) => navigationMenu.setAnalyse(id));
 mainState.addEventListener(EventType.STATE.PROBE, (id) => navigationMenu.setProbe(id));
 
+Suche.addEventListener(EventType.SUCHE.MINIMIEREN, () => ExecuteEvent.SUCHE.MINIMIEREN());
+Suche.addEventListener(EventType.SUCHE.SCHLIESSEN, () => ExecuteEvent.SUCHE.SCHLIESSEN());
+
 /************** Init App ***************/
 
 navigationMenu.render(mainMenuContainer);
 show(mainMenuContainer);
 Suche.render(searchContainer);
-hide(searchContainer);
+explorer.render(explorerContainer);
+
 
 /************** Behavior ***************/
 
@@ -91,6 +105,8 @@ ExecuteEvent.PROJEKT = {};
 ExecuteEvent.EXPERIMENT = {};
 ExecuteEvent.ANALYSE = {};
 ExecuteEvent.PROBE = {};
+ExecuteEvent.SUCHE = {};
+ExecuteEvent.EXPLORER = {};
 
 ExecuteEvent.PARTNER.AUSWAEHLEN = async () => {
     hide(inputMasksContainer);
@@ -350,6 +366,26 @@ ExecuteEvent.ANALYSE.BEARBEITEN = () => {
 ExecuteEvent.ANALYSE.GESPEICHERT = (analyse) => {
     mainState.setAnalyse(analyse);
 }
+
+ExecuteEvent.SUCHE.AUFRUFEN = () => {
+    show(searchContainer);
+    hide(explorerContainer);
+    hide(inputMasksContainer);
+}
+
+ExecuteEvent.SUCHE.MINIMIEREN = () => {
+    hide(searchContainer);
+}
+
+ExecuteEvent.SUCHE.SCHLIESSEN = () => {
+    hide(searchContainer);
+}
+
+ExecuteEvent.EXPLORER.AUFRUFEN = () => {
+    show(explorerContainer);
+}
+
+/************** extrahierte Funktionen ***************/
 
 async function partnerSuchen() {
     let partnerId;

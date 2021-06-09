@@ -57,8 +57,6 @@
 
 	<script>
 
-    addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
-
     contextMenu.initExperiment()
 
 </script>

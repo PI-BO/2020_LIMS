@@ -21,7 +21,7 @@ Address.PROBE = {
 }
 
 Address.EXPERIMENT = {
-    ERSTELLEN_JSP : Address.PATH + "/experiment/experiment_erstellen.jsp",
+    ERSTELLEN_JSP : Address.PATH + "/experiment/experiment.jsp",
     ERSTELLEN_SERVLET : Address.PATH + "/experiment/erstellen",
     BEARBEITEN_SERVLET : Address.PATH + "/experiment/bearbeiten",
 }
@@ -31,11 +31,14 @@ Address.EXPERIMENT_TYP = {
 }
 
 Address.ANALYSE = {
-    ERSTELLEN_JSP : Address.PATH + "/analyse/analyse_erstellen.jsp",
+    ERSTELLEN_JSP : Address.PATH + "/analyse/analyse.jsp",
     ERSTELLEN_SERVLET : Address.PATH + "/analyse/erstellen",
     BEARBEITEN_SERVLET : Address.PATH + "/analyse/bearbeiten",
     DATENMASKE : {
         DSC: Address.PATH + "/analyse/datenmaske_dsc.jsp",
+        PXRD: Address.PATH + "/analyse/datenmaske_pxrd.jsp",
+        TGA: Address.PATH + "/analyse/datenmaske_tga.jsp",
+        IR: Address.PATH + "/analyse/datenmaske_ir.jsp",
     }
 }
 
@@ -44,6 +47,16 @@ Address.NAVIGATION_MENU_JSP = Address.PATH + "/navigationMenu/navigation_menu.js
 Address.SUCHE = {
     SERVLET : Address.PATH + "/Suche",
     JSP: Address.PATH + "/suche/suche.jsp",
+}
+
+Address.EXPLORER = {
+    JSP: Address.PATH + "/explorer/explorer.jsp",
+    PARTNER_LIST: Address.PATH + "/explorer/partnerList.jsp",
+    PARTNER: Address.PATH + "/explorer/partner.jsp",
+    PROJEKT: Address.PATH + "/explorer/projekt.jsp",
+    PROBE: Address.PATH + "/explorer/probe.jsp",
+    EXPERIMENT: Address.PATH + "/explorer/experiment.jsp",
+    NAVIGATION: Address.PATH + "/explorer/explorer_navigation_menu.jsp",
 }
 
 export default Address;

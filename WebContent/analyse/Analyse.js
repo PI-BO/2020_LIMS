@@ -7,6 +7,9 @@ import Address from '../Address.js';
 import ViewModel from '../ViewModel.js';
 import ExperimentTyp from '../experiment/ExperimentTyp.js';
 import DSC from './DSC.js';
+import PXRD from './PXRD.js';
+import TGA from './TGA.js';
+import IR from './IR.js';
 
 export default class Analyse extends ViewModel {
 
@@ -27,9 +30,6 @@ export default class Analyse extends ViewModel {
             document.getElementById(this.selectAnalyseTypId).addEventListener("change", (event) => {
                 showAnalysetypFieldsMethode.bind(this)(event.target.value); //TODO:
             })
-
-            const dsc = new DSC(this.state);
-            // dsc.render(this.contentId);
 
             //TODO:
             // Form.addSubmit(
@@ -66,54 +66,30 @@ export default class Analyse extends ViewModel {
     }
 }
 
-// function showExperimenttypFieldsMethode(select) {
-//     let typ;
-//     let experimentTyp;
-//     switch (select) {
-//         case "202":
-//             typ = "slurry";
-//             experimentTyp = new ExperimentTyp(typ);
-//             experimentTyp.erstellen();
-//             break;
-//         case "101":
-//             typ = "verdampfung";
-//             experimentTyp = new ExperimentTyp(typ);
-//             experimentTyp.erstellen();
-//             break;
-//         default:
-//             return;
-//     }
-
-//     experimentTyp.render(this.experimentTypContentId);
-// }
-
 function showAnalysetypFieldsMethode(select) {
-    let analyseErstellenSubPage;
+    let datenmaske;
     switch (select) {
         case "1":
-            analyseErstellenSubPage = "analyse/datenmaske_pxrd.jsp";
+            datenmaske = new PXRD(this.state);
+            datenmaske.erstellen();
             break;
         case "2":
-            analyseErstellenSubPage = "analyse/datenmaske_dsc.jsp";
+            datenmaske = new DSC(this.state);
+            datenmaske.erstellen();
             break;
         case "3":
-            analyseErstellenSubPage = "analyse/datenmaske_tga.jsp";
+            datenmaske = new TGA(this.state);
+            datenmaske.erstellen();
             break;
         case "4":
-            analyseErstellenSubPage = "analyse/datenmaske_ir.jsp";
+            datenmaske = new IR(this.state);
+            datenmaske.erstellen();
             break;
         default:
             return;
     }
 
-    console.log({analyseErstellenSubPage})
-
-    const analyseErstellenPosting = $.post(analyseErstellenSubPage, {});
-    analyseErstellenPosting.done(function (data) {
-        $("#analyse_erstellen_content").empty().append(data);
-    });
-
-    $('#analyse_erstellen_speichern').empty().append('<button id="button_analyse_speichern" type="submit">Speichern</button>')
+    datenmaske.render(this.contentId);
 }
 
 function newTemperaturprogrammRow() {

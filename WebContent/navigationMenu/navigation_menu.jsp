@@ -167,11 +167,15 @@
 								</li>
 
 							</Analyse>
-
-							<li><span class="navigation_tree_node symbol_cabinet" id="explorer_anzeigen">Explorer</span>
-							</li>
-
-							<li><span class="navigation_tree_node symbol_search" id="suche_anzeigen">Suche</span>
+							<Explorer>
+								<li><span class="navigation_tree_node symbol_cabinet"
+										id="explorer_anzeigen">Explorer</span>
+								</li>
+							</Explorer>
+							<Suche>
+								<li><span class="navigation_tree_node symbol_search" id="suche_anzeigen">Suche</span>
+								</li>
+							</Suche>
 						</ul>
 					</td>
 				</tr>

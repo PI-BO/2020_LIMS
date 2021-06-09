@@ -7,10 +7,10 @@ import Address from '../Address.js';
 import ViewModel from '../ViewModel.js';
 import ExperimentTyp from '../experiment/ExperimentTyp.js';
 
-export default class DSC extends ViewModel {
+export default class IR extends ViewModel {
 
     constructor(state) {
-        super(Address.ANALYSE.DATENMASKE.DSC);
+        super(Address.ANALYSE.DATENMASKE.IR);
         this.state = state;
     }
 

@@ -1,37 +1,37 @@
 const contextMenu = (function () {
 
-    this.menu = {};
+    const menu = {};
     let bearbeiten;
 
-    this.menu.initPartner = function () {
+    menu.initPartner = function () {
         bearbeiten = id => MainState
             .setProjektPartner(id)
             .then(r => $("#projekt_partner_bearbeiten").click());
         init();
     }
 
-    this.menu.initProjekt = function () {
+    menu.initProjekt = function () {
         bearbeiten = id => MainState
             .setProjekt(id)
             .then(r => $("#projekt_bearbeiten").click());
         init();
     }
 
-    this.menu.initProbe = function () {
+    menu.initProbe = function () {
         bearbeiten = id => MainState
             .setProbe(id)
             .then(r => $("#probeneingang_bearbeiten").click());
         init();
     }
 
-    this.menu.initExperiment = function () {
+    menu.initExperiment = function () {
         bearbeiten = id => MainState
             .setExperiment(id)
             .then(r => $("#experiment_bearbeiten").click());
         init();
     }
 
-    this.menu.initAnalyse = function () {
+    menu.initAnalyse = function () {
         bearbeiten = id => MainState
             .setAnalyse(id)
             .then(r => $("#analyse_bearbeiten").click());
@@ -45,7 +45,7 @@ const contextMenu = (function () {
             this.addEventListener('contextmenu', ev => {
                 ev.preventDefault();
                 const menu = $("#contextMenu");
-                menu.css({left: ev.pageX, top: ev.pageY});
+                menu.css({ left: ev.pageX, top: ev.pageY });
                 const button = menu.find("#editProject")
                 button.unbind('click');
                 button.click(() => bearbeiten(id));
@@ -54,10 +54,12 @@ const contextMenu = (function () {
         })
 
         // EventListener um Kontextmenü wieder auszuschalten
-        document.addEventListener( 'click', function(e) {
-            if ( e.button === 0 ) $("#contextMenu").attr("hidden", "");
+        document.addEventListener('click', function (e) {
+            if (e.button === 0) $("#contextMenu").attr("hidden", "");
         });
     }
 
-    return this.menu;
+    return menu;
 })();
+
+export default contextMenu;

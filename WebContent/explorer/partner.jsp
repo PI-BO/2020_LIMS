@@ -53,11 +53,7 @@
 </table>
 
 <script>
-
-    addSymbolToggleListenerToCssClass("explorer_sortfunction", "symbol_triangle_down");
-
     contextMenu.initProjekt();
-
 </script>
 
 </body>

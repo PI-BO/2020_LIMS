@@ -20,9 +20,9 @@ public class Address {
 	public final static String EINGANGSANALYTIK_CSS = EINGANGSANALYTIK_PATH + "/eingangsanalytik.css";
 
 	public final static String ANALYSE_PATH = "/analyse";
-	public final static String ANALYSE_ERSTELLEN_JSP = ANALYSE_PATH + "/analyse_erstellen.jsp";
-	public final static String ANALYSE_ERSTELLEN_CSS = ANALYSE_PATH + "/analyse_erstellen.css";
-	public final static String ANALYSE_ERSTELLEN_JS = ANALYSE_PATH + "/analyse_erstellen.js";
+	public final static String ANALYSE_ERSTELLEN_JSP = ANALYSE_PATH + "/analyse.jsp";
+	public final static String ANALYSE_ERSTELLEN_CSS = ANALYSE_PATH + "/analyse.css";
+	public final static String ANALYSE_ERSTELLEN_JS = ANALYSE_PATH + "/Analyse.js";
 	public final static String ANALYSE_ERSTELLEN_SERVLET = AnalyseErstellenServlet.ROUTE;
 	public final static String ANALYSE_DATENMASKE_PXRD_JSP = ANALYSE_PATH + "/datenmaske_pxrd.jsp";
 	public final static String ANALYSE_DATENMASKE_IR_JSP = ANALYSE_PATH + "/datenmaske_ir.jsp";
@@ -39,24 +39,25 @@ public class Address {
 	public final static String PROBENEINGANG_BEARBEITEN_JSP = PROBENEINGANG_PATH + "/probeneingang_bearbeiten.jsp";
 	public final static String PROBENEINGANG_JS = PROBENEINGANG_PATH + "/probeneingang.js";
 
-	public final static String PROBE_JSP = PROBENEINGANG_PATH + "/probe.jsp";
 
 	public final static String EXPLORER_PATH = "/explorer";
 	public final static String EXPLORER_JSP = EXPLORER_PATH + "/explorer.jsp";
 	public final static String EXPLORER_JS = EXPLORER_PATH + "/explorerFunctions.js";
 	public final static String EXPLORER_CSS = EXPLORER_PATH + "/explorer.css";
 	public final static String EXPLORER_NAVIGATION_MENU_JSP = EXPLORER_PATH + "/explorer_navigation_menu.jsp";
+	public final static String PARTNER_LIST_JSP = EXPLORER_PATH + "/partnerList.jsp";
+	public final static String PARTNER_JSP = EXPLORER_PATH + "/partner.jsp";
+	public final static String PROJEKT_JSP = EXPLORER_PATH + "/projekt.jsp";
+	public final static String PROBE_JSP = EXPLORER_PATH + "/probe.jsp";
+	public final static String EXPERIMENT_JSP = EXPLORER_PATH + "/experiment.jsp";
 
 	public final static String PARTNER_PATH = "/partner";
-	public final static String PARTNER_JSP = PARTNER_PATH + "/partner.jsp";
-	public final static String PARTNER_LIST_JSP = PARTNER_PATH + "/partnerList.jsp";
-	public final static String PARTNER_ERSTELLEN_JSP = PARTNER_PATH + "/partner_erstellen.jsp";
+	public final static String PARTNER_ERSTELLEN_JSP = PARTNER_PATH + "/partner.jsp";
 	public final static String PARTNER_BEARBEITEN_JSP = PARTNER_PATH + "/partner_bearbeiten.jsp";
 	public final static String PARTNER_BEARBEITEN_SERVLET = PartnerBearbeitenServlet.ROUTE;
 	public final static String PARTNER_SPEICHERN_SERVLET = PartnerErstellenServlet.ROUTE;
 
 	public final static String PROJEKT_PATH = "/projekt";
-	public final static String PROJEKT_JSP = PROJEKT_PATH + "/projekt.jsp";
 	public final static String PROJEKTE_LIST_JSP = PROJEKT_PATH + "/projekteList.jsp";
 	public final static String PROJEKT_ERSTELLEN_JSP = PROJEKT_PATH + "/projekt_erstellen.jsp";
 	public final static String PROJEKT_BEARBEITEN_JSP = PROJEKT_PATH + "/projekt_bearbeiten.jsp";
@@ -64,9 +65,8 @@ public class Address {
 	public final static String PROJEKT_SPEICHERN_SERVLET = ProjektErstellenServlet.ROUTE;
 
 	public final static String EXPERIMENT_PATH = "/experiment";
-	public final static String EXPERIMENT_JSP = EXPERIMENT_PATH + "/experiment.jsp";
-	public final static String EXPERIMENT_ERSTELLEN_JSP = EXPERIMENT_PATH + "/experiment_erstellen.jsp";
-	public final static String EXPERIMENT_ERSTELLEN_CSS = EXPERIMENT_PATH + "/experiment_erstellen.css";
+	public final static String EXPERIMENT_ERSTELLEN_JSP = EXPERIMENT_PATH + "/experiment.jsp";
+	public final static String EXPERIMENT_ERSTELLEN_CSS = EXPERIMENT_PATH + "/experiment.css";
 	public final static String EXPERIMENT_ERSTELLEN_JS = EXPERIMENT_PATH + "/experiment_erstellen.js";
 	public final static String EXPERIMENT_ERSTELLEN_SERVLET = ExperimentErstellenServlet.ROUTE;
 	public final static String EXPERIMENT_BEARBEITEN_SERVLET = ExperimentBearbeitenServlet.ROUTE;
