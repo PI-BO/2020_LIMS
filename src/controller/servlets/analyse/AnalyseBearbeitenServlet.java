@@ -26,7 +26,7 @@ import static controller.servlets.experiment.ExperimentErstellenServlet.*;
 public class AnalyseBearbeitenServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(AnalyseBearbeitenServlet.class.getName());
     public static final String ROUTE = "/analyse/bearbeiten";
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String primaryKey = req.getParameter("id");

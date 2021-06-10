@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
 </head>
 
+<script src="jquery-3.5.1.js"></script>
+
+
 <%
     String projekt_id = request.getParameter("projekt_id");
     ModelTable partnerList = new ModelTable(new Partner());
@@ -32,18 +35,12 @@
     %>
 
     <tr class="explorer_table_row <%=partner.getPrimaryKey()%>">
-        <td class="explorer_table_data <%=partner.getPrimaryKey()%> symbol_folder_closed" onclick="(
-                function() {
-                let data = {projekt_id: '<%=partner.getPrimaryKey()%>'};
-                loadPage('<%=Address.getPartnerJSP()%>', data);
-                explorerState.pushToState({
-                table: '<%=partner.getTable()%>',
-                id: '<%=partner.getPrimaryKey()%>',
-                text: '<%=((Partner) partner).getName()%>'
-                });
-                }
-                )()"><%=((Partner) partner).getName()%>
-        </td>
+            <td class="explorer_table_data <%=partner.getPrimaryKey()%> symbol_folder_closed">
+                    
+                    <%=((Partner) partner).getName()%>
+                    
+                    <id style="display: none;"><%=partner.getPrimaryKey()%></id>
+            </td>
         <td class="explorer_table_data"></td>
         <td class="explorer_table_data"></td>
     </tr>
@@ -53,6 +50,5 @@
     %>
 
 </table>
-
 </body>
 </html>

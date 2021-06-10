@@ -16,6 +16,17 @@
     Partner partner = new Partner(projekt_id);
 %>
 
+<script src="jquery-3.5.1.js"></script>
+<script>
+    console.log("partner")
+    function loadPage(pageAddress, data) {
+    const posting = $.post(pageAddress, data);
+    posting.done(function (data) {
+        $("#explorer-content").empty().append(data);
+    });
+}
+</script>
+
 <body>
 <table id="explorer_table">
 
@@ -25,7 +36,6 @@
         <td class="explorer_sortfunction symbol_triangle_up" onclick="">etc</td>
     </tr>
 
-
     <%
         for (Projekt projekt : partner.getProjekte()) {
     %>
@@ -33,6 +43,12 @@
     <tr class="explorer_table_row <%=projekt.getPrimaryKey()%>">
         <td class="explorer_table_data symbol_folder_closed" onclick="(
                 function() {
+                function loadPage(pageAddress, data) {
+                const posting = $.post(pageAddress, data);
+                posting.done(function (data) {
+                    $('#explorer-content').empty().append(data);
+                });
+                }
                 let data = {projekt_id: '<%=projekt.getPrimaryKey()%>'};
                 loadPage('<%=Address.getProjektJSP()%>', data);
                 explorerState.pushToState({

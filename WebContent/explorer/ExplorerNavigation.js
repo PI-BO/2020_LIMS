@@ -1,13 +1,8 @@
 import { Parameters } from '../suche/Parameter.js';
 import Address from '../Address.js';
 import ViewModel from '../ViewModel.js';
-import ContextMenu from './contextMenu.js';
 import '../jstree/jstree.min.js';
-import PartnerList from './PartnerList.js';
-import Partner from './Partner.js';
-import Projekt from './Projekt.js';
-import Probe from './Probe.js';
-import Experiment from './Experiment.js';
+import EventType from '../EventType.js';
 
 export default class ExplorerNavigation extends ViewModel {
 
@@ -36,6 +31,7 @@ export default class ExplorerNavigation extends ViewModel {
                     ajax: {
                         url: "jstree/search",
                         data: {
+                            // TODO: wird scheinbar nicht benutzt ???
                             "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
                             "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
                             "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"],
@@ -96,35 +92,59 @@ export default class ExplorerNavigation extends ViewModel {
         if (nodeCategory == "j1_1") {	//Projekte Node
             // url = "<%=Address.getPartnerListJSP()%>";
             // url = Address.EXPLORER.PARTNER_LIST;
-            explorerPage = new PartnerList();
-            ContextMenu.initPartner();
+            // explorerPage = new PartnerList();
+            // ContextMenu.initPartner();
+            // url = Address.EXPLORER.PARTNER_LIST;
+            const event = new Event(EventType.EXPLORER.PARTNER_LIST);
+            event.data = data;
+            this.dispatchEvent(event);
         } else if (nodeCategory == Parameters.PARTNER.CATEGORY) {
             // url = "<%=Address.getPartnerJSP()%>"
             // url = Address.EXPLORER.PARTNER;
-            explorerPage = new Partner();
-            ContextMenu.initProjekt();
+            // explorerPage = new Partner();
+            // ContextMenu.initProjekt();
+            // url = Address.EXPLORER.PARTNER;
+            const event = new Event(EventType.EXPLORER.PARTNER);
+            event.data = data;
+            this.dispatchEvent(event);
         } else if (nodeCategory == Parameters.PROJEKT.CATEGORY) {
             // url = "<%=Address.getProjektJSP()%>";
             // url = Address.EXPLORER.PROJEKT;
-            explorerPage = new Projekt();
-            ContextMenu.initProbe();
+            // explorerPage = new Projekt();
+            // ContextMenu.initProbe();
+            // url = Address.EXPLORER.PROBE;
+            const event = new Event(EventType.EXPLORER.PROBE);
+            event.data = data;
+            this.dispatchEvent(event);
         } else if (nodeCategory == Parameters.PROBE.CATEGORY) {
             // url = "<%=Address.getProbeJSP()%>"
             // url = Address.EXPLORER.PROBE;
-            explorerPage = new Probe();
-            ContextMenu.initExperiment();
+            // explorerPage = new Probe();
+            // ContextMenu.initExperiment();
+            // url = Address.EXPLORER.EXPERIMENT;
+            const event = new Event(EventType.EXPLORER.EXPERIMENT);
+            event.data = data;
+            this.dispatchEvent(event);
         } else if (nodeCategory == Parameters.EXPERIMENT.CATEGORY) {
             // url = "<%=Address.getExperimentJSP()%>"
             // url = Address.EXPLORER.EXPERIMENT;
-            explorerPage = new Experiment();
-            ContextMenu.initAnalyse();
+            // explorerPage = new Experiment();
+            // ContextMenu.initAnalyse();
+            // url = Address.EXPLORER.ANALYSE;
+            const event = new Event(EventType.EXPLORER.ANALYSE);
+            event.data = data;
+            this.dispatchEvent(event);
         } else {
             return;
         }
 
-        explorerPage.render(this.explorerContentId);
+        // loadPage(url, {[nodeCategory] : nodeId});
 
-        this.explorerState.setState(path)
+        // explorerPage.render(this.explorerContentId);
+
+        // this.explorerState.setState(path)
+
+
     }
 
     createPath(data) {

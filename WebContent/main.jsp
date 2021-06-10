@@ -33,6 +33,6 @@ type="text/css" media="all">
 		</div>		
 	</div>
 </body>
-<script src="jquery-3.5.1.js"></script>
+<!-- <script src="jquery-3.5.1.js"></script> -->
 <script type="module" src="Main.js"></script>
 </html>

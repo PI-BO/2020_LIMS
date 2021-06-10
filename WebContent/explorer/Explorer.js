@@ -7,6 +7,7 @@ import Address from '../Address.js';
 import ViewModel from '../ViewModel.js';
 import ContextMenu from './contextMenu.js';
 import ExplorerNavigation from './ExplorerNavigation.js';
+import PartnerList from './PartnerList.js'
 
 export default class Explorer extends ViewModel {
 
@@ -19,9 +20,41 @@ export default class Explorer extends ViewModel {
         this.explorerState.setProbeAddress(Address.EXPLORER.PROBE);
         this.explorerState.setExperimentAddress(Address.EXPLORER.EXPERIMENT);
         this.navigationContentId = "explorer-navigation-tree";
+        this.explorerContentId = "explorer-content";
         this.init = () => {
             
             this.explorerNavigation = new ExplorerNavigation(this.explorerState);
+
+
+            this.explorerNavigation.addEventListener(EventType.EXPLORER.PARTNER_LIST, (data) => {
+                loadPage(Address.EXPLORER.PARTNER_LIST);
+            });
+            
+            this.explorerNavigation.addEventListener(EventType.EXPLORER.PARTNER, (data) => {
+                const nodeCategory = data.node.id.split(":")[0];
+                const nodeId = data.node.id.split(":")[1]
+                loadPage(Address.EXPLORER.PARTNER, {[nodeCategory] : nodeId});
+            });
+
+            this.explorerNavigation.addEventListener(EventType.EXPLORER.PROBE, (data) => {
+                const nodeCategory = data.node.id.split(":")[0];
+                const nodeId = data.node.id.split(":")[1]
+                loadPage(Address.EXPLORER.PROBE, {[nodeCategory] : nodeId});
+            });
+
+            this.explorerNavigation.addEventListener(EventType.EXPLORER.EXPERIMENT, (data) => {
+                const nodeCategory = data.node.id.split(":")[0];
+                const nodeId = data.node.id.split(":")[1]
+                loadPage(Address.EXPLORER.EXPERIMENT, {[nodeCategory] : nodeId});
+            });
+
+            this.explorerNavigation.addEventListener(EventType.EXPLORER.ANALYSE, (data) => {
+                const nodeCategory = data.node.id.split(":")[0];
+                const nodeId = data.node.id.split(":")[1]
+                loadPage(Address.EXPLORER.ANALYSE, {[nodeCategory] : nodeId});
+            });
+            
+
             this.explorerNavigation.render(this.navigationContentId);
         }
     }
@@ -51,7 +84,8 @@ function addSymbolToggleListenerToCssClass(className, cssSymbolId) {
     }
 }
 
-function loadPage(pageAddress, data) {
+export function loadPage(pageAddress, data) {
+    console.log("loadPage", data)
     const posting = $.post(pageAddress, data);
     posting.done(function (data) {
         $("#explorer-content").empty().append(data);
@@ -195,6 +229,7 @@ class ExplorerState {
 
             let partnerListDiv = this.createPathElement();
             partnerListDiv.onclick = () => {
+                console.log("Explorer.js")
                 loadPage(url, { projekt_id: item.id });
                 this.setState(this.state.slice(0, i + 1));
             }

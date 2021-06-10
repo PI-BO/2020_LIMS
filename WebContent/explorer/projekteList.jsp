@@ -16,6 +16,17 @@
 	ModelTable projekte = new ModelTable(new Projekt());
 %>
 
+<script src="jquery-3.5.1.js"></script>
+<script>
+	console.log("projekteList")
+    function loadPage(pageAddress, data) {
+    const posting = $.post(pageAddress, data);
+    posting.done(function (data) {
+        $("#explorer-content").empty().append(data);
+    });
+}
+</script>
+
 <body>
 	<table id="explorer_table">
 
@@ -46,6 +57,7 @@
 			
 			$(".explorer_table_data").click(function(){
 				let data = {projekt_id : $(this).text()};
+				console.log("projekteList.jsp")
 				loadPage("<%=Address.getProjektJSP()%>", data);
 			});
 			

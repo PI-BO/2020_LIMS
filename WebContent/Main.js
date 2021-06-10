@@ -1,3 +1,4 @@
+import "./jquery-3.5.1.js";
 import NavigationMenu from './navigationMenu/NavigationMenu.js';
 import Partner from './partner/Partner.js';
 import Projekt from './projekt/Projekt.js';

@@ -58,9 +58,9 @@
 }
 </style>
 <link rel="stylesheet" href="jstree/style.min.css" />
-<script src="jstree/jstree.min.js"></script>
 </head>
-
+<script>
+</script>
 <body>
 	<div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%; width: 100%">
 		<!--     <button id="evts_button" style="margin:0em auto 1em auto; display:block; padding:4px; border-radius:4px;"> -->
@@ -128,122 +128,5 @@
 		<div id="lazy" class="demo"></div>
 	</div>
 
-	<script>
-    // interaction and events
-    // $('#evts_button').on("click", function () {
-    //     var instance = $('#lazy').jstree(true);
-    //     instance.deselect_all();
-    //     instance.select_node('projekte:A');
-    // });
-
-    // $('#lazy').jstree({
-    //     core: {
-    //         data: {
-    //             url: function (node) {
-    //                 return 'jstree/nodes?id=' + node.id;
-    //             }
-    //         }
-    //     },
-    //     search: {
-    //         // search config
-    //         show_only_matches: true,
-    //         ajax: {
-    //             url: "jstree/search",
-    //             data: {
-    //                 "Partner": ["${Partner.COLUMN_PRIMARY_KEY}"],
-    //                 "Projekt": ["${Projekt.COLUMN_PRIMARY_KEY}"],
-    //                 "Probe": ["${Probe.COLUMN_PRIMARY_KEY}"],
-    //                 "Experiment": ["${Experiment.COLUMN_PRIMARY_KEY}"],
-    //                 "Analyse": ["${Analyse.COLUMN_PRIMARY_KEY}"]
-    //             }
-    //         }
-    //     },
-    //     plugins: ['search'],
-    // }).on("select_node.jstree", function (e, data) {
-    //     loadNode(data);
-    // }).on("open_node.jstree", function (e, data) {
-    //     data.instance.set_icon(data.node, "symbol_folder_open");
-    // }).on("close_node.jstree", function (e, data) {
-    //     data.instance.set_icon(data.node, "symbol_folder_closed");
-    // });
-
-    // let to = false;
-    // $('#search').keyup(function () {
-    //     if (to) {
-    //         clearTimeout(to);
-    //     }
-    //     to = setTimeout(function () {
-    //         let v = $('#search').val();
-    //         $('#lazy').jstree(true).search(v);
-    //     }, 250);
-    // });
-
-    // // Get checkbox click
-    // $(".checkbox").change(function () {
-    //     const json = $('#lazy').jstree(true).settings.search.ajax.data;
-    //     const type = this.id.split(':')[0]
-    //     const id = this.id.split(':')[1]
-    //     if (!json.hasOwnProperty(type)) {
-    //         json[type] = []
-    //     }
-    //     if (this.checked) {
-    //         json[type].push(id);
-    //     } else {
-    //         json[type].splice(id, 1);
-    //     }
-    // });
-
-    // function loadNode(data) {
-    //     const nodeCategory = data.node.id.split(":")[0];
-    //     const nodeId = data.node.id.split(":")[1]
-    //     const path = createPath(data);
-
-    //     let url;
-    //     if (nodeCategory == "j1_1") {	//Projekte Node
-    //         url = "<%=Address.getPartnerListJSP()%>";
-    //     } else if (nodeCategory == "<%=Partner.TABLE%>") {
-    //         url = "<%=Address.getPartnerJSP()%>"
-    //     } else if (nodeCategory == "<%=Projekt.TABLE%>") {
-    //         url = "<%=Address.getProjektJSP()%>";
-    //     } else if (nodeCategory == "<%=Probe.TABLE%>"){
-    //         url = "<%=Address.getProbeJSP()%>"
-    //     } else if (nodeCategory == "<%=Experiment.TABLE%>"){
-    //         url = "<%=Address.getExperimentJSP()%>"
-    //     } else {
-    //         return;
-    //     }
-
-    //     const posting = $.post(url, {projekt_id: nodeId});
-
-    //     posting.done(function (returnedData) {
-    //         $("#explorer-content").empty().append(returnedData);
-    //     });
-    //     explorerState.setState(path)
-    // }
-
-    // function createPath(data) {
-    //     const path = [];
-
-    //     // actual node
-    //     path.push({
-    //         table: data.node.id.split(":")[0],
-    //         id: data.node.id.split(":")[1],
-    //         text: data.node.text
-    //     })
-
-    //     // parent nodes
-    //     for (let i = 0; i < data.node.parents.length - 1; i++) {
-    //         let parent_n = data.instance.get_node(data.node.parents[i]);
-    //         path.unshift({
-    //             table: parent_n.id.split(":")[0],
-    //             id: parent_n.id.split(":")[1],
-    //             text: parent_n.text
-    //         })
-    //     }
-
-    //     return path;
-    // }
-
-</script>
 </body>
 </html>

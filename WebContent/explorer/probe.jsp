@@ -18,6 +18,17 @@
     Probe probe = new Probe(projekt_id);
 %>
 
+<script src="jquery-3.5.1.js"></script>
+<script>
+    console.log("probe")
+    function loadPage(pageAddress, data) {
+    const posting = $.post(pageAddress, data);
+    posting.done(function (data) {
+        $("#explorer-content").empty().append(data);
+    });
+}
+</script>
+
 <body>
 	<table id="explorer_table">
 
@@ -37,6 +48,7 @@
         <td class="explorer_table_data symbol_folder_closed" onclick="(
                 function() {
                 let data = {projekt_id: '<%=experimenteModel.getPrimaryKey()%>'};
+                console.log('probe.jsp')
                 loadPage('<%=Address.getExperimentJSP()%>', data);
                 explorerState.pushToState({
                 table: '<%=experimenteModel.getTable()%>',

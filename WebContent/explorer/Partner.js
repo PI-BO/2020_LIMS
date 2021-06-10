@@ -7,7 +7,7 @@ export default class Partner extends ViewModel {
     constructor() {
         super(Address.EXPLORER.PARTNER);
         this.init = () => {
-
+            console.log("Partner.js")
         }
     }
 }

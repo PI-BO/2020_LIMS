@@ -9,26 +9,8 @@ import ViewModel from '../ViewModel.js';
 export default class ExperimentTyp extends ViewModel {
 
     constructor(typ) {
-        super();
-        this.typ = typ;
-        this.html = new Promise((resolve) => {
-            fetch(Address.EXPERIMENT_TYP.ERSTELLEN_JSP, {
-                method: "post",
-            })
-                .then(response => response.text())
-                .then(response => {
-                    this.html = response;
-                    resolve();
-                });
-        })
-    }
-
-    async render(htmlElementId) {
-
-        const htmlElement = document.getElementById(htmlElementId);
-        await this.html;
-        htmlElement.innerHTML = this.html;
-        this.init();
+        super(Address.EXPERIMENT_TYP.ERSTELLEN_JSP);
+        this.typ = typ;        
     }
 
     erstellen() {

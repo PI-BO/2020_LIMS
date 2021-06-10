@@ -9,6 +9,7 @@ export default class Projekt extends ViewModel {
         this.init = () => {
             $(".explorer_table_data").click(function(){
 				let data = {projekt_id : $(this).text()};
+                console.log("Projekt.js")
 				loadPage(Address.EXPLORER.PROJEKT, data);
 			});
         }
