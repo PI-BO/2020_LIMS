@@ -45,7 +45,7 @@ export default class Projekt extends ViewModel {
             let partnerIdInput = document.getElementById(this.inputIdPartnerId);
             partnerIdInput.value = this.state.PARTNER[Parameters.PARTNER.PK];
 
-            Form.addSubmit(
+            Form.addSubmitAlt(
                 Address.PROJEKT.ERSTELLEN_SERVLET,
                 this.formId,
                 this.messageId,
@@ -78,7 +78,7 @@ export default class Projekt extends ViewModel {
             projektIdInput.value = this.state.PROJEKT[Parameters.PROJEKT.PK];
             projektIdInput.disabled = true;
 
-            Form.addSubmit(
+            Form.addSubmitAlt(
                 Address.PROJEKT.BEARBEITEN_SERVLET,
                 this.formId,
                 this.messageId,

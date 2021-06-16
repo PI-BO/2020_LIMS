@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.database.Database;
-import model.database.dummyDB.DummyDB;
 import model.database.manager.DatabaseManager;
 import model.database.tableModels.Model;
 import utility.JSON;
@@ -19,34 +18,13 @@ import utility.JSONArray;
 
 @WebServlet(SucheServlet.ROUTE)
 public class SucheServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 5269064060224506597L;
 	public static final String ROUTE = "/Suche";
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SucheServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		setAccessControlHeaders(response); // TODO nur fuer Testzwecke! in
-											// Produktion rausnehmen!
-		// response.setStatus(HttpServletResponse.SC_OK);
+		setAccessControlHeaders(response); // TODO nur fuer Testzwecke! in Produktion rausnehmen!
 		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
@@ -54,22 +32,8 @@ public class SucheServlet extends HttpServlet {
 		Database database = DatabaseManager.getDatabaseInstance();
 
 		List<List<Model>> branches = database.getDatabaseAsTupelList();
-		
-//		System.out.println("------------------------");
-////		
-//		DummyDB dummyDB = (DummyDB)database;
-//		System.out.println("size = "+ dummyDB.modelList.size());
-//		for(Model model : dummyDB.modelList){
-//			System.out.println(model.toJSON() + "\t" + model.hasChildren());
-//			for(Model child : model.getChildren()) System.out.println("\t" + child.toJSON() + "\t" + child.hasChildren());
-//		}
 
 		sendRelationsAsJSONArray(out, branches);
-
-		// sendJavascriptJson(out);
-
-		// sendTestJson(out);
-
 	}
 
 	private void sendTestJson(PrintWriter out) {
@@ -227,8 +191,7 @@ public class SucheServlet extends HttpServlet {
 
 			databaseJson += jsonArray.toString();
 			index++;
-			if (index < branches.size())
-				databaseJson += ",";
+			if (index < branches.size()) databaseJson += ",";
 		}
 		databaseJson += "]";
 		out.print(databaseJson);

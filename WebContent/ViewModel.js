@@ -20,7 +20,7 @@ export default class ViewModel extends Listenable{
 
         return new Promise((resolve) => {
             fetch(address, {
-                method: "post",
+                method: "get",
             })
                 .then(response => response.text())
                 .then(response => {

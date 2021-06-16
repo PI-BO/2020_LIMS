@@ -34,6 +34,7 @@ export default class Partner extends ViewModel {
             );
 
             Form.addSubmit(
+                "post",
                 Address.PARTNER.ERSTELLEN_SERVLET,
                 this.formId,
                 this.messageId,
@@ -65,6 +66,7 @@ export default class Partner extends ViewModel {
             partnerEmailInput.value = this.state.PARTNER[Parameters.PARTNER.EMAIL];
     
             Form.addSubmit(
+                "PUT",
                 Address.PARTNER.BEARBEITEN_SERVLET,
                 this.formId,
                 this.messageId,

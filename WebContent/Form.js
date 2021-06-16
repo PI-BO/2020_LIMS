@@ -51,7 +51,7 @@ Form.addMultipartSubmit = function (url, formId, messageId, callbackOnSuccess) {
 	}, false);
 }
 
-Form.addSubmit = function (url, formId, messageId, callbackOnSuccess) {
+Form.addSubmitAlt = function (url, formId, messageId, callbackOnSuccess) {
 
 	$("#" + formId).submit(function (e) {
 
@@ -80,6 +80,57 @@ Form.addSubmit = function (url, formId, messageId, callbackOnSuccess) {
 			}
 		});
 	})
+}
+
+Form.addSubmit = function (submitType, url, formId, messageId, callbackOnSuccess) {
+
+	let form = document.getElementById(formId);
+
+	form.addEventListener('submit', function (e) {
+		
+		e.preventDefault();
+
+		const disabledList = [];
+
+		for (let i = 0; i < form.length; i++) {
+			if (form[i].disabled === true) {
+				form[i].disabled = false;
+				disabledList.push(form[i]);
+			}
+		}
+
+		var formData = new FormData(form);
+
+		for (let i = 0; i < disabledList.length; i++) {
+			disabledList[i].disabled = true;
+		}
+
+		fetch(url, {
+			method: submitType,
+			body: formData
+		})
+			.then(response => {
+
+				response.json().then(data => {
+
+					if (data["status"] === "error") addErrorMessage(messageId, data["message"]);
+
+					if (data["status"] === "success") {
+
+						setRequiredInputFieldsToGreen(form);
+						addSuccessMessage(messageId, data["message"]);
+						removeSubmitButton(form);
+
+						if (callbackOnSuccess !== undefined) callbackOnSuccess();
+					}
+				})
+			})
+			.catch(error => {
+				replaceContent("button_probeneingang_speichern", "Fehler:" + error, "red");
+			});
+
+
+	}, false);
 }
 
 function removeSubmitButton(form) {

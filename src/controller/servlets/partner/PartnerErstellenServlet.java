@@ -1,10 +1,12 @@
 package controller.servlets.partner;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,15 +23,60 @@ import utility.JSON;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Enumeration;
 
 @WebServlet(PartnerErstellenServlet.ROUTE)
+@MultipartConfig
 public class PartnerErstellenServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8965190467865649574L;
 
 	private static final Logger LOGGER = LogManager.getLogger(PartnerErstellenServlet.class.getSimpleName());
 	
-	public static final String ROUTE = "/partner_erstellen_servlet";
+	public static final String ROUTE = "/partner";
+	
+	@Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		
+		LOGGER.debug("doPut()");
+		
+		PrintWriter out = response.getWriter();
+
+		JSON json = new JSON();
+
+		try {
+			
+			String primaryKey = request.getParameter(Partner.COLUMN_PRIMARY_KEY);
+			Partner partner = new Partner(primaryKey);
+
+			String name = request.getParameter(Partner.COLUMN_NAME);
+			partner.setName(name);
+
+			String email = request.getParameter(Partner.COLUMN_EMAIL);
+			partner.setEmail(email);
+
+			partner.updateModel();
+		}
+		catch (ModelNotFoundException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Projektpartner ID nicht vorhanden");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
+		catch (SQLException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "SQLException");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
+
+		json.addKeyValue("status", "success");
+		json.addKeyValue("message", "Erfolgreich gespeichert");
+		out.print(json.toString());
+	}
 	
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,8 +139,6 @@ public class PartnerErstellenServlet extends HttpServlet {
 			json.addKeyValue("message", "Name schon vorhanden");
 			out.print(json.toString());
 			
-			System.out.println("doppel");
-			
 			return true;
 		}
 		
@@ -103,6 +148,5 @@ public class PartnerErstellenServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	LOGGER.debug("doGet()");
-    	response.sendRedirect(request.getContextPath() + LoginServlet.LOGIN_PAGE);
     }
 }

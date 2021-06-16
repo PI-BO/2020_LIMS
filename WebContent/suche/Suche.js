@@ -124,11 +124,10 @@ export default (function () {
 		})
 	}
 
-
 	function fetchDatabase(callback) {
 
 		fetch(servletURL, {
-			method: "post",
+			method: "get",
 		})
 			.then(response => response.json())
 			.then(data => {

@@ -4,8 +4,8 @@ Address.PATH = "http://localhost:8080/2020_LIMS";
 
 Address.PARTNER = {
     ERSTELLEN_JSP : Address.PATH + "/partner/partner.jsp",
-    ERSTELLEN_SERVLET : Address.PATH + "/partner_erstellen_servlet",
-    BEARBEITEN_SERVLET : Address.PATH + "/partner/bearbeiten",
+    ERSTELLEN_SERVLET : Address.PATH + "/partner",
+    BEARBEITEN_SERVLET : Address.PATH + "/partner",
 }
 
 Address.PROJEKT = {
