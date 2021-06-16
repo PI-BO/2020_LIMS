@@ -1,13 +1,8 @@
 package config;
 
-import controller.servlets.analyse.AnalyseBearbeitenServlet;
-import controller.servlets.analyse.AnalyseErstellenServlet;
-import controller.servlets.experiment.ExperimentBearbeitenServlet;
-import controller.servlets.experiment.ExperimentErstellenServlet;
-import controller.servlets.partner.PartnerBearbeitenServlet;
-import controller.servlets.partner.PartnerErstellenServlet;
-import controller.servlets.projekt.ProjektBearbeitenServlet;
-import controller.servlets.projekt.ProjektErstellenServlet;
+import controller.servlets.analyse.AnalyseServlet;
+import controller.servlets.experiment.ExperimentServlet;
+import controller.servlets.projekt.ProjektServlet;
 
 public class Address {
 
@@ -23,12 +18,11 @@ public class Address {
 	public final static String ANALYSE_ERSTELLEN_JSP = ANALYSE_PATH + "/analyse.jsp";
 	public final static String ANALYSE_ERSTELLEN_CSS = ANALYSE_PATH + "/analyse.css";
 	public final static String ANALYSE_ERSTELLEN_JS = ANALYSE_PATH + "/Analyse.js";
-	public final static String ANALYSE_ERSTELLEN_SERVLET = AnalyseErstellenServlet.ROUTE;
+	public final static String ANALYSE_ERSTELLEN_SERVLET = AnalyseServlet.ROUTE;
 	public final static String ANALYSE_DATENMASKE_PXRD_JSP = ANALYSE_PATH + "/datenmaske_pxrd.jsp";
 	public final static String ANALYSE_DATENMASKE_IR_JSP = ANALYSE_PATH + "/datenmaske_ir.jsp";
 	public final static String ANALYSE_DATENMASKE_DSC_JSP = ANALYSE_PATH + "/datenmaske_dsc.jsp";
 	public final static String ANALYSE_DATENMASKE_TGA_JSP = ANALYSE_PATH + "/datenmaske_tga.jsp";
-	public final static String ANALYSE_BEARBEITEN_SERVLET = AnalyseBearbeitenServlet.ROUTE;
 	public final static String ANALYSE_BEARBEITEN_CSS = ANALYSE_PATH + "/analyse_bearbeiten.css";
 	public final static String ANALYSE_BEARBEITEN_JSP = ANALYSE_PATH + "/analyse_bearbeiten.jsp";
 
@@ -38,7 +32,6 @@ public class Address {
 	public final static String PROBENEINGANG_BEARBEITEN_SERVLET = PROBENEINGANG_PATH + "/bearbeiten";
 	public final static String PROBENEINGANG_BEARBEITEN_JSP = PROBENEINGANG_PATH + "/probeneingang_bearbeiten.jsp";
 	public final static String PROBENEINGANG_JS = PROBENEINGANG_PATH + "/probeneingang.js";
-
 
 	public final static String EXPLORER_PATH = "/explorer";
 	public final static String EXPLORER_JSP = EXPLORER_PATH + "/explorer.jsp";
@@ -51,25 +44,14 @@ public class Address {
 	public final static String PROBE_JSP = EXPLORER_PATH + "/probe.jsp";
 	public final static String EXPERIMENT_JSP = EXPLORER_PATH + "/experiment.jsp";
 
-	public final static String PARTNER_PATH = "/partner";
-	public final static String PARTNER_ERSTELLEN_JSP = PARTNER_PATH + "/partner.jsp";
-	public final static String PARTNER_BEARBEITEN_JSP = PARTNER_PATH + "/partner_bearbeiten.jsp";
-	public final static String PARTNER_BEARBEITEN_SERVLET = PartnerBearbeitenServlet.ROUTE;
-	public final static String PARTNER_SPEICHERN_SERVLET = PartnerErstellenServlet.ROUTE;
-
 	public final static String PROJEKT_PATH = "/projekt";
 	public final static String PROJEKTE_LIST_JSP = PROJEKT_PATH + "/projekteList.jsp";
-	public final static String PROJEKT_ERSTELLEN_JSP = PROJEKT_PATH + "/projekt_erstellen.jsp";
-	public final static String PROJEKT_BEARBEITEN_JSP = PROJEKT_PATH + "/projekt_bearbeiten.jsp";
-	public final static String PROJEKT_BEARBEITEN_SERVLET = ProjektBearbeitenServlet.ROUTE;
-	public final static String PROJEKT_SPEICHERN_SERVLET = ProjektErstellenServlet.ROUTE;
 
 	public final static String EXPERIMENT_PATH = "/experiment";
 	public final static String EXPERIMENT_ERSTELLEN_JSP = EXPERIMENT_PATH + "/experiment.jsp";
 	public final static String EXPERIMENT_ERSTELLEN_CSS = EXPERIMENT_PATH + "/experiment.css";
 	public final static String EXPERIMENT_ERSTELLEN_JS = EXPERIMENT_PATH + "/experiment_erstellen.js";
-	public final static String EXPERIMENT_ERSTELLEN_SERVLET = ExperimentErstellenServlet.ROUTE;
-	public final static String EXPERIMENT_BEARBEITEN_SERVLET = ExperimentBearbeitenServlet.ROUTE;
+	public final static String EXPERIMENT_ERSTELLEN_SERVLET = ExperimentServlet.ROUTE;
 	public final static String EXPERIMENT_BEARBEITEN_JSP = EXPERIMENT_PATH + "/experiment_bearbeiten.jsp";
 	public final static String EXPERIMENT_BEARBEITEN_CSS = EXPERIMENT_PATH + "/experiment_bearbeiten.css";
 	public final static String EXPERIMENTTYP_JSP = EXPERIMENT_PATH + "/experimenttyp.jsp";
@@ -187,14 +169,6 @@ public class Address {
 		return MAIN_PATH + EXPERIMENT_ERSTELLEN_CSS;
 	}
 
-	public static String getProjektPartnerErstellenJsp() {
-		return MAIN_PATH + PARTNER_ERSTELLEN_JSP;
-	}
-
-	public static String getProjektErstellenJsp() {
-		return MAIN_PATH + PROJEKT_ERSTELLEN_JSP;
-	}
-
 	public static String getExperimentErstellenJS() {
 		return MAIN_PATH + EXPERIMENT_ERSTELLEN_JS;
 	}
@@ -227,10 +201,6 @@ public class Address {
 		return MAIN_PATH + GLOBALE_SUCHE_JSP;
 	}
 
-	public static String getExperimentBearbeitenServlet() {
-		return MAIN_PATH + EXPERIMENT_BEARBEITEN_SERVLET;
-	}
-
 	public static String getExperimentBearbeitenJsp() {
 		return MAIN_PATH + EXPERIMENT_BEARBEITEN_JSP;
 	}
@@ -259,32 +229,12 @@ public class Address {
 		return MAIN_PATH + ANALYSE_DATENMASKE_TGA_JSP;
 	}
 
-	public static String getAnalyseBearbeitenServlet() {
-		return MAIN_PATH + ANALYSE_BEARBEITEN_SERVLET;
-	}
-
 	public static String getAnalyseBearbeitenCss() {
 		return MAIN_PATH + ANALYSE_BEARBEITEN_CSS;
 	}
 
 	public static String getAnalyseBearbeitenJsp() {
 		return MAIN_PATH + ANALYSE_BEARBEITEN_JSP;
-	}
-
-	public static String getPartnerBearbeitenServlet() {
-		return MAIN_PATH + PARTNER_BEARBEITEN_SERVLET;
-	}
-
-	public static String getPartnerBearbeitenJsp() {
-		return MAIN_PATH + PARTNER_BEARBEITEN_JSP;
-	}
-
-	public static String getProjektBearbeitenServlet() {
-		return MAIN_PATH + PROJEKT_BEARBEITEN_SERVLET;
-	}
-
-	public static String getProjektBearbeitenJsp() {
-		return MAIN_PATH + PROJEKT_BEARBEITEN_JSP;
 	}
 
 	public static String getProbeneingangBearbeitenServlet() {
@@ -297,9 +247,5 @@ public class Address {
 
 	public static String getProbeneingangJS() {
 		return MAIN_PATH + PROBENEINGANG_JS;
-	}
-
-	public static String getPartnerSpeichernServlet() {
-		return PARTNER_SPEICHERN_SERVLET;
 	}
 }

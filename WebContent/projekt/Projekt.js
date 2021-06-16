@@ -9,7 +9,7 @@ import ViewModel from '../ViewModel.js';
 export default class Projekt extends ViewModel {
 
     constructor(state) {
-        super(Address.PROJEKT.ERSTELLEN_JSP);
+        super(Address.PROJEKT.JSP);
         this.state = state;
         this.inputIdProjektId = "projekt_id_input_field";
         this.inputIdPartnerName = "partner_name_input_field";
@@ -45,8 +45,9 @@ export default class Projekt extends ViewModel {
             let partnerIdInput = document.getElementById(this.inputIdPartnerId);
             partnerIdInput.value = this.state.PARTNER[Parameters.PARTNER.PK];
 
-            Form.addSubmitAlt(
-                Address.PROJEKT.ERSTELLEN_SERVLET,
+            Form.addSubmit(
+                "post",
+                Address.PROJEKT.SERVLET,
                 this.formId,
                 this.messageId,
                 this.callbackOnSuccess.bind(this)
@@ -78,8 +79,9 @@ export default class Projekt extends ViewModel {
             projektIdInput.value = this.state.PROJEKT[Parameters.PROJEKT.PK];
             projektIdInput.disabled = true;
 
-            Form.addSubmitAlt(
-                Address.PROJEKT.BEARBEITEN_SERVLET,
+            Form.addSubmit(
+                "put",
+                Address.PROJEKT.SERVLET,
                 this.formId,
                 this.messageId,
                 this.callbackOnSuccess.bind(this)

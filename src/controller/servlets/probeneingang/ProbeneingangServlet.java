@@ -21,23 +21,19 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Enumeration;
 
-@WebServlet(ProbeneingangErstellenServlet.ROUTE)
+@WebServlet(ProbeneingangServlet.ROUTE)
 @MultipartConfig
-public class ProbeneingangErstellenServlet extends HttpServlet {
-    private static final Logger LOGGER = LogManager.getLogger(ProbeneingangErstellenServlet.class.getSimpleName());
+public class ProbeneingangServlet extends HttpServlet {
+    private static final Logger LOGGER = LogManager.getLogger(ProbeneingangServlet.class.getSimpleName());
 
     private static final long serialVersionUID = 7322122506656092712L;
-    public static final String ROUTE = "/probeneingang/erstellen";
+    public static final String ROUTE = "/probeneingang";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
     	
-    	System.out.println(this.getClass() + ": doPost()");
     	LOGGER.debug("doPost()");
     	
-    	response.setHeader("Access-Control-Allow-Origin", "*"); // TODO nur fuer Testzwecke! in Produktion rausnehmen!
-    	response.setContentType("application/json");
-    	response.setCharacterEncoding("utf-8");
     	PrintWriter out = response.getWriter();
     	
     	JSON json = new JSON();
@@ -115,31 +111,70 @@ public class ProbeneingangErstellenServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        LOGGER.debug("ProbeneingangErstellenServlet.doGet() not implemented");
+		
+    	LOGGER.debug("doGet()");
+		
+		String primaryKey = request.getParameter("id");
+		JSON json;
+
+		if (primaryKey != null && !primaryKey.isEmpty()) try {
+			Probe probe = new Probe(primaryKey);
+
+			json = probe.toJSON();
+
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=utf-8");
+			response.getWriter().print(json);
+		}
+		catch (ModelNotFoundException e) {
+			 e.printStackTrace();
+		}
+		catch (SQLException throwables) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("text/plain");
+			response.getWriter().println(throwables);
+		}
     }
+    
+    @Override
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    private void printTestLog(HttpServletRequest request) throws IOException, ServletException {
-        Enumeration<String> parameterNames = request.getParameterNames();
+    	LOGGER.debug("doPut()");
 
-        System.out.println("\n----------PARAMETER----------\n");
+		PrintWriter out = response.getWriter();
 
-        String parameterName;
-        if (parameterNames.hasMoreElements()) parameterName = parameterNames.nextElement();
+		JSON json = new JSON();
 
-        while (parameterNames.hasMoreElements()) {
+		try {
+			Probeneingang probeneingang = ProbeneingangServlet.createProbeneingang(request);
+			probeneingang.saveToDatabasePlaceholderMethod();
 
-            parameterName = parameterNames.nextElement();
-            if (parameterName == null) continue;
-            String parameter = request.getParameter(parameterName);
-            System.out.println(parameterName + " : " + parameter);
-        }
+			Probe probe = new Probe();
+			probe.setPrimaryKey(probeneingang.getProbenId());
+			probe.setProjektID(probeneingang.getProjektId());
+			probe.updateModel();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		catch (ModelNotFoundException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "Projekt ID nicht vorhanden");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
+		catch (SQLException e) {
+			json.addKeyValue("status", "error");
+			json.addKeyValue("message", "SQLException");
+			out.print(json.toString());
+			e.printStackTrace();
+			return;
+		}
 
-        System.out.println("\n----------PARTS----------\n");
-
-        Collection<Part> parts = request.getParts();
-
-        for (Part p : parts) {
-            System.out.println("fileName: " + p.getSubmittedFileName());
-        }
-    }
+		json.addKeyValue("status", "success");
+		json.addKeyValue("message", "Erfolgreich gespeichert");
+		out.print(json.toString());
+	}
 }

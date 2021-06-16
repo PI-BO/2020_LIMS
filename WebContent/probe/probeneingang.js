@@ -9,7 +9,7 @@ import ViewModel from '../ViewModel.js';
 export default class Probeneingang extends ViewModel {
 
     constructor(state) {
-        super(Address.PROBE.ERSTELLEN_JSP);
+        super(Address.PROBE.JSP);
         this.state = state;
         this.inputIdProjektId = "projekt_id_input_field";
         this.inputIdPartnerName = "partner_name_input_field";
@@ -49,8 +49,9 @@ export default class Probeneingang extends ViewModel {
             projektIdInput.value = this.state.PROJEKT[Parameters.PROJEKT.PK];
             projektIdInput.disabled = true;
 
-            Form.addMultipartSubmit(
-                Address.PROBE.ERSTELLEN_SERVLET,
+            Form.addSubmit(
+                "post",
+                Address.PROBE.SERVLET,
                 this.formId,
                 this.messageId,
                 this.callbackOnSuccess.bind(this)
@@ -91,8 +92,9 @@ export default class Probeneingang extends ViewModel {
             probeIdInput.value = this.state.PROBE[Parameters.PROBE.PK];
             probeIdInput.disabled = true;
 
-            Form.addMultipartSubmit(
-                Address.PROBE.BEARBEITEN_SERVLET,
+            Form.addSubmit(
+                "put",
+                Address.PROBE.SERVLET,
                 this.formId,
                 this.messageId,
                 this.callbackOnSuccess.bind(this)

@@ -9,7 +9,7 @@ import ViewModel from '../ViewModel.js';
 export default class Partner extends ViewModel {
 
     constructor(state) {
-        super(Address.PARTNER.ERSTELLEN_JSP);
+        super(Address.PARTNER.JSP);
         this.state = state;
         this.inputIdPartnerId = "partner_id_input_field";
         this.inputIdPartnerName = "partner_name_input_field";
@@ -35,7 +35,7 @@ export default class Partner extends ViewModel {
 
             Form.addSubmit(
                 "post",
-                Address.PARTNER.ERSTELLEN_SERVLET,
+                Address.PARTNER.SERVLET,
                 this.formId,
                 this.messageId,
                 this.callbackOnSuccess.bind(this)                
@@ -67,7 +67,7 @@ export default class Partner extends ViewModel {
     
             Form.addSubmit(
                 "PUT",
-                Address.PARTNER.BEARBEITEN_SERVLET,
+                Address.PARTNER.SERVLET,
                 this.formId,
                 this.messageId,
                 this.callbackOnSuccess.bind(this)

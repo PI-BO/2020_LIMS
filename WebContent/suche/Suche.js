@@ -103,7 +103,7 @@ export default (function () {
 		return new Promise(resolve => {
 
 			fetch(pageURL, {
-				method: "post",
+				method: "get",
 			})
 				.then(response => response.text())
 				.then(response => Suche.htmlElement.innerHTML = response)

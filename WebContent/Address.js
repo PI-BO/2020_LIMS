@@ -3,27 +3,23 @@ const Address = {}
 Address.PATH = "http://localhost:8080/2020_LIMS";
 
 Address.PARTNER = {
-    ERSTELLEN_JSP : Address.PATH + "/partner/partner.jsp",
-    ERSTELLEN_SERVLET : Address.PATH + "/partner",
-    BEARBEITEN_SERVLET : Address.PATH + "/partner",
+    JSP : Address.PATH + "/partner/partner.jsp",
+    SERVLET : Address.PATH + "/partner",
 }
 
 Address.PROJEKT = {
-    ERSTELLEN_JSP : Address.PATH + "/projekt/projekt.jsp",
-    ERSTELLEN_SERVLET : Address.PATH + "/projekt_erstellen_servlet",
-    BEARBEITEN_SERVLET : Address.PATH + "/projekt/bearbeiten",
+    JSP : Address.PATH + "/projekt/projekt.jsp",
+    SERVLET : Address.PATH + "/projekt",
 }
 
 Address.PROBE = {
-    ERSTELLEN_JSP : Address.PATH + "/probe/probeneingang.jsp",
-    ERSTELLEN_SERVLET : Address.PATH + "/probeneingang/erstellen",
-    BEARBEITEN_SERVLET : Address.PATH + "/probeneingang/bearbeiten",
+    JSP : Address.PATH + "/probe/probeneingang.jsp",
+    SERVLET : Address.PATH + "/probeneingang",
 }
 
 Address.EXPERIMENT = {
     ERSTELLEN_JSP : Address.PATH + "/experiment/experiment.jsp",
-    ERSTELLEN_SERVLET : Address.PATH + "/experiment/erstellen",
-    BEARBEITEN_SERVLET : Address.PATH + "/experiment/bearbeiten",
+    SERVLET : Address.PATH + "/experiment",
 }
 
 Address.EXPERIMENT_TYP = {
@@ -31,9 +27,8 @@ Address.EXPERIMENT_TYP = {
 }
 
 Address.ANALYSE = {
-    ERSTELLEN_JSP : Address.PATH + "/analyse/analyse.jsp",
-    ERSTELLEN_SERVLET : Address.PATH + "/analyse/erstellen",
-    BEARBEITEN_SERVLET : Address.PATH + "/analyse/bearbeiten",
+    JSP : Address.PATH + "/analyse/analyse.jsp",
+    SERVLET : Address.PATH + "/analyse",
     DATENMASKE : {
         DSC: Address.PATH + "/analyse/datenmaske_dsc.jsp",
         PXRD: Address.PATH + "/analyse/datenmaske_pxrd.jsp",

@@ -14,7 +14,7 @@ import IR from './IR.js';
 export default class Analyse extends ViewModel {
 
     constructor(state) {
-        super(Address.ANALYSE.ERSTELLEN_JSP);
+        super(Address.ANALYSE.JSP);
         this.state = state;
         this.headerId = "analyse_erstellen_main_header";
         this.selectAnalyseTypId = "select_analyse_typ";
@@ -33,7 +33,8 @@ export default class Analyse extends ViewModel {
 
             //TODO:
             // Form.addSubmit(
-            //     Address.PROJEKT.ERSTELLEN_SERVLET,
+            //     "post",
+            //     Address.PROJEKT.SERVLET,
             //     this.formId,
             //     this.messageId,
             //     this.callbackOnSuccess.bind(this)
@@ -49,7 +50,8 @@ export default class Analyse extends ViewModel {
 
             //TODO:
             // Form.addSubmit(
-            //     Address.PROJEKT.BEARBEITEN_SERVLET,
+            //     "put",
+            //     Address.PROJEKT.SERVLET,
             //     this.formId,
             //     this.messageId,
             //     this.callbackOnSuccess.bind(this)

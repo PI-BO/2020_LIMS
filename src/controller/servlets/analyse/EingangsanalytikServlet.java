@@ -33,7 +33,6 @@ public class EingangsanalytikServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException{
     	
-    	System.out.println(this.getClass() + ": doPost()");
     	LOGGER.debug("doPost()");
     	
     	//TODO JSON Daten in key value Paaren aufteilen und in Eingangsanalyse Objekt einfuegen
@@ -52,18 +51,8 @@ public class EingangsanalytikServlet extends HttpServlet {
 			}
 		}
 		catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	
-//		try {
-////			printTestLog(request);
-//			Eingangsanalyse eingangsanalyse = createEingangsanalyse(request);
-//			eingangsanalyse.saveToDatabase();
-//		}
-//		catch (IOException e) {
-//			e.printStackTrace();
-//		}
     }
     
     private Eingangsanalyse createEingangsanalyse(HttpServletRequest request) throws IOException, ServletException {
@@ -94,25 +83,6 @@ public class EingangsanalytikServlet extends HttpServlet {
     		
     	}
     	
-//    	Collection<Part> parts = request.getParts();
-//		
-//    	String partName;
-//		for(Part part : parts){
-//
-//			partName = part.getName();
-//			System.out.println("part: " + partName);
-//			
-//			
-//			for(EingangsanalyseSetterEnum setter : EingangsanalyseSetterEnum.values()){
-//    			
-//    			if(partName.equalsIgnoreCase(setter.name())){
-//    				setter.set(eingangsanalyse, part.);
-//    				System.out.println("SET: " + parameter);
-//    			}
-//    		}
-//			
-//		}
-		
 		return eingangsanalyse;
 	}
 

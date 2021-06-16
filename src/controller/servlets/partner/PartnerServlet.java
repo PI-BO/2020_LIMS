@@ -26,13 +26,13 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Enumeration;
 
-@WebServlet(PartnerErstellenServlet.ROUTE)
+@WebServlet(PartnerServlet.ROUTE)
 @MultipartConfig
-public class PartnerErstellenServlet extends HttpServlet {
+public class PartnerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8965190467865649574L;
 
-	private static final Logger LOGGER = LogManager.getLogger(PartnerErstellenServlet.class.getSimpleName());
+	private static final Logger LOGGER = LogManager.getLogger(PartnerServlet.class.getSimpleName());
 	
 	public static final String ROUTE = "/partner";
 	
