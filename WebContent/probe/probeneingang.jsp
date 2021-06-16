@@ -114,7 +114,6 @@
 							visibility: visible;
 						}
 					</style>
-					<script src="<%=Address.MAIN_PATH + Address.PROBENEINGANG_JS%>"></script>
 					
 				</head>
 

@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>LIMS | Projekt</title>
-<link rel="stylesheet" href="./explorer.css">
+<link rel="stylesheet" href="./explorer/explorer.css">
 </head>
 
 <%

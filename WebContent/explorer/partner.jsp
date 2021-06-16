@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <link rel="stylesheet" href="./explorer.css">
+    <link rel="stylesheet" href="./explorer/explorer.css">
     <title>LIMS | Partner</title>
 </head>
 
@@ -50,7 +50,7 @@
                 });
                 }
                 let data = {projekt_id: '<%=projekt.getPrimaryKey()%>'};
-                loadPage('<%=Address.getProjektJSP()%>', data);
+                loadPage('<%=Address.PROJEKT_JSP%>', data);
                 explorerState.pushToState({
                 table: '<%=projekt.getTable()%>',
                 id: '<%=projekt.getPrimaryKey()%>',
