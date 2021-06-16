@@ -1,7 +1,7 @@
 <%@page import="model.Probeneingang" %>
 	<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 		<%@page import="config.Address" %>
-			<%@page import="controller.servlets.probeneingang.ProbeneingangErstellenServlet" %>
+			<%@page import="controller.servlets.probeneingang.ProbeneingangServlet" %>
 
 				<!DOCTYPE html>
 				<html>
@@ -120,7 +120,7 @@
 
 				<body>
 					<form id="form_probeneingang">
-						<input type="hidden" id="probeneingang_url" value=<%=ProbeneingangErstellenServlet.ROUTE%>>
+						<input type="hidden" id="probeneingang_url" value=<%=ProbeneingangServlet.ROUTE%>>
 						<table id="table_probeneingang">
 							<tr style="background-color: #77bbff;">
 								<th id="probeneingangTooltip" style="background-color: #77bbff; padding: 16px;">

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ page import="config.Address"%>
-<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet"%>
+<%@ page import="controller.servlets.analyse.AnalyseServlet"%>
 <%@ page import="model.database.tableModels.analyse.Analysetyp"%>
 <%@ page import="model.database.tableModels.ModelTable"%>
 <%@ page import="model.database.tableModels.Model"%>
@@ -11,8 +11,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Solid-Chem | LIMS - Insert Analyse</title>
-<link rel="stylesheet" href="<%=Address.getAnalyseErstellenCss()%>">
-<script src="<%=Address.getAnalyseErstellenJS()%>"></script>
+<link rel="stylesheet" href="./analyse/analyse.css">
+<script src="./Analyse.js"></script>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 
 		<div class="analyse_erstellen_header">Datenmaske:</div>
 		<div class="analyse_erstellen_entry">
-			<select required id="select_analyse_typ" name=<%=AnalyseErstellenServlet.TYP%>>
+			<select required id="select_analyse_typ" name=<%=AnalyseServlet.TYP%>>
 				<option value="" selected disabled>bitte auswaehlen</option>
 				<%
                 try {
@@ -52,17 +52,17 @@
     // $(document).ready(function () {
     //     $('#form_analyse_erstellen').submit(function () {
 
-    //         let experimentIdInputField = document.getElementsByName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>")[0];
+    //         let experimentIdInputField = document.getElementsByName("<%=AnalyseServlet.EXPERIMENT_ID%>")[0];
     //         experimentIdInputField.disabled = false;
 
     //         $.ajax({
-    //             url: '<%=Address.getAnalyseErstellenServlet()%>',
+    //             url: '<%=AnalyseServlet.ROUTE%>',
     //             type: 'post',
     //             data: $(this).serialize(),
     //             success: function () {
     //                 experimentIdInputField.disabled = true;
     //                 replaceContent("analyse_erstellen_speichern", "Erfolgreich gespeichert", "green");
-    //                 const analyseIdInputField = document.getElementsByName("<%=AnalyseErstellenServlet.ANALYSE_ID%>")[0];
+    //                 const analyseIdInputField = document.getElementsByName("<%=AnalyseServlet.ANALYSE_ID%>")[0];
     //                 MainState.setAnalyse(analyseIdInputField.value);
     //             },
     //             error: function (xhr, status, error) {
@@ -78,7 +78,7 @@
 
     //     console.log("analyseErstellenInit")
 
-    //     let experimentIdInputField = document.getElementsByName("<%=AnalyseErstellenServlet.EXPERIMENT_ID%>")[0];
+    //     let experimentIdInputField = document.getElementsByName("<%=AnalyseServlet.EXPERIMENT_ID%>")[0];
     //     experimentIdInputField.value = MainState.state[Parameters.EXPERIMENT.CATEGORY][Parameters.EXPERIMENT.PK];
 
     //     // terrible hack solange keine vernuenftige Loesing gefunden wurde

@@ -1,6 +1,6 @@
 <%@ page import="config.Address"%>
 <%@ page import="model.database.tableModels.analyse.*"%>
-<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet"%>
+<%@ page import="controller.servlets.analyse.AnalyseServlet"%>
 <%@ page import="controller.servlets.analyse.AnalyseBearbeitenServlet"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html lang="de">
@@ -35,7 +35,7 @@
 
 		<div class="analyse_bearbeiten_header">Analyse ID:</div>
 		<div class="analyse_bearbeiten_entry">
-			<input required type="number" min="1" id="analyse_id_input_field" name="<%=AnalyseErstellenServlet.ANALYSE_ID%>">
+			<input required type="number" min="1" id="analyse_id_input_field" name="<%=AnalyseServlet.ANALYSE_ID%>">
 		</div>
 
 		<div id="analyse_bearbeiten_content"></div>
@@ -81,7 +81,7 @@
                             for (let i = 0; i < nodeList.length; i++) {
                                 nodeList[i].value = val
                                 if (key === '<%=AnalyseDatenmaskeDscTgaConst.COLUMN_TEMPERATURPROGRAMM%>') {
-                                    const t = $('select[name=<%=AnalyseErstellenServlet.TEMPERATURPROGRAMM%>]')[0]
+                                    const t = $('select[name=<%=AnalyseServlet.TEMPERATURPROGRAMM%>]')[0]
                                     t.onchange(t);
                                 }
                             }

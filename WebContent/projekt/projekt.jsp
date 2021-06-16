@@ -1,4 +1,4 @@
-<%@page import="controller.servlets.projekt.ProjektErstellenServlet"%>
+<%@page import="controller.servlets.projekt.ProjektServlet"%>
 <%@page import="model.database.tableModels.Partner" %>
 <%@page import="config.Address" %>
 <%@page import="model.database.tableModels.Projekt" %>
@@ -99,7 +99,7 @@ input:required {
 
 					submitData[Parameters.PROJEKT.FK] = partnerId;
 
-					var url = "<%=Address.getMainPath()%>" + "<%=ProjektErstellenServlet.ROUTE%>";
+					var url = "<%=Address.MAIN_PATH%>" + "<%=ProjektServlet.ROUTE%>";
 					var posting = $.post(url, submitData);
 					posting.done(async function (data) {
 

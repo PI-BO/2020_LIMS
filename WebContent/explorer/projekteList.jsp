@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>LIMS | Projekt</title>
-<link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
+<link rel="stylesheet" href="./explorer.css">
 </head>
 
 <%
@@ -58,7 +58,7 @@
 			$(".explorer_table_data").click(function(){
 				let data = {projekt_id : $(this).text()};
 				console.log("projekteList.jsp")
-				loadPage("<%=Address.getProjektJSP()%>", data);
+				loadPage("<%=Address.PROJEKT_JSP%>", data);
 			});
 			
 			explorerState.setStateProjekte("Projekte");

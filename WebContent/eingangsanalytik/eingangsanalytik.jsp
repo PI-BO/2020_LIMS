@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet" href="<%=Address.getEingangsAnalytikCSS()%>">
-<script src="<%=Address.getEingangsAnalytikJS()%>"></script>
+<link rel="stylesheet" href="./eingangsanalytik.css">
+<script src="./eingangsanalytik.js"></script>
 </head>
 <body>
 	<div id="eingangsanalyse_container">
@@ -167,7 +167,7 @@
 			form.addEventListener('submit', function(e) {
 				e.preventDefault();
 	
-				let url = "<%=Address.getMainPath()%>" + document.querySelector("#eingangsanalyse_url").value;
+				let url = "<%=Address.MAIN_PATH%>" + document.querySelector("#eingangsanalyse_url").value;
 	
 				let submitData = {
 						Methoden : []

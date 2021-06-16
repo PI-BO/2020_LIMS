@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page import="controller.servlets.experiment.ExperimentErstellenServlet"%>
+<%@ page import="controller.servlets.experiment.ExperimentServlet"%>
 <%@ page import="model.database.tableModels.*"%>
 <%@ page import="config.Address"%>
 <%@ page import="java.sql.SQLException"%>
@@ -11,9 +11,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Solid-Chem | LIMS - Insert Experiment</title>
-<link rel="stylesheet" href="<%=Address.getExperimentErstellenCss()%>">
-<script type="text/javascript" src="<%=Address.getMainPath()%>/experiment/experimenttyp.jsp"></script>
-<script src="<%=Address.getExperimentErstellenJS()%>"></script>
+<link rel="stylesheet" href="./experiment/experiment.css">
+<script type="text/javascript" src="./experimenttyp.jsp"></script>
+<script src="./Experiment.js"></script>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 
 		<div class="experiment_erstellen_header">Experiment Typ:</div>
 		<div class="experiment_erstellen_entry">
-			<select id="select_experiment_typ" required name=<%=ExperimentErstellenServlet.TYP%>>
+			<select id="select_experiment_typ" required name=<%=ExperimentServlet.TYP%>>
 				<option value="" selected disabled>bitte auswaehlen</option>
 				<%
                 try {
@@ -57,14 +57,14 @@
 
         var submitData = {};
 
-        let startMaterialInputField = document.getElementsByName("<%=ExperimentErstellenServlet.API_STARTMATERIAL%>")[0];
+        let startMaterialInputField = document.getElementsByName("<%=ExperimentServlet.API_STARTMATERIAL%>")[0];
         startMaterialInputField.disabled = false;
 
         for (var i = 0; i < e.target.length; i++) {
             submitData[e.target[i].name] = e.target[i].value;
         }
 
-        var url = "<%=Address.getExperimentErstellenServlet()%>";
+        var url = "<%=ExperimentServlet.ROUTE%>";
         var posting = $.post(url, submitData);
         posting.done(function (data) {
 
@@ -79,7 +79,7 @@
                 $("#experiment_erstellen_save_message").empty().append("<div style=\"color:green\">" + data["message"] + "</div>");
                 $("#experiment_erstellen_speichern").empty();
 
-                const experimentId = document.getElementsByName("<%=ExperimentErstellenServlet.NO_ID%>")[0];
+                const experimentId = document.getElementsByName("<%=ExperimentServlet.NO_ID%>")[0];
                 MainState.setExperiment(experimentId.value);
             }
         });

@@ -1,7 +1,7 @@
 <%@page import="config.Address" %>
 	<%@ page language="java" contentType="text/html; charset=US-ASCII" pageEncoding="US-ASCII" %>
 
-		<link rel="stylesheet" href="<%=Address.getNavigationMenuCSS()%>">
+		<link rel="stylesheet" href="./navigationMenu/navigation_menu.css">
 		<div>
 			<table id="navigation_table">
 				<tr>

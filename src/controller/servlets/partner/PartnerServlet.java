@@ -6,12 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import controller.servlets.login.LoginServlet;
 import exceptions.DublicateModelException;
 import exceptions.ModelNotFoundException;
 import model.database.dummyDB.DummyDB;
@@ -23,8 +21,6 @@ import utility.JSON;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Enumeration;
 
 @WebServlet(PartnerServlet.ROUTE)
 @MultipartConfig

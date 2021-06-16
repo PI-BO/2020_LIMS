@@ -1,4 +1,4 @@
-<%@page import="controller.servlets.partner.PartnerErstellenServlet"%>
+<%@page import="controller.servlets.partner.PartnerServlet"%>
 <%@page import="config.Address"%>
 <%@page import="model.database.tableModels.Projekt"%>
 <%@page import="model.database.tableModels.Model"%>

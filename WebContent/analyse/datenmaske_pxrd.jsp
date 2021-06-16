@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ page import="controller.servlets.analyse.AnalyseErstellenServlet"%>
+<%@ page import="controller.servlets.analyse.AnalyseServlet"%>
 <%@ page import="model.database.tableModels.ModelTable"%>
 <%@ page import="model.database.tableModels.Mitarbeiter"%>
 <%@ page import="model.database.tableModels.Model"%>
@@ -11,14 +11,14 @@
 
 <div class="analyse_erstellen_header">Analyse ID</div>
 <div class="analyse_erstellen_entry">
-	<input required type="number" min="1" name=<%=AnalyseErstellenServlet.ANALYSE_ID%>>
+	<input required type="number" min="1" name=<%=AnalyseServlet.ANALYSE_ID%>>
 </div>
 
 <div class="analyse_erstellen_header">Experiment ID</div>
 <div class="analyse_erstellen_entry">
-	<input type="text" disabled required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
+	<input type="text" disabled required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
 
-	<!-- <select required name=<%=AnalyseErstellenServlet.EXPERIMENT_ID%>>
+	<!-- <select required name=<%=AnalyseServlet.EXPERIMENT_ID%>>
         <option value="" selected disabled>bitte auswaehlen</option>
         <%
         try {
@@ -42,43 +42,43 @@
 
 <div class="analyse_erstellen_header">Datum</div>
 <div class="analyse_erstellen_entry">
-	<input type="date" name=<%=AnalyseErstellenServlet.DATUM%>>
+	<input type="date" name=<%=AnalyseServlet.DATUM%>>
 </div>
 
 <div class="analyse_erstellen_header">Gerät</div>
 <div class="analyse_erstellen_entry">
-	<input type="text" name=<%=AnalyseErstellenServlet.GERAET%>>
+	<input type="text" name=<%=AnalyseServlet.GERAET%>>
 </div>
 
 <div class="analyse_erstellen_header">Probenpräparation</div>
 <div class="analyse_erstellen_entry">
-	<input type="text" name=<%=AnalyseErstellenServlet.PROBENPRAEPARATION%>>
+	<input type="text" name=<%=AnalyseServlet.PROBENPRAEPARATION%>>
 </div>
 
 <div class="analyse_erstellen_header">Position</div>
 <div class="analyse_erstellen_entry">
-	<input type="number" min="0" name=<%=AnalyseErstellenServlet.POSITION%>>
+	<input type="number" min="0" name=<%=AnalyseServlet.POSITION%>>
 </div>
 
 <div class="analyse_erstellen_header">Programm</div>
 <div class="analyse_erstellen_entry">
-	<input type="text" name=<%=AnalyseErstellenServlet.PROGRAMM%>>
+	<input type="text" name=<%=AnalyseServlet.PROGRAMM%>>
 </div>
 
 <div class="analyse_erstellen_header">Messzeit</div>
 <div class="analyse_erstellen_entry">
-	<input type="number" min="0" name=<%=AnalyseErstellenServlet.MESSZEIT%>>
+	<input type="number" min="0" name=<%=AnalyseServlet.MESSZEIT%>>
 	<i>min</i>
 </div>
 
 <div class="analyse_erstellen_header">Bemerkung</div>
 <div class="analyse_erstellen_entry">
-	<input type="text" name=<%=AnalyseErstellenServlet.BEMERKUNG%>>
+	<input type="text" name=<%=AnalyseServlet.BEMERKUNG%>>
 </div>
 
 <div class="analyse_erstellen_header">Operator</div>
 <div class="analyse_erstellen_entry">
-	<select required name=<%=AnalyseErstellenServlet.OPERATOR%>>
+	<select required name=<%=AnalyseServlet.OPERATOR%>>
 		<option value="" selected disabled>bitte auswaehlen</option>
 		<%
             try {

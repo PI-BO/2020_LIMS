@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-    <link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
+    <link rel="stylesheet" href="./explorer.css">
     <title>LIMS | Projekt</title>
 </head>
 
@@ -46,7 +46,7 @@
                 function() {
                 let data = {projekt_id: '<%=probe.getPrimaryKey()%>'};
                 console.log('projekte.jsp')
-                loadPage('<%=Address.getProbeJSP()%>', data);
+                loadPage('<%=Address.PROBE_JSP%>', data);
                 explorerState.pushToState({
                 table: '<%=probe.getTable()%>',
                 id: '<%=probe.getPrimaryKey()%>',

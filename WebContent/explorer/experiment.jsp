@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<link rel="stylesheet" href="<%=Address.getExplorerCSS()%>">
+<link rel="stylesheet" href="./explorer.css">
 <title>LIMS | Experiment</title>
 </head>
 

@@ -2,7 +2,7 @@
 <%@page import="config.Address" %>
 <html>
 <head>
-    <link rel="stylesheet" href="<%=Address.getExplorerCSS()%>"/>
+    <link rel="stylesheet" href="./explorer/explorer.css"/>
 </head>
 <body>
 <div id="explorer-grid-container">
